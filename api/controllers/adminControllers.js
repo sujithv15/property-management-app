@@ -2,14 +2,14 @@ import Unit from '../models/Unit.js'
 import Tenant from "../models/Tenant.js";
 import { StatusCodes } from 'http-status-codes'
 import { BadRequestError, UnauthenticatedError } from '../errors/index.js'
+import { data } from '../sampleData.js'
 
 const adminDashboard = (req, res) => {
 	res.send('Main Home Page')
 }
 
 const rentPayments = async (req, res) => {
-
-	res.send('Rent Payments Home')
+	res.status(StatusCodes.OK).json(data)
 }
 
 const researchProperties = (req, res) => {
