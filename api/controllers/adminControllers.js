@@ -5,7 +5,7 @@ import { BadRequestError, UnauthenticatedError } from '../errors/index.js'
 import { data } from '../sampleData.js'
 
 const adminDashboard = (req, res) => {
-	res.send('Main Home Page')
+	res.send('Main AdminHome Page')
 }
 
 const rentPayments = async (req, res) => {
@@ -17,11 +17,11 @@ const researchProperties = (req, res) => {
 }
 
 const checkRequests = (req, res) => {
-	res.send('Maintenance and Service Requests Home')
+	res.send('Maintenance and Service Requests AdminHome')
 }
 
 const billing = (req, res) => {
-	res.send('We gotta pay the bills. This is the Payments Home')
+	res.send('We gotta pay the bills. This is the Payments AdminHome')
 }
 
 const messages = (req, res) => {

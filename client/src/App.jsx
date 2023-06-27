@@ -1,42 +1,31 @@
-import axios from "axios";
-import {useState} from "react";
-import {useEffect} from "react";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {Layout, Login} from "./pages";
+import {AdminHome, Rents, Research, Payments, Maintenance} from "./pages/admin";
+import Home from "./pages/Home.jsx";
+
 
 
 const App = () => {
 
-	const [rents, setRents] = useState([]);
 
-	const getRentPayments = async () => {
-		try {
-			const {data} = await axios("http://localhost:8800/api/v1/rent");
-			setRents(data);
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
-	useEffect(() => {
-		getRentPayments()
-	}, [])
 
 	return (
-		<ul>
-			{
-				rents.map(unit => {
-					return (
-						<div key={unit.id}>
-							<li>
-								{unit.name}
-								{unit.rent}
-								{unit.balance}
-							</li>
-						</div>
-					)
-				})
-			}
+		<BrowserRouter>
+			<Routes>
+				<Route path="/" element={<Layout />}>
+					<Route index element={<Home />}/>
+					<Route path="login" element={<Login />} />
+				</Route>
 
-		</ul>
+				<Route path="/admin" element={<Layout />}>
+					<Route index element={<AdminHome />}/>
+					<Route path="payments" element={<Payments />} />
+					<Route path="maintenance" element={<Maintenance />} />
+					<Route path="rents" element={<Rents />} />
+					<Route path="research" element={<Research />} />
+				</Route>
+			</Routes>
+		</BrowserRouter>
 	);
 };
 
