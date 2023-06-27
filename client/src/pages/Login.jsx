@@ -1,4 +1,7 @@
-import {useState} from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useGlobalContext } from "../context/GlobalContext.jsx";
+import { toast } from "react-toastify";
 import FormRow from "../components/FormRow.jsx";
 
 const initialState = {
@@ -8,33 +11,53 @@ const initialState = {
 	isLoggedIn: false,
 }
 
-// fake admin values used for developing
 
 const Login = () => {
 
+	// new state values for user input values
 	const [values, setValues] = useState(initialState)
+
+	// function in our GlobalContext to login user to server
+	const { user, loginUser, logoutUser } = useGlobalContext()
+
 	const [showAlert, setShowAlert] = useState(false)
 	const [adminLoggedIn, setAdminLoggedIn] = useState(false)
 
 	const alert = 'Logged in'
 
+	// set state values as user types
 	const handleChange = (e) => {
 		setValues({...values, [e.target.name]: e.target.value})
 	}
 
+	// authenticate (for now) that admin is trying to log in, then send to loginUser function
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		const {email, password} = values
-		if (values.email !== 'admin@mail.com' || values.password !== 'password') {
+		if (email !== 'admin@mail.com' || password !== 'password') {
 			console.log('error');
 			return
 		}
 		setShowAlert(true)
-		setAdminLoggedIn(true)
+
+		const currentUser = { email, password }
+		loginUser(currentUser)
+		toast.success('User Logged in')
 	}
 
+	// automatically redirect to home if user credentials ok
+	const navigate = useNavigate()
+	useEffect(() => {
+		if (user) {
+			setTimeout(() => {
+				navigate('/',)
+			}, 1000)
+		}
+	}, [user, navigate])
+
+	// send to server to set back to initial state
 	const logout = () => {
-		setAdminLoggedIn(false)
+		logoutUser()
 	}
 
 	return (
