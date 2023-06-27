@@ -3,11 +3,7 @@ import {Layout, Login} from "./pages";
 import {AdminHome, Rents, Research, Payments, Maintenance} from "./pages/admin";
 import Home from "./pages/Home.jsx";
 
-
-
 const App = () => {
-
-
 
 	return (
 		<BrowserRouter>

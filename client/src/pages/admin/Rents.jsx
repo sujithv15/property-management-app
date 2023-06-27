@@ -22,6 +22,7 @@ const Rents = () => {
 	return (
 		<div>
 			<ul>
+				<h4>Sample Data:</h4>
 				{
 					rents.map(unit => {
 						return (

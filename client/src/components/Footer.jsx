@@ -1,8 +1,8 @@
 
 const Footer = () => {
 	return (
-		<div>
-			<p>footer</p>
+		<div className="footer-container">
+			<p>&copy; Sujith Varughese 2023</p>
 		</div>
 	);
 };
