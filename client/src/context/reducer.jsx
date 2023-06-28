@@ -103,7 +103,6 @@ const Reducer = (state, action) => {
 	if (action.type === LOGOUT_USER) {
 		return {
 			...initialState,
-			userLoading: false,
 		};
 	}
 
@@ -117,12 +116,12 @@ const Reducer = (state, action) => {
 	if (action.type === LOGIN_ADMIN_SUCCESS) {
 		return {
 			...state,
-			user: action.payload.user,
+			admin: action.payload.admin,
 			token: action.payload.token,
 			isLoading: false,
 			showAlert: true,
 			alertType: 'success',
-			alertText: 'user logged in! redirecting...'
+			alertText: 'admin logged in! redirecting...'
 		}
 	}
 
@@ -139,7 +138,6 @@ const Reducer = (state, action) => {
 	if (action.type === LOGOUT_ADMIN) {
 		return {
 			...initialState,
-			userLoading: false,
 		};
 	}
 

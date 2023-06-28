@@ -35,7 +35,6 @@ const Login = () => {
 			return
 		}
 		const currentUser = { email, password }
-		console.log(currentUser);
 		loginUser(currentUser)
 		toast.success('User Logged in')
 	}

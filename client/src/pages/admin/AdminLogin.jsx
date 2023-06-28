@@ -46,7 +46,7 @@ const Login = () => {
 		if (admin) {
 			console.log(admin);
 			setTimeout(() => {
-				navigate('/',)
+				navigate('/admin',)
 			}, 1000)
 		}
 	}, [admin, navigate])
@@ -60,7 +60,7 @@ const Login = () => {
 		<div>
 			<h2>Admin Login</h2>
 
-			{values.isLoggedIn ?
+			{admin ?
 
 				<>
 					<h5>Welcome {values.name || values.email} </h5>

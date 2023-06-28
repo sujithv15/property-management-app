@@ -4,9 +4,8 @@ import {useGlobalContext} from "../context/GlobalContext.jsx";
 
 
 const ProtectedRoute = ({ children }) => {
-	const { user } = useGlobalContext()
-	console.log(user);
-	if (!user) {
+	const { admin } = useGlobalContext()
+	if (!admin) {
 		return <Navigate to='/' />
 	}
 

@@ -28,6 +28,7 @@ const admin = localStorage.getItem('admin')
 const initialState = {
 	isLoggedIn: false,
 	showAlert: false,
+	isLoading: false,
 	alertText: '',
 	alertType: '',
 	user: null,
