@@ -25,7 +25,7 @@ app.get('/api', (req, res) => {
 
 
 app.use('/api/v1', adminRouter)
-app.use('api/v1/auth', authRouter)
+app.use('/api/v1/auth', authRouter)
 
 app.use(notFound)
 app.use(errorHandler)

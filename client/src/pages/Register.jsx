@@ -1,4 +1,8 @@
-import {useState} from "react";
+import { useState } from "react";
+import { useGlobalContext } from "../context/GlobalContext.jsx";
+import { toast } from "react-toastify";
+import FormRow from "../components/FormRow.jsx";
+import {NavLink} from "react-router-dom";
 
 
 const initialState = {
@@ -10,13 +14,16 @@ const initialState = {
 const Register = () => {
 
 	const [values, setValues] = useState(initialState)
-	const [showAlert, setShowAlert] = useState(false)
-	const [adminLoggedIn, setAdminLoggedIn] = useState(false)
 
+	// function in our GlobalContext to login user to server
+	const { user, registerUser } = useGlobalContext()
+
+	// set state values as user types
 	const handleChange = (e) => {
 		setValues({...values, [e.target.name]: e.target.value})
 	}
 
+	// values to GlobalContext registerUser function to send to server
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		const { name, email, password } = values
@@ -24,19 +31,21 @@ const Register = () => {
 			console.log('error');
 			return
 		}
-		setShowAlert(true)
-		setAdminLoggedIn(true)
+
+		const currentUser = {name, email, password}
+		registerUser(currentUser)
+		toast.success('User Successfully Registered')
 	}
 
 	return (
 		<div>
+			<h2>Register</h2>
 			<form className='form' onSubmit={handleSubmit}>
-				{showAlert && <Alert/>}
 				<FormRow name='name' labelText='name' type='text' value={values.name} handleChange={handleChange}/>
 				<FormRow name='email' labelText='email' type='email' value={values.email} handleChange={handleChange}/>
 				<FormRow name='password' labelText='password' password='email' value={values.password} handleChange={handleChange}/>
-				<button type='submit' className='btn' disabled={isLoading}>register</button>
-				<p>Already a member?  <a href='/login'>Login</a></p>
+				<button type='submit' className='btn'>register</button>
+				<p>Already a member?  <NavLink to="/login">Login</NavLink></p>
 			</form>
 		</div>
 	);

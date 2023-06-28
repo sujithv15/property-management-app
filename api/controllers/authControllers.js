@@ -1,7 +1,6 @@
-import {StatusCodes} from "http-status-codes";
-import {BadRequestError, UnauthenticatedError} from '../errors/index.js'
+import { StatusCodes } from "http-status-codes";
+import { BadRequestError, UnauthenticatedError } from '../errors/index.js'
 import Admin from "../models/Admin.js"
-
 
 const register = async (req, res) => {
 
@@ -74,4 +73,4 @@ const login = async (req, res) => {
 	   })
 }
 
-export default login
+export { login, register }

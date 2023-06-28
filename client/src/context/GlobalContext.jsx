@@ -55,17 +55,46 @@ const GlobalProvider = ({ children }) => {
 		}
 	}
 
+	const registerUser = async (currentUser) => {
+		dispatch({ type: REGISTER_USER_BEGIN })
+		try {
+			const response = await axios.post('http://localhost:8800/api/v1/auth/register', currentUser)
+			console.log(response.data)
+			const { user, token } = response.data
+			dispatch({
+				type: REGISTER_USER_SUCCESS,
+				payload: { user, token }
+			})
+			// addUserToLocalStorage({ user, token })
+		} catch (error) {
+			dispatch({
+				type: REGISTER_USER_ERROR,
+				payload: {msg: error}
+			})
+		}
+	}
+
 	const logoutUser = () => {
 		dispatch({ type: LOGOUT_USER})
 		removeUserFromLocalStorage()
 	}
 
+	const addUserToLocalStorage = ({ user, token }) => {
+		localStorage.setItem('user', JSON.stringify(user))
+		localStorage.setItem('token', JSON.stringify(token))
+	}
+
+	const removeUserFromLocalStorage = () => {
+		localStorage.removeItem('user')
+		localStorage.removeItem('token')
+	}
 	return (
 		<GlobalContext.Provider value={
 			{
 				...state,
 				loginUser,
-				logoutUser
+				logoutUser,
+				registerUser
 			}
 		}>
 			{ children }

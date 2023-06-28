@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../context/GlobalContext.jsx";
 import { toast } from "react-toastify";
 import FormRow from "../components/FormRow.jsx";
+import {NavLink} from "react-router-dom";
 
 const initialState = {
 	name: '',
@@ -20,11 +21,6 @@ const Login = () => {
 	// function in our GlobalContext to login user to server
 	const { user, loginUser, logoutUser } = useGlobalContext()
 
-	const [showAlert, setShowAlert] = useState(false)
-	const [adminLoggedIn, setAdminLoggedIn] = useState(false)
-
-	const alert = 'Logged in'
-
 	// set state values as user types
 	const handleChange = (e) => {
 		setValues({...values, [e.target.name]: e.target.value})
@@ -38,8 +34,6 @@ const Login = () => {
 			console.log('error');
 			return
 		}
-		setShowAlert(true)
-
 		const currentUser = { email, password }
 		loginUser(currentUser)
 		toast.success('User Logged in')
@@ -64,19 +58,18 @@ const Login = () => {
 		<div>
 			<h2>Login</h2>
 
-			{adminLoggedIn ?
+			{user ?
 
 				<button type='submit' className='btn' onClick={logout}>logout</button>
 
 				:
 
 				<form className='form' onSubmit={handleSubmit}>
-					{showAlert && alert}
 					<FormRow name='email' labelText='email' type='email' value={values.email} handleChange={handleChange} />
 					<FormRow name='password' labelText='password' password='email' value={values.password}
 					         handleChange={handleChange} />
 					<button type='submit' className='btn'>login</button>
-					<p>Not a member yet? <a href='/register'>Register</a></p>
+					<p>Not a member yet? <NavLink to="/register">Register</NavLink></p>
 				</form>
 
 			}
