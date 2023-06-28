@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useGlobalContext } from "../context/GlobalContext.jsx";
 import { toast } from "react-toastify";
-import FormRow from "../components/FormRow.jsx";
+import { FormRow, Alert } from "../components";
 import {NavLink} from "react-router-dom";
 
 
@@ -16,7 +16,7 @@ const Register = () => {
 	const [values, setValues] = useState(initialState)
 
 	// function in our GlobalContext to login user to server
-	const { user, registerUser } = useGlobalContext()
+	const { user, registerUser, isLoading, showAlert, displayAlert, clearAlert } = useGlobalContext()
 
 	// set state values as user types
 	const handleChange = (e) => {
@@ -27,12 +27,14 @@ const Register = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		const { name, email, password } = values
-		if (name !== 'admin' || email !== 'admin@mail.com' || password !== 'password') {
-			console.log('error');
+		if (!name || !email || !password) {
+			displayAlert()
+			clearAlert()
 			return
 		}
 
 		const currentUser = {name, email, password}
+		console.log(currentUser);
 		registerUser(currentUser)
 		toast.success('User Successfully Registered')
 	}
@@ -41,6 +43,7 @@ const Register = () => {
 		<div>
 			<h2>Register</h2>
 			<form className='form' onSubmit={handleSubmit}>
+				{showAlert && <Alert/>}
 				<FormRow name='name' labelText='name' type='text' value={values.name} handleChange={handleChange}/>
 				<FormRow name='email' labelText='email' type='email' value={values.email} handleChange={handleChange}/>
 				<FormRow name='password' labelText='password' password='email' value={values.password} handleChange={handleChange}/>

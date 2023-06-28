@@ -7,6 +7,10 @@ export const links = [
 		name: "login",
 		url: "/login",
 	},
+	{
+		name: "login_admin",
+		url: "/login_admin",
+	},
 
 
 ]

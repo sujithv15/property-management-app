@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
-import { useGlobalContext } from "../context/GlobalContext.jsx";
+import { useGlobalContext } from "../../context/GlobalContext.jsx";
 import { toast } from "react-toastify";
-import { FormRow, Alert } from "../components";
+import { FormRow, Alert } from "../../components";
 
 const initialState = {
 	name: '',
@@ -17,7 +17,7 @@ const Login = () => {
 	const [values, setValues] = useState(initialState)
 
 	// function in our GlobalContext to login user to server
-	const { user, isLoading, showAlert, displayAlert, clearAlert, loginUser, logoutUser } = useGlobalContext()
+	const { admin, user, isLoading, showAlert, displayAlert, clearAlert, loginAdmin, logoutAdmin } = useGlobalContext()
 
 	// set state values as user types
 	const handleChange = (e) => {
@@ -34,31 +34,31 @@ const Login = () => {
 			console.log('error');
 			return
 		}
-		const currentUser = { email, password }
-		console.log(currentUser);
-		loginUser(currentUser)
-		toast.success('User Logged in')
+		const currentAdmin = { email, password }
+		console.log(currentAdmin);
+		loginAdmin(currentAdmin)
+		toast.success('Admin Logged in')
 	}
 
 	// automatically redirect to home if user credentials ok
 	const navigate = useNavigate()
 	useEffect(() => {
-		if (user) {
-			console.log(user);
+		if (admin) {
+			console.log(admin);
 			setTimeout(() => {
 				navigate('/',)
 			}, 1000)
 		}
-	}, [user, navigate])
+	}, [admin, navigate])
 
 	// send to server to set back to initial state
 	const logout = () => {
-		logoutUser()
+		logoutAdmin()
 	}
 
 	return (
 		<div>
-			<h2>Login</h2>
+			<h2>Admin Login</h2>
 
 			{values.isLoggedIn ?
 

@@ -1,5 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 import { BadRequestError, UnauthenticatedError } from '../errors/index.js'
+import User from "../models/User.js"
 import Admin from "../models/Admin.js"
 
 const register = async (req, res) => {
@@ -12,32 +13,28 @@ const register = async (req, res) => {
 		throw new BadRequestError('Please provide all values')
 	}
 
-	if (name !== process.env.ADMIN_USERNAME || email !== process.env.ADMIN_EMAIL || password !== process.env.ADMIN_PASSWORD) {
-		throw new UnauthenticatedError('Invalid credentials')
+	// validate that user not already in database
+	const UserAlreadyExists = await User.findOne({ email })
+	if (UserAlreadyExists) {
+		throw new BadRequestError('User already exists')
 	}
 
-	// validate that admin not already in database
-	const adminAlreadyExists = await Admin.findOne({ email })
-	if (adminAlreadyExists) {
-		throw new BadRequestError('Admin already exists')
-	}
+	// create as new user in mongodb
+	const user = await User.create({ name, email, password })
 
-
-	// create as new admin in mongodb
-	const admin = await Admin.create({ name, email, password })
-
-	const token = admin.createJWT()
+	const token = user.createJWT()
 
 	// send response JSON to include user fields
 	res.status(StatusCodes.CREATED)
 	   .json({
-		   admin: {
-			   name: admin.name,
-			   email: admin.email,
+		   user: {
+			   name: user.name,
+			   email: user.email,
 		   },
 		   token: token,
 	   })
 }
+
 const login = async (req, res) => {
 
 	// destructure login obj sent from front end
@@ -47,14 +44,50 @@ const login = async (req, res) => {
 		throw new BadRequestError('please provide email and password')
 	}
 
-	// check Admin model in database for entered email
-	// select('+password') needed since password property in Admin is hidden
+	// check User model in database for entered email
+	// select('+password') needed since password property in User is hidden
+	const user = await User.findOne({ email }).select('+password')
+	if (!user) {
+		throw new UnauthenticatedError('Invalid credentials')
+	}
+
+	// verify entered password using function we created in User.js
+	// to compare with this.password
+	const passwordVerified = await user.comparePassword(password)
+	if (!passwordVerified) {
+		throw new UnauthenticatedError('Invalid credentials')
+	}
+
+	const token = user.createJWT()
+
+	// we do not want to send the visible password in the res json
+	user.password = undefined
+
+	res.status(StatusCodes.OK)
+	   .json({
+		   user,
+		   token,
+	   })
+}
+
+// login for admin
+const _login = async (req, res) => {
+
+	// destructure login obj sent from front end
+	const { email, password } = req.body
+
+	if (!email || !password) {
+		throw new BadRequestError('please provide email and password')
+	}
+
+	// check User model in database for entered email
+	// select('+password') needed since password property in User is hidden
 	const admin = await Admin.findOne({ email }).select('+password')
 	if (!admin) {
 		throw new UnauthenticatedError('Invalid credentials')
 	}
 
-	// verify entered password using function we created in Admin.js
+	// verify entered password using function we created in User.js
 	// to compare with this.password
 	const passwordVerified = await admin.comparePassword(password)
 	if (!passwordVerified) {
@@ -73,4 +106,4 @@ const login = async (req, res) => {
 	   })
 }
 
-export { login, register }
+export { login, register, _login }
