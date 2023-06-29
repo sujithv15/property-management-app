@@ -11,7 +11,13 @@ const ApplianceSchema = new mongoose.Schema({
 		required: true,
 	},
 	repairs: {
-		type: [],
+		type: [String],
+	},
+	warranty: {
+		type: String
+	},
+	receipt: {
+		type: String
 	}
 })
 

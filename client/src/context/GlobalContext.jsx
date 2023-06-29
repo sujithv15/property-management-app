@@ -131,7 +131,7 @@ const GlobalProvider = ({ children }) => {
 	const loginAdmin = async (currentAdmin) => {
 		dispatch({ type: LOGIN_ADMIN_BEGIN })
 		try {
-			const response = await authFetch.post('/auth/login_admin', currentAdmin)
+			const response = await authFetch.post('/admin', currentAdmin)
 			const { admin, token } = response.data
 			console.log(response.data);
 			dispatch({

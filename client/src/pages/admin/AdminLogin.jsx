@@ -6,7 +6,7 @@ import { FormRow, Alert } from "../../components";
 
 const initialState = {
 	name: '',
-	email: '',
+	id: '',
 	password: '',
 	isLoggedIn: false,
 }
@@ -27,15 +27,14 @@ const Login = () => {
 	// authenticate (for now) that admin is trying to log in, then send to loginUser function
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		const {email, password} = values
-		if (!email || !password) {
+		const {name, id, password} = values
+		if (!name || !password || !id) {
 			displayAlert()
 			clearAlert()
-			console.log('error');
+			console.log('Invalid credentials');
 			return
 		}
-		const currentAdmin = { email, password }
-		console.log(currentAdmin);
+		const currentAdmin = { name, id, password }
 		loginAdmin(currentAdmin)
 		toast.success('Admin Logged in')
 	}
@@ -63,7 +62,7 @@ const Login = () => {
 			{admin ?
 
 				<>
-					<h5>Welcome {values.name || values.email} </h5>
+					<h5>Welcome {values.name} </h5>
 					<button type='submit' className='btn' onClick={logout}>logout</button>
 				</>
 
@@ -71,7 +70,8 @@ const Login = () => {
 
 				<form className='form' onSubmit={handleSubmit}>
 					{showAlert && <Alert/>}
-					<FormRow name='email' labelText='email' type='email' value={values.email} handleChange={handleChange} />
+					<FormRow name='name' labelText='name' type='text' value={values.name} handleChange={handleChange} />
+					<FormRow name='id' labelText='id' type='text' value={values.id} handleChange={handleChange} />
 					<FormRow name='password' labelText='password' password='email' value={values.password}
 					         handleChange={handleChange} />
 					<button type='submit' className='btn'>login</button>

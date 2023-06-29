@@ -19,4 +19,8 @@ export const adminLinks = [
 		name: "research",
 		url: "/admin/research",
 	},
+	{
+		name: "tenants",
+		url: "/admin/tenants"
+	},
 ]

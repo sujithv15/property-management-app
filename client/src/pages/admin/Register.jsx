@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useGlobalContext } from "../context/GlobalContext.jsx";
+import { useGlobalContext } from "../../context/GlobalContext.jsx";
 import { toast } from "react-toastify";
-import { FormRow, Alert } from "../components";
+import { FormRow, Alert } from "../../components";
 import {NavLink} from "react-router-dom";
 
 

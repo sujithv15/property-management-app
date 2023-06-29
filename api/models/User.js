@@ -6,9 +6,9 @@ import jwt from 'jsonwebtoken'
 const UserSchema = new mongoose.Schema({
 	name: {
 		type: String,
-		required: [true, 'please provide last name'],
+		required: [true, 'please provide name'],
 		minLength: 2,
-		maxLength: 20,
+		maxLength: 40,
 		trim: true,
 	},
 	email: {
@@ -25,6 +25,10 @@ const UserSchema = new mongoose.Schema({
 		required: [true, 'please provide password'],
 		minLength: 6,
 		select: false
+	},
+	isAdmin: {
+		type: Boolean,
+		default: false
 	}
 })
 
@@ -38,7 +42,7 @@ UserSchema.pre('save', async function() {
 // create JWT token
 UserSchema.methods.createJWT = function () {
 	return jwt.sign(
-		{ userID: this._id },
+		{ userID: this._id, isAdmin: this.isAdmin },
 		process.env.JWT_SECRET,
 		{ expiresIn: process.env.JWT_LIFETIME }
 	)
