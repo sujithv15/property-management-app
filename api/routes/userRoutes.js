@@ -1,8 +1,8 @@
 import express from "express";
 const router = express.Router()
-import { getAllUnits, getSingleUnit } from "../controllers/unitsController.js";
+import { getUserInfo, sendRequest } from "../controllers/userController.js";
 
-router.route('/').get(getAllUnits)
-router.route('/:id').get(getSingleUnit)
+router.route('/:id').get(getUserInfo)
+router.route('/request/:id').post(sendRequest)
 
 export default router

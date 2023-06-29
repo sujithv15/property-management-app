@@ -4,7 +4,7 @@ import { createAppliance, updateAppliance, getAllAppliances, getSingleAppliance 
 
 router.route('/').get(getAllAppliances)
 router.route('/:id').get(getSingleAppliance)
-router.route('/:id').post(createAppliance)
+router.route('/new').post(createAppliance)
 router.route('/:id').put(updateAppliance)
 
 

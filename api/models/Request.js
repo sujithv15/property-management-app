@@ -6,24 +6,16 @@ const RequestSchema = new mongoose.Schema({
 		type: mongoose.Types.ObjectId,
 		ref: 'Unit',
 	},
-	tenant: {
-		type: mongoose.Types.ObjectId,
-		ref: 'Tenant',
-	},
-
-	email: {
-		type: String,
-		validate: {
-			validator: validator.isEmail,
-			message: 'Please provide a valid email',
-		},
-		unique: true,
-	},
 	request: {
 		type: String
 	},
 	urgent: {
-		type: Boolean
+		type: Boolean,
+		default: false
+	},
+	completed: {
+		type: Boolean,
+		default: false
 	}
 })
 

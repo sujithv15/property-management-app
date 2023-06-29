@@ -30,18 +30,31 @@ const login = async (req, res) => {
 	// we do not want to send the visible password in the res json
 	user.password = undefined
 
-	res.cookie("access_token", token, { httpOnly: true }).status(StatusCodes.OK)
+	const oneDay = 1000*60*60*24
+
+	res.cookie("access_token", token, {
+		httpOnly: true,
+		expires: new Date(Date.now() + oneDay),
+		secure: process.env.NODE_ENV === 'production',
+	}).status(StatusCodes.OK)
 	   .json({
 		   user,
 		   token,
 	   })
+/*
+	res.status(StatusCodes.OK)
+	   .json({
+		   user,
+		   token,
+	   })
+*/
 }
 
 const register = async (req, res) => {
 
 	// destructure fields from request body
 	const { name, email, password } = req.body
-
+	console.log(req.body);
 	// if any fields missing from user front end, throw error
 	if (!name || !email || !password) {
 		throw new BadRequestError('Please provide all values')

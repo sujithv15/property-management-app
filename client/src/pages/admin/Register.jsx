@@ -16,7 +16,7 @@ const Register = () => {
 	const [values, setValues] = useState(initialState)
 
 	// function in our GlobalContext to login user to server
-	const { user, registerUser, isLoading, showAlert, displayAlert, clearAlert } = useGlobalContext()
+	const { registerUser, isLoading, showAlert, displayAlert, clearAlert } = useGlobalContext()
 
 	// set state values as user types
 	const handleChange = (e) => {
@@ -34,7 +34,6 @@ const Register = () => {
 		}
 
 		const currentUser = {name, email, password}
-		console.log(currentUser);
 		registerUser(currentUser)
 		toast.success('User Successfully Registered')
 	}

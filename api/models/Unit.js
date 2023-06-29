@@ -1,11 +1,15 @@
 import mongoose from 'mongoose'
 
 const UnitSchema = new mongoose.Schema( {
+	status: {
+		type: String,
+		enum: ["vaccant", "occupied"]
+	},
 	tenant: {
 		type: mongoose.Types.ObjectId,
 		ref: 'Tenant',
 	},
-	unitNumber: {
+	unitID: {
 		type: Number,
 		required: true
 	},
@@ -32,7 +36,8 @@ const UnitSchema = new mongoose.Schema( {
 		type: Number
 	},
 	appliances: {
-		type: Array
+		type: [mongoose.Types.ObjectId],
+		ref: 'Appliance'
 	}
 })
 

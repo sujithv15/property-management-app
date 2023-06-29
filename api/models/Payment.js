@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import validator from 'validator'
 
 const PaymentSchema = new mongoose.Schema({
-	paidTo: {
+	payTo: {
 		type: String,
 		required: true,
 	},

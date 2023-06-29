@@ -41,12 +41,33 @@ const TenantSchema = new mongoose.Schema({
 		type: Number,
 		required: true
 	},
+	rentTenant: {
+		type: Number
+	},
 	rentAssisted: {
+		type: Number
+	},
+	balance: {
 		type: Number
 	},
 	housingAgency: {
 		type: String
+	},
+	agentName: {
+		type: String
+	},
+	agentPhone : {
+		type: String
+	},
+	agentEmail: {
+		type: String,
+		validate: {
+			validator: validator.isEmail,
+			message: 'please provide valid email'
+		}
 	}
+
+
 })
 
 export default mongoose.model('Tenant', TenantSchema)

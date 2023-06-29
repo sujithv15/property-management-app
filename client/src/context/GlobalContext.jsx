@@ -11,19 +11,14 @@ import {
 	LOGIN_USER_BEGIN,
 	LOGIN_USER_SUCCESS,
 	LOGIN_USER_ERROR,
-	LOGIN_ADMIN_SUCCESS,
-	LOGIN_ADMIN_ERROR,
-	LOGIN_ADMIN_BEGIN,
-	TOGGLE_SIDEBAR,
 	LOGOUT_USER,
+	TOGGLE_SIDEBAR,
 	HANDLE_CHANGE,
 	CLEAR_VALUES,
 } from "./actions.jsx";
-import {LOGOUT_ADMIN} from "./actions.jsx";
 
 const token = localStorage.getItem('token')
 const user = localStorage.getItem('user')
-const admin = localStorage.getItem('admin')
 
 const initialState = {
 	isLoggedIn: false,
@@ -32,7 +27,6 @@ const initialState = {
 	alertText: '',
 	alertType: '',
 	user: null,
-	admin: null,
 	token: token,
 	requests: '',
 }
@@ -86,7 +80,7 @@ const GlobalProvider = ({ children }) => {
 	const loginUser = async (currentUser) => {
 		dispatch({ type: LOGIN_USER_BEGIN })
 		try {
-			const response = await authFetch.post('/auth/login', currentUser)
+			const response = await axios.post('/auth/login', currentUser)
 			const { user, token } = response.data
 			console.log(response.data);
 			dispatch({
@@ -106,9 +100,9 @@ const GlobalProvider = ({ children }) => {
 	const registerUser = async (currentUser) => {
 		dispatch({ type: REGISTER_USER_BEGIN })
 		try {
-			const response = await axios.post('/auth/register', currentUser)
-			console.log(response.data)
-			const { user, token } = response.data
+			const { data } = await axios.post('http://localhost:8800/api/v1/auth/register', currentUser)
+			console.log(currentUser);
+			const { user, token } = data
 			dispatch({
 				type: REGISTER_USER_SUCCESS,
 				payload: { user, token }
@@ -120,45 +114,11 @@ const GlobalProvider = ({ children }) => {
 				payload: {msg: error}
 			})
 		}
-		clearAlert()
 	}
 
 	const logoutUser = () => {
 		dispatch({ type: LOGOUT_USER})
 		removeUserFromLocalStorage()
-	}
-	// currentAdmin from login
-	const loginAdmin = async (currentAdmin) => {
-		dispatch({ type: LOGIN_ADMIN_BEGIN })
-		try {
-			const response = await authFetch.post('/admin', currentAdmin)
-			const { admin, token } = response.data
-			console.log(response.data);
-			dispatch({
-				type: LOGIN_ADMIN_SUCCESS,
-				payload: { admin, token }
-			})
-			addAdminToLocalStorage({ admin, token })
-		} catch (error) {
-			dispatch({
-				type: LOGIN_ADMIN_ERROR,
-				payload: {msg: error}
-			})
-		}
-		clearAlert()
-	}
-	const logoutAdmin = () => {
-		dispatch({ type: LOGOUT_ADMIN})
-		removeAdminFromLocalStorage()
-	}
-	const addAdminToLocalStorage = ({ admin, token }) => {
-		localStorage.setItem('admin', JSON.stringify(admin))
-		localStorage.setItem('token', JSON.stringify(token))
-	}
-
-	const removeAdminFromLocalStorage = () => {
-		localStorage.removeItem('admin')
-		localStorage.removeItem('token')
 	}
 
 	const addUserToLocalStorage = ({ user, token }) => {
@@ -176,8 +136,6 @@ const GlobalProvider = ({ children }) => {
 				...state,
 				loginUser,
 				logoutUser,
-				loginAdmin,
-				logoutAdmin,
 				registerUser,
 				displayAlert,
 				clearAlert

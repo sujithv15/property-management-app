@@ -8,10 +8,6 @@ import {
 	LOGIN_USER_ERROR,
 	LOGIN_USER_SUCCESS,
 	LOGOUT_USER,
-	LOGIN_ADMIN_BEGIN,
-	LOGIN_ADMIN_ERROR,
-	LOGIN_ADMIN_SUCCESS,
-	LOGOUT_ADMIN,
 	TOGGLE_SIDEBAR,
 	HANDLE_CHANGE,
 	CLEAR_VALUES,
@@ -43,6 +39,7 @@ const Reducer = (state, action) => {
 	}
 
 	if (action.type === REGISTER_USER_BEGIN) {
+
 		return {
 			...state,
 			isLoading: true
@@ -50,6 +47,7 @@ const Reducer = (state, action) => {
 	}
 
 	if (action.type === REGISTER_USER_SUCCESS) {
+		console.log(state);
 		return {
 			...state,
 			user: action.payload.user,
@@ -101,41 +99,6 @@ const Reducer = (state, action) => {
 	}
 
 	if (action.type === LOGOUT_USER) {
-		return {
-			...initialState,
-		};
-	}
-
-	if (action.type === LOGIN_ADMIN_BEGIN) {
-		return {
-			...state,
-			isLoading: true
-		}
-	}
-
-	if (action.type === LOGIN_ADMIN_SUCCESS) {
-		return {
-			...state,
-			admin: action.payload.admin,
-			token: action.payload.token,
-			isLoading: false,
-			showAlert: true,
-			alertType: 'success',
-			alertText: 'admin logged in! redirecting...'
-		}
-	}
-
-	if (action.type === LOGIN_ADMIN_ERROR) {
-		return {
-			...state,
-			isLoading: false,
-			showAlert: true,
-			alertType: 'danger',
-			alertText: action.payload.msg
-		}
-	}
-
-	if (action.type === LOGOUT_ADMIN) {
 		return {
 			...initialState,
 		};

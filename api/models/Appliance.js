@@ -6,6 +6,10 @@ const ApplianceSchema = new mongoose.Schema({
 		enum: ['refrigerator', 'microwave', 'stove', 'dishwasher'],
 		required: true
 	},
+	unit: {
+		type: mongoose.Types.ObjectId,
+		ref: 'Unit',
+	},
 	datePurchased: {
 		type: String,
 		required: true,
