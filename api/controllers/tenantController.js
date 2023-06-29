@@ -17,3 +17,9 @@ const createTenant = async (req, res, next) => {
 	res.status(StatusCodes.CREATED)
 	   .json({newTenant})
 }
+
+const getAllTenants = async (req, res, next) => {
+
+}
+
+export { createTenant, getAllTenants }
