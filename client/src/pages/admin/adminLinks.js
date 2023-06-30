@@ -4,6 +4,10 @@ export const adminLinks = [
 		url: "/admin",
 	},
 	{
+		name: "properties",
+		url: "/properties",
+	},
+	{
 		name: "requests",
 		url: "/requests",
 	},

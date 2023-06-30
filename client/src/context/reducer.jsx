@@ -8,6 +8,9 @@ import {
 	LOGIN_USER_ERROR,
 	LOGIN_USER_SUCCESS,
 	LOGOUT_USER,
+	CREATE_PROPERTY_SUCCESS,
+	CREATE_PROPERTY_BEGIN,
+	CREATE_PROPERTY_ERROR,
 	CREATE_REQUEST_SUCCESS,
 	CREATE_REQUEST_BEGIN,
 	CREATE_REQUEST_ERROR
@@ -97,6 +100,33 @@ const Reducer = (state, action) => {
 		};
 	}
 
+	if (action.type === CREATE_PROPERTY_BEGIN) {
+		return {
+			...state,
+			isLoading: true
+		}
+	}
+
+	if (action.type === CREATE_PROPERTY_SUCCESS) {
+		return {
+			...state,
+			property: action.payload.property,
+			isLoading: false,
+			showAlert: true,
+			alertType: 'success',
+			alertText: 'user logged in! redirecting...'
+		}
+	}
+
+	if (action.type === CREATE_PROPERTY_ERROR) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: 'danger',
+			alertText: action.payload.msg
+		}
+	}
 	throw new Error(`No such action: ${action.type}`)
 };
 

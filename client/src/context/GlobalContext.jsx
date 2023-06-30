@@ -12,6 +12,9 @@ import {
 	LOGIN_USER_SUCCESS,
 	LOGIN_USER_ERROR,
 	LOGOUT_USER,
+	CREATE_PROPERTY_SUCCESS,
+	CREATE_PROPERTY_BEGIN,
+	CREATE_PROPERTY_ERROR,
 } from "./actions.jsx";
 
 
@@ -22,6 +25,7 @@ const initialState = {
 	alertType: '',
 	alertText: '',
 	user: null,
+	properties: null
 }
 
 const GlobalContext = createContext()
@@ -100,6 +104,24 @@ const GlobalProvider = ({ children }) => {
 		dispatch({ type: LOGOUT_USER})
 	}
 
+	const createProperty = async (property) => {
+		dispatch({ type: CREATE_PROPERTY_BEGIN })
+		try {
+			const response = await ax.post('/admin/properties/new', property)
+			const { property } = response.data
+			dispatch({
+				type: CREATE_PROPERTY_SUCCESS,
+				payload: { property }
+			})
+		} catch (error) {
+			dispatch({
+				type: CREATE_PROPERTY_ERROR,
+				payload: { msg: error}
+			})
+		}
+		clearAlert()
+	}
+
 	return (
 		<GlobalContext.Provider value={
 			{
@@ -108,7 +130,8 @@ const GlobalProvider = ({ children }) => {
 				logoutUser,
 				registerUser,
 				displayAlert,
-				clearAlert
+				clearAlert,
+				createProperty
 			}
 		}>
 			{ children }
