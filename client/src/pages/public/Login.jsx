@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
-import { useGlobalContext } from "../context/GlobalContext.jsx";
+import { useGlobalContext } from "../../context/GlobalContext.jsx";
 import { toast } from "react-toastify";
-import { FormRow, Alert } from "../components";
+import { FormRow, Alert } from "../../components";
+import {Navigate} from "react-router-dom";
 
 const initialState = {
 	name: '',
@@ -31,24 +32,14 @@ const Login = () => {
 		if (!email || !password) {
 			displayAlert()
 			clearAlert()
-			console.log('error');
 			return
 		}
 		const currentUser = { email, password }
 		loginUser(currentUser)
-		toast.success('User Logged in')
+
 	}
 
-	// automatically redirect to home if user credentials ok
-	const navigate = useNavigate()
-	useEffect(() => {
-		if (user) {
-			console.log(user);
-			setTimeout(() => {
-				navigate('/',)
-			}, 1000)
-		}
-	}, [user, navigate])
+
 
 	// send to server to set back to initial state
 	const logout = () => {
@@ -59,15 +50,13 @@ const Login = () => {
 		<div>
 			<h2>Login</h2>
 
-			{values.isLoggedIn ?
+			{user ?
 
 				<>
-					<h5>Welcome {values.name || values.email} </h5>
+					<h5>Welcome {user.name || user.email} </h5>
 					<button type='submit' className='btn' onClick={logout}>logout</button>
 				</>
-
 				:
-
 				<form className='form' onSubmit={handleSubmit}>
 					{showAlert && <Alert/>}
 					<FormRow name='email' labelText='email' type='email' value={values.email} handleChange={handleChange} />

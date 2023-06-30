@@ -1,6 +1,6 @@
 import Appliance from "../models/Appliance.js";
-import {StatusCodes} from "http-status-codes";
-import {BadRequestError} from "../errors/index.js";
+import { StatusCodes } from "http-status-codes";
+import { BadRequestError, NotFoundError } from "../errors/index.js";
 
 const createAppliance = async (req, res, next) => {
 
@@ -32,7 +32,7 @@ const updateAppliance = async (req, res, next) => {
 	try {
 		const updatedAppliance = await Appliance.findByIdAndUpdate(
 			req.params.id,
-			{ $set, req:body },
+			{ $set: req.body },
 			{ new: true }
 		)
 		res.status(StatusCodes.OK).json(updatedAppliance)
@@ -43,11 +43,17 @@ const updateAppliance = async (req, res, next) => {
 }
 
 const getAllAppliances = async (req, res, next) => {
-	res.send('getAllAppliances')
+	const appliances = await Appliance.find()
+	res.send(appliances)
 }
 
 const getSingleAppliance = async (req, res, next) => {
-	res.send('getSingleAppliance')
+	const { id } = req.params
+	const appliance = await Appliance.findOne({_id: id})
+	if (!appliance) {
+		throw new NotFoundError(`No unit with id :${id}`);
+	}
+	res.send(appliance)
 }
 
 export { createAppliance, updateAppliance, getAllAppliances, getSingleAppliance }

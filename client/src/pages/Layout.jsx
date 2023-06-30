@@ -1,6 +1,5 @@
 import { Navbar, Footer } from "../components";
-import {Outlet} from "react-router-dom";
-import {useState} from "react";
+import { Outlet } from "react-router-dom";
 
 
 const Layout = () => {

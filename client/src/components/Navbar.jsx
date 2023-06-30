@@ -1,6 +1,6 @@
 import {NavLink} from "react-router-dom";
 import { adminLinks } from "../pages/admin/adminLinks.js";
-import { links } from "../pages/links.js";
+import { links } from "../pages/user/links.js";
 
 // validate if admin, user, or none is logged in. Display navbar links accordingly
 

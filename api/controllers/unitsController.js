@@ -1,6 +1,6 @@
 import Unit from "../models/Unit.js";
 import { StatusCodes } from "http-status-codes";
-import { BadRequestError } from "../errors/index.js";
+import { BadRequestError, NotFoundError } from "../errors/index.js";
 
 const createUnit = async (req, res, next) => {
 	// destructure unit obj sent from front end
@@ -19,11 +19,17 @@ const createUnit = async (req, res, next) => {
 }
 
 const getAllUnits = async (req, res, next) => {
-	res.send('getAllUnits')
+	const units = await Unit.find()
+	res.send(units)
 }
 
 const getSingleUnit = async (req, res, next) => {
-	res.send('getSingleUnit')
+	const { id } = req.params
+	const unit = await Unit.findOne({unitID: id})
+	if (!unit) {
+		throw new NotFoundError(`No unit with id :${id}`);
+	}
+	res.send(unit)
 }
 
 export { getAllUnits, getSingleUnit, createUnit }

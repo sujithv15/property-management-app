@@ -12,46 +12,27 @@ import {
 	LOGIN_USER_SUCCESS,
 	LOGIN_USER_ERROR,
 	LOGOUT_USER,
-	TOGGLE_SIDEBAR,
-	HANDLE_CHANGE,
-	CLEAR_VALUES,
 } from "./actions.jsx";
 
-const token = localStorage.getItem('token')
-const user = localStorage.getItem('user')
 
 const initialState = {
 	isLoggedIn: false,
 	showAlert: false,
 	isLoading: false,
-	alertText: '',
 	alertType: '',
+	alertText: '',
 	user: null,
-	token: token,
-	requests: '',
 }
 
 const GlobalContext = createContext()
 
 const GlobalProvider = ({ children }) => {
 	// axios
-	const authFetch = axios.create({
-		baseURL: '/api/v1',
+	const ax = axios.create({
+		baseURL: 'http://localhost:8800/api/v1',
 	});
-
-	// request
-	authFetch.interceptors.request.use(
-		config => {
-			config.headers['Authorization'] = `Bearer ${state.token}`
-			return config
-		},
-		error => {
-			return Promise.reject(error)
-		}
-	)
-
 	// response
-	authFetch.interceptors.response.use(
+	ax.interceptors.response.use(
 		(response) => {
 			return response;
 		},
@@ -63,6 +44,7 @@ const GlobalProvider = ({ children }) => {
 			return Promise.reject(error);
 		}
 	);
+
 	const [state, dispatch] = useReducer(reducer, initialState)
 
 	const displayAlert = () => {
@@ -76,60 +58,48 @@ const GlobalProvider = ({ children }) => {
 		}, 3000)
 	}
 
-	// currentUser from login
-	const loginUser = async (currentUser) => {
-		dispatch({ type: LOGIN_USER_BEGIN })
+	const registerUser = async (currentUser) => {
+		dispatch({ type: REGISTER_USER_BEGIN })
 		try {
-			const response = await axios.post('/auth/login', currentUser)
-			const { user, token } = response.data
-			console.log(response.data);
+			const response = await ax.post('/authenticate/register', currentUser)
+			const { user } = response.data
 			dispatch({
-				type: LOGIN_USER_SUCCESS,
-				payload: { user, token }
+				type: REGISTER_USER_SUCCESS,
+				payload: { user }
 			})
-			addUserToLocalStorage({ user, token })
 		} catch (error) {
 			dispatch({
-				type: LOGIN_USER_ERROR,
-				payload: {msg: error}
+				type: REGISTER_USER_ERROR,
+				payload: { msg: error }
 			})
 		}
 		clearAlert()
 	}
 
-	const registerUser = async (currentUser) => {
-		dispatch({ type: REGISTER_USER_BEGIN })
+	// currentUser from login
+	const loginUser = async (currentUser) => {
+		dispatch({ type: LOGIN_USER_BEGIN })
 		try {
-			const { data } = await axios.post('http://localhost:8800/api/v1/auth/register', currentUser)
-			console.log(currentUser);
-			const { user, token } = data
+			const response = await ax.post('/authenticate/login', currentUser)
+			const { user } = response.data
 			dispatch({
-				type: REGISTER_USER_SUCCESS,
-				payload: { user, token }
+				type: LOGIN_USER_SUCCESS,
+				payload: { user }
 			})
-			// addUserToLocalStorage({ user, token })
 		} catch (error) {
 			dispatch({
-				type: REGISTER_USER_ERROR,
-				payload: {msg: error}
+				type: LOGIN_USER_ERROR,
+				payload: { msg: error }
 			})
 		}
+		clearAlert()
 	}
 
-	const logoutUser = () => {
+	const logoutUser = async () => {
+		await ax('/authenticate/logout')
 		dispatch({ type: LOGOUT_USER})
-		removeUserFromLocalStorage()
 	}
 
-	const addUserToLocalStorage = ({ user, token }) => {
-		localStorage.setItem('user', JSON.stringify(user))
-		localStorage.setItem('token', JSON.stringify(token))
-	}
-
-	const removeUserFromLocalStorage = () => {
-		localStorage.removeItem('user')
-		localStorage.removeItem('token')
-	}
 	return (
 		<GlobalContext.Provider value={
 			{

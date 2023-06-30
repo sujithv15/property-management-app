@@ -1,6 +1,6 @@
 import Payment from "../models/Unit.js";
 import { StatusCodes } from "http-status-codes";
-import { BadRequestError } from "../errors/index.js";
+import { BadRequestError, NotFoundError } from "../errors/index.js";
 
 const createPayment = async (req, res, next) => {
 
@@ -20,11 +20,17 @@ const createPayment = async (req, res, next) => {
 }
 
 const getAllPayments = async (req, res, next) => {
-	res.send('getAllPayments')
+	const payments = await Payment.find()
+	res.send(payments)
 }
 
 const getSinglePayment = async (req, res, next) => {
-	res.send('getSinglePayment')
+	const { id } = req.params
+	const payment = await Payment.findOne({_id: id})
+	if (!payment) {
+		throw new NotFoundError(`No payment with id :${id}`);
+	}
+	res.send(payment)
 }
 
 export { createPayment, getAllPayments, getSinglePayment }

@@ -8,9 +8,6 @@ import {
 	LOGIN_USER_ERROR,
 	LOGIN_USER_SUCCESS,
 	LOGOUT_USER,
-	TOGGLE_SIDEBAR,
-	HANDLE_CHANGE,
-	CLEAR_VALUES,
 	CREATE_REQUEST_SUCCESS,
 	CREATE_REQUEST_BEGIN,
 	CREATE_REQUEST_ERROR
@@ -39,7 +36,6 @@ const Reducer = (state, action) => {
 	}
 
 	if (action.type === REGISTER_USER_BEGIN) {
-
 		return {
 			...state,
 			isLoading: true
@@ -47,11 +43,9 @@ const Reducer = (state, action) => {
 	}
 
 	if (action.type === REGISTER_USER_SUCCESS) {
-		console.log(state);
 		return {
 			...state,
 			user: action.payload.user,
-			token: action.payload.token,
 			isLoading: false,
 			showAlert: true,
 			alertType: 'success',
@@ -80,7 +74,6 @@ const Reducer = (state, action) => {
 		return {
 			...state,
 			user: action.payload.user,
-			token: action.payload.token,
 			isLoading: false,
 			showAlert: true,
 			alertType: 'success',

@@ -1,6 +1,6 @@
 import Tenant from "../models/Tenant.js";
 import { StatusCodes } from "http-status-codes";
-import { BadRequestError } from "../errors/index.js";
+import { BadRequestError, NotFoundError } from "../errors/index.js";
 
 const createTenant = async (req, res, next) => {
 	// destructure tenant obj sent from front end
@@ -19,7 +19,16 @@ const createTenant = async (req, res, next) => {
 }
 
 const getAllTenants = async (req, res, next) => {
-
+	const tenants = await Tenant.find()
+	res.send(tenants)
 }
 
-export { createTenant, getAllTenants }
+const getTenantDetails = async (req, res, next) => {
+	const {id} = req.params
+	const tenant = await Tenant.find({_id: id})
+	if (!tenant) {
+		throw new NotFoundError(`No tenant with id :${id}`);
+	}
+	res.send(tenant)
+}
+export { createTenant, getAllTenants, getTenantDetails }

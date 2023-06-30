@@ -7,5 +7,4 @@ router.route('/:id').get(getSingleAppliance)
 router.route('/new').post(createAppliance)
 router.route('/:id').put(updateAppliance)
 
-
 export default router

@@ -1,6 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 import { BadRequestError, UnauthenticatedError } from '../errors/index.js'
 import User from "../models/User.js"
+import attachCookies from "../utils/attachCookies.js";
 
 const login = async (req, res) => {
 
@@ -26,28 +27,10 @@ const login = async (req, res) => {
 	}
 
 	const token = user.createJWT()
+	attachCookies({ res, token })
 
-	// we do not want to send the visible password in the res json
-	user.password = undefined
-
-	const oneDay = 1000*60*60*24
-
-	res.cookie("access_token", token, {
-		httpOnly: true,
-		expires: new Date(Date.now() + oneDay),
-		secure: process.env.NODE_ENV === 'production',
-	}).status(StatusCodes.OK)
-	   .json({
-		   user,
-		   token,
-	   })
-/*
-	res.status(StatusCodes.OK)
-	   .json({
-		   user,
-		   token,
-	   })
-*/
+	//user.password = undefined
+	res.status(StatusCodes.OK).json({user})
 }
 
 const register = async (req, res) => {
@@ -74,16 +57,22 @@ const register = async (req, res) => {
 	const user = await User.create({ name, email, password, isAdmin: isFirstUser })
 
 	const token = user.createJWT()
+	attachCookies({ res, token })
 
 	// send response JSON to include user fields
-	res.status(StatusCodes.CREATED)
-	   .json({
-		   user: {
-			   name: user.name,
-			   email: user.email,
-		   },
-		   token: token,
-	   })
+	res.status(StatusCodes.CREATED).json({ user: { email: user.email } })
 }
 
-export { login, register }
+const update = async (req, res) => {
+
+}
+
+const logout = async (req, res) => {
+	res.cookie('token', 'logout', {
+		httpOnly: true,
+		expires: new Date(Date.now() + 1000),
+	});
+	res.status(StatusCodes.OK).json({ msg: 'user logged out!' });
+};
+
+export { login, register, update, logout }

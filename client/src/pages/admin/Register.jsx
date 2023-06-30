@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useGlobalContext } from "../../context/GlobalContext.jsx";
 import { toast } from "react-toastify";
 import { FormRow, Alert } from "../../components";
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 
 const initialState = {
@@ -16,7 +16,7 @@ const Register = () => {
 	const [values, setValues] = useState(initialState)
 
 	// function in our GlobalContext to login user to server
-	const { registerUser, isLoading, showAlert, displayAlert, clearAlert } = useGlobalContext()
+	const { registerUser, isLoading, alert, displayAlert, clearAlert } = useGlobalContext()
 
 	// set state values as user types
 	const handleChange = (e) => {
@@ -32,7 +32,6 @@ const Register = () => {
 			clearAlert()
 			return
 		}
-
 		const currentUser = {name, email, password}
 		registerUser(currentUser)
 		toast.success('User Successfully Registered')
@@ -42,7 +41,7 @@ const Register = () => {
 		<div>
 			<h2>Register</h2>
 			<form className='form' onSubmit={handleSubmit}>
-				{showAlert && <Alert/>}
+				{alert.showAlert && <Alert/>}
 				<FormRow name='name' labelText='name' type='text' value={values.name} handleChange={handleChange}/>
 				<FormRow name='email' labelText='email' type='email' value={values.email} handleChange={handleChange}/>
 				<FormRow name='password' labelText='password' password='email' value={values.password} handleChange={handleChange}/>

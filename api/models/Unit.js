@@ -3,14 +3,15 @@ import mongoose from 'mongoose'
 const UnitSchema = new mongoose.Schema( {
 	status: {
 		type: String,
-		enum: ["vaccant", "occupied"]
+		enum: ["vacant", "occupied"],
+		required: true
 	},
 	tenant: {
 		type: mongoose.Types.ObjectId,
 		ref: 'Tenant',
 	},
 	unitID: {
-		type: Number,
+		type: String,
 		required: true
 	},
 	streetName: {
@@ -26,14 +27,15 @@ const UnitSchema = new mongoose.Schema( {
 		required: true
 	},
 	zip: {
-		type: Number,
+		type: String,
 		required: true
 	},
 	rent: {
 		type: Number
 	},
 	fmrRent: {
-		type: Number
+		type: Number,
+		required: true
 	},
 	appliances: {
 		type: [mongoose.Types.ObjectId],

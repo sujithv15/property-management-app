@@ -4,23 +4,23 @@ export const adminLinks = [
 		url: "/admin",
 	},
 	{
-		name: "maintenance",
-		url: "/admin/maintenance",
+		name: "requests",
+		url: "/requests",
 	},
 	{
 		name: "payments",
-		url: "/admin/payments",
+		url: "/payments",
 	},
 	{
 		name: "rents",
-		url: "/admin/rents",
+		url: "/rents",
 	},
 	{
 		name: "research",
-		url: "/admin/research",
+		url: "/research",
 	},
 	{
 		name: "tenants",
-		url: "/admin/tenants"
+		url: "/tenants"
 	},
 ]
