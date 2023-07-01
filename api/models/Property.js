@@ -2,33 +2,35 @@ import mongoose from 'mongoose'
 import validator from 'validator'
 
 const PropertySchema = new mongoose.Schema({
-	name: {
+	myID: {
 		type: String
 	},
-	street: {
-		type: Number,
-		required: true,
+	address : {
+		street: {
+			type: String,
+			required: [true, "Please provide street"]
+		},
+		streetOptions: {
+			type: String
+		},
+		city: {
+			type: String,
+			required: [true, "Please provide city"]
+		},
+		state: {
+			type: String,
+			required: [true, "Please provide state"]
+		},
+		zip: {
+			type: String,
+			required: [true, "Please provide zip"]
+		},
 	},
-	city: {
-		type: String,
-		required: true,
-	},
-	state : {
-		type: String,
-		required: true,
-	},
-	zip: {
-		type: String,
-		required: true,
-	},
-	numUnits: {
-		type: String,
-		required: true,
-	},
-	unitTypes: {
-		type: [String],
-		required: true,
+	units : {
+		type: mongoose.Types.ObjectId,
+		ref: 'Unit'
 	}
+
 })
 
 export default mongoose.model('Property', PropertySchema)

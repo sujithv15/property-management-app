@@ -1,28 +1,25 @@
 import mongoose from 'mongoose'
 
 const ApplianceSchema = new mongoose.Schema({
-	appliance: {
+	type: {
 		type: String,
 		enum: ['refrigerator', 'microwave', 'stove', 'dishwasher'],
 		required: true
-	},
-	unit: {
-		type: mongoose.Types.ObjectId,
-		ref: 'Unit',
 	},
 	datePurchased: {
 		type: String,
 		required: true,
 	},
 	repairs: {
-		type: [String],
+		type: mongoose.Types.ObjectId,
+		ref: 'Repair'
 	},
 	warranty: {
 		type: String
 	},
 	receipt: {
 		type: String
-	}
+	},
 })
 
 export default mongoose.model('Appliance', ApplianceSchema)

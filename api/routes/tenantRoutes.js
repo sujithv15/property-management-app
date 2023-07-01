@@ -4,6 +4,6 @@ import { createTenant, getAllTenants, getTenantDetails } from "../controllers/te
 
 router.route('/').get(getAllTenants)
 router.route('/:id').get(getTenantDetails)
-router.route('/new').post(createTenant)
+router.route('/create').post(createTenant)
 
 export default router

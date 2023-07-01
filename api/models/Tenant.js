@@ -13,15 +13,13 @@ const TenantSchema = new mongoose.Schema({
 		maxlength: 20,
 		trim: true,
 		default: '',
+		immutable: true
 	},
 	firstName: {
 		type: String,
 		trim: true,
 		maxlength: 20,
 		default: '',
-	},
-	address: {
-		type: String,
 	},
 	email: {
 		type: String,
@@ -32,42 +30,15 @@ const TenantSchema = new mongoose.Schema({
 		unique: true,
 	},
 	phone: {
-		type: Number,
+		type: String,
 		trim: true,
 		maxlength: 20,
 		unique: true,
 	},
 	rent: {
-		type: Number,
-		required: true
+		type: mongoose.Types.ObjectId,
+		ref: 'Rent',
 	},
-	rentTenant: {
-		type: Number
-	},
-	rentAssisted: {
-		type: Number
-	},
-	balance: {
-		type: Number
-	},
-	housingAgency: {
-		type: String
-	},
-	agentName: {
-		type: String
-	},
-	agentPhone : {
-		type: String
-	},
-	agentEmail: {
-		type: String,
-		validate: {
-			validator: validator.isEmail,
-			message: 'please provide valid email'
-		}
-	}
-
-
 })
 
 export default mongoose.model('Tenant', TenantSchema)

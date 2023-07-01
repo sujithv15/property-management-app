@@ -4,7 +4,7 @@ import { createProperty, getAllProperties, getPropertyDetails } from "../control
 
 router.route('/').get(getAllProperties)
 router.route('/:id').get(getPropertyDetails)
-router.route('/new').post(createProperty)
-router.route('/:id').put(getPropertyDetails)
+router.route('/create').post(createProperty)
+router.route('/:id').patch(getPropertyDetails)
 
 export default router

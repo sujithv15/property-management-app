@@ -4,7 +4,7 @@ import { login, register, update, logout } from "../controllers/authControllers.
 
 router.route('/login').post(login)
 router.route('/register').post(register)
-router.route('/update').put(update)
+router.route('/update/:id').patch(update)
 router.get('/logout', logout);
 
 

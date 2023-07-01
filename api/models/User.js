@@ -16,14 +16,16 @@ const UserSchema = new mongoose.Schema({
 		required: [true, 'please provide email'],
 		validate: {
 			validator: validator.isEmail,
-			message: 'please provide valid email',
+			message: (props) => `${props.value} is not a valid email. Please provide valid email`,
 		},
 		unique: true,
+		lowercase: true
 	},
 	password: {
 		type: String,
 		required: [true, 'please provide password'],
 		minLength: 6,
+		maxLength: 25,
 		select: false
 	},
 	isAdmin: {
@@ -31,7 +33,21 @@ const UserSchema = new mongoose.Schema({
 		default: false
 	},
 	unit: {
-		type: String
+		type: mongoose.Types.ObjectId,
+		ref: 'Unit',
+	},
+	tenant: {
+		type: mongoose.Types.ObjectId,
+		ref: 'Tenant',
+	},
+	createdAt: {
+		type: Date,
+		default: () => Date.now(),
+		immutable: true
+	},
+	updatedAt: {
+		type: Date,
+		default: () => Date.now()
 	}
 })
 
