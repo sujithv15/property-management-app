@@ -1,43 +1,20 @@
 import {Unit} from "../../components";
 import {useState} from "react";
 import {useGlobalContext} from "../../context/GlobalContext.jsx";
-import {toast} from "react-toastify";
+
 import {useEffect} from "react";
 import {Loading} from "../../components";
 import UnitForm from "../../components/forms/UnitForm.jsx";
 
 
-const initialState = {
-	property: '',
-	address: '',
-	status: '',
-	tenant: '',
-	rent: '',
-	fmrRent: '',
-}
 
 const Units = () => {
 
-	const [values, setValues] = useState(initialState)
-	const { displayAlert, clearAlert, isLoading, createUnit, readUnits, units } = useGlobalContext()
 
-	const handleChange = (e) => {
-		setValues({...values, [e.target.name]: e.target.value})
-	}
+	const { isLoading, readUnits, units } = useGlobalContext()
 
-	const handleSubmit = (e) => {
-		e.preventDefault()
-		const { property, address, status } = values
-		if (!property || !address || !status) {
-			displayAlert()
-			clearAlert()
-			return
-		}
 
-		const unit = { property, address, status }
-		createUnit(unit)
-		toast.success('Unit Successfully Created')
-	}
+
 
 	useEffect(() => {
 		readUnits()

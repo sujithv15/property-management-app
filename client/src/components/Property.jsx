@@ -8,20 +8,37 @@ const Property = (property) => {
 	return (
 		<div>
 			<div className="property-info">
+
 				<div className="property-id">
 					<h5>{propertyID}</h5>
 				</div>
+
 				<div className="property-address">
-					<h5>{address.street}</h5>
-					<h5>{address.streetOptions}</h5>
-					<h5>{address.city}</h5>
-					<h5>{address.state}</h5>
-					<h5>{address.zip}</h5>
+					<div className="address-line-1">
+						<span>{address.street}</span>
+						<span>{address.streetOptions}</span>
+					</div>
+					<div className="address-line-2">
+						<span>{address.city}, </span>
+						<span>{address.state} </span>
+						<span>{address.zip}</span>
+					</div>
 				</div>
+
+				<div className="property-numUnits">
+					{units.length}
+				</div>
+
+				<div className="property-numVacant">
+
+				</div>
+
+				<div className="numRequests">
+
+				</div>
+
 			</div>
-			<div className="property-units">
-				<h5>{units}</h5>
-			</div>
+
 		</div>
 	);
 };
