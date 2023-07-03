@@ -15,6 +15,27 @@ import {
 	CREATE_PROPERTY_SUCCESS,
 	CREATE_PROPERTY_BEGIN,
 	CREATE_PROPERTY_ERROR,
+	READ_PROPERTIES_BEGIN,
+	READ_PROPERTIES_SUCCESS,
+	READ_PROPERTIES_ERROR,
+	CREATE_TENANT_BEGIN,
+	CREATE_TENANT_SUCCESS,
+	CREATE_TENANT_ERROR,
+	READ_TENANTS_BEGIN,
+	READ_TENANTS_SUCCESS,
+	READ_TENANTS_ERROR,
+	CREATE_UNIT_BEGIN,
+	CREATE_UNIT_SUCCESS,
+	CREATE_UNIT_ERROR,
+	READ_UNITS_BEGIN,
+	READ_UNITS_SUCCESS,
+	READ_UNITS_ERROR,
+	CREATE_PAYMENT_BEGIN,
+	CREATE_PAYMENT_SUCCESS,
+	CREATE_PAYMENT_ERROR,
+	READ_PAYMENTS_BEGIN,
+	READ_PAYMENTS_SUCCESS,
+	READ_PAYMENTS_ERROR,
 } from "./actions.jsx";
 
 
@@ -25,7 +46,11 @@ const initialState = {
 	alertType: '',
 	alertText: '',
 	user: null,
-	properties: null
+	properties: [],
+	tenants: [],
+	units: [],
+	payments: [],
+	rents: []
 }
 
 const GlobalContext = createContext()
@@ -100,14 +125,32 @@ const GlobalProvider = ({ children }) => {
 	}
 
 	const logoutUser = async () => {
-		await ax('/authenticate/logout')
+		await ax('/authenticateUser/logout')
 		dispatch({ type: LOGOUT_USER})
+	}
+
+	const readProperties = async () => {
+		dispatch({ type: READ_PROPERTIES_BEGIN })
+		try {
+			const response = await ax('/admin/properties')
+			const { properties } = response.data
+			dispatch({
+				type: READ_PROPERTIES_SUCCESS,
+				payload: { properties }
+			})
+		} catch (error) {
+			dispatch({
+				type: READ_PROPERTIES_ERROR,
+				payload: { msg: error}
+			})
+		}
+		clearAlert()
 	}
 
 	const createProperty = async (property) => {
 		dispatch({ type: CREATE_PROPERTY_BEGIN })
 		try {
-			const response = await ax.post('/admin/properties/new', property)
+			const response = await ax.post('/admin/properties/create', property)
 			const { property } = response.data
 			dispatch({
 				type: CREATE_PROPERTY_SUCCESS,
@@ -122,6 +165,150 @@ const GlobalProvider = ({ children }) => {
 		clearAlert()
 	}
 
+	const readTenants = async () => {
+		dispatch({ type: READ_TENANTS_BEGIN })
+		try {
+			const response = await ax('/admin/tenants')
+			const { tenants } = response.data
+			dispatch({
+				type: READ_TENANTS_SUCCESS,
+				payload: { tenants }
+			})
+		} catch (error) {
+			dispatch({
+				type: READ_TENANTS_ERROR,
+				payload: { msg: error}
+			})
+		}
+		clearAlert()
+	}
+
+	const createTenant = async (tenant) => {
+		dispatch({type: CREATE_TENANT_BEGIN})
+		try {
+			const response = await ax.post('/admin/tenants/create', tenant)
+			const {tenant} = response.data
+			dispatch({
+				type: CREATE_TENANT_SUCCESS,
+				payload: {tenant}
+			})
+		} catch (error) {
+			dispatch({
+				type: CREATE_TENANT_ERROR,
+				payload: {msg: error}
+			})
+		}
+		clearAlert()
+	}
+
+	const readUnits = async () => {
+		dispatch({ type: READ_UNITS_BEGIN })
+		try {
+			const response = await ax('/admin/units')
+			const { units } = response.data
+			dispatch({
+				type: READ_UNITS_SUCCESS,
+				payload: { units }
+			})
+		} catch (error) {
+			dispatch({
+				type: READ_UNITS_ERROR,
+				payload: { msg: error}
+			})
+		}
+		clearAlert()
+	}
+
+	const createUnit= async (unit) => {
+		dispatch({type: CREATE_UNIT_BEGIN})
+		try {
+			const response = await ax.post('/admin/units/create', unit)
+			const {unit} = response.data
+			dispatch({
+				type: CREATE_UNIT_SUCCESS,
+				payload: {unit}
+			})
+		} catch (error) {
+			dispatch({
+				type: CREATE_UNIT_ERROR,
+				payload: {msg: error}
+			})
+		}
+		clearAlert()
+	}
+
+	const readPayments = async () => {
+		dispatch({ type: READ_PAYMENTS_BEGIN })
+		try {
+			const response = await ax('/admin/payments')
+			const { payments } = response.data
+			dispatch({
+				type: READ_PAYMENTS_SUCCESS,
+				payload: { payments }
+			})
+		} catch (error) {
+			dispatch({
+				type: READ_PAYMENTS_ERROR,
+				payload: { msg: error}
+			})
+		}
+		clearAlert()
+	}
+
+	const createPayment= async (payment) => {
+		dispatch({type: CREATE_PAYMENT_BEGIN})
+		try {
+			const response = await ax.post('/admin/payments/create', payment)
+			const {payment} = response.data
+			dispatch({
+				type: CREATE_PAYMENT_SUCCESS,
+				payload: {payment}
+			})
+		} catch (error) {
+			dispatch({
+				type: CREATE_PAYMENT_ERROR,
+				payload: {msg: error}
+			})
+		}
+		clearAlert()
+	}
+
+	const readRents = async () => {
+		dispatch({ type: READ_PAYMENTS_BEGIN })
+		try {
+			const response = await ax('/admin/rents')
+			const { rents } = response.data
+			dispatch({
+				type: READ_PAYMENTS_SUCCESS,
+				payload: { rents }
+			})
+		} catch (error) {
+			dispatch({
+				type: READ_PAYMENTS_ERROR,
+				payload: { msg: error}
+			})
+		}
+		clearAlert()
+	}
+
+	const createRent= async (rent) => {
+		dispatch({type: CREATE_PAYMENT_BEGIN})
+		try {
+			const response = await ax.post('/admin/rents/create', payment)
+			const {rent} = response.data
+			dispatch({
+				type: CREATE_PAYMENT_SUCCESS,
+				payload: {rent}
+			})
+		} catch (error) {
+			dispatch({
+				type: CREATE_PAYMENT_ERROR,
+				payload: {msg: error}
+			})
+		}
+		clearAlert()
+	}
+
 	return (
 		<GlobalContext.Provider value={
 			{
@@ -131,7 +318,16 @@ const GlobalProvider = ({ children }) => {
 				registerUser,
 				displayAlert,
 				clearAlert,
-				createProperty
+				createProperty,
+				readProperties,
+				createTenant,
+				readTenants,
+				readUnits,
+				createUnit,
+				createPayment,
+				readPayments,
+				createRent,
+				readRents
 			}
 		}>
 			{ children }

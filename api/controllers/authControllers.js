@@ -49,7 +49,7 @@ const login = async (req, res) => {
 	}
 	const token = user.createJWT()
 	attachCookies({ res, token })
-	res.status(StatusCodes.OK).json({...user, password: undefined})
+	res.status(StatusCodes.OK).json({user})
 }
 
 const logout = async (req, res) => {

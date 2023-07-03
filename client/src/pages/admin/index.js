@@ -6,5 +6,6 @@ import Rents from "./Rents.jsx"
 import Research from "./Research.jsx";
 import Tenants from "./Tenants.jsx";
 import Register from "./Register.jsx";
+import Units from "./Units.jsx";
 
-export { Properties, AdminDashboard, Payments, Research, Rents, Maintenance, Tenants, Register}
+export { Properties, AdminDashboard, Payments, Research, Rents, Maintenance, Tenants, Register, Units}

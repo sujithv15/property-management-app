@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useGlobalContext } from "../../context/GlobalContext.jsx";
 import { toast } from "react-toastify";
-import { FormRow, Alert } from "../../components";
+import { Alert } from "../../components";
+import FormRow from "../../components/forms/FormRow.jsx";
 import { NavLink } from "react-router-dom";
 
 
@@ -38,7 +39,7 @@ const Register = () => {
 	}
 
 	return (
-		<div>
+		<div className="page">
 			<h2>Register</h2>
 			<form className='form' onSubmit={handleSubmit}>
 				{alert.showAlert && <Alert/>}

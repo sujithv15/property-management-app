@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import validator from 'validator'
 
 const PropertySchema = new mongoose.Schema({
-	myID: {
+	propertyID: {
 		type: String
 	},
 	address : {

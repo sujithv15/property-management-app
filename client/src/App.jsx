@@ -4,6 +4,7 @@ import { Rents, Research, Payments, Properties, Maintenance, Tenants, Register, 
 import UserDashboard from "./pages/user/UserDashboard.jsx";
 import ProtectedRoute from "./pages/ProtectedRoute.jsx";
 import Layout from "./pages/Layout.jsx";
+import {Units} from "./pages/admin";
 
 
 const App = () => {
@@ -32,6 +33,7 @@ const App = () => {
 					<Route path="rents" element={<Rents />} />
 					<Route path="research" element={<Research />} />
 					<Route path="tenants" element={<Tenants />} />
+					<Route path="units" element={<Units />} />
 				</Route>
 
 

@@ -19,7 +19,7 @@ import tenantRoutes from "./routes/tenantRoutes.js";
 // middleware
 import errorHandler from "./middleware/error-handler.js";
 import notFound from "./middleware/not-found.js";
-import authenticate from "./middleware/authenticate.js"
+import authenticateUser from "./middleware/authenticateUser.js"
 
 
 

@@ -12,7 +12,7 @@ const createProperty = async (req, res, next) => {
 
 const getAllProperties = async (req, res, next) => {
 	const properties = await Property.find()
-	res.status(StatusCodes.OK).json(properties)
+	res.status(StatusCodes.OK).json({properties})
 }
 
 const getPropertyDetails = async (req, res, next) => {

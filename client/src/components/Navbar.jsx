@@ -9,21 +9,7 @@ const Navbar = () => {
 
 	return (
 		<nav>
-			<div className="navbar-container">
-				<div className="nav-links">
-					{
-						links.map((link, index) => {
-							return (
-								<div key={index}>
-									<NavLink to={link.url} className="nav-link">{link.name}</NavLink>
-								</div>
-							)
-						})}
-
-				</div>
-
-
-				<div className="nav-links">
+			<div className="navbar">
 					{
 						adminLinks.map((adminLink, index) => {
 						return (
@@ -32,7 +18,7 @@ const Navbar = () => {
 							</div>
 						)
 					})}
-				</div>
+
 			</div>
 
 		</nav>

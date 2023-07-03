@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import { useGlobalContext } from "../../context/GlobalContext.jsx";
 import { toast } from "react-toastify";
-import { FormRow, Alert } from "../../components";
+import FormRow from "../../components/forms/FormRow.jsx";
 import {Navigate} from "react-router-dom";
+import LoginForm from "../../components/forms/LoginForm.jsx";
 
 const initialState = {
 	name: '',
 	email: '',
 	password: '',
-	isLoggedIn: false,
 }
 
 const Login = () => {
@@ -25,7 +25,7 @@ const Login = () => {
 		setValues({...values, [e.target.name]: e.target.value})
 	}
 
-	// authenticate (for now) that admin is trying to log in, then send to loginUser function
+	// authenticateUser (for now) that admin is trying to log in, then send to loginUser function
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		const {email, password} = values
@@ -36,11 +36,7 @@ const Login = () => {
 		}
 		const currentUser = { email, password }
 		loginUser(currentUser)
-
 	}
-
-
-
 	// send to server to set back to initial state
 	const logout = () => {
 		logoutUser()
@@ -57,14 +53,8 @@ const Login = () => {
 					<button type='submit' className='btn' onClick={logout}>logout</button>
 				</>
 				:
-				<form className='form' onSubmit={handleSubmit}>
-					{showAlert && <Alert/>}
-					<FormRow name='email' labelText='email' type='email' value={values.email} handleChange={handleChange} />
-					<FormRow name='password' labelText='password' password='email' value={values.password}
-					         handleChange={handleChange} />
-					<button type='submit' className='btn'>login</button>
-					<p>Not a member yet? <NavLink to="/register">Register</NavLink></p>
-				</form>
+
+				<LoginForm />
 			}
 		</div>
 	);

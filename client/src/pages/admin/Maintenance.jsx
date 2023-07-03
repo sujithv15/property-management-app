@@ -1,7 +1,7 @@
 
 const Maintenance = () => {
 	return (
-		<div>
+		<div className="page">
 			<h2>maintenance</h2>
 		</div>
 	);

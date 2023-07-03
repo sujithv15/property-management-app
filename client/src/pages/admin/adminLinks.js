@@ -1,7 +1,7 @@
 export const adminLinks = [
 	{
 		name: "admin home",
-		url: "/admin",
+		url: "/",
 	},
 	{
 		name: "properties",
@@ -27,4 +27,8 @@ export const adminLinks = [
 		name: "tenants",
 		url: "/tenants"
 	},
+	{
+		name: "units",
+		url: "/units"
+	}
 ]

@@ -2,6 +2,11 @@ import mongoose from 'mongoose'
 import validator from 'validator'
 
 const TenantSchema = new mongoose.Schema({
+	property: {
+		type: mongoose.Types.ObjectId,
+		ref: 'Property',
+		required: [true, 'Please provide property'],
+	},
 	unit: {
 		type: mongoose.Types.ObjectId,
 		ref: 'Unit',

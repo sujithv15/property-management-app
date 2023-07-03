@@ -19,7 +19,7 @@ const PaymentSchema = new mongoose.Schema({
 	balance: {
 		type: String,
 	},
-	paid: {
+	status: {
 		type: String,
 	},
 	comments: {

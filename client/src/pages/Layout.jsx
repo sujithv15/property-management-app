@@ -6,11 +6,11 @@ const Layout = () => {
 
 
 	return (
-		<div className="layout">
+		<main>
 			<Navbar />
 			<Outlet />
 			<Footer />
-		</div>
+		</main>
 	);
 };
 

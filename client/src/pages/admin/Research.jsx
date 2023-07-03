@@ -1,7 +1,7 @@
 
 const Research = () => {
 	return (
-		<div>
+		<div className="page">
 			<h2>research</h2>
 		</div>
 	);

@@ -15,13 +15,12 @@ const createPayment = async (req, res, next) => {
 	const newPayment = await Payment.create({ payTo, amount, dateDue, datePaid, balance, status, comments })
 
 	// send response JSON to include payment
-	res.status(StatusCodes.CREATED)
-	   .json({newPayment})
+	res.status(StatusCodes.CREATED).json({newPayment})
 }
 
 const getAllPayments = async (req, res, next) => {
 	const payments = await Payment.find()
-	res.send(payments)
+	res.status(StatusCodes.OK).json({payments})
 }
 
 const getSinglePayment = async (req, res, next) => {
@@ -30,7 +29,7 @@ const getSinglePayment = async (req, res, next) => {
 	if (!payment) {
 		throw new NotFoundError(`No payment with id :${id}`);
 	}
-	res.send(payment)
+	res.status(StatusCodes.OK).json({payment})
 }
 
 export { createPayment, getAllPayments, getSinglePayment }

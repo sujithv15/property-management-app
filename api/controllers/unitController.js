@@ -11,7 +11,6 @@ const createUnit = async (req, res, next) => {
 
 const getAllUnits = async (req, res, next) => {
 	const units = await Unit.find()
-	res.send(units)
 	res.status(StatusCodes.OK).json({units})
 }
 
