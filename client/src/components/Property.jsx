@@ -6,7 +6,7 @@ import UnitForm from "./forms/UnitForm.jsx";
 const Property = (property) => {
 
 
-	const { _id, address, units } = property
+	const { address, units } = property
 
 	const [showUnits, setShowUnits] = useState(false)
 	const [showForm, setShowForm] = useState(false)
@@ -17,18 +17,19 @@ const Property = (property) => {
 
 				<div className="property-address">
 
-					<div className="address-line-1">
+					<div className="property-address-1">
 						<a onClick={() => setShowUnits(!showUnits)} style={{cursor: 'pointer'}}>
 						<span>{address.street}</span>
 						<span>{address.streetOptions}</span>
 						</a>
 					</div>
-					<div className="address-line-2">
+					<div className="property-address-2">
 							<span>{address.city}, </span>
 							<span>{address.state} </span>
 							<span>{address.zip}</span>
 					</div>
-					<div className="add-unit">
+
+					<div className="unit-form">
 						{showUnits && 	<button className="btn" onClick={() => setShowForm(!showForm)}>add unit</button>}
 						{showForm && <UnitForm />}
 					</div>
@@ -36,7 +37,7 @@ const Property = (property) => {
 				</div>
 
 
-				<div className="numRequests">
+				<div className="unit-alerts">
 
 				</div>
 

@@ -20,7 +20,6 @@ const Landing = () => {
 	return (
 		<div>
 			<h2>Landing Page</h2>
-			<button onClick={()=>console.log(user)}>button</button>
 			{ !user && <Login/> }
 
 		</div>

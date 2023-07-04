@@ -1,5 +1,5 @@
 import {NavLink} from "react-router-dom";
-import {Tenant} from "./index.jsx";
+import {Tenant} from "./index.js";
 import {useState} from "react";
 import TenantForm from "./forms/TenantForm.jsx";
 
@@ -23,26 +23,26 @@ const Unit = (unit) => {
 		<div className="unit-container">
 			<div className="unit-info">
 
-				<div className="unit-street">
+				<div className="unit-street unit-item">
 					<a onClick={getUnitDetails} style={{cursor: 'pointer'}}>{address?.street}</a>
 				</div>
 
-				<div className="unit-type">
+				<div className="unit-type unit-item">
 					<p>{bedrooms}br/ {bathrooms}ba</p>
 				</div>
 
-				<div className="unit-tenant">
+				<div className="unit-tenant unit-item">
 					<a onClick={()=>setShowTenant(!showTenant)} style={{cursor: 'pointer'}}>{tenant?.lastName}, {tenant?.firstName}</a>
 					<div className="unit-tenant-info">
 						{showTenant && <Tenant {...tenant}/>}
 					</div>
 				</div>
 
-				<div className="unit-rent">
+				<div className="unit-rent unit-item">
 					<p>{rent}</p>
 				</div>
 
-				<div className="unit-add-tenant">
+				<div className="unit-add-tenant unit-item">
 					{tenant ?
 						<button className="btn" onClick={() => setShowForm(!showForm)}>edit tenant</button>
 					:
@@ -50,7 +50,7 @@ const Unit = (unit) => {
 					}
 				</div>
 
-				<div className="unit-appliances">
+				<div className="unit-appliances unit-item">
 						<button className="btn" onClick={() => setShowForm(!showForm)}>view/edit appliances</button>
 				</div>
 

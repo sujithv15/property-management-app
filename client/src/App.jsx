@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Login, Landing, Error } from "./pages/public";
-import { Research, Finances, Properties, Maintenance, Units, Register, AdminDashboard, Messages } from "./pages/admin";
+import { Research, Finances, Properties, Maintenance, Register, AdminDashboard, Messages } from "./pages/admin";
 import UserDashboard from "./pages/user/UserDashboard.jsx";
 import ProtectedRoute from "./pages/ProtectedRoute.jsx";
 import Layout from "./pages/Layout.jsx";
@@ -31,7 +31,6 @@ const App = () => {
 					<Route path="maintenance" element={<Maintenance />} />
 					<Route path="research" element={<Research />} />
 					<Route path="messages" element={<Messages />} />
-					<Route path="units" element={<Units />} />
 				</Route>
 
 

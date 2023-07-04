@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { useGlobalContext } from "../context/GlobalContext.jsx";
-import { Loading } from "../components"
+import { Loading } from "../components/index.js"
 
 const ProtectedRoute = ({ children }) => {
 	const { user, userLoading } = useGlobalContext()

@@ -1,9 +1,9 @@
-import {Payment} from "../../components/index.jsx";
+import {Payment} from "../../components/index.js";
 import {useState} from "react";
 import {useGlobalContext} from "../../context/GlobalContext.jsx";
 import {toast} from "react-toastify";
 import {useEffect} from "react";
-import {Loading} from "../../components/index.jsx";
+import {Loading} from "../../components/index.js";
 
 
 const initialState = {
