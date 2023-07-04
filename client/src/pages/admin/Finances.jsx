@@ -15,7 +15,7 @@ const initialState = {
 	rent: '',
 }
 
-const Payments = () => {
+const Finances = () => {
 
 	const [values, setValues] = useState(initialState)
 	const { displayAlert, clearAlert, isLoading, createPayment, readPayments, payments } = useGlobalContext()
@@ -67,4 +67,4 @@ const Payments = () => {
 	);
 };
 
-export default Payments;
+export default Finances;

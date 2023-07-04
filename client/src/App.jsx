@@ -1,11 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Login, Landing, Error } from "./pages/public";
-import { Rents, Research, Payments, Properties, Maintenance, Tenants, Register, AdminDashboard } from "./pages/admin";
+import { Research, Finances, Properties, Maintenance, Units, Register, AdminDashboard, Messages } from "./pages/admin";
 import UserDashboard from "./pages/user/UserDashboard.jsx";
 import ProtectedRoute from "./pages/ProtectedRoute.jsx";
 import Layout from "./pages/Layout.jsx";
-import {Units} from "./pages/admin";
-import PropertyDetails from "./pages/admin/PropertyDetails.jsx";
 
 
 const App = () => {
@@ -28,13 +26,11 @@ const App = () => {
 				>
 					<Route index element={<AdminDashboard />}/>
 					<Route path="properties" element={<Properties />} />
-					<Route path="propertydetail" element={<PropertyDetails />} />
 					<Route path="register" element={<Register />} />
-					<Route path="payments" element={<Payments />} />
+					<Route path="finances" element={<Finances />} />
 					<Route path="maintenance" element={<Maintenance />} />
-					<Route path="rents" element={<Rents />} />
 					<Route path="research" element={<Research />} />
-					<Route path="tenants" element={<Tenants />} />
+					<Route path="messages" element={<Messages />} />
 					<Route path="units" element={<Units />} />
 				</Route>
 

@@ -8,27 +8,16 @@ export const adminLinks = [
 		url: "/properties",
 	},
 	{
-		name: "requests",
-		url: "/requests",
+		name: "messages",
+		url: "/messages",
 	},
 	{
-		name: "payments",
-		url: "/payments",
-	},
-	{
-		name: "rents",
-		url: "/rents",
+		name: "finances",
+		url: "/finances",
 	},
 	{
 		name: "research",
 		url: "/research",
 	},
-	{
-		name: "tenants",
-		url: "/tenants"
-	},
-	{
-		name: "units",
-		url: "/units"
-	}
+
 ]

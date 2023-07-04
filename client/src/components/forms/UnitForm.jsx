@@ -44,18 +44,16 @@ const UnitForm = () => {
 		<div>
 			<form className="form" onSubmit={handleSubmit}>
 				<FormRowSelect labelText="property" name="property" value={values.property} handleChange={handleChange} list={propertiesList}/>
-				<FormRow labelText="unit id" type="text" name="unitID" value={values.unitID} handleChange={handleChange}/>
 				<FormRow labelText="street line 1" type="text" name="street" value={values.address.street} handleChange={handleChange}/>
 				<FormRow labelText="street line 2" type="text" name="streetOptions" value={values.address.streetOptions} handleChange={handleChange}/>
 				<FormRow labelText="city" type="text" name="city" value={values.address.city} handleChange={handleChange}/>
 				<FormRow labelText="state" type="text" name="state" value={values.address.state} handleChange={handleChange}/>
 				<FormRow labelText="zip" type="text" name="zip" value={values.address.zip} handleChange={handleChange}/>
-				<FormRow labelText="status" type="text" name="status" value={values.status} handleChange={handleChange}/>
+				<FormRow labelText="bedrooms" type="number" name="bedrooms" value={values.bedrooms} handleChange={handleChange}/>
+				<FormRow labelText="bathrooms" type="number" name="bathrooms" value={values.bathrooms} handleChange={handleChange}/>
 				<FormRow labelText="tenant" type="text" name="tenant" value={values.tenant} handleChange={handleChange}/>
 				<FormRow labelText="rent" type="text" name="rent" value={values.tenant} handleChange={handleChange}/>
 				<FormRow labelText="fmrRent" type="number" name="fmrRent" value={values.tenant} handleChange={handleChange}/>
-				<FormRow labelText="repairs" type="text" name="repairs" value={values.tenant} handleChange={handleChange}/>
-
 				<button type="submit" className='btn'>create property</button>
 			</form>
 		</div>

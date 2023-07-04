@@ -10,7 +10,14 @@ const createProperty = async (req, res) => {
 }
 
 const getAllProperties = async (req, res) => {
-	const properties = await Property.find().populate("units")
+	const properties = await Property.find()
+	                                 .populate({
+		                                 path: "units",
+		                                 populate: {
+														path: "tenant",
+		                                 }
+	                                 })
+
 	res.status(StatusCodes.OK).json({properties})
 }
 

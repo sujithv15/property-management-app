@@ -26,10 +26,6 @@ const PropertySchema = new mongoose.Schema({
 		type: [mongoose.Types.ObjectId],
 		ref: 'Unit'
 	},
-	numUnitsVacant: {
-		type: Number
-	}
-
 })
 
 export default mongoose.model('Property', PropertySchema)

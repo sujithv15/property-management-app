@@ -26,17 +26,15 @@ const UnitSchema = new mongoose.Schema( {
 			required: [true, "Please provide zip"]
 		},
 	},
-	status: {
-		type: String,
-		enum: ["vacant", "occupied"],
-		required: true
-	},
 	tenant: {
-		type: String,
-	},
-	tenantDetails: {
 		type: mongoose.Types.ObjectId,
 		ref: 'Tenant'
+	},
+	bedrooms : {
+		type: Number,
+	},
+	bathrooms: {
+		type: Number,
 	},
 	rent: {
 		type: Number

@@ -313,41 +313,6 @@ const GlobalProvider = ({ children }) => {
 		clearAlert()
 	}
 
-	const readRents = async () => {
-		dispatch({ type: READ_PAYMENTS_BEGIN })
-		try {
-			const response = await ax('/admin/rents')
-			const { rents } = response.data
-			dispatch({
-				type: READ_PAYMENTS_SUCCESS,
-				payload: { rents }
-			})
-		} catch (error) {
-			dispatch({
-				type: READ_PAYMENTS_ERROR,
-				payload: { msg: error}
-			})
-		}
-		clearAlert()
-	}
-
-	const createRent= async (rent) => {
-		dispatch({type: CREATE_PAYMENT_BEGIN})
-		try {
-			const response = await ax.post('/admin/rents/create', payment)
-			const {rent} = response.data
-			dispatch({
-				type: CREATE_PAYMENT_SUCCESS,
-				payload: {rent}
-			})
-		} catch (error) {
-			dispatch({
-				type: CREATE_PAYMENT_ERROR,
-				payload: {msg: error}
-			})
-		}
-		clearAlert()
-	}
 
 	return (
 		<GlobalContext.Provider value={
@@ -368,8 +333,6 @@ const GlobalProvider = ({ children }) => {
 				createUnit,
 				createPayment,
 				readPayments,
-				createRent,
-				readRents,
 				getUnit
 			}
 		}>
