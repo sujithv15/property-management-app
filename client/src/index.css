@@ -217,7 +217,6 @@ nav {
 
 .page {
   max-width: 100vh;
-  border: 2px blue dashed;
   margin: 30px;
 }
 
@@ -226,16 +225,26 @@ nav {
 }
 
 .properties-list {
-  border: #2cb1bc 2px solid;
-}
 
+}
+.heading {
+  display: flex;
+  gap: 90px
+}
 .property-info {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
-  border: yellow 1px solid;
   gap: 4px;
   align-items: center;
 }
+
+.unit-info {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  gap: 4px;
+  align-items: center;
+}
+
 .loading {
 
 }

@@ -1,10 +1,6 @@
 import mongoose from 'mongoose'
-import validator from 'validator'
 
 const PropertySchema = new mongoose.Schema({
-	propertyID: {
-		type: String
-	},
 	address : {
 		street: {
 			type: String,
@@ -29,6 +25,9 @@ const PropertySchema = new mongoose.Schema({
 	units : {
 		type: [mongoose.Types.ObjectId],
 		ref: 'Unit'
+	},
+	numUnitsVacant: {
+		type: Number
 	}
 
 })

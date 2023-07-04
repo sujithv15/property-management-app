@@ -32,15 +32,14 @@ const UnitSchema = new mongoose.Schema( {
 		required: true
 	},
 	tenant: {
+		type: String,
+	},
+	tenantDetails: {
 		type: mongoose.Types.ObjectId,
 		ref: 'Tenant'
 	},
-	unitID: {
-		type: String
-	},
 	rent: {
-		type: mongoose.Types.ObjectId,
-		ref: "Rent"
+		type: Number
 	},
 	fmrRent: {
 		type: Number

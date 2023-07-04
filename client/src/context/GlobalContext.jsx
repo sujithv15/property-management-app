@@ -18,6 +18,9 @@ import {
 	READ_PROPERTIES_BEGIN,
 	READ_PROPERTIES_SUCCESS,
 	READ_PROPERTIES_ERROR,
+	UPDATE_PROPERTY_BEGIN,
+	UPDATE_PROPERTY_SUCCESS,
+	UPDATE_PROPERTY_ERROR,
 	CREATE_TENANT_BEGIN,
 	CREATE_TENANT_SUCCESS,
 	CREATE_TENANT_ERROR,
@@ -50,7 +53,8 @@ const initialState = {
 	tenants: [],
 	units: [],
 	payments: [],
-	rents: []
+	rents: [],
+	property: []
 }
 
 const GlobalContext = createContext()
@@ -165,6 +169,24 @@ const GlobalProvider = ({ children }) => {
 		clearAlert()
 	}
 
+	const updateProperty = async (property) => {
+		dispatch({ type: UPDATE_PROPERTY_BEGIN })
+		try {
+			const response = await ax.patch(`/admin/properties/${property._id}`, property)
+			const { property } = response.data
+			dispatch({
+				type: UPDATE_PROPERTY_SUCCESS,
+				payload: { property }
+			})
+		} catch (error) {
+			dispatch({
+				type: UPDATE_PROPERTY_ERROR,
+				payload: { msg: error}
+			})
+		}
+		clearAlert()
+	}
+
 	const readTenants = async () => {
 		dispatch({ type: READ_TENANTS_BEGIN })
 		try {
@@ -231,6 +253,24 @@ const GlobalProvider = ({ children }) => {
 		} catch (error) {
 			dispatch({
 				type: CREATE_UNIT_ERROR,
+				payload: {msg: error}
+			})
+		}
+		clearAlert()
+	}
+
+	const getUnit = async (unit) => {
+		dispatch({type: GET_UNIT_BEGIN})
+		try {
+			const response = await ax(`/admin/units/${unit}`)
+			const {unit} = response.data
+			dispatch({
+				type: GET_UNIT_SUCCESS,
+				payload: {unit}
+			})
+		} catch (error) {
+			dispatch({
+				type: GET_UNIT_ERROR,
 				payload: {msg: error}
 			})
 		}
@@ -313,6 +353,7 @@ const GlobalProvider = ({ children }) => {
 		<GlobalContext.Provider value={
 			{
 				...state,
+				ax,
 				loginUser,
 				logoutUser,
 				registerUser,
@@ -320,6 +361,7 @@ const GlobalProvider = ({ children }) => {
 				clearAlert,
 				createProperty,
 				readProperties,
+				updateProperty,
 				createTenant,
 				readTenants,
 				readUnits,
@@ -327,7 +369,8 @@ const GlobalProvider = ({ children }) => {
 				createPayment,
 				readPayments,
 				createRent,
-				readRents
+				readRents,
+				getUnit
 			}
 		}>
 			{ children }

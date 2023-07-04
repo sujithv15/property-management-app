@@ -16,7 +16,9 @@ const RequestSchema = new mongoose.Schema({
 	completed: {
 		type: Boolean,
 		default: false
-	}
-})
+	},
+
+
+}, {timestamps: true})
 
 export default mongoose.model('Request', RequestSchema)

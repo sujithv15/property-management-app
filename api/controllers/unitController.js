@@ -6,6 +6,8 @@ const createUnit = async (req, res, next) => {
 	// create new unit using Unit model method
 	const newUnit = await Unit.create(req.body)
 	// send response JSON to include new unit
+	const propertyID = newUnit.property
+	console.log(propertyID);
 	res.status(StatusCodes.CREATED).json({newUnit})
 }
 
@@ -23,4 +25,24 @@ const getSingleUnit = async (req, res, next) => {
 	res.status(StatusCodes.OK).json({unit})
 }
 
-export { getAllUnits, getSingleUnit, createUnit }
+const updateUnit = async (req, res) => {
+	const { id } = req.params
+	const unit = await Unit.findById(id)
+	if (!unit) {
+		throw new NotFoundError(`No unit with id :${id}`);
+	}
+	await Unit.findByIdAndUpdate(id, req.body)
+	res.status(StatusCodes.OK).json({unit})
+}
+
+const deleteUnit = async (req, res) => {
+	const { id } = req.params
+	const unit = await Unit.findById(id)
+	if (!unit) {
+		throw new NotFoundError(`No unit with id :${id}`);
+	}
+	await Unit.findByIdAndDelete(id)
+	res.status(StatusCodes.OK).json({unit})
+}
+
+export { getAllUnits, getSingleUnit, createUnit, updateUnit, deleteUnit }

@@ -1,6 +1,5 @@
-
 import {useGlobalContext} from "../../context/GlobalContext";
-import {useEffect} from "react";
+import {useState, useEffect} from "react";
 import PropertyForm from "../../components/forms/PropertyForm.jsx";
 import {Loading} from "../../components/index.jsx";
 import Property from "../../components/Property.jsx";
@@ -9,6 +8,8 @@ import Property from "../../components/Property.jsx";
 const Properties = () => {
 
 	const { readProperties, isLoading, properties } = useGlobalContext()
+
+	const [showForm, setShowForm] = useState(false)
 
 	useEffect(() => {
 		readProperties()
@@ -25,8 +26,8 @@ const Properties = () => {
 
 	return (
 		<div className="page">
-
 			<div className="display-container properties">
+
 				<ul className="properties-list">
 					{properties?.map(property => {
 						return (
@@ -38,8 +39,12 @@ const Properties = () => {
 				</ul>
 			</div>
 
+			{showForm ?
+				<PropertyForm />
+				:
+				<button className="btn" onClick={() => setShowForm(!showForm)}>add property</button>
+			}
 
-			<PropertyForm />
 		</div>
 	);
 };

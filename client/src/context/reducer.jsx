@@ -14,6 +14,9 @@ import {
 	READ_PROPERTIES_BEGIN,
 	READ_PROPERTIES_SUCCESS,
 	READ_PROPERTIES_ERROR,
+	UPDATE_PROPERTY_BEGIN,
+	UPDATE_PROPERTY_SUCCESS,
+	UPDATE_PROPERTY_ERROR,
 	CREATE_TENANT_BEGIN,
 	CREATE_TENANT_SUCCESS,
 	CREATE_TENANT_ERROR,
@@ -26,6 +29,9 @@ import {
 	READ_UNITS_BEGIN,
 	READ_UNITS_SUCCESS,
 	READ_UNITS_ERROR,
+	GET_UNIT_BEGIN,
+	GET_UNIT_SUCCESS,
+	GET_UNIT_ERROR,
 	CREATE_PAYMENT_BEGIN,
 	CREATE_PAYMENT_SUCCESS,
 	CREATE_PAYMENT_ERROR,
@@ -179,6 +185,34 @@ const Reducer = (state, action) => {
 		}
 	}
 
+	if (action.type === UPDATE_PROPERTY_BEGIN) {
+		return {
+			...state,
+			isLoading: true
+		}
+	}
+
+	if (action.type === UPDATE_PROPERTY_SUCCESS) {
+		return {
+			...state,
+			property: action.payload.property,
+			isLoading: false,
+			showAlert: true,
+			alertType: 'success',
+			alertText: 'retrieving properties...'
+		}
+	}
+
+	if (action.type === UPDATE_PROPERTY_ERROR) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: 'danger',
+			alertText: action.payload.msg
+		}
+	}
+
 	if (action.type === CREATE_TENANT_BEGIN) {
 		return {
 			...state,
@@ -288,6 +322,35 @@ const Reducer = (state, action) => {
 			alertText: action.payload.msg
 		}
 	}
+
+	if (action.type === GET_UNIT_BEGIN) {
+		return {
+			...state,
+			isLoading: true
+		}
+	}
+
+	if (action.type === GET_UNIT_SUCCESS) {
+		return {
+			...state,
+			unit: action.payload.unit,
+			isLoading: false,
+			showAlert: true,
+			alertType: 'success',
+			alertText: 'retrieving unit...'
+		}
+	}
+
+	if (action.type === GET_UNIT_ERROR) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: 'danger',
+			alertText: action.payload.msg
+		}
+	}
+
 
 	if (action.type === CREATE_PAYMENT_BEGIN) {
 		return {

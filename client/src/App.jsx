@@ -5,6 +5,7 @@ import UserDashboard from "./pages/user/UserDashboard.jsx";
 import ProtectedRoute from "./pages/ProtectedRoute.jsx";
 import Layout from "./pages/Layout.jsx";
 import {Units} from "./pages/admin";
+import PropertyDetails from "./pages/admin/PropertyDetails.jsx";
 
 
 const App = () => {
@@ -27,6 +28,7 @@ const App = () => {
 				>
 					<Route index element={<AdminDashboard />}/>
 					<Route path="properties" element={<Properties />} />
+					<Route path="propertydetail" element={<PropertyDetails />} />
 					<Route path="register" element={<Register />} />
 					<Route path="payments" element={<Payments />} />
 					<Route path="maintenance" element={<Maintenance />} />

@@ -41,9 +41,31 @@ const TenantSchema = new mongoose.Schema({
 		unique: true,
 	},
 	rent: {
-		type: mongoose.Types.ObjectId,
-		ref: 'Rent',
+		type: Number,
+		required: true,
 	},
+	balance: {
+		type: Number,
+		default: 0
+	},
+	isAssisted: {
+		type: Boolean,
+		default: false
+	},
+	rentAssistance: {
+		tenantPortion: {
+			type: Number
+		},
+		assistedPortion: {
+			type: Number
+		},
+		agent: {
+			name: { type: String },
+			agency: { type: String },
+			phone: { type: String },
+			email: { type: String}
+		}
+	}
 })
 
 export default mongoose.model('Tenant', TenantSchema)

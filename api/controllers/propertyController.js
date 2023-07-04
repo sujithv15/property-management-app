@@ -2,26 +2,45 @@ import Property from "../models/Property.js";
 import { StatusCodes } from "http-status-codes";
 import { BadRequestError, NotFoundError } from "../errors/index.js"
 
-const createProperty = async (req, res, next) => {
+const createProperty = async (req, res) => {
 	// create new property using Property Model, letting mongoose take care of validation
 	const newProperty = await Property.create(req.body)
-
 	// send response JSON to include appliance
 	res.status(StatusCodes.CREATED).json({newProperty})
 }
 
-const getAllProperties = async (req, res, next) => {
-	const properties = await Property.find()
+const getAllProperties = async (req, res) => {
+	const properties = await Property.find().populate("units")
 	res.status(StatusCodes.OK).json({properties})
 }
 
-const getPropertyDetails = async (req, res, next) => {
+const getPropertyDetails = async (req, res) => {
 	const {id} = req.params
-	const property = await Property.find({_id: id})
+	const property = await Property.findById(id).populate("units").populate("tenants")
 	if (!property) {
 		throw new NotFoundError(`No property with id :${id}`);
 	}
-	res.status(StatusCodes.OK).json(property)
+	res.status(StatusCodes.OK).json({property})
 }
 
-export { createProperty, getAllProperties, getPropertyDetails }
+const updateProperty = async (req, res) => {
+	const { id } = req.params
+	const property = await Property.findById(id)
+	if (!property) {
+		throw new NotFoundError(`No property with id :${id}`);
+	}
+	await Property.findByIdAndUpdate(id, req.body)
+	res.status(StatusCodes.OK).json({property})
+}
+
+const deleteProperty = async (req, res) => {
+	const { id } = req.params
+	const property = await Property.findById(id)
+	if (!property) {
+		throw new NotFoundError(`No property with id :${id}`);
+	}
+	await Property.findByIdAndDelete(id)
+	res.status(StatusCodes.OK).json({property})
+}
+
+export { createProperty, getAllProperties, getPropertyDetails, updateProperty, deleteProperty }
