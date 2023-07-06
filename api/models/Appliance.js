@@ -1,9 +1,13 @@
 import mongoose from 'mongoose'
 
 const ApplianceSchema = new mongoose.Schema({
-	type: {
+	unit: {
+		type: mongoose.Types.ObjectId,
+		ref: 'unit'
+	},
+	appliance: {
 		type: String,
-		enum: ['refrigerator', 'microwave', 'stove', 'dishwasher'],
+		enum: ['refrigerator', 'microwave', 'stove', 'dishwasher', 'air-conditioner', 'water heater', 'washer', 'dryer'],
 		required: true
 	},
 	datePurchased: {

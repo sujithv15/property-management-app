@@ -48,6 +48,7 @@ const login = async (req, res) => {
 		throw new UnauthenticatedError('Invalid credentials')
 	}
 	const token = user.createJWT()
+	console.log(token);
 	attachCookies({ res, token })
 	res.status(StatusCodes.OK).json({user})
 }

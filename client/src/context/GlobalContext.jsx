@@ -129,7 +129,7 @@ const GlobalProvider = ({ children }) => {
 	}
 
 	const logoutUser = async () => {
-		await ax('/authenticateUser/logout')
+		await ax('/authenticate/logout')
 		dispatch({ type: LOGOUT_USER})
 	}
 

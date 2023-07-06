@@ -12,6 +12,10 @@ const TenantSchema = new mongoose.Schema({
 		ref: 'Unit',
 		required: [true, 'Please provide unit'],
 	},
+	user: {
+		type: mongoose.Types.ObjectId,
+		ref: 'User'
+	},
 	lastName: {
 		type: String,
 		minlength: 3,

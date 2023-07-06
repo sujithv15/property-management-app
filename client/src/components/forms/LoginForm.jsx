@@ -22,7 +22,7 @@ const LoginForm = () => {
 		setValues({...values, [e.target.name]: e.target.value})
 	}
 
-	// authenticateUser (for now) that admin is trying to log in, then send to loginUser function
+	// loginUser function calls api with get request to validate login info
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		const {email, password} = values

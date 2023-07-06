@@ -18,11 +18,7 @@ const Properties = () => {
 	if (isLoading) {
 		return <Loading center />;
 	}
-	if (properties.length === 0) {
-		return (
-			<h2>No properties to display...</h2>
-		);
-	}
+
 
 	return (
 		<div className="properties-page page">

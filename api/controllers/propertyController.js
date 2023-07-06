@@ -5,10 +5,11 @@ import { BadRequestError, NotFoundError } from "../errors/index.js"
 const createProperty = async (req, res) => {
 	// create new property using Property Model, letting mongoose take care of validation
 	const newProperty = await Property.create(req.body)
-	// send response JSON to include appliance
+	// send response JSON to include newly created property
 	res.status(StatusCodes.CREATED).json({newProperty})
 }
 
+// get all properties, and populate units in each property with tenant information
 const getAllProperties = async (req, res) => {
 	const properties = await Property.find()
 	                                 .populate({
@@ -21,6 +22,7 @@ const getAllProperties = async (req, res) => {
 	res.status(StatusCodes.OK).json({properties})
 }
 
+// could possibly handle this with front end?
 const getPropertyDetails = async (req, res) => {
 	const {id} = req.params
 	const property = await Property.findById(id).populate("units").populate("tenants")
@@ -29,6 +31,7 @@ const getPropertyDetails = async (req, res) => {
 	}
 	res.status(StatusCodes.OK).json({property})
 }
+
 
 const updateProperty = async (req, res) => {
 	const { id } = req.params

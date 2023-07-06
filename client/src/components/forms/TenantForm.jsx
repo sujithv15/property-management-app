@@ -6,15 +6,14 @@ import FormRowSelect from "./FormRowSelect.jsx";
 
 const initialState = {
 	property: '',
-	unit: '',
 	lastName: '',
 	firstName: '',
 }
 
-const TenantForm = () => {
+const TenantForm = ({ property, unit }) => {
 
 	const [values, setValues] = useState(initialState)
-	const { displayAlert, clearAlert, isLoading, createTenant, readTenants, tenants, properties, units } = useGlobalContext()
+	const { displayAlert, clearAlert, createTenant } = useGlobalContext()
 
 	const handleChange = (e) => {
 		setValues({...values, [e.target.name]: e.target.value})
@@ -37,8 +36,8 @@ const TenantForm = () => {
 	return (
 		<div>
 			<form className="form" onSubmit={handleSubmit}>
-				<FormRow labelText="property" type="text" name="name" value={values.property} handleChange={handleChange}/>
-				<FormRow labelText="unit" type="text" name="unit" value={values.unit} handleChange={handleChange}/>
+				<FormRow labelText="property" name="property" value={property}/>
+				<FormRow labelText="unit" type="text" name="unit" value={unit} readOnly={true}/>
 				<FormRow labelText="lastName" type="text" name="lastName" value={values.lastName} handleChange={handleChange}/>
 				<FormRow labelText="firstName" type="text" name="firstName" value={values.firstName} handleChange={handleChange}/>
 				<FormRow labelText="email" type="email" name="email" value={values.email} handleChange={handleChange}/>

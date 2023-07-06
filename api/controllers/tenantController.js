@@ -1,6 +1,6 @@
 import Tenant from "../models/Tenant.js";
 import { StatusCodes } from "http-status-codes";
-import { BadRequestError, NotFoundError } from "../errors/index.js";
+import { UnauthenticatedError, NotFoundError } from "../errors/index.js";
 
 const createTenant = async (req, res, next) => {
 
@@ -16,11 +16,32 @@ const getAllTenants = async (req, res, next) => {
 }
 
 const getTenantDetails = async (req, res, next) => {
-	const {id} = req.params
-	const tenant = await Tenant.find({_id: id})
+
+	if (req.params.id !== req.user.tenantID) {
+		throw new UnauthenticatedError('user not authenticated')
+	}
+	const tenantDetails = await Tenant.findById(req.params.id)
+	res.status(StatusCodes.OK).json({ tenantDetails} )
+}
+
+const updateTenant = async (req, res) => {
+	const { id } = req.params
+	const tenant = await Tenant.findById(id)
 	if (!tenant) {
 		throw new NotFoundError(`No tenant with id :${id}`);
 	}
+	await Tenant.findByIdAndUpdate(id, req.body)
 	res.status(StatusCodes.OK).json({tenant})
 }
-export { createTenant, getAllTenants, getTenantDetails }
+
+const deleteTenant = async (req, res) => {
+	const { id } = req.params
+	const tenant = await Tenant.findById(id)
+	if (!tenant) {
+		throw new NotFoundError(`No tenant with id :${id}`);
+	}
+	await Tenant.findByIdAndDelete(id)
+	res.status(StatusCodes.OK).json({tenant})
+}
+
+export { createTenant, getAllTenants, getTenantDetails, updateTenant, deleteTenant }

@@ -6,6 +6,10 @@ const RequestSchema = new mongoose.Schema({
 		type: mongoose.Types.ObjectId,
 		ref: 'Unit',
 	},
+	user: {
+		type: mongoose.Types.ObjectId,
+		ref: 'Tenant'
+	},
 	request: {
 		type: String
 	},

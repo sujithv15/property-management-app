@@ -2,10 +2,9 @@ import {useState} from "react";
 import {useGlobalContext} from "../../context/GlobalContext.jsx";
 import {toast} from "react-toastify";
 import FormRow from "./FormRow.jsx";
-import FormRowSelect from "./FormRowSelect.jsx";
 
 const initialState = {
-	propertyID: '',
+	name: '',
 	street: '',
 	city: '',
 	state: '',
@@ -16,7 +15,7 @@ const PropertyForm = () => {
 
 	const [values, setValues] = useState(initialState)
 
-	const { displayAlert, clearAlert, createProperty, readUnits, readProperties, properties } = useGlobalContext()
+	const { displayAlert, clearAlert, createProperty } = useGlobalContext()
 
 	const handleChange = (e) => {
 		setValues({...values, [e.target.name]: e.target.value})
@@ -24,14 +23,14 @@ const PropertyForm = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		const { propertyID, street, city, state, zip, units } = values
-		if (!propertyID || !street || !city || !state || !zip) {
+		const { name, street, city, state, zip, units } = values
+		if (!name || !street || !city || !state || !zip) {
 			displayAlert()
 			clearAlert()
 			return
 		}
 
-		const property = { propertyID, street, city, state, zip, units }
+		const property = { name, street, city, state, zip, units }
 		createProperty(property)
 		toast.success('Property Successfully Created')
 	}
@@ -41,7 +40,7 @@ const PropertyForm = () => {
 
 
 			<form className="form" onSubmit={handleSubmit}>
-				<FormRow labelText="property id" type="text" name="name" value={values.propertyID} handleChange={handleChange}/>
+				<FormRow labelText="name" type="text" name="name" value={values.name} handleChange={handleChange}/>
 				<FormRow labelText="street" type="text" name="street" value={values.street} handleChange={handleChange}/>
 				<FormRow labelText="city" type="text" name="city" value={values.city} handleChange={handleChange}/>
 				<FormRow labelText="state" type="text" name="state" value={values.state} handleChange={handleChange}/>

@@ -183,6 +183,45 @@ ul {
   text-transform: capitalize;
 }
 
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading {
+  width: 6rem;
+  height: 6rem;
+  border: 5px solid #829ab1;
+  border-radius: 50%;
+  border-top-color: #2cb1bc;
+  animation: spinner 2s linear infinite;
+}
+.loading-center {
+  margin: 0 auto;
+}
+
+.title {
+  text-align: center;
+}
+
+.title-underline {
+  background: #2cb1bc;
+  width: 7rem;
+  height: 0.25rem;
+  margin: 0 auto;
+  margin-top: -1rem;
+}
+
+.container {
+  width: 90vw;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+.full-page {
+  min-height: 100vh;
+}
+
 
 main {
 

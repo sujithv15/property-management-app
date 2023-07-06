@@ -30,6 +30,10 @@ const UnitSchema = new mongoose.Schema( {
 		type: mongoose.Types.ObjectId,
 		ref: 'Tenant'
 	},
+	user: {
+		type: mongoose.Types.ObjectId,
+		ref: 'User'
+	},
 	bedrooms : {
 		type: Number,
 	},
