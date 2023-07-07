@@ -1,17 +1,24 @@
-import User from "../models/Unit.js";
+import User from "../models/User.js";
 import { StatusCodes } from "http-status-codes";
-import { BadRequestError } from "../errors/index.js";
+import { BadRequestError, NotFoundError, UnauthenticatedError } from "../errors/index.js";
 import { attachCookies, createJWT } from "../utils/index.js";
 
-const getAllUsers = async (req, res, next) => {
-	res.send('getAllUsers')
+const getAllUsers = async (req, res) => {
+	const users = await User.find({ isAdmin: false })
+	res.status(StatusCodes.OK).json({ users })
 }
 
-const showCurrentUser = async (req, res, next) => {
-	res.send('showCurrentUser')
+const showCurrentUser = async (req, res) => {
+	res.status(StatusCodes.OK).json({ user: req.user })
 }
-const getUserInfo = async (req, res, next) => {
-	res.send('getUserInfo')
+
+const getUserInfo = async (req, res) => {
+	const { id } = req.params
+	const user = await User.findById(id)
+	if (!user) {
+		throw new NotFoundError(`No user with id: ${id}`)
+	}
+	res.status(StatusCodes.OK).json({ user })
 }
 
 const updateUser = async (req, res) => {
@@ -46,7 +53,22 @@ const updateUserPassword = async (req, res) => {
 	if (!oldPassword|| !newPassword) {
 		throw new BadRequestError('please provide old and new passwords')
 	}
-
+	// find user with the userID in req.user
+	const user = await User.findById(req.user.userID).select('+password')
+	// don't really need to verify if user exists, since its being done on the middleware
+	if (!user) {
+		throw new NotFoundError(`No user with id: ${req.user.userID}`)
+	}
+	// verify that oldPassword is the correct password with User function
+	const passwordVerified = await user.comparePassword(oldPassword)
+	if (!passwordVerified) {
+		throw new UnauthenticatedError('Invalid credentials')
+	}
+	// set to new password
+	user.password = newPassword
+	// pre-save function from User is invoked, and newPassword gets properly hashed and saved
+	await user.save()
+	res.status(StatusCodes.OK).json({ msg: 'Password successfully updated'})
 }
 
 export { getAllUsers, getUserInfo, updateUser, updateUserPassword, showCurrentUser }
