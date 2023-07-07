@@ -1,12 +1,12 @@
 import express from 'express'
-const app = express()
 import dotenv from 'dotenv'
-dotenv.config()
 import 'express-async-errors'
-import morgan from 'morgan'
-import cookieParser from "cookie-parser"
-
-// routers
+// security package imports
+import helmet from "helmet";
+import cors from 'cors'
+import xss from 'xss-clean'
+import rateLimit from "express-rate-limit";
+// routers imports
 import authRouter from "./routes/authRoutes.js"
 import applianceRoutes from "./routes/applianceRoutes.js";
 import unitsRoutes from "./routes/unitRoutes.js";
@@ -14,26 +14,45 @@ import userRoutes from "./routes/userRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
 import propertyRoutes from "./routes/propertyRoutes.js";
 import tenantRoutes from "./routes/tenantRoutes.js";
-
-// middleware
+// remaining middleware imports
+import morgan from 'morgan'
+import cookieParser from "cookie-parser"
 import errorHandler from "./middleware/error-handler.js";
 import notFound from "./middleware/not-found.js";
 import { authenticateUser, authenticateAdmin } from "./middleware/authenticateUser.js"
 
+//-------------------//
+const app = express()
+dotenv.config()
 
+app.set('trust proxy', 1)  // if behind reverse proxy
+app.use(rateLimit({
+	windowMs: 15 * 60 *1000, //15 min
+	max: 100 //limit each IP to 100 req per windowMs
+}))
+app.use(helmet());
+app.use(cors({
+	origin: 'http://localhost:5173',
+	credentials: true
+}))
+app.use(xss());
 if (process.env.NODE_ENV !== 'production') {
 	app.use(morgan('dev'))
 }
 app.use(express.json())
-app.use(cookieParser())
+app.use(cookieParser(process.env.JWT_SECRET))
 
 
-// routes containing login, register, update, and logout
-//-- login(open route)
-//-- register(protected to admin)
-//-- update & logout(protected to users)
-app.use('/api/v1/authenticate', authRouter)
-app.use('/api/v1/user', userRoutes)
+app.get('/', (req, res) => {
+	res.send('property management api')
+})
+app.get('/api/v1', (req, res) => {
+	console.log(req.signedCookies);
+	res.send('property management api')
+})
+
+app.use('/api/v1/auth', authRouter)  // login, logout, register
+app.use('/api/v1/user', userRoutes)  // getAllUsers, getUserInfo, showCurrentUser
 app.use('/api/v1/admin/appliances', applianceRoutes)
 app.use('/api/v1/admin/units', unitsRoutes)
 app.use('/api/v1/admin/payments', paymentRoutes)

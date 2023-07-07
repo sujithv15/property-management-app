@@ -1,14 +1,14 @@
 import { StatusCodes } from "http-status-codes";
-import { BadRequestError, UnauthenticatedError } from '../errors/index.js'
+import { BadRequestError, UnauthenticatedError } from "../errors/index.js";
 import User from "../models/User.js"
-import attachCookies from "../utils/attachCookies.js";
+import { attachCookies, createJWT, validateJWT } from "../utils";
+
 
 const register = async (req, res) => {
 	// destructure fields from request body
-	const { name, email, password } = req.body
-	console.log(req.body);
+	const { lastName, firstName, email, password } = req.body
 	// if any fields missing from user front end, throw error
-	if (!name || !email || !password) {
+	if (!lastName || !firstName || !email || !password) {
 		throw new BadRequestError('Please provide all values')
 	}
 	// validate that user not already in database
@@ -19,19 +19,27 @@ const register = async (req, res) => {
 	// first registered user is admin
 	const isFirstUser = (await User.countDocuments({})) === 0
 
-	// create as new user in mongodb
-	const user = await User.create({ name, email, password, isAdmin: isFirstUser })
+	// create new user in mongodb
+	const user = await User.create({ lastName, firstName, email, password, isAdmin: isFirstUser })
 
-	const token = user.createJWT()
+	// user variable with just the fields we want to send
+	const userInfo = { userID: user._id, isAdmin: user.isAdmin }
+
+	// create jwt with jwt.sign
+	const token = createJWT({ payload: userInfo })
+
+	// create cookie in the response, where we attach token
 	attachCookies({ res, token })
 
 	// send response JSON to include user fields
-	res.status(StatusCodes.CREATED).json({ user: { name: user.name, email: user.email } })
+	res.status(StatusCodes.CREATED).json({ user: { lastName: user.lastName, firstName: user.firstName, email: user.email } })
 }
 
 const login = async (req, res) => {
 	// destructure login obj sent from front end
 	const { email, password } = req.body
+
+	// if any fields missing from user front end, throw error
 	if (!email || !password) {
 		throw new BadRequestError('please provide email and password')
 	}
@@ -41,41 +49,31 @@ const login = async (req, res) => {
 	if (!user) {
 		throw new UnauthenticatedError('Invalid credentials')
 	}
+
 	// verify entered password using function we created in User.js
 	// to compare with this.password
 	const passwordVerified = await user.comparePassword(password)
 	if (!passwordVerified) {
 		throw new UnauthenticatedError('Invalid credentials')
 	}
-	const token = user.createJWT()
-	console.log(token);
+	// user variable with just the fields we want to send
+	const userInfo = { userID: user._id, isAdmin: user.isAdmin }
+
+	// create jwt with jwt.sign
+	const token = createJWT({ payload: userInfo })
+
+	// create cookie in the response, where we attach token
 	attachCookies({ res, token })
-	res.status(StatusCodes.OK).json({user})
+	res.status(StatusCodes.OK).json({ user: { lastName: user.lastName, firstName: user.firstName, email: user.email } })
 }
 
 const logout = async (req, res) => {
+	// change token name to anything, then expire it
 	res.cookie('token', 'logout', {
 		httpOnly: true,
-		expires: new Date(Date.now() + 1000),
+		expires: new Date(Date.now()),
 	});
-	res.status(StatusCodes.OK).json({ msg: 'user logged out!' });
+	res.status(StatusCodes.OK).json({ msg: 'user logged out' });
 };
 
-const update = async (req, res) => {
-	const { id } = req.params
-	const user = await User.findOne({ _id: id });
-	const { email, name, unit, tenant } = req.body;
-
-	user.unit = unit
-	user.tenant = tenant
-
-	await user.save();
-	const token = user.createJWT();
-	attachCookies({ res, token });
-
-	res.status(StatusCodes.OK).json({ user });
-}
-
-
-
-export { login, register, update, logout }
+export { login, register, logout }

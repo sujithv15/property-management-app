@@ -2,9 +2,17 @@ import mongoose from 'mongoose'
 import validator from "validator";
 import  bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+import { InternalServerError, UnauthenticatedError } from "../errors/index.js";
 
 const UserSchema = new mongoose.Schema({
-	name: {
+	lastName: {
+		type: String,
+		required: [true, 'please provide name'],
+		minLength: 2,
+		maxLength: 40,
+		trim: true,
+	},
+	firstName: {
 		type: String,
 		required: [true, 'please provide name'],
 		minLength: 2,
@@ -49,31 +57,32 @@ const UserSchema = new mongoose.Schema({
 		type: Date,
 		default: () => Date.now()
 	}
-})
+}, { timestamps: true })
 
-// hash method on user to hash user.password
+// function to hash user entered password on new user creation before we save
+// will be invoked on user everytime save() is called on this
 UserSchema.pre('save', async function() {
+	// can use this.modifiedPaths() to return all modified values on user.save()
+	// if password was not modified, we can return from this function without
+	// ...inadvertently hashing password again
 	if (!this.isModified('password')) return
-	const salt = await bcrypt.genSalt(10)
-	this.password = await bcrypt.hash(this.password, salt)
+	try {
+		const salt = await bcrypt.genSalt(10)
+		this.password = await bcrypt.hash(this.password, salt)
+	} catch (error) {
+		throw new InternalServerError('password hash failed')
+	}
 })
 
-// create JWT token
-UserSchema.methods.createJWT = function () {
-	return jwt.sign(
-		{ userID: this._id, isAdmin: this.isAdmin },
-		process.env.JWT_SECRET,
-		{ expiresIn: process.env.JWT_LIFETIME }
-	)
-}
-
-// create method on user to compare entered password to user.password
+// function on user to compare entered password to user.password
 UserSchema.methods.comparePassword = async function(candidatePassword) {
-	console.log(candidatePassword)
-	console.log(this.password)
-	return await bcrypt.compare(candidatePassword, this.password)
-
-
-
+	try {
+		if (await bcrypt.compare(candidatePassword, this.password)) {
+			return true
+		}
+	} catch {
+		throw new UnauthenticatedError('invalid password')
+	}
 }
+
 export default mongoose.model('User', UserSchema)

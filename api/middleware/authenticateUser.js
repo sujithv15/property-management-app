@@ -3,7 +3,7 @@ import { UnauthenticatedError } from '../errors/index.js';
 import Tenant from "../models/Tenant.js";
 
 
-// all protected routes will be authenticated
+// all protected routes will be authorized
 const authenticateUser = async (req, res, next) => {
 
 	const token = req.cookies.token

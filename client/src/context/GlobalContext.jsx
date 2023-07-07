@@ -63,6 +63,7 @@ const GlobalProvider = ({ children }) => {
 	// axios
 	const ax = axios.create({
 		baseURL: 'http://localhost:8800/api/v1',
+		withCredentials: true
 	});
 	// response
 	ax.interceptors.response.use(
@@ -94,7 +95,7 @@ const GlobalProvider = ({ children }) => {
 	const registerUser = async (currentUser) => {
 		dispatch({ type: REGISTER_USER_BEGIN })
 		try {
-			const response = await ax.post('/authenticate/register', currentUser)
+			const response = await ax.post('/auth/register', currentUser)
 			const { user } = response.data
 			dispatch({
 				type: REGISTER_USER_SUCCESS,
@@ -113,7 +114,7 @@ const GlobalProvider = ({ children }) => {
 	const loginUser = async (currentUser) => {
 		dispatch({ type: LOGIN_USER_BEGIN })
 		try {
-			const response = await ax.post('/authenticate/login', currentUser)
+			const response = await ax.post('/auth/login', currentUser)
 			const { user } = response.data
 			dispatch({
 				type: LOGIN_USER_SUCCESS,
@@ -129,7 +130,7 @@ const GlobalProvider = ({ children }) => {
 	}
 
 	const logoutUser = async () => {
-		await ax('/authenticate/logout')
+		await ax('/auth/logout')
 		dispatch({ type: LOGOUT_USER})
 	}
 
