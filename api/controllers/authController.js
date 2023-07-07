@@ -1,7 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 import { BadRequestError, UnauthenticatedError } from "../errors/index.js";
 import User from "../models/User.js"
-import { attachCookies, createJWT, validateJWT } from "../utils";
+import { attachCookies, createJWT, validateJWT } from "../utils/index.js";
 
 
 const register = async (req, res) => {
