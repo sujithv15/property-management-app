@@ -249,13 +249,6 @@ nav {
 
 }
 
-.properties-container {
-
-}
-
-.properties-list {
-
-}
 
 .section-header {
   margin: auto;
@@ -265,22 +258,13 @@ nav {
   display: flex;
   gap: 90px
 }
-.property-info {
-  border-bottom: 1px solid black;
-  padding-bottom: 1em;
-  margin: 1em;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 4px;
-  align-items: center;
-}
 
-.property-info:last-child {
-  border-bottom: none;
+.unit-container {
+  border-bottom: 1px solid purple;
 }
 
 .unit-info {
-  border-bottom: 1px solid purple;
+
   padding-bottom: 1em;
   margin: 1em;
   display: grid;
@@ -289,9 +273,7 @@ nav {
   align-items: center;
 }
 
-.unit-info:last-child {
-  border-bottom: none;
-}
+
 .unit-item {
   display: inline-block;
   padding-right: .5em;

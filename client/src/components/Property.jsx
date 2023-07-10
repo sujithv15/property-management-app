@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Unit from "./Unit.jsx";
 import {NavLink} from "react-router-dom";
-import UnitForm from "./forms/UnitForm.jsx";
+import UnitUpdateForm from "./forms/UnitUpdateForm.jsx";
 
 const Property = (property) => {
 
@@ -30,7 +30,7 @@ const Property = (property) => {
 
 				<div className="unit-form">
 					{showUnits && 	<button className="btn" onClick={() => setShowForm(!showForm)}>add unit</button>}
-					{showForm && <UnitForm _id={_id}/>}
+					{showForm && <UnitUpdateForm _id={_id}/>}
 				</div>
 
 				<div className="unit-alerts"></div>

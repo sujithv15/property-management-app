@@ -1,27 +1,25 @@
 import mongoose from 'mongoose'
 
 const UnitSchema = new mongoose.Schema( {
-	address : {
-		unit: {
-			type: String,
-			required: [true, "Please provide unit"]
-		},
-		street: {
-			type: String,
-			required: [true, "Please provide street"]
-		},
-		city: {
-			type: String,
-			required: [true, "Please provide city"]
-		},
-		state: {
-			type: String,
-			required: true
-		},
-		zip: {
-			type: String,
-			required: [true, "Please provide zip"]
-		},
+	propertyUnit: {
+		type: String,
+		required: [true, "Please provide unit"]
+	},
+	street: {
+		type: String,
+		required: [true, "Please provide street"]
+	},
+	city: {
+		type: String,
+		required: [true, "Please provide city"]
+	},
+	state: {
+		type: String,
+		required: true
+	},
+	zip: {
+		type: String,
+		required: [true, "Please provide zip"]
 	},
 	isPrimary: {
 		type: Boolean,
