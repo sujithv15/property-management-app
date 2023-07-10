@@ -55,7 +55,6 @@ app.use('/api/v1/users', userRoutes)  // getAllUsers, getUserInfo, showCurrentUs
 app.use('/api/v1/admin/appliances', applianceRoutes)
 app.use('/api/v1/admin/units', unitsRoutes)
 app.use('/api/v1/admin/payments', paymentRoutes)
-app.use('/api/v1/admin/properties', propertyRoutes)
 
 // will contain all user personal routes so authentication per user middleware
 app.use('/api/v1/tenants', authenticateUser, tenantRoutes)

@@ -5,10 +5,6 @@ const Navbar = ({ user, links }) => {
 
 	const { logoutUser } = useGlobalContext()
 
-	const handleSubmit = (e) => {
-		e.preventDefault()
-	}
-
 	return (
 		<nav>
 			<div className="navbar">

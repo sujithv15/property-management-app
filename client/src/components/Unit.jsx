@@ -41,7 +41,7 @@ const Unit = (unit) => {
 				</div>
 
 				<div className="unit-tenant unit-item">
-					<a onClick={()=>setShowTenantDetails(!showTenantDetails)} style={{cursor: 'pointer'}}>{tenant?.lastName}, {tenant?.firstName}</a>
+					<a onClick={()=>setShowTenantDetails(!showTenantDetails)} style={{cursor: 'pointer'}}>{tenant? <>{`${tenant.lastName}, ${tenant.firstName}`}</> : <></> }</a>
 					<div className="unit-tenant-info">
 						{showTenantDetails && <Tenant {...tenant}/>}
 					</div>

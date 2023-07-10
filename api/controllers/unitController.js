@@ -11,7 +11,7 @@ const createUnit = async (req, res) => {
 
 // get all units, and populate each with tenant information
 const getAllUnits = async (req, res) => {
-	const units = await Unit.find.populate("tenant")
+	const units = await Unit.find().populate("tenant")
 	res.status(StatusCodes.OK).json({units})
 }
 
