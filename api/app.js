@@ -12,7 +12,6 @@ import applianceRoutes from "./routes/applianceRoutes.js";
 import unitsRoutes from "./routes/unitRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
-import propertyRoutes from "./routes/propertyRoutes.js";
 import tenantRoutes from "./routes/tenantRoutes.js";
 // remaining middleware imports
 import morgan from 'morgan'

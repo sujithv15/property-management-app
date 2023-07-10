@@ -23,6 +23,10 @@ const UnitSchema = new mongoose.Schema( {
 			required: [true, "Please provide zip"]
 		},
 	},
+	isPrimary: {
+		type: Boolean,
+		required: [true, "Please select if this will be the primary unit"]
+	},
 	tenant: {
 		type: mongoose.Types.ObjectId,
 		ref: 'Tenant'
@@ -50,7 +54,39 @@ const UnitSchema = new mongoose.Schema( {
 	repairs: {
 		type: [mongoose.Types.ObjectId],
 		ref: 'Repair'
+	},
+	insurance: {
+		company: {
+			type: String
+		},
+		premium: {
+			type: Number
+		},
+		details: {
+			type: String
+		}
+	},
+	mortgage: {
+		type: {}
+	},
+	association: {
+		type: String
+	},
+	taxes: {
+		type: [String]
+	},
+	maintenance: {
+		type: {}
+	},
+	createdAt: {
+		type: Date,
+		default: () => Date.now(),
+		immutable: true
+	},
+	updatedAt: {
+		type: Date,
+		default: () => Date.now()
 	}
-})
+}, { timestamps: true })
 
 export default mongoose.model('Unit', UnitSchema)
