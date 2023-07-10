@@ -1,16 +1,17 @@
 import {useGlobalContext} from "../../context/GlobalContext";
 import {useState, useEffect} from "react";
 import PropertyForm from "../../components/forms/PropertyForm.jsx";
-import {Loading} from "../../components/index.js";
+import { Alert, Loading } from "../../components/index.js";
 import Property from "../../components/Property.jsx";
 
 
 const Properties = () => {
 
-	const { readProperties, isLoading, properties } = useGlobalContext()
+	const { readProperties, isLoading, showAlert, properties } = useGlobalContext()
 
 	const [showForm, setShowForm] = useState(false)
 
+	// sets state.properties to [list of all properties]
 	useEffect(() => {
 		readProperties()
 	}, [])
@@ -27,6 +28,7 @@ const Properties = () => {
 				<h2>Properties</h2>
 			</div>
 
+			{showAlert && <Alert />}
 			<div className="properties-container">
 				<ul className="properties-list">
 					{properties?.map(property => {

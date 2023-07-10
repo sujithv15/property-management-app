@@ -12,6 +12,7 @@ import {
 	LOGIN_USER_SUCCESS,
 	LOGIN_USER_ERROR,
 	LOGOUT_USER,
+	LOGIN_ADMIN_SUCCESS,
 	CREATE_PROPERTY_SUCCESS,
 	CREATE_PROPERTY_BEGIN,
 	CREATE_PROPERTY_ERROR,
@@ -43,7 +44,7 @@ import {
 
 
 const initialState = {
-	isLoggedIn: false,
+	role: 'public',
 	showAlert: false,
 	isLoading: false,
 	alertType: '',
@@ -81,6 +82,7 @@ const GlobalProvider = ({ children }) => {
 
 	const [state, dispatch] = useReducer(reducer, initialState)
 
+/*----------------Alerts------------------*/
 	const displayAlert = () => {
 		dispatch({ type: DISPLAY_ALERT })
 		clearAlert()
@@ -92,6 +94,7 @@ const GlobalProvider = ({ children }) => {
 		}, 3000)
 	}
 
+/*----------------User------------------*/
 	const registerUser = async (currentUser) => {
 		dispatch({ type: REGISTER_USER_BEGIN })
 		try {
@@ -110,16 +113,22 @@ const GlobalProvider = ({ children }) => {
 		clearAlert()
 	}
 
-	// currentUser from login
 	const loginUser = async (currentUser) => {
 		dispatch({ type: LOGIN_USER_BEGIN })
 		try {
 			const response = await ax.post('/auth/login', currentUser)
 			const { user } = response.data
-			dispatch({
-				type: LOGIN_USER_SUCCESS,
-				payload: { user }
-			})
+			if (user.isAdmin) {
+				dispatch({
+					type: LOGIN_ADMIN_SUCCESS,
+					payload: { user }
+				})
+			} else {
+				dispatch({
+					type: LOGIN_USER_SUCCESS,
+					payload: { user }
+				})
+			}
 		} catch (error) {
 			dispatch({
 				type: LOGIN_USER_ERROR,
@@ -134,6 +143,7 @@ const GlobalProvider = ({ children }) => {
 		dispatch({ type: LOGOUT_USER})
 	}
 
+/*----------------Properties------------------*/
 	const readProperties = async () => {
 		dispatch({ type: READ_PROPERTIES_BEGIN })
 		try {
@@ -154,12 +164,11 @@ const GlobalProvider = ({ children }) => {
 
 	const createProperty = async (property) => {
 		dispatch({ type: CREATE_PROPERTY_BEGIN })
+
 		try {
-			const response = await ax.post('/admin/properties/create', property)
-			const { property } = response.data
+			await ax.post('/admin/properties/create', property)
 			dispatch({
 				type: CREATE_PROPERTY_SUCCESS,
-				payload: { property }
 			})
 		} catch (error) {
 			dispatch({
@@ -188,6 +197,7 @@ const GlobalProvider = ({ children }) => {
 		clearAlert()
 	}
 
+/*----------------Tenants------------------*/
 	const readTenants = async () => {
 		dispatch({ type: READ_TENANTS_BEGIN })
 		try {
@@ -224,6 +234,7 @@ const GlobalProvider = ({ children }) => {
 		clearAlert()
 	}
 
+/*----------------Units------------------*/
 	const readUnits = async () => {
 		dispatch({ type: READ_UNITS_BEGIN })
 		try {
@@ -278,6 +289,7 @@ const GlobalProvider = ({ children }) => {
 		clearAlert()
 	}
 
+/*----------------Payments------------------*/
 	const readPayments = async () => {
 		dispatch({ type: READ_PAYMENTS_BEGIN })
 		try {
@@ -313,7 +325,6 @@ const GlobalProvider = ({ children }) => {
 		}
 		clearAlert()
 	}
-
 
 	return (
 		<GlobalContext.Provider value={

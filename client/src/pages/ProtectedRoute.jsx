@@ -1,19 +1,12 @@
 import { Navigate } from "react-router-dom";
 import { useGlobalContext } from "../context/GlobalContext.jsx";
-import { Loading } from "../components/index.js"
 
 const ProtectedRoute = ({ children }) => {
-	const { user, userLoading } = useGlobalContext()
-
-	if (userLoading) return <Loading />
+	const { user } = useGlobalContext()
 
 	if (!user) {
-		return <Navigate to='/landing' />
+		return <Navigate to='/' />
 	}
-	if (!user.isAdmin) {
-		return <Navigate to='/user/dashboard' />
-	}
-
 
 	return children
 }

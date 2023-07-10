@@ -4,6 +4,7 @@ import { BadRequestError, NotFoundError } from "../errors/index.js"
 
 const createProperty = async (req, res) => {
 	// create new property using Property Model, letting mongoose take care of validation
+	console.log(req.body);
 	const newProperty = await Property.create(req.body)
 	// send response JSON to include newly created property
 	res.status(StatusCodes.CREATED).json({newProperty})

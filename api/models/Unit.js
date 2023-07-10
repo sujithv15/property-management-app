@@ -1,17 +1,14 @@
 import mongoose from 'mongoose'
 
 const UnitSchema = new mongoose.Schema( {
-	property: {
-		type: mongoose.Types.ObjectId,
-		ref: 'Property'
-	},
 	address : {
+		unit: {
+			type: String,
+			required: [true, "Please provide unit"]
+		},
 		street: {
 			type: String,
 			required: [true, "Please provide street"]
-		},
-		streetOptions: {
-			type: String
 		},
 		city: {
 			type: String,

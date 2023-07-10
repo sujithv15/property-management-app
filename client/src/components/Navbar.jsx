@@ -1,24 +1,30 @@
-import {NavLink} from "react-router-dom";
-import { adminLinks } from "../pages/admin/adminLinks.js";
-import { links } from "../pages/user/links.js";
+import { NavLink } from "react-router-dom";
+import { useGlobalContext } from "../context/GlobalContext.jsx";
 
-// validate if admin, user, or none is logged in. Display navbar links accordingly
+const Navbar = ({ user, links }) => {
 
-const Navbar = () => {
+	const { logoutUser } = useGlobalContext()
 
+	const handleSubmit = (e) => {
+		e.preventDefault()
+	}
 
 	return (
 		<nav>
 			<div className="navbar">
 					{
-						adminLinks.map((adminLink, index) => {
-						return (
-							<div key={index}>
-							<NavLink to={adminLink.url} className="nav-link">{adminLink.name}</NavLink>
-							</div>
-						)
-					})}
-
+						links.map((links, index) => {
+							return (
+								<div key={index}>
+								<NavLink to={links.url} className="nav-link">{links.name}</NavLink>
+								</div>
+							)
+						})
+					}
+				{
+					user &&
+					<button type="submit" className="btn" onClick={logoutUser}>logout</button>
+				}
 			</div>
 
 		</nav>

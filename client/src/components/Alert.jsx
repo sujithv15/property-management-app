@@ -1,5 +1,5 @@
 import {useGlobalContext} from "../context/GlobalContext.jsx";
-
+import { toast } from "react-toastify";
 
 const Alert = () => {
 
@@ -7,7 +7,7 @@ const Alert = () => {
 
 	return (
 		<div className={`alert alert-${alertType}`}>
-			{alertText}
+			{toast(alertText)}
 		</div>
 	)
 }

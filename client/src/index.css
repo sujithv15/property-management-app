@@ -9,18 +9,12 @@ html {
 } /*16px*/
 
 body {
-  background: whitesmoke;
+  background: lightcyan;
   font-family: 'Cabin', Sans-Serif;
   font-weight: 400;
   line-height: 1.75;
   color: slategray;
 }
-
-.navbar-container {
-  display: flex;
-  gap: 50px;
-}
-
 
 h1, h2, h3, h4, h5 {
   font-weight: 400;
@@ -169,7 +163,9 @@ ul {
 .form-row {
   margin-bottom: 1rem;
 }
-
+.form-select {
+  padding: 0.1rem 0.75rem;
+}
 .form-textarea {
   height: 7rem;
 }
@@ -181,24 +177,6 @@ ul {
   color: darkred;
   letter-spacing: 1px;
   text-transform: capitalize;
-}
-
-@keyframes spinner {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.loading {
-  width: 6rem;
-  height: 6rem;
-  border: 5px solid #829ab1;
-  border-radius: 50%;
-  border-top-color: #2cb1bc;
-  animation: spinner 2s linear infinite;
-}
-.loading-center {
-  margin: 0 auto;
 }
 
 .title {
@@ -221,7 +199,11 @@ ul {
 .full-page {
   min-height: 100vh;
 }
-
+.background {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
 
 main {
 
@@ -229,6 +211,11 @@ main {
 
 nav {
   text-align: center;
+}
+
+.navbar-container {
+  display: flex;
+  gap: 50px;
 }
 
 .navbar {
@@ -240,9 +227,11 @@ nav {
   justify-content: space-between;
   padding: 2rem;
   margin-bottom: 2rem;
-
 }
 
+.nav-link:active {
+  background-color: #2cb1bc;
+}
 .nav-links {
 
 }
@@ -281,7 +270,7 @@ nav {
   padding-bottom: 1em;
   margin: 1em;
   display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 4px;
   align-items: center;
 }
@@ -295,7 +284,7 @@ nav {
   padding-bottom: 1em;
   margin: 1em;
   display: grid;
-  grid-template-columns: 2fr 1fr 2fr 1fr 1fr 1fr;
+  grid-template-columns: 3fr 2fr 4fr 1fr 1fr 1fr;
   gap: 4px;
   align-items: center;
 }

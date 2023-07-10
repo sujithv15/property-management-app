@@ -22,7 +22,8 @@ const LoginForm = () => {
 		setValues({...values, [e.target.name]: e.target.value})
 	}
 
-	// loginUser function calls api with get request to validate login info
+	// loginUser function calls api with post request to validate login info
+	// context will set state.user and isAdmin appropriately
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		const {email, password} = values
@@ -38,10 +39,8 @@ const LoginForm = () => {
 	return (
 		<div>
 			<form className='form' onSubmit={handleSubmit}>
-				{showAlert && <Alert/>}
 				<FormRow name='email' labelText='email' type='email' value={values.email} handleChange={handleChange} />
-				<FormRow name='password' labelText='password' password='email' value={values.password}
-				         handleChange={handleChange} />
+				<FormRow name='password' labelText='password' password='email' value={values.password} handleChange={handleChange} />
 				<button type='submit' className='btn'>login</button>
 			</form>
 		</div>

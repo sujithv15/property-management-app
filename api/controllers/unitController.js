@@ -2,21 +2,19 @@ import Unit from "../models/Unit.js";
 import { StatusCodes } from "http-status-codes";
 import { BadRequestError, NotFoundError } from "../errors/index.js";
 
-const createUnit = async (req, res, next) => {
+const createUnit = async (req, res) => {
 	// create new unit using Unit model method
 	const newUnit = await Unit.create(req.body)
 	// send response JSON to include new unit
-	const propertyID = newUnit.property
-	console.log(propertyID);
 	res.status(StatusCodes.CREATED).json({newUnit})
 }
 
-const getAllUnits = async (req, res, next) => {
+const getAllUnits = async (req, res) => {
 	const units = await Unit.find()
 	res.status(StatusCodes.OK).json({units})
 }
 
-const getSingleUnit = async (req, res, next) => {
+const getSingleUnit = async (req, res) => {
 	const { id } = req.params
 	const unit = await Unit.findOne({_id: id})
 	if (!unit) {

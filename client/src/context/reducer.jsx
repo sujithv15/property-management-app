@@ -8,6 +8,7 @@ import {
 	LOGIN_USER_ERROR,
 	LOGIN_USER_SUCCESS,
 	LOGOUT_USER,
+	LOGIN_ADMIN_SUCCESS,
 	CREATE_PROPERTY_SUCCESS,
 	CREATE_PROPERTY_BEGIN,
 	CREATE_PROPERTY_ERROR,
@@ -38,18 +39,13 @@ import {
 	READ_PAYMENTS_BEGIN,
 	READ_PAYMENTS_SUCCESS,
 	READ_PAYMENTS_ERROR,
-	CREATE_RENT_BEGIN,
-	CREATE_RENT_SUCCESS,
-	CREATE_RENT_ERROR,
-	READ_RENTS_BEGIN,
-	READ_RENTS_SUCCESS,
-	READ_RENTS_ERROR,
 } from "./actions.jsx";
 
 import {initialState} from "./GlobalContext.jsx"
 
 const Reducer = (state, action) => {
 
+/*----------------Alerts------------------*/
 	if (action.type === DISPLAY_ALERT) {
 		return {
 			...state,
@@ -58,7 +54,6 @@ const Reducer = (state, action) => {
 			alertText: 'Please provide all values!'
 		}
 	}
-
 	if (action.type === CLEAR_ALERT) {
 		return {
 			...state,
@@ -68,24 +63,24 @@ const Reducer = (state, action) => {
 		}
 	}
 
+/*----------------Register User------------------*/
 	if (action.type === REGISTER_USER_BEGIN) {
 		return {
 			...state,
 			isLoading: true
 		}
 	}
-
 	if (action.type === REGISTER_USER_SUCCESS) {
 		return {
 			...state,
 			user: action.payload.user,
+			role: 'user',
 			isLoading: false,
 			showAlert: true,
 			alertType: 'success',
 			alertText: 'user created! redirecting...'
 		}
 	}
-
 	if (action.type === REGISTER_USER_ERROR) {
 		return {
 			...state,
@@ -96,24 +91,24 @@ const Reducer = (state, action) => {
 		}
 	}
 
+/*----------------Login/Logout------------------*/
 	if (action.type === LOGIN_USER_BEGIN) {
 		return {
 			...state,
 			isLoading: true
 		}
 	}
-
 	if (action.type === LOGIN_USER_SUCCESS) {
 		return {
 			...state,
 			user: action.payload.user,
+			role: 'user',
 			isLoading: false,
 			showAlert: true,
 			alertType: 'success',
 			alertText: 'user logged in! redirecting...'
 		}
 	}
-
 	if (action.type === LOGIN_USER_ERROR) {
 		return {
 			...state,
@@ -123,20 +118,30 @@ const Reducer = (state, action) => {
 			alertText: action.payload.msg
 		}
 	}
-
+	if (action.type === LOGIN_ADMIN_SUCCESS) {
+		return {
+			...state,
+			user: action.payload.user,
+			role: 'admin',
+			isLoading: false,
+			showAlert: true,
+			alertType: 'success',
+			alertText: 'admin logged in! redirecting...'
+		}
+	}
 	if (action.type === LOGOUT_USER) {
 		return {
 			...initialState,
 		};
 	}
 
+/*----------------Properties------------------*/
 	if (action.type === CREATE_PROPERTY_BEGIN) {
 		return {
 			...state,
 			isLoading: true
 		}
 	}
-
 	if (action.type === CREATE_PROPERTY_SUCCESS) {
 		return {
 			...state,
@@ -147,7 +152,6 @@ const Reducer = (state, action) => {
 			alertText: 'property created! redirecting...'
 		}
 	}
-
 	if (action.type === CREATE_PROPERTY_ERROR) {
 		return {
 			...state,
@@ -163,7 +167,6 @@ const Reducer = (state, action) => {
 			isLoading: true
 		}
 	}
-
 	if (action.type === READ_PROPERTIES_SUCCESS) {
 		return {
 			...state,
@@ -174,7 +177,6 @@ const Reducer = (state, action) => {
 			alertText: 'retrieving properties...'
 		}
 	}
-
 	if (action.type === READ_PROPERTIES_ERROR) {
 		return {
 			...state,
@@ -184,14 +186,12 @@ const Reducer = (state, action) => {
 			alertText: action.payload.msg
 		}
 	}
-
 	if (action.type === UPDATE_PROPERTY_BEGIN) {
 		return {
 			...state,
 			isLoading: true
 		}
 	}
-
 	if (action.type === UPDATE_PROPERTY_SUCCESS) {
 		return {
 			...state,
@@ -202,7 +202,6 @@ const Reducer = (state, action) => {
 			alertText: 'retrieving properties...'
 		}
 	}
-
 	if (action.type === UPDATE_PROPERTY_ERROR) {
 		return {
 			...state,
@@ -212,69 +211,16 @@ const Reducer = (state, action) => {
 			alertText: action.payload.msg
 		}
 	}
+	// FIX ME : add property delete operations
 
-	if (action.type === CREATE_TENANT_BEGIN) {
-		return {
-			...state,
-			isLoading: true
-		}
-	}
 
-	if (action.type === CREATE_TENANT_SUCCESS) {
-		return {
-			...state,
-			tenant: action.payload.tenant,
-			isLoading: false,
-			showAlert: true,
-			alertType: 'success',
-			alertText: 'tenant created! redirecting...'
-		}
-	}
-
-	if (action.type === CREATE_TENANT_ERROR) {
-		return {
-			...state,
-			isLoading: false,
-			showAlert: true,
-			alertType: 'danger',
-			alertText: action.payload.msg
-		}
-	}
-	if (action.type === READ_TENANTS_BEGIN) {
-		return {
-			...state,
-			isLoading: true
-		}
-	}
-
-	if (action.type === READ_TENANTS_SUCCESS) {
-		return {
-			...state,
-			tenants: action.payload.tenants,
-			isLoading: false,
-			showAlert: true,
-			alertType: 'success',
-			alertText: 'retrieving tenants...'
-		}
-	}
-
-	if (action.type === READ_TENANTS_ERROR) {
-		return {
-			...state,
-			isLoading: false,
-			showAlert: true,
-			alertType: 'danger',
-			alertText: action.payload.msg
-		}
-	}
-
+/*----------------Units------------------*/
 	if (action.type === CREATE_UNIT_BEGIN) {
 		return {
 			...state,
 			isLoading: true
 		}
 	}
-
 	if (action.type === CREATE_UNIT_SUCCESS) {
 		return {
 			...state,
@@ -285,7 +231,6 @@ const Reducer = (state, action) => {
 			alertText: 'unit created! redirecting...'
 		}
 	}
-
 	if (action.type === CREATE_UNIT_ERROR) {
 		return {
 			...state,
@@ -301,7 +246,6 @@ const Reducer = (state, action) => {
 			isLoading: true
 		}
 	}
-
 	if (action.type === READ_UNITS_SUCCESS) {
 		return {
 			...state,
@@ -312,7 +256,7 @@ const Reducer = (state, action) => {
 			alertText: 'retrieving units...'
 		}
 	}
-
+	// single unit
 	if (action.type === READ_UNITS_ERROR) {
 		return {
 			...state,
@@ -322,14 +266,12 @@ const Reducer = (state, action) => {
 			alertText: action.payload.msg
 		}
 	}
-
 	if (action.type === GET_UNIT_BEGIN) {
 		return {
 			...state,
 			isLoading: true
 		}
 	}
-
 	if (action.type === GET_UNIT_SUCCESS) {
 		return {
 			...state,
@@ -340,7 +282,6 @@ const Reducer = (state, action) => {
 			alertText: 'retrieving unit...'
 		}
 	}
-
 	if (action.type === GET_UNIT_ERROR) {
 		return {
 			...state,
@@ -351,14 +292,69 @@ const Reducer = (state, action) => {
 		}
 	}
 
+	// add update/delete unit(s)
 
+/*----------------Tenants------------------*/
+	if (action.type === CREATE_TENANT_BEGIN) {
+		return {
+			...state,
+			isLoading: true
+		}
+	}
+	if (action.type === CREATE_TENANT_SUCCESS) {
+		return {
+			...state,
+			tenant: action.payload.tenant,
+			isLoading: false,
+			showAlert: true,
+			alertType: 'success',
+			alertText: 'tenant created! redirecting...'
+		}
+	}
+	if (action.type === CREATE_TENANT_ERROR) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: 'danger',
+			alertText: action.payload.msg
+		}
+	}
+	if (action.type === READ_TENANTS_BEGIN) {
+		return {
+			...state,
+			isLoading: true
+		}
+	}
+	if (action.type === READ_TENANTS_SUCCESS) {
+		return {
+			...state,
+			tenants: action.payload.tenants,
+			isLoading: false,
+			showAlert: true,
+			alertType: 'success',
+			alertText: 'retrieving tenants...'
+		}
+	}
+	if (action.type === READ_TENANTS_ERROR) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: 'danger',
+			alertText: action.payload.msg
+		}
+	}
+
+	// FIX ME: Add tenant update/delete operations
+
+/*----------------Payments------------------*/
 	if (action.type === CREATE_PAYMENT_BEGIN) {
 		return {
 			...state,
 			isLoading: true
 		}
 	}
-
 	if (action.type === CREATE_PAYMENT_SUCCESS) {
 		return {
 			...state,
@@ -369,7 +365,6 @@ const Reducer = (state, action) => {
 			alertText: 'unit created! redirecting...'
 		}
 	}
-
 	if (action.type === CREATE_PAYMENT_ERROR) {
 		return {
 			...state,
@@ -385,7 +380,6 @@ const Reducer = (state, action) => {
 			isLoading: true
 		}
 	}
-
 	if (action.type === READ_PAYMENTS_SUCCESS) {
 		return {
 			...state,
@@ -396,7 +390,6 @@ const Reducer = (state, action) => {
 			alertText: 'retrieving payments...'
 		}
 	}
-
 	if (action.type === READ_PAYMENTS_ERROR) {
 		return {
 			...state,
@@ -407,60 +400,7 @@ const Reducer = (state, action) => {
 		}
 	}
 
-	if (action.type === CREATE_RENT_BEGIN) {
-		return {
-			...state,
-			isLoading: true
-		}
-	}
 
-	if (action.type === CREATE_RENT_SUCCESS) {
-		return {
-			...state,
-			rent: action.payload.rent,
-			isLoading: false,
-			showAlert: true,
-			alertType: 'success',
-			alertText: 'rent created! redirecting...'
-		}
-	}
-
-	if (action.type === CREATE_RENT_ERROR) {
-		return {
-			...state,
-			isLoading: false,
-			showAlert: true,
-			alertType: 'danger',
-			alertText: action.payload.msg
-		}
-	}
-	if (action.type === READ_RENTS_BEGIN) {
-		return {
-			...state,
-			isLoading: true
-		}
-	}
-
-	if (action.type === READ_RENTS_SUCCESS) {
-		return {
-			...state,
-			rents: action.payload.rents,
-			isLoading: false,
-			showAlert: true,
-			alertType: 'success',
-			alertText: 'retrieving rents...'
-		}
-	}
-
-	if (action.type === READ_RENTS_ERROR) {
-		return {
-			...state,
-			isLoading: false,
-			showAlert: true,
-			alertType: 'danger',
-			alertText: action.payload.msg
-		}
-	}
 
 	throw new Error(`No such action: ${action.type}`)
 };

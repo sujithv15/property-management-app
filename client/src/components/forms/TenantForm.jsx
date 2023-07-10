@@ -23,11 +23,9 @@ const TenantForm = ({ property, unit }) => {
 		e.preventDefault()
 		const { unit, lastName, firstName } = values
 		if (!unit || !lastName || !firstName) {
-			displayAlert()
-			clearAlert()
+			toast.error('Enter all values')
 			return
 		}
-
 		const tenant = { unit, lastName, firstName }
 		createTenant(tenant)
 		toast.success('Tenant Successfully Created')
@@ -54,8 +52,6 @@ const TenantForm = ({ property, unit }) => {
 					<FormRow labelText="agentPhone" type="text" name="agentPhone" value={values.agent?.phone} handleChange={handleChange}/>
 					<FormRow labelText="agentEmail" type="email" name="agentEmail" value={values.agent?.email} handleChange={handleChange}/>
 				</div>
-
-
 
 				<button type="submit" className='btn'>create property</button>
 			</form>
