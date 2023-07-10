@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 import axios from "axios";
 import reducer from "./reducer.jsx";
 
@@ -34,6 +34,12 @@ import {
 	READ_UNITS_BEGIN,
 	READ_UNITS_SUCCESS,
 	READ_UNITS_ERROR,
+	UPDATE_UNIT_BEGIN,
+	UPDATE_UNIT_SUCCESS,
+	UPDATE_UNIT_ERROR,
+	DELETE_UNITS_BEGIN,
+	DELETE_UNITS_SUCCESS,
+	DELETE_UNITS_ERROR,
 	CREATE_PAYMENT_BEGIN,
 	CREATE_PAYMENT_SUCCESS,
 	CREATE_PAYMENT_ERROR,
@@ -288,7 +294,23 @@ const GlobalProvider = ({ children }) => {
 		}
 		clearAlert()
 	}
-
+	const updateUnit = async (unit) => {
+		dispatch({ type: UPDATE_UNIT_BEGIN })
+		try {
+			const response = await ax.patch(`/admin/units/${unit._id}`, unit)
+			const { unit } = response.data
+			dispatch({
+				type: UPDATE_UNIT_SUCCESS,
+				payload: { unit }
+			})
+		} catch (error) {
+			dispatch({
+				type: UPDATE_UNIT_ERROR,
+				payload: { msg: error}
+			})
+		}
+		clearAlert()
+	}
 /*----------------Payments------------------*/
 	const readPayments = async () => {
 		dispatch({ type: READ_PAYMENTS_BEGIN })

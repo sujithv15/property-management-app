@@ -2,7 +2,7 @@ import {useGlobalContext} from "../context/GlobalContext.jsx";
 
 const Footer = () => {
 
-	const { user, properties, logoutUser, role } = useGlobalContext()
+	const { user, units, logoutUser, role } = useGlobalContext()
 
 
 
@@ -12,7 +12,7 @@ const Footer = () => {
 
 			<button onClick={()=>console.log(user)}>print user</button>
 			<button onClick={()=>console.log(role)}>print role state</button>
-			<button onClick={()=>console.log(properties)}>print properties</button>
+			<button onClick={()=>console.log(units)}>print units</button>
 			<button onClick={logoutUser}>logout</button>
 		</div>
 	);

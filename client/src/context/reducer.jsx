@@ -30,6 +30,12 @@ import {
 	READ_UNITS_BEGIN,
 	READ_UNITS_SUCCESS,
 	READ_UNITS_ERROR,
+	UPDATE_UNIT_BEGIN,
+	UPDATE_UNIT_SUCCESS,
+	UPDATE_UNIT_ERROR,
+	DELETE_UNITS_BEGIN,
+	DELETE_UNITS_SUCCESS,
+	DELETE_UNITS_ERROR,
 	GET_UNIT_BEGIN,
 	GET_UNIT_SUCCESS,
 	GET_UNIT_ERROR,
@@ -291,7 +297,31 @@ const Reducer = (state, action) => {
 			alertText: action.payload.msg
 		}
 	}
-
+	if (action.type === UPDATE_UNIT_BEGIN) {
+		return {
+			...state,
+			isLoading: true
+		}
+	}
+	if (action.type === UPDATE_UNIT_SUCCESS) {
+		return {
+			...state,
+			unit: action.payload.unit,
+			isLoading: false,
+			showAlert: true,
+			alertType: 'success',
+			alertText: 'updating unit...'
+		}
+	}
+	if (action.type === UPDATE_UNIT_ERROR) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: 'danger',
+			alertText: action.payload.msg
+		}
+	}
 	// add update/delete unit(s)
 
 /*----------------Tenants------------------*/

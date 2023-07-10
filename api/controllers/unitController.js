@@ -9,8 +9,9 @@ const createUnit = async (req, res) => {
 	res.status(StatusCodes.CREATED).json({newUnit})
 }
 
+// get all units, and populate each with tenant information
 const getAllUnits = async (req, res) => {
-	const units = await Unit.find()
+	const units = await Unit.find().populate("tenant")
 	res.status(StatusCodes.OK).json({units})
 }
 

@@ -1,4 +1,4 @@
-import {Tenant} from "./index.js";
+import { PrimaryUnitDetails, Tenant, UnitDetails } from "./index.js";
 import {useState} from "react";
 import TenantForm from "./forms/TenantForm.jsx";
 import ApplianceForm from "./forms/ApplianceForm.jsx";
@@ -6,28 +6,25 @@ import ApplianceForm from "./forms/ApplianceForm.jsx";
 
 const Unit = (unit) => {
 
-	const { property, address, bedrooms, bathrooms, tenant, rent, fmrRent, appliances, repairs } = unit
+	const { _id, propertyUnit, street, city, state, zip, isPrimary, tenant, user, bedrooms, bathrooms, rent, fmrRent, appliances, repairs, insurance, mortgage, association, taxes, maintenance } = unit
 
 	const [showUnitDetails, setShowUnitDetails] = useState(false)
 	const [showTenantDetails, setShowTenantDetails] = useState(false)
 	const [showTenantForm, setShowTenantForm] = useState(false)
 	const [showApplianceForm, setShowApplianceForm] = useState(false)
 
-
-	const getTenantDetails = () => {
-
-	}
-	const getUnitDetails = () => {
-
-	}
-
 	return (
 		<div className="unit-container">
 			<div className="unit-info">
 
 				<div className="unit-street unit-item">
-					<a onClick={()=>setShowUnitDetails(!showUnitDetails)} style={{cursor: 'pointer'}}>{address?.street}</a>
-
+					<a onClick={
+						()=>setShowUnitDetails(!showUnitDetails)}
+					   style={{cursor: 'pointer'}}
+					>
+						{isPrimary && <>*</>}
+						{propertyUnit} {street} {city} {state} {zip}
+					</a>
 						{
 							showUnitDetails &&
 							<div className="unit-unit-info">
@@ -41,9 +38,9 @@ const Unit = (unit) => {
 				</div>
 
 				<div className="unit-tenant unit-item">
-					<a onClick={()=>setShowTenantDetails(!showTenantDetails)} style={{cursor: 'pointer'}}>{tenant?.lastName}, {tenant?.firstName}</a>
+					<a onClick={()=>setShowTenantDetails(!showTenantDetails)} style={{cursor: 'pointer'}}>{tenant? <>{`${tenant.lastName}, ${tenant.firstName}`}</> : <></> }</a>
 					<div className="unit-tenant-info">
-						{showTenantDetails && <Tenant {...tenant}/>}
+						{showTenantDetails && <>{tenant.phone}{tenant.email}</>}
 					</div>
 				</div>
 
@@ -51,27 +48,19 @@ const Unit = (unit) => {
 					<p>{rent}</p>
 				</div>
 
-				<div className="unit-add-tenant unit-item">
-					{tenant ?
-						<button className="btn" onClick={() => setShowTenantForm(!showTenantForm)}>edit tenant</button>
-					:
-						<button className="btn" onClick={() => setShowTenantForm(!showTenantForm)}>add tenant</button>
-					}
+				{isPrimary && <PrimaryUnitDetails {...unit} />}
+
+			</div>
+
+
+
+			{showUnitDetails &&
+
+				<div className="unit-details-container">
+					<UnitDetails {...unit} />
 				</div>
+			}
 
-				<div className="unit-appliances unit-item">
-						<button className="btn" onClick={() => setShowApplianceForm(!showApplianceForm)}>view/edit appliances</button>
-				</div>
-
-			</div>
-
-			<div className="add-tenant-form">
-				{showTenantForm && <TenantForm property={property.name } unit={address.street}/>}
-			</div>
-
-			<div className="add-appliance-form">
-				{showApplianceForm && <ApplianceForm unit={address.street}/>}
-			</div>
 
 		</div>
 	);

@@ -1,27 +1,29 @@
 import mongoose from 'mongoose'
 
 const UnitSchema = new mongoose.Schema( {
-	address : {
-		unit: {
-			type: String,
-			required: [true, "Please provide unit"]
-		},
-		street: {
-			type: String,
-			required: [true, "Please provide street"]
-		},
-		city: {
-			type: String,
-			required: [true, "Please provide city"]
-		},
-		state: {
-			type: String,
-			required: true
-		},
-		zip: {
-			type: String,
-			required: [true, "Please provide zip"]
-		},
+	propertyUnit: {
+		type: String,
+		required: [true, "Please provide unit"]
+	},
+	street: {
+		type: String,
+		required: [true, "Please provide street"]
+	},
+	city: {
+		type: String,
+		required: [true, "Please provide city"]
+	},
+	state: {
+		type: String,
+		required: true
+	},
+	zip: {
+		type: String,
+		required: [true, "Please provide zip"]
+	},
+	isPrimary: {
+		type: Boolean,
+		required: [true, "Please select if this will be the primary unit"]
 	},
 	tenant: {
 		type: mongoose.Types.ObjectId,
@@ -50,7 +52,39 @@ const UnitSchema = new mongoose.Schema( {
 	repairs: {
 		type: [mongoose.Types.ObjectId],
 		ref: 'Repair'
+	},
+	insurance: {
+		company: {
+			type: String
+		},
+		premium: {
+			type: Number
+		},
+		details: {
+			type: String
+		}
+	},
+	mortgage: {
+		type: {}
+	},
+	association: {
+		type: String
+	},
+	taxes: {
+		type: [String]
+	},
+	maintenance: {
+		type: {}
+	},
+	createdAt: {
+		type: Date,
+		default: () => Date.now(),
+		immutable: true
+	},
+	updatedAt: {
+		type: Date,
+		default: () => Date.now()
 	}
-})
+}, { timestamps: true })
 
 export default mongoose.model('Unit', UnitSchema)
