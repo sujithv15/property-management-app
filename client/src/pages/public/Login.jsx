@@ -14,7 +14,7 @@ const Login = () => {
 		if (user) {
 			setTimeout(() => {
 				navigate(`/${role}`);
-			}, 2000);
+			}, 1000);
 		}
 	}, [user]);
 

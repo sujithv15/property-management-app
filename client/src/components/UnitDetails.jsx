@@ -1,67 +1,103 @@
-import TenantForm from "./forms/TenantForm.jsx";
+import TenantCreateForm from "./forms/TenantCreateForm.jsx";
 import ApplianceForm from "./forms/ApplianceForm.jsx";
 import { useState } from "react";
 import UnitUpdateForm from "./forms/UnitUpdateForm.jsx";
 
 const UnitDetails = (unit) => {
 
-	const { _id, address, isPrimary, tenant, user, bedrooms, bathrooms, rent, fmrRent, appliances, repairs, insurance, mortgage, association, taxes, maintenance } = unit
+	const { _id, propertyUnit, street, city, state, zip, isPrimary, tenant, user, bedrooms, bathrooms, rent, fmrRent, appliances, repairs, insurance, mortgage, association, taxes, maintenance } = unit
 
 	const [showUnitForm, setShowUnitForm] = useState(false)
 	const [showTenantForm, setShowTenantForm] = useState(false)
-	const [showApplianceForm, setShowApplianceForm] = useState(false)
+	const [showAppliances, setShowAppliances] = useState(false)
 
 	return (
-		<div className="unit-details">
-			<div className="unit-details-rent unit-details-item">
-				Rent: ${rent}
-				Fair Market Value rent: ${fmrRent}
+		<div className="unit-details-container">
+
+			<div className="unit-details-rent">
+				<p>Rent: ${rent}</p>
+				<p>Fair Market Value rent: ${fmrRent}</p>
 			</div>
 
-			<div className="unit-update unit-item">
-				{unit ?
-					<button className="btn" onClick={() => setShowUnitForm(!showUnitForm)}>edit unit</button>
-					:
-					<button className="btn" onClick={() => setShowUnitForm(!showUnitForm)}>add unit</button>
+			<div className="unit-details-appliances">
+				<a onClick={
+					()=>setShowAppliances(!showAppliances)}
+				   style={{cursor: 'pointer'}}
+				>
+					Appliances
+				</a>
+				{
+					showAppliances &&
+					<>
+						<p>Refrigerator:</p>
+						<p>Stove:</p>
+						<p>Microwave:</p>
+						<p>Washer</p>
+						<p>Dryer</p>
+						<p>HVAC</p>
+						<p>Water heater</p>
+					</>
 				}
 			</div>
 
-			<div className="unit-details-appliances unit-details-item">
-				Appliances
-			</div>
-			<div className="unit-details-repairs unit-details-item">
+			<div className="unit-details-repairs">
 				Repairs
 			</div>
 
-			<div className="unit-add-tenant unit-item">
-				{tenant ?
-					<button className="btn" onClick={() => setShowTenantForm(!showTenantForm)}>edit tenant</button>
-					:
-					<button className="btn" onClick={() => setShowTenantForm(!showTenantForm)}>add tenant</button>
-				}
+			{
+				isPrimary &&
+
+				<div className="primary-unit-details">
+					<div className="unit-insurance">
+						Insurance: {insurance?.company} {insurance?.premium} {insurance?.details}
+					</div>
+
+					<div className="unit-mortgage">
+						mortgage
+					</div>
+
+					<div className="unit-taxes">
+						taxes
+					</div>
+
+					<div className="unit-association">
+						association
+					</div>
+
+					<div className="unit-maintenance">
+						association
+					</div>
+				</div>
+			}
+
+			<div className="unit-update-btn">
+				<button
+					className="btn"
+					onClick={() => setShowUnitForm(!showUnitForm)
+				}>
+					{showUnitForm ? "cancel" : "edit unit"}
+				</button>
 			</div>
 
-			<div className="unit-appliances unit-item">
-				<button className="btn" onClick={() => setShowApplianceForm(!showApplianceForm)}>view/edit appliances</button>
+			{tenant &&
+				<button
+					className="edit-tenant btn"
+					onClick={() => setShowTenantForm(!showTenantForm)
+				}>
+					{showTenantForm ? "cancel" : "edit tenant"}
+				</button>
+			}
+
+			<div className="unit-form">
+				{showUnitForm && <UnitUpdateForm {...unit}/>}
+			</div>
+			<div className="tenant-form">
+				{showTenantForm && <TenantUpdateForm {...unit}/>}
 			</div>
 
-			<div className="add-tenant-form">
-				{showUnitForm && <UnitUpdateForm unitEdit={unit}/>}
-			</div>
-
-			<div className="add-tenant-form">
-				{showTenantForm && <TenantForm unit={address.street}/>}
-			</div>
-
-			<div className="add-appliance-form">
-				{showApplianceForm && <ApplianceForm unit={address.street}/>}
-			</div>
 
 
 
-			<div className="unit-details-tenant">
-
-			</div>
 
 		</div>
 	);

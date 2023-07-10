@@ -1,6 +1,6 @@
-import { PrimaryUnitDetails, Tenant, UnitDetails } from "./index.js";
+import { Tenant, UnitDetails } from "./index.js";
 import {useState} from "react";
-import TenantForm from "./forms/TenantForm.jsx";
+import TenantCreateForm from "./forms/TenantCreateForm.jsx";
 import ApplianceForm from "./forms/ApplianceForm.jsx";
 
 
@@ -10,14 +10,13 @@ const Unit = (unit) => {
 
 	const [showUnitDetails, setShowUnitDetails] = useState(false)
 	const [showTenantDetails, setShowTenantDetails] = useState(false)
-	const [showTenantForm, setShowTenantForm] = useState(false)
-	const [showApplianceForm, setShowApplianceForm] = useState(false)
+	const [showCreateTenantForm, setShowCreateTenantForm] = useState(false)
 
 	return (
 		<div className="unit-container">
 			<div className="unit-info">
 
-				<div className="unit-street unit-item">
+				<div className="unit-street">
 					<a onClick={
 						()=>setShowUnitDetails(!showUnitDetails)}
 					   style={{cursor: 'pointer'}}
@@ -25,43 +24,53 @@ const Unit = (unit) => {
 						{isPrimary && <>*</>}
 						{propertyUnit} {street} {city} {state} {zip}
 					</a>
-						{
-							showUnitDetails &&
-							<div className="unit-unit-info">
-								<h4>{rent}</h4>
-							</div>
-						}
 				</div>
 
-				<div className="unit-type unit-item">
+				<div className="unit-type">
 					<p>{bedrooms}br/ {bathrooms}ba</p>
 				</div>
 
-				<div className="unit-tenant unit-item">
-					<a onClick={()=>setShowTenantDetails(!showTenantDetails)} style={{cursor: 'pointer'}}>{tenant? <>{`${tenant.lastName}, ${tenant.firstName}`}</> : <></> }</a>
-					<div className="unit-tenant-info">
-						{showTenantDetails && <>{tenant.phone}{tenant.email}</>}
-					</div>
-				</div>
-
-				<div className="unit-rent unit-item">
+				<div className="unit-rent">
 					<p>{rent}</p>
 				</div>
 
-				{isPrimary && <PrimaryUnitDetails {...unit} />}
-
+				<div className="unit-tenant">
+					{
+						tenant ?
+							<div className="unit-tenant-info">
+								<div className="unit-tenant-name">
+										<a onClick={
+											()=>setShowTenantDetails(!showTenantDetails)}
+										   style={{cursor: 'pointer'}}
+										>
+											tenant.lastName, tenant.firstName
+										</a>
+								</div>
+								<div className="unit-tenant-contact">
+									<p>{tenant.phone}</p>
+									<p>{tenant.email}</p>
+								</div>
+							</div>
+							:
+							<button
+								className="btn"
+								onClick={() => setShowCreateTenantForm(!showCreateTenantForm)
+							}>{showCreateTenantForm ? "cancel" : "add tenant"}
+							</button>
+					}
+				</div>
 			</div>
 
-
-
 			{showUnitDetails &&
-
-				<div className="unit-details-container">
+				<div>
 					<UnitDetails {...unit} />
 				</div>
 			}
-
-
+			{showCreateTenantForm &&
+				<div>
+					<TenantCreateForm {...tenant} id={_id}/>
+				</div>
+			}
 		</div>
 	);
 };

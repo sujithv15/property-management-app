@@ -40,7 +40,7 @@ const LoginForm = () => {
 		<div>
 			<form className='form' onSubmit={handleSubmit}>
 				<FormRow name='email' labelText='email' type='email' value={values.email} handleChange={handleChange} />
-				<FormRow name='password' labelText='password' password='email' value={values.password} handleChange={handleChange} />
+				<FormRow name='password' labelText='password' password='email'  value={values.password} handleChange={handleChange} />
 				<button type='submit' className='btn'>login</button>
 			</form>
 		</div>

@@ -149,7 +149,6 @@ ul {
 .form-input,
 .form-textarea,
 .form-select {
-  width: 100%;
   padding: 0.375rem 0.75rem;
   border-radius: 0.25rem;
   background: #f0f4f8;
@@ -239,50 +238,37 @@ nav {
 .nav-link {
 
 }
-
 .page {
   max-width: 100vh;
   margin: 30px;
 }
-
-.display-container {
+.unit-container {
 
 }
-
-
 .section-header {
-  margin: auto;
-}
-
-.heading {
-  display: flex;
-  gap: 90px
+  margin: 2rem auto;
 }
 
 .unit-container {
   border-bottom: 1px solid purple;
 }
-
 .unit-info {
-
-  padding-bottom: 1em;
   margin: 1em;
   display: grid;
   grid-template-columns: 3fr 2fr 4fr 1fr 1fr 1fr;
   gap: 4px;
   align-items: center;
 }
-
-
-.unit-item {
+.unit-info > * {
   display: inline-block;
   padding-right: .5em;
 }
-
 .unit-street {
   color: #555;
   font-weight: bold;
 }
+
+
 .loading {
 
 }

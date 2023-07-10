@@ -48,6 +48,7 @@ const UnitNewForm = () => {
 			clearAlert()
 			return
 		}
+
 		createUnit(values)
 		toast.success('Unit Successfully Created')
 	}
@@ -88,7 +89,7 @@ const UnitNewForm = () => {
 					</div>
 				}
 
-				<button type="submit" className='btn'>create property</button>
+				<button type="submit" className='btn'>create unit</button>
 			</form>
 		</div>
 	);

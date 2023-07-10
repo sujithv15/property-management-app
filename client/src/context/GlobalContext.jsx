@@ -261,12 +261,13 @@ const GlobalProvider = ({ children }) => {
 
 	const createUnit= async (unit) => {
 		dispatch({type: CREATE_UNIT_BEGIN})
+		console.log(unit);
 		try {
 			const response = await ax.post('/admin/units/create', unit)
-			const {unit} = response.data
+			const {newUnit} = response.data
 			dispatch({
 				type: CREATE_UNIT_SUCCESS,
-				payload: {unit}
+				payload: {newUnit}
 			})
 		} catch (error) {
 			dispatch({

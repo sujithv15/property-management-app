@@ -4,16 +4,13 @@ import {toast} from "react-toastify";
 import FormRow from "./FormRow.jsx";
 import FormRowSelect from "./FormRowSelect.jsx";
 
-const UnitUpdateForm = (unitEdit) => {
+const UnitUpdateForm = (unit) => {
 
-	const { _id, address, isPrimary, tenant, user, bedrooms, bathrooms, rent, fmrRent, appliances, repairs, insurance, mortgage, association, taxes, maintenance } = unitEdit
-
-	const { unit, street, city, state, zip } = address
+	const { _id, propertyUnit, street, city, state, zip, isPrimary, tenant, user, bedrooms, bathrooms, rent, fmrRent, appliances, repairs, insurance, mortgage, association, taxes, maintenance } = unit
 
 	const [values, setValues] = useState(unit)
 
 	const { displayAlert, clearAlert } = useGlobalContext()
-
 
 	const handleChange = (e) => {
 		setValues({...values, [e.target.name]: e.target.value})
@@ -21,13 +18,13 @@ const UnitUpdateForm = (unitEdit) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		const { address } = values
-		if (!address.unit) {
+		const { propertyUnit } = values
+		if (!propertyUnit) {
 			displayAlert()
 			clearAlert()
 			return
 		}
-		console.log('updating unit...');
+		// updateUnit()
 		toast.success('Unit Successfully Created')
 	}
 

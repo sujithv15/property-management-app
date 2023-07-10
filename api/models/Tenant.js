@@ -64,7 +64,16 @@ const TenantSchema = new mongoose.Schema({
 			phone: { type: String },
 			email: { type: String}
 		}
+	},
+	createdAt: {
+		type: Date,
+		default: () => Date.now(),
+		immutable: true
+	},
+	updatedAt: {
+		type: Date,
+		default: () => Date.now()
 	}
-})
+}, { timestamps: true })
 
 export default mongoose.model('Tenant', TenantSchema)

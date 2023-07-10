@@ -7,6 +7,6 @@ import Tenant from "./Tenant.jsx"
 import Unit from "./Unit.jsx";
 import Payment from "./Payment.jsx"
 import UnitDetails from "./UnitDetails.jsx";
-import PrimaryUnitDetails from "./PrimaryUnitDetails.jsx";
 
-export { Navbar, Footer, Alert, Loading, Property, Unit, Tenant, Payment, UnitDetails, PrimaryUnitDetails }
+
+export { Navbar, Footer, Alert, Loading, Property, Unit, Tenant, Payment, UnitDetails }
