@@ -22,7 +22,6 @@ const UnitDetails = (unit) => {
 			<div className="unit-details-appliances">
 				<a onClick={
 					()=>setShowAppliances(!showAppliances)}
-				   style={{cursor: 'pointer'}}
 				>
 					Appliances
 				</a>

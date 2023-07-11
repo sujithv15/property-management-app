@@ -38,10 +38,18 @@ const LoginForm = () => {
 
 	return (
 		<div>
-			<form className='form' onSubmit={handleSubmit}>
-				<FormRow name='email' labelText='email' type='email' value={values.email} handleChange={handleChange} />
-				<FormRow name='password' labelText='password' password='email'  value={values.password} handleChange={handleChange} />
-				<button type='submit' className='btn'>login</button>
+
+			<form className='border-solid border-4 rounded-3xl my-20 mx-auto max-w-sm' onSubmit={handleSubmit}>
+
+				<div className="text-center">
+					<h2 className="text-center m-10 text-2xl">Login</h2>
+				</div>
+
+				<div className="m-20 space-y-10">
+					<FormRow name='email' labelText='email' type='email' value={values.email} handleChange={handleChange} />
+					<FormRow type="search" name='password' labelText='password' password='email'  value={values.password} handleChange={handleChange} />
+					<button type='submit'  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs">login</button>
+				</div>
 			</form>
 		</div>
 	);

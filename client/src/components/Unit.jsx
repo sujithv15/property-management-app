@@ -13,20 +13,19 @@ const Unit = (unit) => {
 	const [showCreateTenantForm, setShowCreateTenantForm] = useState(false)
 
 	return (
-		<div className="unit-container">
-			<div className="unit-info">
+		<div className="">
+			<div className="grid grid-cols-5 mb-4 pt-3 justify-items-start border-t-2 ml-10">
 
-				<div className="unit-street">
+				<div className="col-span-2">
 					<a onClick={
 						()=>setShowUnitDetails(!showUnitDetails)}
-					   style={{cursor: 'pointer'}}
 					>
 
 						<p>
-							<span style={{'position': 'absolute'}}>{isPrimary && <>*</>}</span>
-							<span style={{'marginLeft': '1.05rem'}}> {propertyUnit} {street}</span>
+							<span className="absolute">{isPrimary && <>*</>}</span>
+							<span className="pl-3"> {propertyUnit} {street}</span>
 						</p>
-						<p style={{'marginLeft': '1.05rem'}}>{city}, {state} {zip}</p>
+						<p className="pl-3">{city}, {state} {zip}</p>
 					</a>
 				</div>
 
@@ -49,7 +48,6 @@ const Unit = (unit) => {
 								<div className="tenant-details">
 									<a onClick={
 										()=>setShowTenantDetails(!showTenantDetails)}
-									   style={{cursor: 'pointer'}}
 									>
 										<Tenant />
 									</a>
@@ -57,7 +55,7 @@ const Unit = (unit) => {
 							</div>
 							:
 							<button
-								className="btn"
+								className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs"
 								onClick={() => setShowCreateTenantForm(!showCreateTenantForm)
 							}>{showCreateTenantForm ? "cancel" : "add tenant"}
 							</button>

@@ -7,12 +7,12 @@ const Navbar = ({ links }) => {
 
 	return (
 		<nav>
-			<div className="navbar">
+			<div className="flex justify-around py-5 font-serif bg-stone-100">
 					{
 						links.map((links, index) => {
 							return (
 								<div key={index}>
-								<NavLink to={links.url} className="nav-link">{links.name}</NavLink>
+								<NavLink to={links.url} className="cursor-pointer hover:pink focus:bg-yellow">{links.name}</NavLink>
 								</div>
 							)
 						})

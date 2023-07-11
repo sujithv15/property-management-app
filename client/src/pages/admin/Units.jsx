@@ -34,25 +34,32 @@ const Units = () => {
 	return (
 		<div className=" units-container page">
 
-			<div className="section-header">
-				<h2>Units</h2>
+			<div className="text-center">
+				<h2 className="text-center m-5 text-2xl">Units</h2>
 			</div>
 
-			<div className="units-search">
-				<div>
-					<span>Search: </span>
-					<input className="form-input" type="search" placeholder="Search Units" value={query} onChange={e=>setQuery(e.target.value)}/>
+			<div className="flex justify-between my-5">
+				<div className="flex gap-2 ml-10">
+					<label className="block text-gray-700 font-bold mb-2 pt-2">Search: </label>
+					<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="search" placeholder="Search Units" value={query} onChange={e=>setQuery(e.target.value)}/>
 				</div>
-				<div className="unit-form">
+				<div className="mr-10">
 					{showForm ?
 						<UnitNewForm />
 						:
-						<button className="btn" onClick={() => setShowForm(!showForm)}>add Unit</button>
+						<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs" onClick={() => setShowForm(!showForm)}>add Unit</button>
 					}
 				</div>
 			</div>
 
-			<ul className="units-list">
+			<div className="grid grid-cols-5 mb-2 justify-items-start ml-10" >
+				<p className="text-xl font-bold col-span-2 pl-3">address</p>
+				<p className="text-xl font-bold">beds/baths</p>
+				<p className="text-xl font-bold">rent</p>
+				<p className="text-xl font-bold">tenant</p>
+			</div>
+
+			<ul>
 				{queriedUnits?.map(unit => {
 					return (
 						<li key={unit._id}>

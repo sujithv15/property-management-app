@@ -1,4 +1,4 @@
-
+import img from '../../assets/images/landing-key.jpg'
 
 const Landing = () => {
 
@@ -6,12 +6,18 @@ const Landing = () => {
 
 	return (
 		<div className="title container">
-			<h2>Property Management Assistant</h2>
-			<h4>The only one-stop solution to seamlessly manage all your properties in one place</h4>
-			<h5>Easily communicate with tenants</h5>
-			<h5>Manage maintenance and service requests</h5>
-			<h5>Collect rent, and automatically generate rent receipts</h5>
-			<h5>Stay on top of payments</h5>
+			<h2 className="text-center m-5 text-2xl">Property Management Assistant</h2>
+			<h4 className="m-10">The only one-stop solution to seamlessly manage all your properties in one place</h4>
+
+			<img src={img} alt="Key-logo"/>
+
+			<ul className="ml-20">
+				<li>Easily communicate with tenants</li>
+				<li>Manage maintenance and service requests</li>
+				<li>Collect rent, and automatically generate rent receipts</li>
+				<li>Stay on top of payments</li>
+			</ul>
+
 		</div>
 	);
 };
