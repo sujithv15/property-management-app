@@ -8,11 +8,11 @@ export const linksAdmin = [
 		url: "/admin/units",
 	},
 	{
-		name: "messages",
+		name: "mail",
 		url: "/admin/messages",
 	},
 	{
-		name: "finances",
+		name: "accounting",
 		url: "/admin/finances",
 	},
 	{

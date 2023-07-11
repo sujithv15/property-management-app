@@ -39,7 +39,7 @@ const LoginForm = () => {
 	return (
 		<div>
 
-			<form className='border-solid border-4 rounded-3xl my-20 mx-auto max-w-sm' onSubmit={handleSubmit}>
+			<form className='border-solid border-4 rounded-3xl w-11/12 my-20 mx-auto max-w-sm' onSubmit={handleSubmit}>
 
 				<div className="text-center">
 					<h2 className="text-center m-10 text-2xl">Login</h2>
