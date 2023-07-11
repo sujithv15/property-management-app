@@ -2,7 +2,7 @@
 const FormRow = ({ labelText, type, name, value, handleChange  }) => {
 
 	return (
-		<div className='grid grid-cols-2'>
+		<div className=''>
 
 			<label
 				htmlFor={name}

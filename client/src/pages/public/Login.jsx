@@ -20,10 +20,10 @@ const Login = () => {
 
 
 	return (
-		<div>
+		<div className='border-solid border-4 rounded-3xl w-11/12 my-20 mx-auto py-14 max-w-md'>
 			{user ?
 				<>
-					<h5>Welcome {user.name || user.email} </h5>
+					<div className="text-center m-5 text-2xl">Welcome {user.name || user.email} </div>
 					{showAlert && <Alert />}
 				</>
 				:

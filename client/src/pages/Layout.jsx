@@ -30,7 +30,7 @@ const Layout = () => {
 	// user outlet = <UserDashboard />
 	// admin outlet = <AdminDashboard />
 	return (
-		<div>
+		<div className="max-w-5xl mx-auto">
 			<Navbar links={navLinks}/>
 			<Outlet />
 			<Footer />
