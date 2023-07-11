@@ -21,8 +21,12 @@ const Unit = (unit) => {
 						()=>setShowUnitDetails(!showUnitDetails)}
 					   style={{cursor: 'pointer'}}
 					>
-						{isPrimary && <>*</>}
-						{propertyUnit} {street} {city} {state} {zip}
+
+						<p>
+							<span style={{'position': 'absolute'}}>{isPrimary && <>*</>}</span>
+							<span style={{'marginLeft': '1.05rem'}}> {propertyUnit} {street}</span>
+						</p>
+						<p style={{'marginLeft': '1.05rem'}}>{city}, {state} {zip}</p>
 					</a>
 				</div>
 
@@ -31,24 +35,24 @@ const Unit = (unit) => {
 				</div>
 
 				<div className="unit-rent">
-					<p>{rent}</p>
+					<p>${rent}</p>
 				</div>
 
 				<div className="unit-tenant">
 					{
 						tenant ?
-							<div className="unit-tenant-info">
-								<div className="unit-tenant-name">
-										<a onClick={
-											()=>setShowTenantDetails(!showTenantDetails)}
-										   style={{cursor: 'pointer'}}
-										>
-											tenant.lastName, tenant.firstName
-										</a>
-								</div>
-								<div className="unit-tenant-contact">
+							<div className="tenant-info">
+								<div className="tenant-contact">
 									<p>{tenant.phone}</p>
 									<p>{tenant.email}</p>
+								</div>
+								<div className="tenant-details">
+									<a onClick={
+										()=>setShowTenantDetails(!showTenantDetails)}
+									   style={{cursor: 'pointer'}}
+									>
+										<Tenant />
+									</a>
 								</div>
 							</div>
 							:

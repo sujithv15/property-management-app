@@ -42,6 +42,15 @@ a {
   text-decoration: none;
   letter-spacing: 1px;
 }
+a:link {
+  color: black;
+}
+a:hover {
+  color: blue;
+}
+a:active {
+
+}
 a,
 button {
   line-height: 1.15;
@@ -86,6 +95,9 @@ ul {
 .btn-danger:hover {
   background: darkred;
   color: whitesmoke;
+}
+button:active {
+  background-color: white;
 }
 /* alerts */
 .alert {
@@ -242,20 +254,22 @@ nav {
   max-width: 100vh;
   margin: 30px;
 }
-.unit-container {
+.units-search {
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem 3rem 2rem 2rem;
 
+}
+.unit-container {
+  border-bottom: 1px solid purple;
 }
 .section-header {
   margin: 2rem auto;
 }
-
-.unit-container {
-  border-bottom: 1px solid purple;
-}
 .unit-info {
   margin: 1em;
   display: grid;
-  grid-template-columns: 3fr 2fr 4fr 1fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: 4px;
   align-items: center;
 }
@@ -265,7 +279,7 @@ nav {
 }
 .unit-street {
   color: #555;
-  font-weight: bold;
+
 }
 
 

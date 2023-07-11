@@ -5,7 +5,7 @@ import FormRow from "./FormRow.jsx";
 import FormRowSelect from "./FormRowSelect.jsx";
 
 const initialState = {
-	unit: id,
+	unit: null,
 	lastName: '',
 	firstName: '',
 	email: '',
@@ -38,8 +38,9 @@ const TenantCreateForm = (tenant, id) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		const { unit, lastName, firstName } = values
-		if (!unit || !lastName || !firstName) {
+		values._id = id
+		const { lastName, firstName } = values
+		if ( !lastName || !firstName) {
 			toast.error('Enter all values')
 			return
 		}
