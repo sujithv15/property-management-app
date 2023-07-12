@@ -4,7 +4,7 @@ import 'express-async-errors'
 // security package imports
 import helmet from "helmet";
 import cors from 'cors'
-import xss from 'xss-clean'
+//import xss from 'xss-clean'
 import rateLimit from "express-rate-limit";
 // routers imports
 import authRouter from "./routes/authRoutes.js"
@@ -34,7 +34,7 @@ app.use(cors({
 	origin: 'http://localhost:5173',
 	credentials: true
 }))
-app.use(xss());
+//app.use(xss());
 if (process.env.NODE_ENV !== 'production') {
 	app.use(morgan('dev'))
 }

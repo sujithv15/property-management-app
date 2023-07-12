@@ -69,7 +69,8 @@ const GlobalContext = createContext()
 const GlobalProvider = ({ children }) => {
 	// axios
 	const ax = axios.create({
-		baseURL: 'http://localhost:8800/api/v1',
+		//baseURL: 'http://localhost:8800/api/v1',
+		baseURL: 'https://property-management-app.onrender.com',
 		withCredentials: true
 	});
 	// response
