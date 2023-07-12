@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 import connectDB from './database/connect.js'
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 8800
 
 const start = async () => {
 	try {
