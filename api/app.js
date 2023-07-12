@@ -51,13 +51,13 @@ app.get('/api/v1', (req, res) => {
 })
 
 app.use('/api/v1/auth', authRouter)  // login, logout, register
-app.use('/api/v1/users', userRoutes)  // getAllUsers, getUserInfo, showCurrentUser, updateUser, updateUserPassword
-app.use('/api/v1/admin/appliances', applianceRoutes)
-app.use('/api/v1/admin/units', unitsRoutes)
+app.use('/api/v1/users', authenticateUser, authorizePermissions, userRoutes)  // getAllUsers, getUserInfo, showCurrentUser, updateUser, updateUserPassword
+app.use('/api/v1/admin/appliances', authenticateUser, authorizePermissions, applianceRoutes)
+app.use('/api/v1/admin/units', authenticateUser, authorizePermissions, unitsRoutes)
 app.use('/api/v1/admin/payments', paymentRoutes)
 
 // will contain all user personal routes so authentication per user middleware
-app.use('/api/v1/tenants', authenticateUser, tenantRoutes)
+app.use('/api/v1/tenants', authorizePermissions, authenticateUser, tenantRoutes)
 
 app.use(notFound)
 app.use(errorHandler)
