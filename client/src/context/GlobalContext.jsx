@@ -70,7 +70,7 @@ const GlobalProvider = ({ children }) => {
 	// axios
 	const ax = axios.create({
 		//baseURL: 'http://localhost:8800/api/v1',
-		baseURL: 'https://property-management-app.onrender.com',
+		baseURL: 'https://property-management-app.onrender.com/api/v1',
 		withCredentials: true
 	});
 	// response
