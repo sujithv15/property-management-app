@@ -38,16 +38,7 @@ const Unit = (unit) => {
 				</div>
 			</div>
 
-			{showUnitDetails &&
-				<div>
-					<UnitDetails {...unit} />
-				</div>
-			}
-			{showCreateTenantForm &&
-				<div>
-					<TenantCreateForm {...tenant} id={_id}/>
-				</div>
-			}
+
 		</div>
 	);
 };

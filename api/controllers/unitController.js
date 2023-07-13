@@ -15,13 +15,13 @@ const getAllUnits = async (req, res) => {
 	res.status(StatusCodes.OK).json({units})
 }
 
-const getSingleUnit = async (req, res) => {
+const getUnitDetails = async (req, res) => {
 	const { id } = req.params
-	const unit = await Unit.findOne({_id: id})
+	const unit = await Unit.findOne({_id: id}).populate('tenant')
 	if (!unit) {
 		throw new NotFoundError(`No unit with id :${id}`);
 	}
-	res.status(StatusCodes.OK).json({unit})
+	res.status(StatusCodes.OK).json({ unit })
 }
 
 const updateUnit = async (req, res) => {
@@ -44,4 +44,4 @@ const deleteUnit = async (req, res) => {
 	res.status(StatusCodes.OK).json({unit})
 }
 
-export { getAllUnits, getSingleUnit, createUnit, updateUnit, deleteUnit }
+export { getAllUnits, getUnitDetails, createUnit, updateUnit, deleteUnit }
