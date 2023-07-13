@@ -1,9 +1,9 @@
 import express from "express";
 const router = express.Router()
-import { createAppliance, updateAppliance, getAllAppliances, getSingleAppliance } from "../controllers/applianceController.js";
+import { createAppliance, updateAppliance, getAllAppliances, getApplianceDetails } from "../controllers/applianceController.js";
 
 router.route('/').get(getAllAppliances)
-router.route('/:id').get(getSingleAppliance)
+router.route('/:id').get(getApplianceDetails)
 router.route('/new').post(createAppliance)
 router.route('/:id').put(updateAppliance)
 

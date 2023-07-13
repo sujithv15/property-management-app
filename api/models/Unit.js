@@ -25,6 +25,13 @@ const UnitSchema = new mongoose.Schema( {
 		type: Boolean,
 		required: [true, "Please select if this will be the primary unit"]
 	},
+	primary: {
+		type: [mongoose.Types.ObjectId],
+		ref: 'Unit'
+	},
+	occupied: {
+		type: Boolean,
+	},
 	tenant: {
 		type: mongoose.Types.ObjectId,
 		ref: 'Tenant'
@@ -49,32 +56,9 @@ const UnitSchema = new mongoose.Schema( {
 		type: [mongoose.Types.ObjectId],
 		ref: 'Appliance'
 	},
-	repairs: {
-		type: [mongoose.Types.ObjectId],
-		ref: 'Repair'
-	},
-	insurance: {
-		company: {
-			type: String
-		},
-		premium: {
-			type: Number
-		},
-		details: {
-			type: String
-		}
-	},
 	mortgage: {
-		type: {}
-	},
-	association: {
-		type: String
-	},
-	taxes: {
-		type: [String]
-	},
-	maintenance: {
-		type: {}
+		type: [mongoose.Types.ObjectId],
+		ref: 'Mortgage'
 	},
 	createdAt: {
 		type: Date,

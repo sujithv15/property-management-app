@@ -1,7 +1,6 @@
 import FormRow from "./FormRow.jsx";
-import {NavLink} from "react-router-dom";
-import {useState} from "react";
-import {useGlobalContext} from "../../context/GlobalContext.jsx";
+import { useState } from "react";
+import { useGlobalContext } from "../../context/GlobalContext.jsx";
 
 const initialState = {
 	name: '',
@@ -10,7 +9,6 @@ const initialState = {
 }
 
 const LoginForm = () => {
-
 	// new state values for user input values
 	const [values, setValues] = useState(initialState)
 
@@ -38,7 +36,6 @@ const LoginForm = () => {
 
 	return (
 		<div className="">
-
 			<form className='' onSubmit={handleSubmit}>
 
 				<div className="text-center">
@@ -50,6 +47,7 @@ const LoginForm = () => {
 					<FormRow type="search" name='password' labelText='password' password='email'  value={values.password} handleChange={handleChange} />
 					<button type='submit'  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs">login</button>
 				</div>
+
 			</form>
 		</div>
 	);

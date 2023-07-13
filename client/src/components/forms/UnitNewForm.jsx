@@ -11,6 +11,7 @@ const initialState = {
 	state: '',
 	zip: '',
 	isPrimary: false,
+	primary: null,
 	tenant: null,
 	user: null,
 	bedrooms: 0,
@@ -18,16 +19,7 @@ const initialState = {
 	rent: 0,
 	fmrRent: 0,
 	appliances: null,
-	repairs: null,
-	insurance: {
-		company: '',
-		premium: 0,
-		details: ''
-	},
 	mortgage: null,
-	association: null,
-	taxes: null,
-	maintenance: null
 }
 
 const UnitNewForm = () => {
@@ -48,11 +40,9 @@ const UnitNewForm = () => {
 			clearAlert()
 			return
 		}
-
 		createUnit(values)
 		toast.success('Unit Successfully Created')
 	}
-
 
 	return (
 		<div>
@@ -63,7 +53,7 @@ const UnitNewForm = () => {
 				<FormRow labelText="city" type="text" name="city" value={values.city} handleChange={handleChange}/>
 				<FormRow labelText="state" type="text" name="state" value={values.state} handleChange={handleChange}/>
 				<FormRow labelText="zip" type="text" name="zip" value={values.zip} handleChange={handleChange}/>
-				<FormRow labelText="isPrimary" type="text" name="isPrimary" value={values.isPrimary} handleChange={handleChange}/>
+				<FormRowSelect labelText="isPrimary" name="isPrimary" value={values.isPrimary} handleChange={handleChange} list={[true, false]}/>
 				<FormRow labelText="bedrooms" type="number" name="bedrooms" value={values.bedrooms} handleChange={handleChange}/>
 				<FormRow labelText="bathrooms" type="number" name="bathrooms" value={values.bathrooms} handleChange={handleChange}/>
 				<FormRow labelText="rent" type="number" name="rent" value={values.rent} handleChange={handleChange}/>

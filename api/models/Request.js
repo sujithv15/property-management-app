@@ -17,12 +17,19 @@ const RequestSchema = new mongoose.Schema({
 		type: Boolean,
 		default: false
 	},
-	completed: {
-		type: Boolean,
-		default: false
+	status: {
+		type: String,
+		default: ['waiting', 'pending', 'completed']
 	},
-
-
+	createdAt: {
+		type: Date,
+		default: () => Date.now(),
+		immutable: true
+	},
+	updatedAt: {
+		type: Date,
+		default: () => Date.now()
+	}
 }, {timestamps: true})
 
 export default mongoose.model('Request', RequestSchema)

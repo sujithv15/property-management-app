@@ -1,8 +1,7 @@
-import {useState} from "react";
-import {useGlobalContext} from "../../context/GlobalContext.jsx";
-import {toast} from "react-toastify";
+import { useState } from "react";
+import { useGlobalContext } from "../../context/GlobalContext.jsx";
+import { toast } from "react-toastify";
 import FormRow from "./FormRow.jsx";
-import FormRowSelect from "./FormRowSelect.jsx";
 
 const TenantUpdateForm = (tenant) => {
 
@@ -24,13 +23,12 @@ const TenantUpdateForm = (tenant) => {
 			return
 		}
 		// updateTenant()
-		toast.success('Tenant Successfully Created')
+		toast.success('Tenant Successfully Updated')
 	}
 
 	return (
 		<div>
 			<form className="form" onSubmit={handleSubmit}>
-				<FormRow labelText="property" name="property" value={property}/>
 				<FormRow labelText="unit" type="text" name="unit" value={unit} readOnly={true}/>
 				<FormRow labelText="lastName" type="text" name="lastName" value={values.lastName} handleChange={handleChange}/>
 				<FormRow labelText="firstName" type="text" name="firstName" value={values.firstName} handleChange={handleChange}/>
@@ -38,18 +36,21 @@ const TenantUpdateForm = (tenant) => {
 				<FormRow labelText="phone" type="text" name="phone" value={values.phone} handleChange={handleChange}/>
 				<FormRow labelText="rent" type="number" name="rent" value={values.rent} handleChange={handleChange}/>
 				<FormRow labelText="balance" type="number" name="balance" value={values.balance} handleChange={handleChange}/>
-				<FormRow labelText="isAssisted" type="text" name="isAssisted" value={values.isAssisted} handleChange={handleChange}/>
-				<FormRow labelText="rentAssistance" type="number" name="rentAssistance" value={values.rentAssistance} handleChange={handleChange}/>
-				<FormRow labelText="assistedPortion" type="number" name="assistedPortion" value={values.assistedPortion} handleChange={handleChange}/>
+				<FormRow labelText="isAssisted" type="boolean" name="isAssisted" value={values.isAssisted} handleChange={handleChange}/>
 
-				<div>
-					<FormRow labelText="agentName" type="text" name="agentName" value={values.agent?.name} handleChange={handleChange}/>
-					<FormRow labelText="agency" type="text" name="agency" value={values.agent?.agency} handleChange={handleChange}/>
-					<FormRow labelText="agentPhone" type="text" name="agentPhone" value={values.agent?.phone} handleChange={handleChange}/>
-					<FormRow labelText="agentEmail" type="email" name="agentEmail" value={values.agent?.email} handleChange={handleChange}/>
+				<div className="tenant-form-assisted">
+					<FormRow labelText="rentAssistance" type="number" name="rentAssistance" value={values.rentAssistance} handleChange={handleChange}/>
+					<FormRow labelText="assistedPortion" type="number" name="assistedPortion" value={values.assistedPortion} handleChange={handleChange}/>
+
+					<div className="tenant-form-assisted">
+						<FormRow labelText="agentName" type="text" name="agentName" value={values.agent?.name} handleChange={handleChange}/>
+						<FormRow labelText="agency" type="text" name="agency" value={values.agent?.agency} handleChange={handleChange}/>
+						<FormRow labelText="agentPhone" type="text" name="agentPhone" value={values.agent?.phone} handleChange={handleChange}/>
+						<FormRow labelText="agentEmail" type="email" name="agentEmail" value={values.agent?.email} handleChange={handleChange}/>
+					</div>
 				</div>
 
-				<button type="submit" className='btn'>create property</button>
+				<button type="submit" className='btn'>update tenant</button>
 			</form>
 		</div>
 	);

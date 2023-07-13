@@ -1,8 +1,7 @@
-import {useState} from "react";
-import {useGlobalContext} from "../../context/GlobalContext.jsx";
-import {toast} from "react-toastify";
+import { useState } from "react";
+import { useGlobalContext } from "../../context/GlobalContext.jsx";
+import { toast } from "react-toastify";
 import FormRow from "./FormRow.jsx";
-import FormRowSelect from "./FormRowSelect.jsx";
 
 const initialState = {
 	unit: null,
@@ -57,7 +56,8 @@ const TenantCreateForm = (tenant, id) => {
 				<FormRow labelText="phone" type="text" name="phone" value={values.phone} handleChange={handleChange}/>
 				<FormRow labelText="rent" type="number" name="rent" value={values.rent} handleChange={handleChange}/>
 				<FormRow labelText="balance" type="number" name="balance" value={values.balance} handleChange={handleChange}/>
-				<FormRow labelText="isAssisted" type="text" name="isAssisted" value={values.isAssisted} handleChange={handleChange}/>
+				<FormRow labelText="isAssisted" type="boolean" name="isAssisted" value={values.isAssisted} handleChange={handleChange}/>
+
 				<div className="tenant-form-assisted">
 					<FormRow labelText="rentAssistance" type="number" name="rentAssistance" value={values.rentAssistance} handleChange={handleChange}/>
 					<FormRow labelText="assistedPortion" type="number" name="assistedPortion" value={values.assistedPortion} handleChange={handleChange}/>

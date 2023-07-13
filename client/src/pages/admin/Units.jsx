@@ -56,7 +56,7 @@ const Units = () => {
 				<p className="text-xl font-bold col-span-2 pl-3">address</p>
 				<p className="text-xl font-bold">beds/baths</p>
 				<p className="text-xl font-bold">rent</p>
-				<p className="text-xl font-bold">tenant</p>
+				<p className="text-xl font-bold">occupied</p>
 			</div>
 
 			<ul>

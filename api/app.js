@@ -7,7 +7,7 @@ import cors from 'cors'
 import xss from 'xss-clean'
 import rateLimit from "express-rate-limit";
 // routers imports
-import authRouter from "./routes/authRoutes.js"
+import authRoutes from "./routes/authRoutes.js"
 import applianceRoutes from "./routes/applianceRoutes.js";
 import unitsRoutes from "./routes/unitRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
@@ -50,11 +50,14 @@ app.get('/api/v1', (req, res) => {
 	res.send('property management api')
 })
 
-app.use('/api/v1/auth', authRouter)  // login, logout, register
+app.use('/api/v1/auth', authRoutes)  // login, logout, register
 app.use('/api/v1/users', authenticateUser, authorizePermissions, userRoutes)  // getAllUsers, getUserInfo, showCurrentUser, updateUser, updateUserPassword
 app.use('/api/v1/admin/appliances', authenticateUser, authorizePermissions, applianceRoutes)
 app.use('/api/v1/admin/units', authenticateUser, authorizePermissions, unitsRoutes)
-app.use('/api/v1/admin/payments', paymentRoutes)
+app.use('/api/v1/admin/payments', authenticateUser, authorizePermissions, paymentRoutes)
+app.use('/api/v1/admin/mortgage', authenticateUser, authorizePermissions, paymentRoutes)
+app.use('/api/v1/admin/messages', authenticateUser, authorizePermissions, paymentRoutes)
+app.use('/api/v1/admin/requests', authenticateUser, authorizePermissions, paymentRoutes)
 
 // will contain all user personal routes so authentication per user middleware
 app.use('/api/v1/tenants', authorizePermissions, authenticateUser, tenantRoutes)

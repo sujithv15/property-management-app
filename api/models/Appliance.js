@@ -14,16 +14,25 @@ const ApplianceSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	repairs: {
-		type: mongoose.Types.ObjectId,
-		ref: 'Repair'
-	},
 	warranty: {
 		type: String
 	},
 	receipt: {
 		type: String
 	},
-})
+	payments: {
+		type: mongoose.Types.ObjectId,
+		ref: 'Payment'
+	},
+	createdAt: {
+		type: Date,
+		default: () => Date.now(),
+		immutable: true
+	},
+	updatedAt: {
+		type: Date,
+		default: () => Date.now()
+	}
+}, { timestamps: true })
 
 export default mongoose.model('Appliance', ApplianceSchema)

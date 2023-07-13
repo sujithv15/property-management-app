@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
-import axios from "axios";
+import ax from '../utils/ax.jsx'
 import reducer from "./reducer.jsx";
 
 import {
@@ -59,6 +59,7 @@ const initialState = {
 	properties: [],
 	tenants: [],
 	units: [],
+	unit: null,
 	payments: [],
 	rents: [],
 	property: []
@@ -67,25 +68,6 @@ const initialState = {
 const GlobalContext = createContext()
 
 const GlobalProvider = ({ children }) => {
-	// axios
-	const ax = axios.create({
-		//baseURL: 'http://localhost:8800/api/v1',
-		baseURL: 'https://property-management-app.onrender.com/api/v1',
-		withCredentials: true
-	});
-	// response
-	ax.interceptors.response.use(
-		(response) => {
-			return response;
-		},
-		(error) => {
-			// console.log(error.response)
-			if (error.response.status === 401) {
-				logoutUser();
-			}
-			return Promise.reject(error);
-		}
-	);
 
 	const [state, dispatch] = useReducer(reducer, initialState)
 
@@ -204,43 +186,6 @@ const GlobalProvider = ({ children }) => {
 		clearAlert()
 	}
 
-/*----------------Tenants------------------*/
-	const readTenants = async () => {
-		dispatch({ type: READ_TENANTS_BEGIN })
-		try {
-			const response = await ax('/admin/tenants')
-			const { tenants } = response.data
-			dispatch({
-				type: READ_TENANTS_SUCCESS,
-				payload: { tenants }
-			})
-		} catch (error) {
-			dispatch({
-				type: READ_TENANTS_ERROR,
-				payload: { msg: error}
-			})
-		}
-		clearAlert()
-	}
-
-	const createTenant = async (tenant) => {
-		dispatch({type: CREATE_TENANT_BEGIN})
-		try {
-			const response = await ax.post('/admin/tenants/create', tenant)
-			const {tenant} = response.data
-			dispatch({
-				type: CREATE_TENANT_SUCCESS,
-				payload: {tenant}
-			})
-		} catch (error) {
-			dispatch({
-				type: CREATE_TENANT_ERROR,
-				payload: {msg: error}
-			})
-		}
-		clearAlert()
-	}
-
 /*----------------Units------------------*/
 	const readUnits = async () => {
 		dispatch({ type: READ_UNITS_BEGIN })
@@ -313,7 +258,56 @@ const GlobalProvider = ({ children }) => {
 		}
 		clearAlert()
 	}
-/*----------------Payments------------------*/
+
+	/*----------------Tenants------------------*/
+	const readTenants = async () => {
+		dispatch({ type: READ_TENANTS_BEGIN })
+		try {
+			const response = await ax('/admin/tenants')
+			const { tenants } = response.data
+			dispatch({
+				type: READ_TENANTS_SUCCESS,
+				payload: { tenants }
+			})
+		} catch (error) {
+			dispatch({
+				type: READ_TENANTS_ERROR,
+				payload: { msg: error}
+			})
+		}
+		clearAlert()
+	}
+
+	const createTenant = async (tenant) => {
+		dispatch({type: CREATE_TENANT_BEGIN})
+		try {
+			const response = await ax.post('/admin/tenants/create', tenant)
+			const {tenant} = response.data
+			dispatch({
+				type: CREATE_TENANT_SUCCESS,
+				payload: {tenant}
+			})
+		} catch (error) {
+			dispatch({
+				type: CREATE_TENANT_ERROR,
+				payload: {msg: error}
+			})
+		}
+		clearAlert()
+	}
+
+	const getTenantDetails = async (tenant_id) => {
+
+		try {
+			const response = await ax(`/admin/tenants/${tenant_id}`)
+			const { tenant } = response.data
+		} catch (error) {
+			throw new Error(error)
+		}
+		clearAlert()
+	}
+
+	/*----------------Payments------------------*/
 	const readPayments = async () => {
 		dispatch({ type: READ_PAYMENTS_BEGIN })
 		try {
@@ -358,18 +352,25 @@ const GlobalProvider = ({ children }) => {
 				loginUser,
 				logoutUser,
 				registerUser,
+
 				displayAlert,
 				clearAlert,
+
 				createProperty,
 				readProperties,
 				updateProperty,
-				createTenant,
-				readTenants,
+
 				readUnits,
 				createUnit,
+				getUnit,
+
+				createTenant,
+				readTenants,
+				getTenantDetails,
+
 				createPayment,
 				readPayments,
-				getUnit
+
 			}
 		}>
 			{ children }

@@ -3,6 +3,7 @@ import LoginForm from "../../components/forms/LoginForm.jsx";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Alert } from "../../components/index.js";
+import { config } from '../../../constants.js'
 
 const Login = () => {
 
@@ -16,6 +17,7 @@ const Login = () => {
 				navigate(`/${role}`);
 			}, 1000);
 		}
+		console.log(config.url.API_URL);
 	}, [user]);
 
 

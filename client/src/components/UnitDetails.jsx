@@ -1,22 +1,67 @@
 import TenantCreateForm from "./forms/TenantCreateForm.jsx";
 import ApplianceForm from "./forms/ApplianceForm.jsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UnitUpdateForm from "./forms/UnitUpdateForm.jsx";
+import { useGlobalContext } from "../context/GlobalContext.jsx";
+import { Tenant } from "./index.js";
 
 const UnitDetails = (unit) => {
 
-	const { _id, propertyUnit, street, city, state, zip, isPrimary, tenant, user, bedrooms, bathrooms, rent, fmrRent, appliances, repairs, insurance, mortgage, association, taxes, maintenance } = unit
+	const { getTenantDetails } = useGlobalContext()
 
+	const { _id, propertyUnit, street, city, state, zip, isPrimary, tenant, user, bedrooms, bathrooms, rent, fmrRent, appliances, mortgage } = unit
+
+	const [unitTenant, setUnitTenant] = useState('')
 	const [showUnitForm, setShowUnitForm] = useState(false)
+	const [showTenantDetails, setShowTenantDetails] = useState(false)
+	const [showCreateTenantForm, setShowCreateTenantForm] = useState(false)
 	const [showTenantForm, setShowTenantForm] = useState(false)
 	const [showAppliances, setShowAppliances] = useState(false)
 
+
+	useEffect(() => {
+		setUnitTenant(getTenantDetails(tenant))
+	}, [])
+
 	return (
-		<div className="unit-details-container">
+		<div className="grid grid-cols-5 mb-4 pt-3 justify-items-start ml-10">
+
+
+
+			<div className="unit-tenant">
+				<div>
+					<p>Tenant: </p>
+					<p>{unitTenant?.firstName} {unitTenant.lastName}</p>
+					<p>{unitTenant?.phone}</p>
+					<p>{unitTenant?.email}</p>
+				</div>
+				{
+					tenant ?
+						<div className="tenant-info">
+							<div className="tenant-contact">
+								<p>{tenant.phone}</p>
+								<p>{tenant.email}</p>
+							</div>
+							<div className="tenant-details">
+								<a onClick={
+									()=>setShowTenantDetails(!showTenantDetails)}
+								>
+									<Tenant />
+								</a>
+							</div>
+						</div>
+						:
+						<button
+							className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs"
+							onClick={() => setShowCreateTenantForm(!showCreateTenantForm)
+							}>{showCreateTenantForm ? "cancel" : "add tenant"}
+						</button>
+				}
+			</div>
 
 			<div className="unit-details-rent">
 				<p>Rent: ${rent}</p>
-				<p>Fair Market Value rent: ${fmrRent}</p>
+				<p>Market rent: ${fmrRent}</p>
 			</div>
 
 			<div className="unit-details-appliances">
@@ -39,39 +84,19 @@ const UnitDetails = (unit) => {
 				}
 			</div>
 
-			<div className="unit-details-repairs">
-				Repairs
-			</div>
-
 			{
 				isPrimary &&
 
 				<div className="primary-unit-details">
-					<div className="unit-insurance">
-						Insurance: {insurance?.company} {insurance?.premium} {insurance?.details}
-					</div>
-
 					<div className="unit-mortgage">
 						mortgage
-					</div>
-
-					<div className="unit-taxes">
-						taxes
-					</div>
-
-					<div className="unit-association">
-						association
-					</div>
-
-					<div className="unit-maintenance">
-						association
 					</div>
 				</div>
 			}
 
 			<div className="unit-update-btn">
 				<button
-					className="btn"
+					className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs"
 					onClick={() => setShowUnitForm(!showUnitForm)
 				}>
 					{showUnitForm ? "cancel" : "edit unit"}

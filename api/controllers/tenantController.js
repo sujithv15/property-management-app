@@ -15,13 +15,10 @@ const getAllTenants = async (req, res, next) => {
 	res.status(StatusCodes.OK).json({tenants})
 }
 
-const getTenantDetails = async (req, res, next) => {
+const getTenantDetails = async (req, res) => {
 
-	if (req.params.id !== req.user.tenantID) {
-		throw new UnauthenticatedError('user not authenticated')
-	}
 	const tenantDetails = await Tenant.findById(req.params.id)
-	res.status(StatusCodes.OK).json({ tenantDetails} )
+	res.status(StatusCodes.OK).json({ tenantDetails } )
 }
 
 const updateTenant = async (req, res) => {

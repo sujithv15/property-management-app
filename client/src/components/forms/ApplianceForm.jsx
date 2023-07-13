@@ -31,7 +31,6 @@ const ApplianceForm = ({ unit }) => {
 			clearAlert()
 			return
 		}
-
 		const newAppliance = { unit, appliance, datePurchased, repairs, warranty, receipt }
 		createAppliance(newAppliance)
 		toast.success('Appliance Successfully Created')
