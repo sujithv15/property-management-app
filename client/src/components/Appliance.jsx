@@ -1,23 +1,28 @@
-import ApplianceForm from "./forms/ApplianceForm.jsx";
+import ApplianceCreateForm from "./forms/ApplianceCreateForm.jsx";
 import { useState } from "react";
 
-const Appliance = () => {
+const Appliance = ({ appliance }) => {
 
-	const [unitAppliances, setUnitAppliances] = useState([])
-	const [showApplianceForm, setShowApplianceForm] = useState(false)
-
-	const getAppliances = () => {
-
-	}
+	const [showApplianceUpdateForm, setShowApplianceUpdateForm] = useState(false)
 
 	return (
-		<div>
-			<div className="unit-appliances unit-item">
-				<button className="btn" onClick={() => setShowApplianceForm(!showApplianceForm)}>view/edit appliances</button>
+		<div className="appliance">
+			<div>
+				Appliance: {appliance.appliance}
+			</div>
+			<div>
+				Date purchased: {appliance.datePurchased}
+			</div>
+			<div>
+				Warranty: {appliance.warranty}
+			</div>
+			<div>
+				Receipt: {appliance.receipt}
 			</div>
 
-			<div className="add-appliance-form">
-				{showApplianceForm && <ApplianceForm unit={street}/>}
+
+			<div className="unit-appliances unit-item">
+				<button className="btn" onClick={() => setShowApplianceUpdateForm(!showApplianceUpdateForm)}>{showApplianceUpdateForm ? "cancel" : "edit appliance"}</button>
 			</div>
 		</div>
 	);

@@ -60,6 +60,10 @@ const UnitSchema = new mongoose.Schema( {
 		type: [mongoose.Types.ObjectId],
 		ref: 'Mortgage'
 	},
+	payments: {
+		type: [mongoose.Types.ObjectId],
+		ref: 'Payment'
+	},
 	createdAt: {
 		type: Date,
 		default: () => Date.now(),

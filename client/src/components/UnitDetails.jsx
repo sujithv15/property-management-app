@@ -1,5 +1,5 @@
 import TenantCreateForm from "./forms/TenantCreateForm.jsx";
-import ApplianceForm from "./forms/ApplianceForm.jsx";
+import ApplianceCreateForm from "./forms/ApplianceCreateForm.jsx";
 import { useEffect, useState } from "react";
 import UnitUpdateForm from "./forms/UnitUpdateForm.jsx";
 import { useGlobalContext } from "../context/GlobalContext.jsx";

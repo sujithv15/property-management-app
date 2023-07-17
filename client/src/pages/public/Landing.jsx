@@ -3,8 +3,8 @@ import img2 from '../../assets/images/landlod-tenant.jpeg'
 import img3 from '../../assets/images/magnifying.jpeg'
 import img4 from '../../assets/images/laptop.jpeg'
 import img5 from '../../assets/images/condos.jpeg'
-const Landing = () => {
 
+const Landing = () => {
 
 	return (
 		<div className="title container">

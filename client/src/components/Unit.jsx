@@ -20,7 +20,7 @@ const Unit = (unit) => {
 				<div className="col-span-2">
 						<p>
 							<span className="absolute">{isPrimary && <>*</>}</span>
-							<NavLink className="pl-3" to={`/admin/units/${_id}`}>{`${propertyUnit} ${street}`}</NavLink>
+							<NavLink className="pl-3 text-blue-600" to={`/admin/units/${_id}`}>{`${propertyUnit} ${street}`}</NavLink>
 						</p>
 						<p className="pl-3">{city}, {state} {zip}</p>
 				</div>

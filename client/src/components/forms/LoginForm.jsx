@@ -1,6 +1,7 @@
 import FormRow from "./FormRow.jsx";
 import { useState } from "react";
 import { useGlobalContext } from "../../context/GlobalContext.jsx";
+import { toast } from "react-toastify";
 
 const initialState = {
 	name: '',
@@ -13,7 +14,7 @@ const LoginForm = () => {
 	const [values, setValues] = useState(initialState)
 
 	// function in our GlobalContext to login user to server
-	const { user, isLoading, showAlert, displayAlert, Alert, clearAlert, loginUser, logoutUser } = useGlobalContext()
+	const { loginUser } = useGlobalContext()
 
 	// set state values as user types
 	const handleChange = (e) => {
@@ -24,14 +25,12 @@ const LoginForm = () => {
 	// context will set state.user and isAdmin appropriately
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		const {email, password} = values
+		const { email, password } = values
 		if (!email || !password) {
-			displayAlert()
-			clearAlert()
+			toast('Enter valid email and password!')
 			return
 		}
-		const currentUser = { email, password }
-		loginUser(currentUser)
+		loginUser({ email, password })
 	}
 
 	return (

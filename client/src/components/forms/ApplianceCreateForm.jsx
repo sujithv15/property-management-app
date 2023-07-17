@@ -14,7 +14,7 @@ const initialState = {
 
 const applianceList = ['refrigerator', 'microwave', 'stove', 'dishwasher', 'air-conditioner', 'water heater', 'washer', 'dryer']
 
-const ApplianceForm = ({ unit }) => {
+const ApplianceCreateForm = ({ unit }) => {
 
 	const [values, setValues] = useState(initialState)
 	const { displayAlert, clearAlert, isLoading, createAppliance, units } = useGlobalContext()
@@ -51,4 +51,4 @@ const ApplianceForm = ({ unit }) => {
 	);
 };
 
-export default ApplianceForm;
+export default ApplianceCreateForm;

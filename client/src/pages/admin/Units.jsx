@@ -39,15 +39,20 @@ const Units = () => {
 			</div>
 
 			<div className="flex justify-between my-5">
+
 				<div className="flex gap-2 ml-10">
 					<label className="block text-gray-700 font-bold mb-2 pt-2">Search: </label>
 					<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="search" placeholder="Search Units" value={query} onChange={e=>setQuery(e.target.value)}/>
 				</div>
+
 				<div className="mr-10">
 					{showForm ?
-						<UnitNewForm />
+						<>
+							<UnitNewForm />
+							<button className="relative left-40 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs" onClick={() => setShowForm(false)}>cancel</button>
+						</>
 						:
-						<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs" onClick={() => setShowForm(!showForm)}>add Unit</button>
+						<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs" onClick={() => setShowForm(true)}>add Unit</button>
 					}
 				</div>
 			</div>

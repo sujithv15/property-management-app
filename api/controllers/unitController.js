@@ -17,7 +17,7 @@ const getAllUnits = async (req, res) => {
 
 const getUnitDetails = async (req, res) => {
 	const { id } = req.params
-	const unit = await Unit.findOne({_id: id}).populate('tenant')
+	const unit = await Unit.findOne({_id: id}).populate('tenant').populate('appliances').populate('mortgage').populate('payments')
 	if (!unit) {
 		throw new NotFoundError(`No unit with id :${id}`);
 	}

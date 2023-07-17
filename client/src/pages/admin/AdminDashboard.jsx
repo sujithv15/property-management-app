@@ -1,6 +1,5 @@
 import { useGlobalContext } from "../../context/GlobalContext.jsx";
 
-
 const AdminDashboard = () => {
 
 	const { user } = useGlobalContext()

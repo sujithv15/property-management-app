@@ -24,7 +24,7 @@ import { authenticateUser, authorizePermissions } from "./middleware/authenticat
 const app = express()
 dotenv.config()
 
-// app.set('trust proxy', 1)  // if behind reverse proxy
+app.set('trust proxy', 1)  // if behind reverse proxy
 app.use(rateLimit({
 	windowMs: 15 * 60 *1000, //15 min
 	max: 100 //limit each IP to 100 req per windowMs

@@ -9,10 +9,6 @@ const Payment = (payment) => {
 				<h5>{amount}</h5>
 				<h5>{status}</h5>
 			</div>
-
-
-
-
 		</div>
 	);
 };

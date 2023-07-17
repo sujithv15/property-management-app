@@ -72,7 +72,7 @@ const GlobalProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(reducer, initialState)
 
 /*----------------Alerts------------------*/
-	const displayAlert = () => {
+	const displayAlert = (alertText) => {
 		dispatch({ type: DISPLAY_ALERT })
 		clearAlert()
 	}

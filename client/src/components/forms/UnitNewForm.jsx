@@ -26,7 +26,7 @@ const UnitNewForm = () => {
 
 	const [values, setValues] = useState(initialState)
 
-	const { displayAlert, clearAlert, createUnit } = useGlobalContext()
+	const { createUnit } = useGlobalContext()
 
 	const handleChange = (e) => {
 		setValues({...values, [e.target.name]: e.target.value})
@@ -36,8 +36,7 @@ const UnitNewForm = () => {
 		e.preventDefault()
 		const { propertyUnit } = values
 		if (!propertyUnit) {
-			displayAlert()
-			clearAlert()
+			toast('Enter a valid unit')
 			return
 		}
 		createUnit(values)
@@ -53,33 +52,12 @@ const UnitNewForm = () => {
 				<FormRow labelText="city" type="text" name="city" value={values.city} handleChange={handleChange}/>
 				<FormRow labelText="state" type="text" name="state" value={values.state} handleChange={handleChange}/>
 				<FormRow labelText="zip" type="text" name="zip" value={values.zip} handleChange={handleChange}/>
-				<FormRowSelect labelText="isPrimary" name="isPrimary" value={values.isPrimary} handleChange={handleChange} list={[true, false]}/>
 				<FormRow labelText="bedrooms" type="number" name="bedrooms" value={values.bedrooms} handleChange={handleChange}/>
 				<FormRow labelText="bathrooms" type="number" name="bathrooms" value={values.bathrooms} handleChange={handleChange}/>
 				<FormRow labelText="rent" type="number" name="rent" value={values.rent} handleChange={handleChange}/>
 				<FormRow labelText="fmrRent" type="number" name="fmrRent" value={values.fmrRent} handleChange={handleChange}/>
 
-				{
-					values.isPrimary &&
-					<div className="form-primary">
-						<div className="unit-form-insurance">
-							<FormRow labelText="company" type="text" name="company" value={values.insurance.company} handleChange={handleChange}/>
-							<FormRow labelText="premium" type="number" name="premium" value={values.insurance.premium} handleChange={handleChange}/>
-							<FormRow labelText="details" type="text" name="details" value={values.insurance.details} handleChange={handleChange}/>
-						</div>
-						<div className="unit-form-mortgage">
-							<FormRow labelText="mortgage" type="text" name="mortgage" value={values.mortgage} handleChange={handleChange}/>
-						</div>
-						<div className="unit-form-tax">
-							<FormRow labelText="tax" type="text" name="tax" value={values.taxes} handleChange={handleChange}/>
-						</div>
-						<div className="unit-form-maintenance">
-							<FormRow labelText="maintenance" type="text" name="maintenance" value={values.maintenance} handleChange={handleChange}/>
-						</div>
-					</div>
-				}
-
-				<button type="submit" className='btn'>create unit</button>
+				<button type="submit" className='relative top-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs'>create unit</button>
 			</form>
 		</div>
 	);
