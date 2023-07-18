@@ -13,21 +13,7 @@ import {
 	LOGIN_USER_ERROR,
 	LOGOUT_USER,
 	LOGIN_ADMIN_SUCCESS,
-	CREATE_PROPERTY_SUCCESS,
-	CREATE_PROPERTY_BEGIN,
-	CREATE_PROPERTY_ERROR,
-	READ_PROPERTIES_BEGIN,
-	READ_PROPERTIES_SUCCESS,
-	READ_PROPERTIES_ERROR,
-	UPDATE_PROPERTY_BEGIN,
-	UPDATE_PROPERTY_SUCCESS,
-	UPDATE_PROPERTY_ERROR,
-	CREATE_TENANT_BEGIN,
-	CREATE_TENANT_SUCCESS,
-	CREATE_TENANT_ERROR,
-	READ_TENANTS_BEGIN,
-	READ_TENANTS_SUCCESS,
-	READ_TENANTS_ERROR,
+
 	CREATE_UNIT_BEGIN,
 	CREATE_UNIT_SUCCESS,
 	CREATE_UNIT_ERROR,
@@ -37,15 +23,22 @@ import {
 	UPDATE_UNIT_BEGIN,
 	UPDATE_UNIT_SUCCESS,
 	UPDATE_UNIT_ERROR,
-	DELETE_UNITS_BEGIN,
-	DELETE_UNITS_SUCCESS,
-	DELETE_UNITS_ERROR,
+
+	CREATE_TENANT_BEGIN,
+	CREATE_TENANT_SUCCESS,
+	CREATE_TENANT_ERROR,
+	READ_TENANTS_BEGIN,
+	READ_TENANTS_SUCCESS,
+	READ_TENANTS_ERROR,
+
+
 	CREATE_PAYMENT_BEGIN,
 	CREATE_PAYMENT_SUCCESS,
 	CREATE_PAYMENT_ERROR,
 	READ_PAYMENTS_BEGIN,
 	READ_PAYMENTS_SUCCESS,
 	READ_PAYMENTS_ERROR,
+
 } from "./actions.jsx";
 
 
@@ -56,13 +49,10 @@ const initialState = {
 	alertType: '',
 	alertText: '',
 	user: null,
-	properties: [],
-	tenants: [],
 	units: [],
 	unit: null,
-	payments: [],
-	rents: [],
-	property: []
+
+	tenants: []
 }
 
 const GlobalContext = createContext()
@@ -132,79 +122,8 @@ const GlobalProvider = ({ children }) => {
 		dispatch({ type: LOGOUT_USER})
 	}
 
-/*----------------Properties------------------*/
-	const readProperties = async () => {
-		dispatch({ type: READ_PROPERTIES_BEGIN })
-		try {
-			const response = await ax('/admin/properties')
-			const { properties } = response.data
-			dispatch({
-				type: READ_PROPERTIES_SUCCESS,
-				payload: { properties }
-			})
-		} catch (error) {
-			dispatch({
-				type: READ_PROPERTIES_ERROR,
-				payload: { msg: error}
-			})
-		}
-		clearAlert()
-	}
-
-	const createProperty = async (property) => {
-		dispatch({ type: CREATE_PROPERTY_BEGIN })
-
-		try {
-			await ax.post('/admin/properties/create', property)
-			dispatch({
-				type: CREATE_PROPERTY_SUCCESS,
-			})
-		} catch (error) {
-			dispatch({
-				type: CREATE_PROPERTY_ERROR,
-				payload: { msg: error}
-			})
-		}
-		clearAlert()
-	}
-
-	const updateProperty = async (property) => {
-		dispatch({ type: UPDATE_PROPERTY_BEGIN })
-		try {
-			const response = await ax.patch(`/admin/properties/${property._id}`, property)
-			const { property } = response.data
-			dispatch({
-				type: UPDATE_PROPERTY_SUCCESS,
-				payload: { property }
-			})
-		} catch (error) {
-			dispatch({
-				type: UPDATE_PROPERTY_ERROR,
-				payload: { msg: error}
-			})
-		}
-		clearAlert()
-	}
 
 /*----------------Units------------------*/
-	const readUnits = async () => {
-		dispatch({ type: READ_UNITS_BEGIN })
-		try {
-			const response = await ax('/admin/units')
-			const { units } = response.data
-			dispatch({
-				type: READ_UNITS_SUCCESS,
-				payload: { units }
-			})
-		} catch (error) {
-			dispatch({
-				type: READ_UNITS_ERROR,
-				payload: { msg: error}
-			})
-		}
-		clearAlert()
-	}
-
 	const createUnit= async (unit) => {
 		dispatch({type: CREATE_UNIT_BEGIN})
 		console.log(unit);
@@ -224,6 +143,24 @@ const GlobalProvider = ({ children }) => {
 		clearAlert()
 	}
 
+	const readUnits = async () => {
+		dispatch({ type: READ_UNITS_BEGIN })
+		try {
+			const response = await ax('/admin/units')
+			const { units } = response.data
+			dispatch({
+				type: READ_UNITS_SUCCESS,
+				payload: { units }
+			})
+		} catch (error) {
+			dispatch({
+				type: READ_UNITS_ERROR,
+				payload: { msg: error}
+			})
+		}
+		clearAlert()
+	}
+	// get single unit, populated with all info
 	const getUnit = async (unit) => {
 		dispatch({type: GET_UNIT_BEGIN})
 		try {
@@ -258,6 +195,7 @@ const GlobalProvider = ({ children }) => {
 		}
 		clearAlert()
 	}
+
 
 	/*----------------Tenants------------------*/
 	const readTenants = async () => {
@@ -297,12 +235,29 @@ const GlobalProvider = ({ children }) => {
 	}
 
 	const getTenantDetails = async (tenant_id) => {
-
 		try {
 			const response = await ax(`/admin/tenants/${tenant_id}`)
 			const { tenant } = response.data
 		} catch (error) {
 			throw new Error(error)
+		}
+		clearAlert()
+	}
+
+	const updateTenant = async (tenant_id) => {
+		dispatch({ type: UPDATE_TENANT_BEGIN })
+		try {
+			const response = await ax.patch(`/admin/units/${unit._id}`, unit)
+			const { unit } = response.data
+			dispatch({
+				type: UPDATE_TENANT_SUCCESS,
+				payload: { unit }
+			})
+		} catch (error) {
+			dispatch({
+				type: UPDATE_TENANT_ERROR,
+				payload: { msg: error}
+			})
 		}
 		clearAlert()
 	}
@@ -356,17 +311,12 @@ const GlobalProvider = ({ children }) => {
 				displayAlert,
 				clearAlert,
 
-				createProperty,
-				readProperties,
-				updateProperty,
-
 				readUnits,
 				createUnit,
 				getUnit,
 
 				createTenant,
 				readTenants,
-				getTenantDetails,
 
 				createPayment,
 				readPayments,
@@ -380,3 +330,79 @@ const GlobalProvider = ({ children }) => {
 const useGlobalContext = () => useContext(GlobalContext)
 
 export { GlobalProvider, useGlobalContext, initialState };
+
+
+
+
+
+
+
+
+ /*----------------Properties------------------*/
+
+/*
+CREATE_PROPERTY_SUCCESS,
+	CREATE_PROPERTY_BEGIN,
+	CREATE_PROPERTY_ERROR,
+	READ_PROPERTIES_BEGIN,
+	READ_PROPERTIES_SUCCESS,
+	READ_PROPERTIES_ERROR,
+	UPDATE_PROPERTY_BEGIN,
+	UPDATE_PROPERTY_SUCCESS,
+	UPDATE_PROPERTY_ERROR,
+
+*/
+
+/*const readProperties = async () => {
+	dispatch({ type: READ_PROPERTIES_BEGIN })
+	try {
+		const response = await ax('/admin/properties')
+		const { properties } = response.data
+		dispatch({
+			type: READ_PROPERTIES_SUCCESS,
+			payload: { properties }
+		})
+	} catch (error) {
+		dispatch({
+			type: READ_PROPERTIES_ERROR,
+			payload: { msg: error}
+		})
+	}
+	clearAlert()
+}
+
+const createProperty = async (property) => {
+	dispatch({ type: CREATE_PROPERTY_BEGIN })
+
+	try {
+		await ax.post('/admin/properties/create', property)
+		dispatch({
+			type: CREATE_PROPERTY_SUCCESS,
+		})
+	} catch (error) {
+		dispatch({
+			type: CREATE_PROPERTY_ERROR,
+			payload: { msg: error}
+		})
+	}
+	clearAlert()
+}
+
+const updateProperty = async (property) => {
+	dispatch({ type: UPDATE_PROPERTY_BEGIN })
+	try {
+		const response = await ax.patch(`/admin/properties/${property._id}`, property)
+		const { property } = response.data
+		dispatch({
+			type: UPDATE_PROPERTY_SUCCESS,
+			payload: { property }
+		})
+	} catch (error) {
+		dispatch({
+			type: UPDATE_PROPERTY_ERROR,
+			payload: { msg: error}
+		})
+	}
+	clearAlert()
+}
+ */

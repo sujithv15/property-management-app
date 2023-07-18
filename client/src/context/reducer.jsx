@@ -1,6 +1,7 @@
 import {
 	DISPLAY_ALERT,
 	CLEAR_ALERT,
+
 	REGISTER_USER_BEGIN,
 	REGISTER_USER_ERROR,
 	REGISTER_USER_SUCCESS,
@@ -9,36 +10,39 @@ import {
 	LOGIN_USER_SUCCESS,
 	LOGOUT_USER,
 	LOGIN_ADMIN_SUCCESS,
-	CREATE_PROPERTY_SUCCESS,
-	CREATE_PROPERTY_BEGIN,
-	CREATE_PROPERTY_ERROR,
-	READ_PROPERTIES_BEGIN,
-	READ_PROPERTIES_SUCCESS,
-	READ_PROPERTIES_ERROR,
-	UPDATE_PROPERTY_BEGIN,
-	UPDATE_PROPERTY_SUCCESS,
-	UPDATE_PROPERTY_ERROR,
-	CREATE_TENANT_BEGIN,
-	CREATE_TENANT_SUCCESS,
-	CREATE_TENANT_ERROR,
-	READ_TENANTS_BEGIN,
-	READ_TENANTS_SUCCESS,
-	READ_TENANTS_ERROR,
+
 	CREATE_UNIT_BEGIN,
 	CREATE_UNIT_SUCCESS,
 	CREATE_UNIT_ERROR,
+
 	READ_UNITS_BEGIN,
 	READ_UNITS_SUCCESS,
 	READ_UNITS_ERROR,
-	UPDATE_UNIT_BEGIN,
-	UPDATE_UNIT_SUCCESS,
-	UPDATE_UNIT_ERROR,
-	DELETE_UNITS_BEGIN,
-	DELETE_UNITS_SUCCESS,
-	DELETE_UNITS_ERROR,
+
 	GET_UNIT_BEGIN,
 	GET_UNIT_SUCCESS,
 	GET_UNIT_ERROR,
+
+	UPDATE_UNIT_BEGIN,
+	UPDATE_UNIT_SUCCESS,
+	UPDATE_UNIT_ERROR,
+
+	DELETE_UNIT_BEGIN,
+	DELETE_UNIT_SUCCESS,
+	DELETE_UNIT_ERROR,
+
+	CREATE_TENANT_BEGIN,
+	CREATE_TENANT_SUCCESS,
+	CREATE_TENANT_ERROR,
+
+	READ_TENANTS_BEGIN,
+	READ_TENANTS_SUCCESS,
+	READ_TENANTS_ERROR,
+
+	UPDATE_TENANT_BEGIN,
+	UPDATE_TENANT_SUCCESS,
+	UPDATE_TENANT_ERROR,
+
 	CREATE_PAYMENT_BEGIN,
 	CREATE_PAYMENT_SUCCESS,
 	CREATE_PAYMENT_ERROR,
@@ -48,6 +52,7 @@ import {
 } from "./actions.jsx";
 
 import {initialState} from "./GlobalContext.jsx"
+
 
 const Reducer = (state, action) => {
 
@@ -141,83 +146,6 @@ const Reducer = (state, action) => {
 		};
 	}
 
-/*----------------Properties------------------*/
-	if (action.type === CREATE_PROPERTY_BEGIN) {
-		return {
-			...state,
-			isLoading: true
-		}
-	}
-	if (action.type === CREATE_PROPERTY_SUCCESS) {
-		return {
-			...state,
-			property: action.payload.property,
-			isLoading: false,
-			showAlert: true,
-			alertType: 'success',
-			alertText: 'property created! redirecting...'
-		}
-	}
-	if (action.type === CREATE_PROPERTY_ERROR) {
-		return {
-			...state,
-			isLoading: false,
-			showAlert: true,
-			alertType: 'danger',
-			alertText: action.payload.msg
-		}
-	}
-	if (action.type === READ_PROPERTIES_BEGIN) {
-		return {
-			...state,
-			isLoading: true
-		}
-	}
-	if (action.type === READ_PROPERTIES_SUCCESS) {
-		return {
-			...state,
-			properties: action.payload.properties,
-			isLoading: false,
-			showAlert: true,
-			alertType: 'success',
-			alertText: 'retrieving properties...'
-		}
-	}
-	if (action.type === READ_PROPERTIES_ERROR) {
-		return {
-			...state,
-			isLoading: false,
-			showAlert: true,
-			alertType: 'danger',
-			alertText: action.payload.msg
-		}
-	}
-	if (action.type === UPDATE_PROPERTY_BEGIN) {
-		return {
-			...state,
-			isLoading: true
-		}
-	}
-	if (action.type === UPDATE_PROPERTY_SUCCESS) {
-		return {
-			...state,
-			property: action.payload.property,
-			isLoading: false,
-			showAlert: true,
-			alertType: 'success',
-			alertText: 'retrieving properties...'
-		}
-	}
-	if (action.type === UPDATE_PROPERTY_ERROR) {
-		return {
-			...state,
-			isLoading: false,
-			showAlert: true,
-			alertType: 'danger',
-			alertText: action.payload.msg
-		}
-	}
-	// FIX ME : add property delete operations
 
 
 /*----------------Units------------------*/
@@ -230,7 +158,7 @@ const Reducer = (state, action) => {
 	if (action.type === CREATE_UNIT_SUCCESS) {
 		return {
 			...state,
-			unit: action.payload.unit,
+			units: [...state.units, action.payload.unit],
 			isLoading: false,
 			showAlert: true,
 			alertType: 'success',
@@ -306,7 +234,7 @@ const Reducer = (state, action) => {
 	if (action.type === UPDATE_UNIT_SUCCESS) {
 		return {
 			...state,
-			unit: action.payload.unit,
+			units: [...state.unit, action.payload.unit],
 			isLoading: false,
 			showAlert: true,
 			alertType: 'success',
@@ -322,7 +250,7 @@ const Reducer = (state, action) => {
 			alertText: action.payload.msg
 		}
 	}
-	// add update/delete unit(s)
+	// add delete unit(s)
 
 /*----------------Tenants------------------*/
 	if (action.type === CREATE_TENANT_BEGIN) {
@@ -376,6 +304,30 @@ const Reducer = (state, action) => {
 		}
 	}
 
+	if (action.type === UPDATE_TENANT_BEGIN) {
+		return {
+			...state,
+			isLoading: true
+		}
+	}
+	if (action.type === UPDATE_TENANT_SUCCESS) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: 'success',
+			alertText: 'updating unit...'
+		}
+	}
+	if (action.type === UPDATE_TENANT_ERROR) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: 'danger',
+			alertText: action.payload.msg
+		}
+	}
 	// FIX ME: Add tenant update/delete operations
 
 /*----------------Payments------------------*/
@@ -436,3 +388,98 @@ const Reducer = (state, action) => {
 };
 
 export default Reducer;
+
+
+
+
+
+/*----------------Properties------------------*/
+/*
+ if (action.type === CREATE_PROPERTY_BEGIN) {
+ return {
+ ...state,
+ isLoading: true
+ }
+ }
+ if (action.type === CREATE_PROPERTY_SUCCESS) {
+ return {
+ ...state,
+ property: action.payload.property,
+ isLoading: false,
+ showAlert: true,
+ alertType: 'success',
+ alertText: 'property created! redirecting...'
+ }
+ }
+ if (action.type === CREATE_PROPERTY_ERROR) {
+ return {
+ ...state,
+ isLoading: false,
+ showAlert: true,
+ alertType: 'danger',
+ alertText: action.payload.msg
+ }
+ }
+ if (action.type === READ_PROPERTIES_BEGIN) {
+ return {
+ ...state,
+ isLoading: true
+ }
+ }
+ if (action.type === READ_PROPERTIES_SUCCESS) {
+ return {
+ ...state,
+ properties: action.payload.properties,
+ isLoading: false,
+ showAlert: true,
+ alertType: 'success',
+ alertText: 'retrieving properties...'
+ }
+ }
+ if (action.type === READ_PROPERTIES_ERROR) {
+ return {
+ ...state,
+ isLoading: false,
+ showAlert: true,
+ alertType: 'danger',
+ alertText: action.payload.msg
+ }
+ }
+ if (action.type === UPDATE_PROPERTY_BEGIN) {
+ return {
+ ...state,
+ isLoading: true
+ }
+ }
+ if (action.type === UPDATE_PROPERTY_SUCCESS) {
+ return {
+ ...state,
+ property: action.payload.property,
+ isLoading: false,
+ showAlert: true,
+ alertType: 'success',
+ alertText: 'retrieving properties...'
+ }
+ }
+ if (action.type === UPDATE_PROPERTY_ERROR) {
+ return {
+ ...state,
+ isLoading: false,
+ showAlert: true,
+ alertType: 'danger',
+ alertText: action.payload.msg
+ }
+ }
+
+ CREATE_PROPERTY_SUCCESS,
+ CREATE_PROPERTY_BEGIN,
+ CREATE_PROPERTY_ERROR,
+ READ_PROPERTIES_BEGIN,
+ READ_PROPERTIES_SUCCESS,
+ READ_PROPERTIES_ERROR,
+ UPDATE_PROPERTY_BEGIN,
+ UPDATE_PROPERTY_SUCCESS,
+ UPDATE_PROPERTY_ERROR,
+
+
+ */

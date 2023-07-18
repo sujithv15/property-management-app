@@ -25,7 +25,7 @@ const UnitUpdateForm = (unit) => {
 			return
 		}
 		// updateUnit()
-		toast.success('Unit Successfully Created')
+		toast.success('UnitDetails Successfully Created')
 	}
 
 

@@ -57,8 +57,7 @@ const UnitSchema = new mongoose.Schema( {
 		ref: 'Appliance'
 	},
 	mortgage: {
-		type: [mongoose.Types.ObjectId],
-		ref: 'Mortgage'
+		type: String
 	},
 	payments: {
 		type: [mongoose.Types.ObjectId],

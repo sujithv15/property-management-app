@@ -40,7 +40,7 @@ const UnitNewForm = () => {
 			return
 		}
 		createUnit(values)
-		toast.success('Unit Successfully Created')
+		toast.success('UnitDetails Successfully Created')
 	}
 
 	return (

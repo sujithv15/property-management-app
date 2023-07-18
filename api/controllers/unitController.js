@@ -3,7 +3,7 @@ import { StatusCodes } from "http-status-codes";
 import { BadRequestError, NotFoundError } from "../errors/index.js";
 
 const createUnit = async (req, res) => {
-	// create new unit using Unit model method
+	// create new unit using UnitDetails model method
 	const newUnit = await Unit.create(req.body)
 	// send response JSON to include new unit
 	res.status(StatusCodes.CREATED).json({newUnit})
@@ -17,7 +17,7 @@ const getAllUnits = async (req, res) => {
 
 const getUnitDetails = async (req, res) => {
 	const { id } = req.params
-	const unit = await Unit.findOne({_id: id}).populate('tenant').populate('appliances').populate('mortgage').populate('payments')
+	const unit = await Unit.findById(id).populate('tenant').populate('appliances')
 	if (!unit) {
 		throw new NotFoundError(`No unit with id :${id}`);
 	}

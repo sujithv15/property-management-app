@@ -1,11 +1,11 @@
 import {useGlobalContext} from "../../context/GlobalContext";
 import { useState, useEffect, useMemo } from "react";
-import { Alert, Loading } from "../../components/index.js";
-import { Unit } from "../../components/index.js";
+import { Loading } from "../../components/index.js";
+import { UnitDetails } from "../../components/index.js";
 import UnitNewForm from "../../components/forms/UnitNewForm.jsx";
 
 const Units = () => {
-	const { readUnits, isLoading, showAlert, units } = useGlobalContext()
+	const { readUnits, isLoading, units } = useGlobalContext()
 
 	// state for search function
 	const [query, setQuery] = useState("")
@@ -17,7 +17,7 @@ const Units = () => {
 	}, [])
 
 	if (isLoading) {
-		return <Loading center />;
+		return <Loading />;
 	}
 
 	// filter units by search by using derived state;
@@ -68,7 +68,7 @@ const Units = () => {
 				{queriedUnits?.map(unit => {
 					return (
 						<li key={unit._id}>
-							<Unit {...unit}/>
+							<UnitDetails {...unit}/>
 						</li>
 					)
 				})}

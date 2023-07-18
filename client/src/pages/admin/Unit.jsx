@@ -14,6 +14,7 @@ const Unit = () => {
 	const unit_id = useParams().id
 
 	const [unit, setUnit] = useState({})
+
 	const [showUnitUpdateForm, setShowUnitUpdateForm] = useState(false)
 
 	const [tenant, setTenant] = useState(null)
@@ -31,17 +32,19 @@ const Unit = () => {
 	const [payments, setPayments] = useState([])
 
 
-	// get unit details, populated with tenant details and appliances array
+	// get unit details, populated with tenant details, appliances array, mortgage, and payments array
+	// set properties of unit to local state, so they can be updated or deleted
 	const fetchAndSetUnit = async () => {
 		try {
 			const response = await ax(`/admin/units/${unit_id}`)
 			const { unit } = response.data
+			console.log(unit);
 			const { tenant, appliances, mortgage, payments } = unit
+			setUnit(unit)
 			setTenant(tenant)
 			setAppliances(appliances)
-			setUnit(unit)
-			setMortgage(mortgage)
-			setPayments(payments)
+			//if (mortgage) setMortgage(mortgage)
+			//if (payments) setPayments(payments)
 		} catch (error) {
 			throw Error(error)
 		}
@@ -83,15 +86,15 @@ const Unit = () => {
 			</div>
 
 			{
-				unit.isPrimary &&
+				unit?.isPrimary &&
 
 				<div className="primary-unit-details">
 					<div className="unit-mortgage">
-						<p>Mortgage Bank: {mortgage.bank}</p>
-						<p>total loan amonut: {mortgage.loanAmount}</p>
-						<p>balance: {mortgage.balance}</p>
-						<p>interest: {mortgage.interest}</p>
-						<p>monthly payment: {mortgage.payment}</p>
+						<p>Mortgage Bank: {mortgage?.bank}</p>
+						<p>total loan amount: {mortgage?.loanAmount}</p>
+						<p>balance: {mortgage?.balance}</p>
+						<p>interest: {mortgage?.interest}</p>
+						<p>monthly payment: {mortgage?.payment}</p>
 					</div>
 				</div>
 			}
@@ -112,11 +115,11 @@ const Unit = () => {
 					tenant ?
 						<div className="tenant-info">
 							<p>Tenant: </p>
-							<p>{tenant.firstName} {tenant.lastName}</p>
+							<p>{tenant?.firstName} {tenant?.lastName}</p>
 
 							<div className="tenant-contact">
-								<p>{tenant.phone}</p>
-								<p>{tenant.email}</p>
+								<p>{tenant?.phone}</p>
+								<p>{tenant?.email}</p>
 							</div>
 
 							<div className="tenant-details">

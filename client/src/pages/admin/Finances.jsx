@@ -18,7 +18,7 @@ const initialState = {
 const Finances = () => {
 
 	const [values, setValues] = useState(initialState)
-	const { displayAlert, clearAlert, isLoading, createPayment, readPayments, payments } = useGlobalContext()
+	const { isLoading, createPayment, readPayments, payments } = useGlobalContext()
 
 	const handleChange = (e) => {
 		setValues({...values, [e.target.name]: e.target.value})
@@ -28,8 +28,7 @@ const Finances = () => {
 		e.preventDefault()
 		const { payTo, amount, status } = values
 		if (!payTo || !amount || !status) {
-			displayAlert()
-			clearAlert()
+			toast.error('Enter all values!')
 			return
 		}
 

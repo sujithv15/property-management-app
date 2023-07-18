@@ -17,7 +17,7 @@ const Register = () => {
 	const [values, setValues] = useState(initialState)
 
 	// function in our GlobalContext to login user to server
-	const { registerUser, isLoading, alert, displayAlert, clearAlert } = useGlobalContext()
+	const { registerUser, alert } = useGlobalContext()
 
 	// set state values as user types
 	const handleChange = (e) => {
@@ -29,8 +29,7 @@ const Register = () => {
 		e.preventDefault()
 		const { name, email, password } = values
 		if (!name || !email || !password) {
-			displayAlert()
-			clearAlert()
+			toast.error('Enter all values!')
 			return
 		}
 		const currentUser = {name, email, password}
