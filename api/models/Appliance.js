@@ -1,4 +1,6 @@
 import mongoose from 'mongoose'
+import Unit from "./Unit.js";
+import { NotFoundError } from "../errors/index.js";
 
 const ApplianceSchema = new mongoose.Schema({
 	unit: {
@@ -11,7 +13,7 @@ const ApplianceSchema = new mongoose.Schema({
 		required: true
 	},
 	datePurchased: {
-		type: String,
+		type: Date,
 		required: true,
 	},
 	warranty: {
@@ -21,8 +23,9 @@ const ApplianceSchema = new mongoose.Schema({
 		type: String
 	},
 	payments: {
-		type: mongoose.Types.ObjectId,
-		ref: 'Payment'
+		type: [mongoose.Types.ObjectId],
+		ref: 'Payment',
+		default: []
 	},
 	createdAt: {
 		type: Date,
@@ -34,5 +37,17 @@ const ApplianceSchema = new mongoose.Schema({
 		default: () => Date.now()
 	}
 }, { timestamps: true })
+
+// add created appliance to appliances array in Unit obj
+ApplianceSchema.pre('save', async function() {
+	const applianceUnit = await Unit.findById(this.unit).populate('appliances')
+	if (!applianceUnit) {
+		throw new NotFoundError(`No unit with ${this.unit} number`);
+	}
+	applianceUnit.appliances.push(this.unit)
+	applianceUnit.save()
+
+	console.log('appliance saved to unit');
+})
 
 export default mongoose.model('Appliance', ApplianceSchema)

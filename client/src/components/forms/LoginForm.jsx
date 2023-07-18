@@ -42,7 +42,7 @@ const LoginForm = () => {
 				</div>
 
 				<div className="m-10 space-y-10">
-					<FormRow name='email' labelText='email' type='email' value={values.email} handleChange={handleChange} />
+					<FormRow className="" name='email' labelText='email' type='email' value={values.email} handleChange={handleChange} />
 					<FormRow type="search" name='password' labelText='password' password='email'  value={values.password} handleChange={handleChange} />
 					<button type='submit'  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs">login</button>
 				</div>

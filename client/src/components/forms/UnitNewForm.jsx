@@ -19,10 +19,10 @@ const initialState = {
 	rent: 0,
 	fmrRent: 0,
 	appliances: null,
-	mortgage: null,
+	mortgage: '',
 }
 
-const UnitNewForm = () => {
+const UnitNewForm = ({ setShowForm }) => {
 
 	const [values, setValues] = useState(initialState)
 
@@ -44,9 +44,13 @@ const UnitNewForm = () => {
 	}
 
 	return (
-		<div>
-			<form className="form" onSubmit={handleSubmit}>
+		<div className='border-solid border-4 rounded-3xl my-20 px-20 py-10 mx-auto max-w-2xl'>
 
+			<div className="text-center">
+				<h2 className="text-center m-10 text-2xl">Add new unit</h2>
+			</div>
+
+			<form className="form m-10 space-y-10" onSubmit={handleSubmit}>
 				<FormRow labelText="unit" type="text" name="propertyUnit" value={values.propertyUnit} handleChange={handleChange}/>
 				<FormRow labelText="street" type="text" name="street" value={values.street} handleChange={handleChange}/>
 				<FormRow labelText="city" type="text" name="city" value={values.city} handleChange={handleChange}/>
@@ -57,7 +61,13 @@ const UnitNewForm = () => {
 				<FormRow labelText="rent" type="number" name="rent" value={values.rent} handleChange={handleChange}/>
 				<FormRow labelText="fmrRent" type="number" name="fmrRent" value={values.fmrRent} handleChange={handleChange}/>
 
-				<button type="submit" className='relative top-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs'>create unit</button>
+				<div className="flex justify-around">
+					<button type="submit" className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs'>create tenant</button>
+
+					<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs" onClick={() => setShowForm(false)}>cancel</button>
+				</div>
+
+
 			</form>
 		</div>
 	);

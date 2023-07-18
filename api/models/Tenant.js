@@ -1,5 +1,7 @@
 import mongoose from 'mongoose'
 import validator from 'validator'
+import Unit from "./Unit.js";
+import { NotFoundError } from "../errors/index.js";
 
 const TenantSchema = new mongoose.Schema({
 	unit: {
@@ -75,5 +77,15 @@ const TenantSchema = new mongoose.Schema({
 		default: () => Date.now()
 	}
 }, { timestamps: true })
+
+// when new tenant is created, assign appropriate unit to created tenant
+TenantSchema.pre('save', async function() {
+	const tenantUnit = await Unit.findById(this.unit)
+	if (!tenantUnit) {
+		throw new NotFoundError(`No unit with ${this.unit} number`);
+	}
+	await Unit.findByIdAndUpdate(tenantUnit._id, { tenant: this._id })
+	console.log('tenant saved to unit');
+})
 
 export default mongoose.model('Tenant', TenantSchema)

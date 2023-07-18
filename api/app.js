@@ -60,7 +60,7 @@ app.use('/api/v1/admin/messages', authenticateUser, authorizePermissions, paymen
 app.use('/api/v1/admin/requests', authenticateUser, authorizePermissions, paymentRoutes)
 
 // will contain all user personal routes so authentication per user middleware
-app.use('/api/v1/tenants', authorizePermissions, authenticateUser, tenantRoutes)
+app.use('/api/v1/admin/tenants', authorizePermissions, authenticateUser, tenantRoutes)
 
 app.use(notFound)
 app.use(errorHandler)

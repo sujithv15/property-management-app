@@ -1,10 +1,10 @@
 import ApplianceCreateForm from "./forms/ApplianceCreateForm.jsx";
 import { useState } from "react";
 
-const Appliance = ({ appliance }) => {
+const Appliance = ( {appliance }) => {
 
 	const [showApplianceUpdateForm, setShowApplianceUpdateForm] = useState(false)
-
+	console.log(appliance);
 	return (
 		<div className="appliance">
 			<div>

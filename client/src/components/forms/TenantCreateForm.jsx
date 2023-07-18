@@ -23,13 +23,13 @@ const initialState = {
 	}
 }
 
-const TenantCreateForm = (tenant, id) => {
+const TenantCreateForm = ({setShowCreateTenantForm, tenant}) => {
 
 	const [values, setValues] = useState(initialState)
 
 	const { unit, lastName, firstName, email, phone, balance, isAssisted, rentAssistance } = tenant
 
-	const { displayAlert, clearAlert, createTenant } = useGlobalContext()
+	const { id, displayAlert, clearAlert, createTenant } = useGlobalContext()
 
 	const handleChange = (e) => {
 		setValues({...values, [e.target.name]: e.target.value})
@@ -48,8 +48,13 @@ const TenantCreateForm = (tenant, id) => {
 	}
 
 	return (
-		<div>
-			<form className="form" onSubmit={handleSubmit}>
+		<div className='border-solid border-4 rounded-3xl my-20 px-20 py-10 mx-auto max-w-2xl'>
+
+			<div className="text-center">
+				<h2 className="text-center m-10 text-2xl">Add new Tenant</h2>
+			</div>
+
+			<form className="form form m-10 space-y-10" onSubmit={handleSubmit}>
 				<FormRow labelText="lastName" type="text" name="lastName" value={values.lastName} handleChange={handleChange}/>
 				<FormRow labelText="firstName" type="text" name="firstName" value={values.firstName} handleChange={handleChange}/>
 				<FormRow labelText="email" type="email" name="email" value={values.email} handleChange={handleChange}/>
@@ -69,7 +74,12 @@ const TenantCreateForm = (tenant, id) => {
 						<FormRow labelText="agentEmail" type="email" name="agentEmail" value={values.agent?.email} handleChange={handleChange}/>
 					</div>
 				</div>
-				<button type="submit" className='btn'>create tenant</button>
+				<div className="flex justify-around">
+					<button type="submit" className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs'>create tenant</button>
+
+					<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs" onClick={() => setShowCreateTenantForm(false)}>cancel</button>
+				</div>
+
 			</form>
 		</div>
 	);

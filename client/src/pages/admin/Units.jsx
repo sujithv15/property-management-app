@@ -34,9 +34,13 @@ const Units = () => {
 	return (
 		<div className=" units-container page">
 
+			{ showForm && <UnitNewForm setShowForm={setShowForm}/>}
+
 			<div className="text-center">
 				<h2 className="text-center m-5 text-2xl">Units</h2>
 			</div>
+
+
 
 			<div className="flex justify-between my-5">
 
@@ -46,12 +50,7 @@ const Units = () => {
 				</div>
 
 				<div className="mr-10">
-					{showForm ?
-						<>
-							<UnitNewForm />
-							<button className="relative left-40 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs" onClick={() => setShowForm(false)}>cancel</button>
-						</>
-						:
+					{showForm ||
 						<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs" onClick={() => setShowForm(true)}>add Unit</button>
 					}
 				</div>

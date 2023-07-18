@@ -54,14 +54,16 @@ const UnitSchema = new mongoose.Schema( {
 	},
 	appliances: {
 		type: [mongoose.Types.ObjectId],
-		ref: 'Appliance'
+		ref: 'Appliance',
+		default: []
 	},
 	mortgage: {
 		type: String
 	},
 	payments: {
 		type: [mongoose.Types.ObjectId],
-		ref: 'Payment'
+		ref: 'Payment',
+		default: []
 	},
 	createdAt: {
 		type: Date,
