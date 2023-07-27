@@ -1,14 +1,10 @@
 export const linksPublic = [
 	{
-		name: "landing",
+		name: "Home",
 		url: "/",
 	},
 	{
-		name: "about",
-		url: "/about"
-	},
-	{
-		name: "login",
+		name: "Login",
 		url: "/login",
 	},
 

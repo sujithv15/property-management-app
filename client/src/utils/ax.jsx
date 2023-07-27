@@ -15,9 +15,6 @@ ax.interceptors.response.use(
 	},
 	(error) => {
 		// console.log(error.response)
-		if (error.response.status === 401) {
-			logoutUser();
-		}
 		return Promise.reject(error);
 	}
 );

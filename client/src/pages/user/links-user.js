@@ -1,6 +1,6 @@
 export const linksUser = [
 	{
-		name: "home",
+		name: "User Home",
 		url: "/user",
 	},
 ]
