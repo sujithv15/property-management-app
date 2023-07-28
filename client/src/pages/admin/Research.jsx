@@ -43,7 +43,7 @@ const Research = () => {
 				// retrieve list { zip_code, Efficiency, One-Bedroom, Two-Bedroom, Three-Bedroom, Four-Bedroom }
 				const response = await axHUD(`/data/${countyCode}?year=${year}`)
 				// if classified as small area, data is not seperated by zipcodes
-				if (response.data.data.smallarea_status === 0) {
+				if (response.data.data.smallarea_status === "0") {
 					setFmrData(response.data.data.basicdata)
 				} else {
 					const zipCodes = response.data.data.basicdata
@@ -62,9 +62,15 @@ const Research = () => {
 
 
 	const handleChangeStateCode = (e) => {
+		// to clear values in case user picks different state after selecting zip
+		setFmrByZip([])
+		setFmrData(null)
 		getCountyList(e.target.value)
 	}
+
 	const handleChangeCounty =(e) => {
+		setFmrByZip([])
+		setFmrData(null)
 		const county = counties.find(county => county.name === e.target.value)
 		getZipCodeList(county.code);
 	}
@@ -75,9 +81,7 @@ const Research = () => {
 		setFmrData(data)
 	}
 
-	useEffect(() => {
 
-	})
 
 	return (
 		<div className="page">
@@ -98,6 +102,7 @@ const Research = () => {
 						handleChange={handleChangeCounty}>
 					</FormRowSelect>
 				}
+
 				{
 					fmrByZip?.length > 0 &&
 
@@ -110,14 +115,15 @@ const Research = () => {
 				{
 					fmrData &&
 					<div>
-						<div>{fmrData.Efficiency}</div>
-						<div>{fmrData["One-Bedroom"]}</div>
-						<div>{fmrData["Two-Bedroom"]}</div>
-						<div>{fmrData["Three-Bedroom"]}</div>
-						<div>{fmrData["Four-Bedroom"]}</div>
-
+						<div className="text-center m-10 text-2xl">Fair Market Rent values</div>
+						<div className="grid grid-cols-2 gap-5 text-center">
+							<div>Efficiency</div><div>${fmrData.Efficiency}</div>
+							<div>One-Bedroom</div><div>${fmrData["One-Bedroom"]}</div>
+							<div>Two-Bedroom</div><div>${fmrData["Two-Bedroom"]}</div>
+							<div>Three-Bedroom</div><div>${fmrData["Three-Bedroom"]}</div>
+							<div>Four-Bedroom</div><div>${fmrData["Four-Bedroom"]}</div>
+						</div>
 					</div>
-
 
 				}
 
