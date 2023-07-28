@@ -19,4 +19,23 @@ ax.interceptors.response.use(
 	}
 );
 
-export default ax
+// to fetch fmr HUD data
+const axHUD = axios.create({
+	baseURL: import.meta.env.VITE_HUD_URL,
+	headers : {
+		Authorization : `Bearer ${import.meta.env.VITE_HUD_TOKEN}`
+	}
+})
+
+// response
+axHUD.interceptors.response.use(
+	(response) => {
+		return response;
+	},
+	(error) => {
+		// console.log(error.response)
+		return Promise.reject(error);
+	}
+);
+
+export { ax, axHUD }

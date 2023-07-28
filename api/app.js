@@ -55,9 +55,9 @@ app.use('/api/v1/users', authenticateUser, authorizePermissions, userRoutes)  //
 app.use('/api/v1/admin/appliances', authenticateUser, authorizePermissions, applianceRoutes)
 app.use('/api/v1/admin/units', authenticateUser, authorizePermissions, unitsRoutes)
 app.use('/api/v1/admin/payments', authenticateUser, authorizePermissions, paymentRoutes)
-app.use('/api/v1/admin/mortgage', authenticateUser, authorizePermissions, paymentRoutes)
 app.use('/api/v1/admin/messages', authenticateUser, authorizePermissions, paymentRoutes)
 app.use('/api/v1/admin/requests', authenticateUser, authorizePermissions, paymentRoutes)
+app.use('/api/v1/admin/research', authenticateUser, authorizePermissions, paymentRoutes)
 
 // will contain all user personal routes so authentication per user middleware
 app.use('/api/v1/admin/tenants', authorizePermissions, authenticateUser, tenantRoutes)

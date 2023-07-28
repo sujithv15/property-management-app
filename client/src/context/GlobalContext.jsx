@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
-import ax from '../utils/ax.jsx'
+import { ax } from '../utils/ax.jsx'
 import reducer from "./reducer.jsx";
 
 import {

@@ -1,4 +1,4 @@
-import ax from '../../utils/ax.jsx'
+import { ax } from '../../utils/ax.jsx'
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 

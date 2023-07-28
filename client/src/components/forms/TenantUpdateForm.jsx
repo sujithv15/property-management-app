@@ -31,7 +31,7 @@ const TenantUpdateForm = ({ tenant, setShowTenantUpdateForm }) => {
 		<ModalWrapper>
 		<div className="modal border-solid border-4 rounded-3xl p-24">
 			<form className="form" onSubmit={handleSubmit}>
-				<FormRow labelText="unit" type="text" name="unit" value={unit} readOnly={true}/>
+				<FormRow labelText="unit" type="text" name="unit" value={unit}/>
 				<FormRow labelText="lastName" type="text" name="lastName" value={values.lastName} handleChange={handleChange}/>
 				<FormRow labelText="firstName" type="text" name="firstName" value={values.firstName} handleChange={handleChange}/>
 				<FormRow labelText="email" type="email" name="email" value={values.email} handleChange={handleChange}/>
