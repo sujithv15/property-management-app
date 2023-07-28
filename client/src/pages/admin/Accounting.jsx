@@ -15,7 +15,7 @@ const initialState = {
 	rent: '',
 }
 
-const Finances = () => {
+const Accounting = () => {
 
 	const [values, setValues] = useState(initialState)
 	const { isLoading, createPayment, readPayments, payments } = useGlobalContext()
@@ -44,7 +44,7 @@ const Finances = () => {
 	if (isLoading) {
 		return <Loading center />;
 	}
-	if (payments.length === 0) {
+	if (payments?.length === 0) {
 		return (
 			<h2>No payments to display...</h2>
 		);
@@ -66,4 +66,4 @@ const Finances = () => {
 	);
 };
 
-export default Finances;
+export default Accounting;

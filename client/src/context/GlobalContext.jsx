@@ -51,7 +51,6 @@ const initialState = {
 	user: null,
 	units: [],
 	unit: null,
-
 	tenants: []
 }
 

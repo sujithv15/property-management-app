@@ -1,13 +1,21 @@
 import { useState } from "react";
-import TenantUpdateForm from "./forms/TenantUpdateForm.jsx";
+import TenantUpdateForm from "../forms/TenantUpdateForm.jsx";
 
-const Tenant = (tenant) => {
+const TenantUnit = (tenant) => {
 
 	const [showTenantUpdateForm, setShowTenantUpdateForm] = useState(false)
 
 	return (
 
 		<div className="tenant">
+
+			<p>Tenant: </p>
+			<p>{tenant?.firstName} {tenant?.lastName}</p>
+
+			<div className="tenant-contact">
+				<p>{tenant?.phone}</p>
+				<p>{tenant?.email}</p>
+			</div>
 
 			<div>
 				Rent: {tenant.rent || ''}
@@ -40,17 +48,15 @@ const Tenant = (tenant) => {
 
 			<div className="edit-tenant">
 				<button
-					className="edit-tenant btn"
-					onClick={() => setShowTenantUpdateForm(!showTenantUpdateForm)
-					}>
-					{showTenantUpdateForm ? "cancel" : "edit tenant"}
+					className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs'
+					onClick={() => setShowTenantUpdateForm(!showTenantUpdateForm)}>
+					edit tenant
 				</button>
+				{showTenantUpdateForm && <TenantUpdateForm tenant={tenant} setShowTenantUpdateForm={setShowTenantUpdateForm}/>}
 			</div>
-
-			{showTenantUpdateForm && <TenantUpdateForm {...tenant}/>}
 
 		</div>
 	);
 };
 
-export default Tenant;
+export default TenantUnit;

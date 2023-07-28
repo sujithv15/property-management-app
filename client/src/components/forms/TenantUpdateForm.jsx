@@ -2,8 +2,9 @@ import { useState } from "react";
 import { useGlobalContext } from "../../context/GlobalContext.jsx";
 import { toast } from "react-toastify";
 import FormRow from "./FormRow.jsx";
+import ModalWrapper from "./ModalWrapper.jsx";
 
-const TenantUpdateForm = (tenant) => {
+const TenantUpdateForm = ({ tenant, setShowTenantUpdateForm }) => {
 
 	const { _id, unit, user, lastName, firstName, email, phone, rent, balance, isAssisted, rentAssistance } = tenant
 
@@ -23,11 +24,12 @@ const TenantUpdateForm = (tenant) => {
 			return
 		}
 		// updateTenant()
-		toast.success('Tenant Successfully Updated')
+		toast.success('TenantUnit Successfully Updated')
 	}
 
 	return (
-		<div>
+		<ModalWrapper>
+		<div className="modal border-solid border-4 rounded-3xl p-24">
 			<form className="form" onSubmit={handleSubmit}>
 				<FormRow labelText="unit" type="text" name="unit" value={unit} readOnly={true}/>
 				<FormRow labelText="lastName" type="text" name="lastName" value={values.lastName} handleChange={handleChange}/>
@@ -50,9 +52,16 @@ const TenantUpdateForm = (tenant) => {
 					</div>
 				</div>
 
-				<button type="submit" className='btn'>update tenant</button>
+			<div className="flex justify-around pt-10">
+				<button type="submit" className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs'>update tenant</button>
+				<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs" onClick={() => setShowTenantUpdateForm(false)}>Cancel</button>
+			</div>
+
+
+
 			</form>
 		</div>
+		</ModalWrapper>
 	);
 };
 

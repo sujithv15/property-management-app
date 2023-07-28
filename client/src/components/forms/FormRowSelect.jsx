@@ -1,10 +1,14 @@
-const FormRowSelect = ({ labelText, name, value, handleChange, list }) => {
+const FormRowSelect = ({ labelText, name, value, handleChange, list, style, labelStyle, inputStyle }) => {
+
+   const rowClassName = `flex gap-2 ${style}`
+   const labelClassName = `mt-3 block text-lg capitalize self-end ${labelStyle}`
+   const inputClassName = `bg-color-grey shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${inputStyle}`
 
   return (
-    <div className='form-row'>
+    <div className={rowClassName}>
       <label
          htmlFor={name}
-         className='form-label'
+         className={labelClassName}
       >
         {labelText || name}
       </label>
@@ -13,7 +17,7 @@ const FormRowSelect = ({ labelText, name, value, handleChange, list }) => {
         name={name}
         value={value}
         onChange={handleChange}
-        className='form-select'
+        className={inputClassName}
       >
         {
            list.map((itemValue, index) => {

@@ -1,10 +1,13 @@
 import ApplianceCreateForm from "./forms/ApplianceCreateForm.jsx";
+
 import { useState } from "react";
 
 const Appliance = ( {appliance }) => {
 
 	const [showApplianceUpdateForm, setShowApplianceUpdateForm] = useState(false)
+
 	console.log(appliance);
+
 	return (
 		<div className="appliance">
 			<div>
@@ -22,8 +25,13 @@ const Appliance = ( {appliance }) => {
 
 
 			<div className="unit-appliances unit-item">
-				<button className="btn" onClick={() => setShowApplianceUpdateForm(!showApplianceUpdateForm)}>{showApplianceUpdateForm ? "cancel" : "edit appliance"}</button>
+				<button
+					className="btn"
+					onClick={() => setShowApplianceUpdateForm(true)}>
+					edit appliance
+				</button>
 			</div>
+
 		</div>
 	);
 };

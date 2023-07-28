@@ -21,14 +21,6 @@ const UnitSchema = new mongoose.Schema( {
 		type: String,
 		required: [true, "Please provide zip"]
 	},
-	isPrimary: {
-		type: Boolean,
-		required: [true, "Please select if this will be the primary unit"]
-	},
-	primary: {
-		type: [mongoose.Types.ObjectId],
-		ref: 'Unit'
-	},
 	occupied: {
 		type: Boolean,
 	},
@@ -56,9 +48,6 @@ const UnitSchema = new mongoose.Schema( {
 		type: [mongoose.Types.ObjectId],
 		ref: 'Appliance',
 		default: []
-	},
-	mortgage: {
-		type: String
 	},
 	payments: {
 		type: [mongoose.Types.ObjectId],

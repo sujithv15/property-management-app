@@ -3,10 +3,11 @@ import {useGlobalContext} from "../../context/GlobalContext.jsx";
 import {toast} from "react-toastify";
 import FormRow from "./FormRow.jsx";
 import FormRowSelect from "./FormRowSelect.jsx";
+import ModalWrapper from "./ModalWrapper.jsx";
 
-const UnitUpdateForm = (unit) => {
+const UnitUpdateForm = ({ unit, setShowUnitUpdateForm }) => {
 
-	const { _id, propertyUnit, street, city, state, zip, isPrimary, tenant, user, bedrooms, bathrooms, rent, fmrRent, appliances, repairs, insurance, mortgage, association, taxes, maintenance } = unit
+	const { _id, propertyUnit, street, city, state, zip, isPrimary, tenant, user, bedrooms, bathrooms, rent, fmrRent, appliances, mortgage } = unit
 
 	const [values, setValues] = useState(unit)
 
@@ -25,15 +26,17 @@ const UnitUpdateForm = (unit) => {
 			return
 		}
 		// updateUnit()
-		toast.success('UnitDetails Successfully Created')
+		toast.success('UnitDetails Successfully Updated')
 	}
 
 
 	return (
-		<div>
-			<form className="form" onSubmit={handleSubmit}>
+		<ModalWrapper>
+		<div className="modal  border-solid border-4 rounded-3xl p-24">
+			<div className="text-center text-2xl pb-12">Edit Unit Details</div>
 
-				<FormRow labelText="unit" type="text" name="unit" value={values.unit} handleChange={handleChange}/>
+			<form className="form grid grid-auto-columns: minmax(0, 1fr) place-items-stretch gap-x-8 content-around h-5/6 " onSubmit={handleSubmit}>
+				<FormRow labelText="unit" type="text" name="unit" value={values.propertyUnit} handleChange={handleChange}/>
 				<FormRow labelText="street" type="text" name="street" value={values.street} handleChange={handleChange}/>
 				<FormRow labelText="city" type="text" name="city" value={values.city} handleChange={handleChange}/>
 				<FormRow labelText="state" type="text" name="state" value={values.state} handleChange={handleChange}/>
@@ -44,29 +47,15 @@ const UnitUpdateForm = (unit) => {
 				<FormRow labelText="rent" type="number" name="rent" value={values.rent} handleChange={handleChange}/>
 				<FormRow labelText="fmrRent" type="number" name="fmrRent" value={values.fmrRent} handleChange={handleChange}/>
 
-				{
-					isPrimary &&
-					<div className="form-primary">
-						<div className="unit-form-insurance">
-							<FormRow labelText="company" type="text" name="company" value={values.insurance.company} handleChange={handleChange}/>
-							<FormRow labelText="premium" type="number" name="premium" value={values.insurance.premium} handleChange={handleChange}/>
-							<FormRow labelText="details" type="text" name="details" value={values.insurance.details} handleChange={handleChange}/>
-						</div>
-						<div className="unit-form-mortgage">
-							<FormRow labelText="mortgage" type="text" name="mortgage" value={values.mortgage} handleChange={handleChange}/>
-						</div>
-						<div className="unit-form-tax">
-							<FormRow labelText="tax" type="text" name="tax" value={values.taxes} handleChange={handleChange}/>
-						</div>
-						<div className="unit-form-maintenance">
-							<FormRow labelText="maintenance" type="text" name="maintenance" value={values.maintenance} handleChange={handleChange}/>
-						</div>
-					</div>
-				}
+				<div className="flex justify-around pt-10">
+					<button type="submit" className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs'>Update Unit</button>
+					<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs" onClick={() => setShowUnitUpdateForm(false)}>Cancel</button>
+				</div>
 
-				<button type="submit" className='btn'>create property</button>
 			</form>
 		</div>
+
+		</ModalWrapper>
 	);
 };
 

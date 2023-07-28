@@ -4,7 +4,7 @@ import { UnauthenticatedError, NotFoundError } from "../errors/index.js";
 
 const createTenant = async (req, res, next) => {
 
-	// create new tenant using Tenant model method
+	// create new tenant using TenantUnit model method
 	const newTenant = await Tenant.create(req.body)
 	// send response JSON to include new tenant
 	res.status(StatusCodes.CREATED).json({newTenant})

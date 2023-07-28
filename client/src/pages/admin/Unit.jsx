@@ -1,12 +1,13 @@
 import ax from '../../utils/ax.jsx'
 import { useEffect, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
-import { useGlobalContext } from "../../context/GlobalContext.jsx";
-import { Tenant, Appliance, Payment } from "../../components/index.js";
+import { useParams } from "react-router-dom";
+
+import { TenantUnit, AppliancesUnit, AccountingUnit } from "../../components/unit-components"
+import { Appliance, Payment } from "../../components/index.js";
 import UnitUpdateForm from "../../components/forms/UnitUpdateForm.jsx";
-import TenantUpdateForm from "../../components/forms/TenantUpdateForm.jsx";
+
 import TenantCreateForm from "../../components/forms/TenantCreateForm.jsx";
-import App from "../../App.jsx";
+
 import ApplianceCreateForm from "../../components/forms/ApplianceCreateForm.jsx";
 
 const Unit = () => {
@@ -18,16 +19,11 @@ const Unit = () => {
 	const [showUnitUpdateForm, setShowUnitUpdateForm] = useState(false)
 
 	const [tenant, setTenant] = useState(null)
-	const [showTenantDetails, setShowTenantDetails] = useState(false)
 	const [showCreateTenantForm, setShowCreateTenantForm] = useState(false)
 
 
 	const [appliances, setAppliances] = useState([])
-	const [showAppliances, setShowAppliances] = useState(false)
-	const [showCreateApplianceForm, setShowCreateApplianceForm] = useState(false)
-	const [showApplianceUpdateForm, setShowApplianceUpdateForm] = useState(false)
 
-	const [mortgage, setMortgage] = useState({})
 
 	const [payments, setPayments] = useState([])
 
@@ -38,7 +34,7 @@ const Unit = () => {
 		try {
 			const response = await ax(`/admin/units/${unit_id}`)
 			const { unit } = response.data
-			const { tenant, appliances, mortgage, payments } = unit
+			const { tenant, appliances, payments } = unit
 			setUnit(unit)
 			setTenant(tenant)
 			setAppliances(appliances)
@@ -53,9 +49,7 @@ const Unit = () => {
 		fetchAndSetUnit()
 	}, [])
 
-	const togglePrimary = () => {
-		console.log('toggling primary unit status...');
-	}
+
 
 
 	return (
@@ -81,13 +75,14 @@ const Unit = () => {
 				</div>
 
 				<div className="unit-occupied">
-					<p>{unit.isOccupied ? 'Yes' : 'No'}</p>
+					<p>{unit.occcupied ? 'Yes' : 'No'}</p>
 				</div>
 			</div>
 
-			<div className="tenant-form">
-				{showCreateTenantForm && <TenantCreateForm setShowCreateTenantForm={setShowCreateTenantForm} tenant={{tenant}}/>}
-			</div>
+			{/*----------------Tenant-----------------*/}
+
+
+
 
 			<div className="grid mb-4 pt-3 justify-items-start border-t-2 ml-10 gap-4">
 
@@ -95,53 +90,27 @@ const Unit = () => {
 					{
 						tenant ?
 							<div className="tenant-info">
-								<p>Tenant: </p>
-								<p>{tenant?.firstName} {tenant?.lastName}</p>
-
-								<div className="tenant-contact">
-									<p>{tenant?.phone}</p>
-									<p>{tenant?.email}</p>
-								</div>
-
-								<div className="tenant-details">
-									<a onClick={
-										()=>setShowTenantDetails(!showTenantDetails)}
-									>
-										<Tenant {...tenant}/>
-									</a>
-								</div>
-
+								<TenantUnit {...tenant}/>
 							</div>
 							:
-							<button
-								className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs"
-								onClick={() => setShowCreateTenantForm(!showCreateTenantForm)
-								}>{showCreateTenantForm ? "cancel" : "add tenant"}
-							</button>
+							<div className="tenant-form">
+								<button
+									className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs"
+									onClick={() => setShowCreateTenantForm(!showCreateTenantForm)}>
+									add tenant
+								</button>
+								{showCreateTenantForm && <TenantCreateForm setShowCreateTenantForm={setShowCreateTenantForm} tenant={{tenant}}/>}
+							</div>
 					}
 				</div>
 
 
-
 				<div className="unit-rent">
-					Fair market Rent:
-					<p>Market rent: ${unit?.fmrRent}</p>
+					Fair market Rent: ${unit?.fmrRent}
 				</div>
 
-				{
-					unit?.isPrimary &&
 
-					<div className="primary-unit-details">
-						<div className="unit-mortgage">
-							<p>Mortgage Bank: {mortgage?.bank}</p>
-							<p>total loan amount: {mortgage?.loanAmount}</p>
-							<p>balance: {mortgage?.balance}</p>
-							<p>interest: {mortgage?.interest}</p>
-							<p>monthly payment: {mortgage?.payment}</p>
-						</div>
-					</div>
-				}
-
+				{/*----------------Payments-----------------*/}
 				<div className="payments">
 					{
 						payments?.map(payment => {
@@ -153,49 +122,25 @@ const Unit = () => {
 				</div>
 
 
-
-
+				{/*----------------Appliances-----------------*/}
 				<div className="unit-details-appliances">
-					<p className="text-blue-600">Appliances</p>
-					{
-						appliances.map(appliance => {
-							return (
-									<Appliance key={appliance._id} appliance={{appliance}} />
-							)
-						})
-
-					}
-					<div>
-						<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs" onClick={()=>setShowCreateApplianceForm(!showCreateApplianceForm)}>{showCreateApplianceForm ? "cancel" : "add appliance"}</button>
-					</div>
-
+					<p className="">Appliances</p>
+					<AppliancesUnit {...unit}/>
 				</div>
 
+
+				{/*----------------Update Unit-----------------*/}
 				<div className="unit-update-btn">
 					<button
 						className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs"
-						onClick={() => setShowUnitUpdateForm(!showUnitUpdateForm)
+						onClick={() => setShowUnitUpdateForm(true)
 						}>
-						{showUnitUpdateForm ? "cancel" : "edit unit"}
+						edit unit
 					</button>
+					{showUnitUpdateForm && <UnitUpdateForm unit={unit} setShowUnitUpdateForm={setShowUnitUpdateForm}/>}
 				</div>
 
-				<div className="make-primary">
-					<button
-						className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs"
-						onClick={togglePrimary}
-						>
-						{unit.isPrimary ? "remove primary" : "make primary"}
-					</button>
-				</div>
 
-				<div className="appliance-form">
-					{showCreateApplianceForm && <ApplianceCreateForm />}
-				</div>
-
-				<div className="unit-form">
-					{showUnitUpdateForm && <UnitUpdateForm {...unit}/>}
-				</div>
 
 
 			</div>

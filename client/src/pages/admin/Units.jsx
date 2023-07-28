@@ -3,6 +3,7 @@ import { useState, useEffect, useMemo } from "react";
 import { Loading } from "../../components/index.js";
 import { UnitDetails } from "../../components/index.js";
 import UnitNewForm from "../../components/forms/UnitNewForm.jsx";
+import ModalWrapper from "../../components/forms/ModalWrapper.jsx";
 
 const Units = () => {
 	const { readUnits, isLoading, units } = useGlobalContext()

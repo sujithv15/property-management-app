@@ -13,7 +13,7 @@ export const linksAdmin = [
 	},
 	{
 		name: "Accounting",
-		url: "/admin/finances",
+		url: "/admin/accounting",
 	},
 	{
 		name: "Research",
