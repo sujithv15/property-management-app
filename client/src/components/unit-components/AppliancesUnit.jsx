@@ -9,7 +9,9 @@ const AppliancesUnit = ({ appliances, _id }) => {
 
 
 	return (
-		<div>
+		<div className="appliances">
+
+			<div className="text-center text-2xl mb-12">Appliances</div>
 
 			<div>
 				{
@@ -21,15 +23,18 @@ const AppliancesUnit = ({ appliances, _id }) => {
 				}
 			</div>
 
-			<button
-				className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs"
-				onClick={()=>setShowCreateApplianceForm(true)}>
-				add appliance
-			</button>
+			<div className="text-center">
+				<button
+					className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs"
+					onClick={()=>setShowCreateApplianceForm(true)}>
+					add appliance
+				</button>
 
-			<div className="appliance-form">
-				{showCreateApplianceForm && <ApplianceCreateForm unit={_id} setShowCreateApplianceForm={setShowCreateApplianceForm}/>}
+				<div className="appliance-form">
+					{showCreateApplianceForm && <ApplianceCreateForm unit={_id} setShowCreateApplianceForm={setShowCreateApplianceForm}/>}
+				</div>
 			</div>
+
 
 		</div>
 	);

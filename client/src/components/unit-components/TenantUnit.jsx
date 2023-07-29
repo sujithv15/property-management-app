@@ -6,29 +6,45 @@ const TenantUnit = (tenant) => {
 	const [showTenantUpdateForm, setShowTenantUpdateForm] = useState(false)
 
 	return (
+	<div className="tenant">
 
-		<div className="tenant">
+		<div className="text-2xl text-center">Tenant Details</div>
 
-			<p>Tenant: </p>
-			<p>{tenant?.firstName} {tenant?.lastName}</p>
+		<div className=" grid grid-cols-5 justify-items-center pt-8 my-4" >
+			<p className="text-xl font-bold">Last</p>
+			<p className="text-xl font-bold">First</p>
+			<p className="text-xl font-bold">Phone</p>
+			<p className="text-xl font-bold">Email</p>
+		</div>
 
-			<div className="tenant-contact">
-				<p>{tenant?.phone}</p>
-				<p>{tenant?.email}</p>
+		<div className="grid grid-cols-5 justify-items-center mb-16">
+			<p>{tenant?.firstName}</p>
+			<p>{tenant?.lastName}</p>
+			<p>{tenant?.phone}</p>
+			<p>{tenant?.email}</p>
+			<div>
+				<button
+					className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs'
+					onClick={() => setShowTenantUpdateForm(!showTenantUpdateForm)}>
+					edit tenant
+				</button>
 			</div>
 
 			<div>
 				Rent: {tenant.rent || ''}
 			</div>
+
 			<div>
 				Balance: {tenant.balance || ''}
 			</div>
+
 			<div>
 				Assisted housing: {tenant.isAssisted || ''}
 			</div>
+
 			{
 				tenant.isAssisted &&
-				<>
+				<div>
 					<div>
 						Tenant portion: {tenant.rentAssistance.tenantPortion || ''}
 					</div>
@@ -43,19 +59,16 @@ const TenantUnit = (tenant) => {
 						email: {tenant.rentAssistance.agent.email || ''}
 					</div>
 
-				</>
+				</div>
 			}
 
 			<div className="edit-tenant">
-				<button
-					className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs'
-					onClick={() => setShowTenantUpdateForm(!showTenantUpdateForm)}>
-					edit tenant
-				</button>
+
 				{showTenantUpdateForm && <TenantUpdateForm tenant={tenant} setShowTenantUpdateForm={setShowTenantUpdateForm}/>}
 			</div>
 
 		</div>
+	</div>
 	);
 };
 

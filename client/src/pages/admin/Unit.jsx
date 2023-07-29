@@ -49,37 +49,66 @@ const Unit = () => {
 
 	return (
 		<div>
-
-			<div className="text-center">
-				<h2 className="text-center m-5 text-2xl">{unit.unitID} {unit.street}</h2>
-			</div>
-
-			<div className="grid grid-cols-5 mb-4 pt-3 justify-items-start border-t-2 ml-10">
-
-				<div className="col-span-2">
-					<p>{`${unit.unitID} ${unit.street}`}</p>
-					<p>{unit.city}, {unit.state} {unit.zip}</p>
+			<div className="flex flex-col ">
+				<div className="text-center">
+					<h2 className="text-center my-12 text-2xl">{unit.unitID} {unit.street}</h2>
 				</div>
 
-				<div className="unit-type">
-					<p>{unit.bedrooms}br/ {unit.bathrooms}ba</p>
+				{/*----------------Unit Details-----------------*/}
+
+				<div className=" grid grid-cols-5 justify-items-center border-t-2 pt-16 my-4" >
+					<p className="text-xl font-bold">Address</p>
+					<p className="text-xl font-bold">Beds/Baths</p>
+					<p className="text-xl font-bold">Rent</p>
+					<p className="text-xl font-bold">Fair Market Rent</p>
 				</div>
 
-				<div className="unit-rent">
-					<p>${unit.rent}</p>
+				<div className="grid grid-cols-5 justify-items-center mb-16" >
+					<div className="">
+						<p>{`${unit.unitID} ${unit.street}`}</p>
+						<p>{unit.city}, {unit.state} {unit.zip}</p>
+					</div>
+
+					<div className="unit-type">
+						<p>{unit.bedrooms}br/ {unit.bathrooms}ba</p>
+					</div>
+
+					<div className="unit-rent">
+						<p>${unit.rent}</p>
+					</div>
+
+					<div className="unit-rent">
+						${unit?.fmrRent}
+					</div>
+					<div>
+						<button
+							className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs"
+							onClick={() => setShowUnitUpdateForm(true)
+							}>
+							edit unit
+						</button>
+					</div>
+
 				</div>
 
-				<div className="unit-occupied">
-					<p>{unit.occcupied ? 'Yes' : 'No'}</p>
+				<div>
+						{/*Update Unit*/}
+					<div className="unit-update-btn">
+
+						{showUnitUpdateForm &&
+							<UnitUpdateForm
+								unit={unit}
+								setShowUnitUpdateForm={setShowUnitUpdateForm}
+								fetchAndSetUnit={fetchAndSetUnit}
+							/>}
+					</div>
 				</div>
-			</div>
 
-			{/*----------------Tenant-----------------*/}
-
-			<div className="grid mb-4 pt-3 justify-items-start border-t-2 ml-10 gap-4">
-
-				<div className="unit-tenant">
+				{/*----------------Tenant-----------------*/}
+				<div className="unit-tenant pt-8 border-t-2">
 					{
+						// if tenant, render component
+						// else render create tenant button
 						tenant ?
 							<div className="tenant-info">
 								<TenantUnit {...tenant}/>
@@ -101,14 +130,14 @@ const Unit = () => {
 					}
 				</div>
 
-
-				<div className="unit-rent">
-					Fair market Rent: ${unit?.fmrRent}
+				{/*----------------Appliances-----------------*/}
+				<div className="appliances py-8 border-t-2 ">
+					<AppliancesUnit {...unit}/>
 				</div>
 
 
 				{/*----------------Expenses-----------------*/}
-				<div className="expenses">
+				<div className="expenses pt-8 border-t-2">
 					{
 						expenses?.map(expense => {
 							return (
@@ -117,36 +146,9 @@ const Unit = () => {
 						})
 					}
 				</div>
-
-
-				{/*----------------Appliances-----------------*/}
-				<div className="unit-details-appliances">
-					<p className="">Appliances</p>
-					<AppliancesUnit {...unit}/>
-				</div>
-
-
-				{/*----------------Update Unit-----------------*/}
-				<div className="unit-update-btn">
-					<button
-						className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs"
-						onClick={() => setShowUnitUpdateForm(true)
-						}>
-						edit unit
-					</button>
-					{showUnitUpdateForm &&
-						<UnitUpdateForm
-							unit={unit}
-							setShowUnitUpdateForm={setShowUnitUpdateForm}
-							fetchAndSetUnit={fetchAndSetUnit}
-						/>}
-				</div>
-
-
-
-
 			</div>
 		</div>
+
 	);
 };
 
