@@ -3,8 +3,8 @@ import ApplianceUpdateForm from "./ApplianceUpdateForm.jsx";
 import FormRow from "./FormRow.jsx";
 import FormRowSelect from "./FormRowSelect.jsx";
 import LoginForm from "./LoginForm.jsx";
-import PaymentCreateForm from "./PaymentCreateForm.jsx";
-import PaymentUpdateForm from "./PaymentUpdateForm.jsx";
+import ExpenseCreateForm from "./ExpenseCreateForm.jsx";
+import ExpenseUpdateForm from "./ExpenseUpdateForm.jsx";
 import TenantCreateForm from "./TenantCreateForm.jsx";
 import TenantUpdateForm from "./TenantUpdateForm.jsx";
 import UnitNewForm from "./UnitNewForm.jsx";
@@ -16,10 +16,10 @@ export {
 	UnitNewForm,
 	FormRowSelect,
 	LoginForm,
-	PaymentUpdateForm,
+	ExpenseUpdateForm,
 	UnitUpdateForm,
 	TenantUpdateForm,
 	TenantCreateForm,
 	ApplianceCreateForm,
-	PaymentCreateForm
+	ExpenseCreateForm
 }

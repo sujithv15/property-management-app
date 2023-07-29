@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const PaymentSchema = new mongoose.Schema({
+const ExpenseSchema = new mongoose.Schema({
 	type: {
 		type: String,
 		enum: ['insurance', 'taxes', 'regular maintenance', 'repairs', 'other'],
@@ -51,4 +51,4 @@ const PaymentSchema = new mongoose.Schema({
 	}
 }, { timestamps: true })
 
-export default mongoose.model('Payment', PaymentSchema)
+export default mongoose.model('Payment', ExpenseSchema)

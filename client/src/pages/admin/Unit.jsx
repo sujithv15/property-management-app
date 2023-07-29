@@ -1,14 +1,8 @@
 import { ax } from '../../utils/ax.jsx'
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
 import { TenantUnit, AppliancesUnit, AccountingUnit } from "../../components/unit-components"
-import { Appliance, Payment } from "../../components/index.js";
-import UnitUpdateForm from "../../components/forms/UnitUpdateForm.jsx";
-
-import TenantCreateForm from "../../components/forms/TenantCreateForm.jsx";
-
-import ApplianceCreateForm from "../../components/forms/ApplianceCreateForm.jsx";
+import { UnitUpdateForm, TenantCreateForm } from "../../components/forms";
 
 const Unit = () => {
 
@@ -34,7 +28,7 @@ const Unit = () => {
 		try {
 			const response = await ax(`/admin/units/${unit_id}`)
 			const { unit } = response.data
-			const { tenant, appliances, payments } = unit
+			const { tenant, appliances, expenses } = unit
 			setUnit(unit)
 			setTenant(tenant)
 			setAppliances(appliances)
@@ -56,13 +50,13 @@ const Unit = () => {
 		<div>
 
 			<div className="text-center">
-				<h2 className="text-center m-5 text-2xl">{unit.propertyUnit} {unit.street}</h2>
+				<h2 className="text-center m-5 text-2xl">{unit.unitID} {unit.street}</h2>
 			</div>
 
 			<div className="grid grid-cols-5 mb-4 pt-3 justify-items-start border-t-2 ml-10">
 
 				<div className="col-span-2">
-					<p>{`${unit.propertyUnit} ${unit.street}`}</p>
+					<p>{`${unit.unitID} ${unit.street}`}</p>
 					<p>{unit.city}, {unit.state} {unit.zip}</p>
 				</div>
 
@@ -80,9 +74,6 @@ const Unit = () => {
 			</div>
 
 			{/*----------------Tenant-----------------*/}
-
-
-
 
 			<div className="grid mb-4 pt-3 justify-items-start border-t-2 ml-10 gap-4">
 
@@ -137,7 +128,12 @@ const Unit = () => {
 						}>
 						edit unit
 					</button>
-					{showUnitUpdateForm && <UnitUpdateForm unit={unit} setShowUnitUpdateForm={setShowUnitUpdateForm}/>}
+					{showUnitUpdateForm &&
+						<UnitUpdateForm
+							unit={unit}
+							setShowUnitUpdateForm={setShowUnitUpdateForm}
+							fetchAndSetUnit={fetchAndSetUnit}
+						/>}
 				</div>
 
 

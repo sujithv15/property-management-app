@@ -1,8 +1,8 @@
-import Payment from "../models/Unit.js";
+import Expense from "../models/Unit.js";
 import { StatusCodes } from "http-status-codes";
 import { BadRequestError, NotFoundError } from "../errors/index.js";
 
-const createPayment = async (req, res, next) => {
+const createExpense = async (req, res, next) => {
 
 	// destructure payment obj sent from front end
 	const { payTo, amount, dateDue, datePaid, balance, status, comments } = req.body
@@ -18,12 +18,12 @@ const createPayment = async (req, res, next) => {
 	res.status(StatusCodes.CREATED).json({newPayment})
 }
 
-const getAllPayments = async (req, res, next) => {
+const getAllExpenses = async (req, res, next) => {
 	const payments = await Payment.find()
 	res.status(StatusCodes.OK).json({payments})
 }
 
-const getSinglePayment = async (req, res, next) => {
+const getSingleExpense = async (req, res, next) => {
 	const { id } = req.params
 	const payment = await Payment.findOne({_id: id})
 	if (!payment) {
@@ -32,4 +32,4 @@ const getSinglePayment = async (req, res, next) => {
 	res.status(StatusCodes.OK).json({payment})
 }
 
-export { createPayment, getAllPayments, getSinglePayment }
+export { createExpense, getAllExpenses, getSingleExpense }

@@ -11,7 +11,7 @@ import authRoutes from "./routes/authRoutes.js"
 import applianceRoutes from "./routes/applianceRoutes.js";
 import unitsRoutes from "./routes/unitRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
-import paymentRoutes from "./routes/paymentRoutes.js";
+import accountingRoutes from "./routes/accountingRoutes.js";
 import tenantRoutes from "./routes/tenantRoutes.js";
 // remaining middleware imports
 import morgan from 'morgan'
@@ -54,10 +54,7 @@ app.use('/api/v1/auth', authRoutes)  // login, logout, register
 app.use('/api/v1/users', authenticateUser, authorizePermissions, userRoutes)  // getAllUsers, getUserInfo, showCurrentUser, updateUser, updateUserPassword
 app.use('/api/v1/admin/appliances', authenticateUser, authorizePermissions, applianceRoutes)
 app.use('/api/v1/admin/units', authenticateUser, authorizePermissions, unitsRoutes)
-app.use('/api/v1/admin/payments', authenticateUser, authorizePermissions, paymentRoutes)
-app.use('/api/v1/admin/messages', authenticateUser, authorizePermissions, paymentRoutes)
-app.use('/api/v1/admin/requests', authenticateUser, authorizePermissions, paymentRoutes)
-app.use('/api/v1/admin/research', authenticateUser, authorizePermissions, paymentRoutes)
+app.use('/api/v1/admin/accounting', authenticateUser, authorizePermissions, accountingRoutes)
 
 // will contain all user personal routes so authentication per user middleware
 app.use('/api/v1/admin/tenants', authorizePermissions, authenticateUser, tenantRoutes)

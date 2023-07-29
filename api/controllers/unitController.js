@@ -3,10 +3,26 @@ import { StatusCodes } from "http-status-codes";
 import { BadRequestError, NotFoundError } from "../errors/index.js";
 
 const createUnit = async (req, res) => {
+	console.log(req.body);
+	// unit values sent from front end
+	const unit = req.body
+	// check if unit already exists
+	const duplicate = await Unit.findOne({
+		unitID: unit.unitID,
+		street: unit.street,
+		city: unit.city,
+		state: unit.state,
+		zip: unit.zip,
+	})
+	if (duplicate) {
+		throw new BadRequestError("Unit already exists!")
+	}
+
 	// create new unit using UnitDetails model method
 	const newUnit = await Unit.create(req.body)
+
 	// send response JSON to include new unit
-	res.status(StatusCodes.CREATED).json({newUnit})
+	res.status(StatusCodes.CREATED).json({newUnit, msg: 'Create Unit Success'})
 }
 
 // get all units, and populate each with tenant information
@@ -31,7 +47,7 @@ const updateUnit = async (req, res) => {
 		throw new NotFoundError(`No unit with id :${id}`);
 	}
 	await Unit.findByIdAndUpdate(id, req.body)
-	res.status(StatusCodes.OK).json({unit})
+	res.status(StatusCodes.OK).json({ msg: 'Update success' })
 }
 
 const deleteUnit = async (req, res) => {

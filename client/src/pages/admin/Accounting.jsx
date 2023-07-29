@@ -1,9 +1,11 @@
-import {Payment} from "../../components/index.js";
+import {Expense} from "../../components/index.js";
 import {useState} from "react";
 import {useGlobalContext} from "../../context/GlobalContext.jsx";
 import {toast} from "react-toastify";
 import {useEffect} from "react";
 import {Loading} from "../../components/index.js";
+import { ExpenseCreateForm } from "../../components/forms/index.js";
+import UnitNewForm from "../../components/forms/UnitNewForm.jsx";
 
 
 const initialState = {
@@ -17,51 +19,44 @@ const initialState = {
 
 const Accounting = () => {
 
-	const [values, setValues] = useState(initialState)
-	const { isLoading, createPayment, readPayments, payments } = useGlobalContext()
+	const { readExpenses, expenses, isLoading, units } = useGlobalContext()
 
-	const handleChange = (e) => {
-		setValues({...values, [e.target.name]: e.target.value})
-	}
-
-	const handleSubmit = (e) => {
-		e.preventDefault()
-		const { payTo, amount, status } = values
-		if (!payTo || !amount || !status) {
-			toast.error('Enter all values!')
-			return
-		}
-
-		const payment = { payTo, amount, status }
-		createPayment(payment)
-		toast.success('Payment Successfully Created')
-	}
+	const [showCreateExpenseForm, setShowCreateExpenseForm] = useState(false)
 
 	useEffect(() => {
-		readPayments()
+		readExpenses()
 	}, [])
 
 	if (isLoading) {
-		return <Loading center />;
+		return <Loading />;
 	}
-	if (payments?.length === 0) {
-		return (
-			<h2>No payments to display...</h2>
-		);
-	}
+
 
 	return (
 		<div className="page">
-			<h2>payments</h2>
+			<h2>Expenses</h2>
+
 			<div className="payments-container">
-				{payments?.map(payment => {
+				{expenses?.map(expense => {
 					return (
-						<div key={payment._id} className="payments-container">
-							<Payment {...payment}/>
+						<div key={expense._id} className="payments-container">
+							<Expense {...expense}/>
 						</div>
 					)
 				})}
 			</div>
+
+
+			<div className="mr-10">
+
+				<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs" onClick={() => setShowCreateExpenseForm(true)}>add Unit</button>
+
+				{ showCreateExpenseForm && <ExpenseCreateForm setShowCreateExpenseForm={setShowCreateExpenseForm}/>}
+			</div>
+
+
+
+
 		</div>
 	);
 };

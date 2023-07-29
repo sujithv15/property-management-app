@@ -9,13 +9,14 @@ import { useEffect, useState } from "react";
 
 const Layout = () => {
 
-	const { role } = useGlobalContext()
+	const { role, readUnits } = useGlobalContext()
 
 	const [navLinks, setNavLinks] = useState(linksPublic)
 
 	/* Whenever role changes, the nav bar will update to the appropriate links and pass the links to Navbar as props */
 	useEffect(() => {
 		if (role === 'admin') {
+			readUnits()
 			setNavLinks(linksAdmin)
 			return
 		}

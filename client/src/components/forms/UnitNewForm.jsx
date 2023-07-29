@@ -2,16 +2,15 @@ import {useState} from "react";
 import {useGlobalContext} from "../../context/GlobalContext.jsx";
 import {toast} from "react-toastify";
 import FormRow from "./FormRow.jsx";
-import FormRowSelect from "./FormRowSelect.jsx";
 import ModalWrapper from "./ModalWrapper.jsx";
+
 const initialState = {
-	propertyUnit: '',
+	unitID: '',
 	street: '',
 	city: '',
 	state: '',
 	zip: '',
-	isPrimary: false,
-	primary: null,
+	occupied: false,
 	tenant: null,
 	user: null,
 	bedrooms: 0,
@@ -19,7 +18,7 @@ const initialState = {
 	rent: 0,
 	fmrRent: 0,
 	appliances: null,
-	mortgage: '',
+	expenses: null
 }
 
 const UnitNewForm = ({ setShowForm }) => {
@@ -34,13 +33,14 @@ const UnitNewForm = ({ setShowForm }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		const { propertyUnit } = values
-		if (!propertyUnit) {
+		const { unitID } = values
+		if (!unitID) {
 			toast('Enter a valid unit')
 			return
 		}
 		createUnit(values)
 		toast.success('UnitDetails Successfully Created')
+		setShowForm(false)
 	}
 
 	return (
@@ -54,8 +54,8 @@ const UnitNewForm = ({ setShowForm }) => {
 					onSubmit={handleSubmit}>
 
 					<FormRow
-						labelText="unit" type="text" name="propertyUnit"
-						value={values.propertyUnit} handleChange={handleChange}
+						labelText="unit" type="text" name="unitID"
+						value={values.unitID} handleChange={handleChange}
 						style="col-span-3"
 					/>
 					<FormRow
@@ -96,12 +96,6 @@ const UnitNewForm = ({ setShowForm }) => {
 						style="row-start-4 col-start-2 col-span-2"
 					/>
 
-					<FormRow
-						labelText="fmrRent" type="number" name="fmrRent"
-						value={values.fmrRent} handleChange={handleChange}
-						style="row-start-4 col-start-5 col-span-3"
-					/>
-
 					<div className="flex justify-around pt-10">
 						<button
 							type="submit"
@@ -114,6 +108,7 @@ const UnitNewForm = ({ setShowForm }) => {
 							onClick={() => setShowForm(false)}>
 							Cancel
 						</button>
+
 					</div>
 				</form>
 

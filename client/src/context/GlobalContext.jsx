@@ -32,12 +32,12 @@ import {
 	READ_TENANTS_ERROR,
 
 
-	CREATE_PAYMENT_BEGIN,
-	CREATE_PAYMENT_SUCCESS,
-	CREATE_PAYMENT_ERROR,
-	READ_PAYMENTS_BEGIN,
-	READ_PAYMENTS_SUCCESS,
-	READ_PAYMENTS_ERROR,
+	CREATE_EXPENSE_BEGIN,
+	CREATE_EXPENSE_SUCCESS,
+	CREATE_EXPENSE_ERROR,
+	READ_EXPENSES_BEGIN,
+	READ_EXPENSES_SUCCESS,
+	READ_EXPENSES_ERROR,
 
 } from "./actions.jsx";
 
@@ -51,7 +51,8 @@ const initialState = {
 	user: null,
 	units: [],
 	unit: null,
-	tenants: []
+	tenants: [],
+	expenses: [],
 }
 
 const GlobalContext = createContext()
@@ -124,20 +125,11 @@ const GlobalProvider = ({ children }) => {
 
 /*----------------Units------------------*/
 	const createUnit= async (unit) => {
-		dispatch({type: CREATE_UNIT_BEGIN})
-		console.log(unit);
 		try {
-			const response = await ax.post('/admin/units/create', unit)
-			const {newUnit} = response.data
-			dispatch({
-				type: CREATE_UNIT_SUCCESS,
-				payload: {newUnit}
-			})
+			await ax.post('/admin/units/create', unit)
+			readUnits()
 		} catch (error) {
-			dispatch({
-				type: CREATE_UNIT_ERROR,
-				payload: {msg: error}
-			})
+			console.log('Unit could not be created');
 		}
 		clearAlert()
 	}
@@ -178,20 +170,17 @@ const GlobalProvider = ({ children }) => {
 		clearAlert()
 	}
 	const updateUnit = async (unit) => {
-		dispatch({ type: UPDATE_UNIT_BEGIN })
+		console.log(unit);
 		try {
-			const response = await ax.patch(`/admin/units/${unit._id}`, unit)
-			const { unit } = response.data
-			dispatch({
-				type: UPDATE_UNIT_SUCCESS,
-				payload: { unit }
-			})
+			await ax.patch(`/admin/units/${unit._id}`, unit)
+			setTimeout(async () => {
+				await readUnits()
+			}, 1000)
+
 		} catch (error) {
-			dispatch({
-				type: UPDATE_UNIT_ERROR,
-				payload: { msg: error}
-			})
+			console.log(error);
 		}
+
 		clearAlert()
 	}
 
@@ -261,37 +250,37 @@ const GlobalProvider = ({ children }) => {
 		clearAlert()
 	}
 
-	/*----------------Payments------------------*/
-	const readPayments = async () => {
-		dispatch({ type: READ_PAYMENTS_BEGIN })
+	/*----------------Expenses------------------*/
+	const readExpenses = async () => {
+		dispatch({ type: READ_EXPENSES_BEGIN })
 		try {
-			const response = await ax('/admin/payments')
+			const response = await ax('/admin/accounting')
 			const { payments } = response.data
 			dispatch({
-				type: READ_PAYMENTS_SUCCESS,
+				type: READ_EXPENSES_SUCCESS,
 				payload: { payments }
 			})
 		} catch (error) {
 			dispatch({
-				type: READ_PAYMENTS_ERROR,
+				type: READ_EXPENSES_ERROR,
 				payload: { msg: error}
 			})
 		}
 		clearAlert()
 	}
 
-	const createPayment= async (payment) => {
-		dispatch({type: CREATE_PAYMENT_BEGIN})
+	const createExpense= async (payment) => {
+		dispatch({type: CREATE_EXPENSE_BEGIN})
 		try {
-			const response = await ax.post('/admin/payments/create', payment)
+			const response = await ax.post('/admin/accounting/create', payment)
 			const {payment} = response.data
 			dispatch({
-				type: CREATE_PAYMENT_SUCCESS,
+				type: CREATE_EXPENSE_SUCCESS,
 				payload: {payment}
 			})
 		} catch (error) {
 			dispatch({
-				type: CREATE_PAYMENT_ERROR,
+				type: CREATE_EXPENSE_ERROR,
 				payload: {msg: error}
 			})
 		}
@@ -313,12 +302,13 @@ const GlobalProvider = ({ children }) => {
 				readUnits,
 				createUnit,
 				getUnit,
+				updateUnit,
 
 				createTenant,
 				readTenants,
 
-				createPayment,
-				readPayments,
+				createExpense,
+				readExpenses,
 
 			}
 		}>

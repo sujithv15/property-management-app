@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 
 const UnitSchema = new mongoose.Schema( {
-	propertyUnit: {
+	unitID: {
 		type: String,
 		required: [true, "Please provide unit"]
 	},
@@ -49,9 +49,9 @@ const UnitSchema = new mongoose.Schema( {
 		ref: 'Appliance',
 		default: []
 	},
-	payments: {
+	expenses: {
 		type: [mongoose.Types.ObjectId],
-		ref: 'Payment',
+		ref: 'Expense',
 		default: []
 	},
 	createdAt: {

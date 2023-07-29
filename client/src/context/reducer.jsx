@@ -43,12 +43,12 @@ import {
 	UPDATE_TENANT_SUCCESS,
 	UPDATE_TENANT_ERROR,
 
-	CREATE_PAYMENT_BEGIN,
-	CREATE_PAYMENT_SUCCESS,
-	CREATE_PAYMENT_ERROR,
-	READ_PAYMENTS_BEGIN,
-	READ_PAYMENTS_SUCCESS,
-	READ_PAYMENTS_ERROR,
+	CREATE_EXPENSE_BEGIN,
+	CREATE_EXPENSE_SUCCESS,
+	CREATE_EXPENSE_ERROR,
+	READ_EXPENSES_BEGIN,
+	READ_EXPENSES_SUCCESS,
+	READ_EXPENSES_ERROR,
 } from "./actions.jsx";
 
 import {initialState} from "./GlobalContext.jsx"
@@ -331,23 +331,23 @@ const Reducer = (state, action) => {
 	// FIX ME: Add tenant update/delete operations
 
 /*----------------Payments------------------*/
-	if (action.type === CREATE_PAYMENT_BEGIN) {
+	if (action.type === CREATE_EXPENSE_BEGIN) {
 		return {
 			...state,
 			isLoading: true
 		}
 	}
-	if (action.type === CREATE_PAYMENT_SUCCESS) {
+	if (action.type === CREATE_EXPENSE_SUCCESS) {
 		return {
 			...state,
-			payment: action.payload.payment,
+			payment: action.payload.expense,
 			isLoading: false,
 			showAlert: true,
 			alertType: 'success',
 			alertText: 'unit created! redirecting...'
 		}
 	}
-	if (action.type === CREATE_PAYMENT_ERROR) {
+	if (action.type === CREATE_EXPENSE_ERROR) {
 		return {
 			...state,
 			isLoading: false,
@@ -356,23 +356,23 @@ const Reducer = (state, action) => {
 			alertText: action.payload.msg
 		}
 	}
-	if (action.type === READ_PAYMENTS_BEGIN) {
+	if (action.type === READ_EXPENSES_BEGIN) {
 		return {
 			...state,
 			isLoading: true
 		}
 	}
-	if (action.type === READ_PAYMENTS_SUCCESS) {
+	if (action.type === READ_EXPENSES_SUCCESS) {
 		return {
 			...state,
-			payments: action.payload.payments,
+			payments: action.payload.expenses,
 			isLoading: false,
 			showAlert: true,
 			alertType: 'success',
 			alertText: 'retrieving payments...'
 		}
 	}
-	if (action.type === READ_PAYMENTS_ERROR) {
+	if (action.type === READ_EXPENSES_ERROR) {
 		return {
 			...state,
 			isLoading: false,
