@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { TenantUnit, AppliancesUnit, AccountingUnit } from "../../components/unit-components"
 import { UnitUpdateForm, TenantCreateForm } from "../../components/forms";
+import { Expense } from "../../components/index.js";
 
 const Unit = () => {
 
@@ -19,7 +20,7 @@ const Unit = () => {
 	const [appliances, setAppliances] = useState([])
 
 
-	const [payments, setPayments] = useState([])
+	const [expenses, setExpenses] = useState([])
 
 
 	// get unit details, populated with tenant details, appliances array, mortgage, and payments array
@@ -90,7 +91,12 @@ const Unit = () => {
 									onClick={() => setShowCreateTenantForm(!showCreateTenantForm)}>
 									add tenant
 								</button>
-								{showCreateTenantForm && <TenantCreateForm setShowCreateTenantForm={setShowCreateTenantForm} tenant={{tenant}}/>}
+
+								{showCreateTenantForm &&
+									<TenantCreateForm
+										setShowCreateTenantForm={setShowCreateTenantForm}
+										unit_id={unit_id}
+									/>}
 							</div>
 					}
 				</div>
@@ -101,12 +107,12 @@ const Unit = () => {
 				</div>
 
 
-				{/*----------------Payments-----------------*/}
-				<div className="payments">
+				{/*----------------Expenses-----------------*/}
+				<div className="expenses">
 					{
-						payments?.map(payment => {
+						expenses?.map(expense => {
 							return (
-								<Payment key={payment._id} {...payment}/>
+								<Expense key={expense._id} {...expenses}/>
 							)
 						})
 					}

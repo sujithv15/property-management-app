@@ -23,6 +23,7 @@ const UnitSchema = new mongoose.Schema( {
 	},
 	occupied: {
 		type: Boolean,
+		default: false
 	},
 	tenant: {
 		type: mongoose.Types.ObjectId,
@@ -44,16 +45,16 @@ const UnitSchema = new mongoose.Schema( {
 	fmrRent: {
 		type: Number
 	},
-	appliances: {
-		type: [mongoose.Types.ObjectId],
+	appliances: [{
+		type: mongoose.Types.ObjectId,
 		ref: 'Appliance',
 		default: []
-	},
-	expenses: {
-		type: [mongoose.Types.ObjectId],
+	}],
+	expenses: [{
+		type: mongoose.Types.ObjectId,
 		ref: 'Expense',
 		default: []
-	},
+	}],
 	createdAt: {
 		type: Date,
 		default: () => Date.now(),

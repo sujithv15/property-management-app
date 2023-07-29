@@ -1,12 +1,10 @@
-import ApplianceCreateForm from "./forms/ApplianceCreateForm.jsx";
+import { ApplianceUpdateForm } from "./forms/index.js";
 
 import { useState } from "react";
 
 const Appliance = ( {appliance }) => {
 
-	const [showApplianceUpdateForm, setShowApplianceUpdateForm] = useState(false)
-
-	console.log(appliance);
+	const [showForm, setShowForm] = useState(false)
 
 	return (
 		<div className="appliance">
@@ -26,10 +24,16 @@ const Appliance = ( {appliance }) => {
 
 			<div className="unit-appliances unit-item">
 				<button
-					className="btn"
-					onClick={() => setShowApplianceUpdateForm(true)}>
+					className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs"
+					onClick={() => setShowForm(true)}>
 					edit appliance
 				</button>
+				{showForm &&
+					<ApplianceUpdateForm
+						appliance={appliance}
+						setShowForm={setShowForm}
+					/>
+				}
 			</div>
 
 		</div>

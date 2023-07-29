@@ -10,6 +10,7 @@ const initialState = {
 	firstName: '',
 	email: '',
 	phone: '',
+	rent: 0,
 	balance: 0,
 	isAssisted: false,
 	rentAssistance: {
@@ -24,13 +25,11 @@ const initialState = {
 	}
 }
 
-const TenantCreateForm = ({setShowCreateTenantForm, tenant}) => {
+const TenantCreateForm = ({ setShowCreateTenantForm, unit_id }) => {
 
 	const [values, setValues] = useState(initialState)
 
-	const { unit, lastName, firstName, email, phone, balance, isAssisted, rentAssistance } = tenant
-
-	const { id, displayAlert, clearAlert, createTenant } = useGlobalContext()
+	const { createTenant } = useGlobalContext()
 
 	const handleChange = (e) => {
 		setValues({...values, [e.target.name]: e.target.value})
@@ -38,14 +37,14 @@ const TenantCreateForm = ({setShowCreateTenantForm, tenant}) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		values._id = id
 		const { lastName, firstName } = values
 		if ( !lastName || !firstName) {
 			toast.error('Enter all values')
 			return
 		}
-		createTenant({...values, unit: id})
+		createTenant({ ...values, unit: unit_id })
 		toast.success('TenantUnit Successfully Created')
+		setShowCreateTenantForm(false)
 	}
 
 	return (
@@ -96,34 +95,34 @@ const TenantCreateForm = ({setShowCreateTenantForm, tenant}) => {
 
 				<div className="tenant-form-assisted grid col-span-5 place-items-stretch gap-x-8 content-around">
 					<FormRow
-						labelText="rentAssistance" type="number" name="rentAssistance"
-						value={values.rentAssistance} handleChange={handleChange}
+						labelText="tenant portion" type="number" name="rentAssistance.tenantPortion"
+						value={values.rentAssistance?.tenantPortion} handleChange={handleChange}
 						style="col-span-1"
 					/>
 					<FormRow
 						labelText="assistedPortion" type="number" name="assistedPortion"
-						value={values.assistedPortion} handleChange={handleChange}
+						value={values.rentAssistance?.assistedPortion} handleChange={handleChange}
 						style="col-start-2"
 					/>
 
 					<div className="tenant-form-assisted grid col-span-6 place-items-stretch gap-x-8 gap-y-4 content-around">
 						<FormRow
 							labelText="agentName" type="text" name="agentName"
-							value={values.agent?.name} handleChange={handleChange}
+							value={values.rentAssistance?.agent?.name} handleChange={handleChange}
 							style="col-span-1"
 						/>
 						<FormRow
 							labelText="agency" type="text" name="agency"
-							value={values.agent?.agency} handleChange={handleChange}
+							value={values.rentAssistance?.agent?.agency} handleChange={handleChange}
 							style="col-start-2"
 						/>
 						<FormRow
 							labelText="agentPhone" type="text" name="agentPhone"
-							value={values.agent?.phone} handleChange={handleChange}
+							value={values.rentAssistance?.agent?.phone} handleChange={handleChange}
 						/>
 						<FormRow
 							labelText="agentEmail" type="email" name="agentEmail"
-							value={values.agent?.email} handleChange={handleChange}
+							value={values.rentAssistance?.agent?.email} handleChange={handleChange}
 						/>
 					</div>
 

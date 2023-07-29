@@ -43,7 +43,6 @@ const TenantSchema = new mongoose.Schema({
 	},
 	rent: {
 		type: Number,
-		required: true,
 	},
 	balance: {
 		type: Number,

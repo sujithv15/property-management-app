@@ -205,19 +205,10 @@ const GlobalProvider = ({ children }) => {
 	}
 
 	const createTenant = async (tenant) => {
-		dispatch({type: CREATE_TENANT_BEGIN})
 		try {
-			const response = await ax.post('/admin/tenants/create', tenant)
-			const {tenant} = response.data
-			dispatch({
-				type: CREATE_TENANT_SUCCESS,
-				payload: {tenant}
-			})
+			await ax.post('/admin/tenants/create', tenant)
 		} catch (error) {
-			dispatch({
-				type: CREATE_TENANT_ERROR,
-				payload: {msg: error}
-			})
+			console.log(error);
 		}
 		clearAlert()
 	}
@@ -232,20 +223,13 @@ const GlobalProvider = ({ children }) => {
 		clearAlert()
 	}
 
-	const updateTenant = async (tenant_id) => {
-		dispatch({ type: UPDATE_TENANT_BEGIN })
+	const updateTenant = async (tenant_id, tenant) => {
+		console.log(tenant_id);
+		console.log(tenant);
 		try {
-			const response = await ax.patch(`/admin/units/${unit._id}`, unit)
-			const { unit } = response.data
-			dispatch({
-				type: UPDATE_TENANT_SUCCESS,
-				payload: { unit }
-			})
+			await ax.patch(`/admin/tenants/${tenant._id}`, tenant)
 		} catch (error) {
-			dispatch({
-				type: UPDATE_TENANT_ERROR,
-				payload: { msg: error}
-			})
+			console.log(error);
 		}
 		clearAlert()
 	}
@@ -286,6 +270,24 @@ const GlobalProvider = ({ children }) => {
 		}
 		clearAlert()
 	}
+	/*----------------Appliances------------------*/
+	const createAppliance= async (appliance) => {
+		try {
+			await ax.post('/admin/appliances/new', appliance)
+		} catch (error) {
+			console.log(error);
+		}
+		clearAlert()
+	}
+
+	const updateAppliance = async (appliance) => {
+		try {
+			await ax.patch(`/admin/appliances/${appliance._id}`, appliance)
+		} catch (error) {
+			console.log(error);
+		}
+		clearAlert()
+	}
 
 	return (
 		<GlobalContext.Provider value={
@@ -306,9 +308,13 @@ const GlobalProvider = ({ children }) => {
 
 				createTenant,
 				readTenants,
+				updateTenant,
 
 				createExpense,
 				readExpenses,
+
+				createAppliance,
+				updateAppliance
 
 			}
 		}>

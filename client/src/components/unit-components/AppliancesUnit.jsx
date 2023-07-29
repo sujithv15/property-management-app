@@ -15,7 +15,7 @@ const AppliancesUnit = ({ appliances, _id }) => {
 				{
 					appliances?.map(appliance => {
 						return (
-							<Appliance key={appliance._id} appliance={{appliance}} />
+							<Appliance key={appliance._id} appliance={appliance} />
 						)
 					})
 				}

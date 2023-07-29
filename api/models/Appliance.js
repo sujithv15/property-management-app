@@ -22,11 +22,6 @@ const ApplianceSchema = new mongoose.Schema({
 	receipt: {
 		type: String
 	},
-	payments: {
-		type: [mongoose.Types.ObjectId],
-		ref: 'Payment',
-		default: []
-	},
 	createdAt: {
 		type: Date,
 		default: () => Date.now(),
@@ -44,7 +39,12 @@ ApplianceSchema.pre('save', async function() {
 	if (!applianceUnit) {
 		throw new NotFoundError(`No unit with ${this.unit} number`);
 	}
-	applianceUnit.appliances.push(this.unit)
+	if (!applianceUnit.appliances) {
+		applianceUnit.appliances = [this]
+	}
+	else {
+		applianceUnit.appliances.push(this)
+	}
 	applianceUnit.save()
 
 	console.log('appliance saved to unit');

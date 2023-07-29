@@ -3,8 +3,7 @@ const router = express.Router()
 import { createAppliance, updateAppliance, getAllAppliances, getApplianceDetails } from "../controllers/applianceController.js";
 
 router.route('/').get(getAllAppliances)
-router.route('/:id').get(getApplianceDetails)
+router.route('/:id').get(getApplianceDetails).patch(updateAppliance)
 router.route('/new').post(createAppliance)
-router.route('/:id').put(updateAppliance)
 
 export default router

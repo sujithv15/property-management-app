@@ -6,9 +6,9 @@ import FormRow from "./FormRow.jsx";
 import ModalWrapper from "./ModalWrapper.jsx";
 
 const initialState = {
+	unit: '',
 	appliance: '',
 	datePurchased: '',
-	repairs: '',
 	warranty: '',
 	receipt: ''
 }
@@ -18,7 +18,7 @@ const applianceList = ['refrigerator', 'microwave', 'stove', 'dishwasher', 'air-
 const ApplianceCreateForm = ({ unit, setShowCreateApplianceForm }) => {
 
 	const [values, setValues] = useState(initialState)
-	const { displayAlert, clearAlert, isLoading, createAppliance, units } = useGlobalContext()
+	const { createAppliance, units } = useGlobalContext()
 
 	const handleChange = (e) => {
 		setValues({...values, [e.target.name]: e.target.value})
@@ -26,15 +26,9 @@ const ApplianceCreateForm = ({ unit, setShowCreateApplianceForm }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		const { appliance, datePurchased, repairs, warranty, receipt } = values
-		if (!appliance) {
-			displayAlert()
-			clearAlert()
-			return
-		}
-		const newAppliance = { unit, appliance, datePurchased, repairs, warranty, receipt }
-		createAppliance(newAppliance)
+		createAppliance({ ...values, unit: unit })
 		toast.success('Appliance Successfully Created')
+		setShowCreateApplianceForm(false)
 	}
 
 	return (
@@ -47,10 +41,8 @@ const ApplianceCreateForm = ({ unit, setShowCreateApplianceForm }) => {
 					onSubmit={handleSubmit}
 				>
 
-					<FormRow labelText="unit" type="text" name="unit" value={unit} readOnly/>
 					<FormRowSelect labelText="appliance" name="appliance" value={values.appliance} handleChange={handleChange} list={applianceList}/>
 					<FormRow labelText="date purchased" type="text" name="datePurchased" value={values.datePurchased} handleChange={handleChange}/>
-					<FormRow labelText="repairs" type="text" name="repairs" value={values.repairs} handleChange={handleChange}/>
 					<FormRow labelText="warranty" type="text" name="warranty" value={values.warranty} handleChange={handleChange}/>
 					<FormRow labelText="receipt" type="text" name="receipt" value={values.receipt} handleChange={handleChange}/>
 

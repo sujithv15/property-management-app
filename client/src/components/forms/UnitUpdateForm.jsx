@@ -4,6 +4,7 @@ import {toast} from "react-toastify";
 import FormRow from "./FormRow.jsx";
 import ModalWrapper from "./ModalWrapper.jsx";
 
+// FIXME unit component not re-rendering on form update
 const UnitUpdateForm = ({ unit, setShowUnitUpdateForm, fetchAndSetUnit}) => {
 
 	const { updateUnit, readUnits } = useGlobalContext()
@@ -19,7 +20,6 @@ const UnitUpdateForm = ({ unit, setShowUnitUpdateForm, fetchAndSetUnit}) => {
 		updateUnit(values)
 		toast.success('UnitDetails Successfully Updated')
 		setShowUnitUpdateForm(false)
-		fetchAndSetUnit(unit._id)
 	}
 
 

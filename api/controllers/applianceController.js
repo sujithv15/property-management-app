@@ -3,25 +3,25 @@ import { StatusCodes } from "http-status-codes";
 import { BadRequestError, NotFoundError } from "../errors/index.js";
 
 const createAppliance = async (req, res) => {
+	console.log(req.body);
 	// destructure appliance obj sent from front end
-	const { appliance, unit, datePurchased, repairs, warranty, receipt } = req.body
+	const { appliance, unit, datePurchased, warranty, receipt } = req.body
 	if (!appliance || !unit) {
 		throw new BadRequestError('please provide appliance and unit')
 	}
 	// create new appliance using Appliance model method
-	const newAppliance = await Appliance.create({ unit, appliance, datePurchased, repairs, warranty, receipt })
+	const newAppliance = await Appliance.create(req.body)
 	// send response JSON to include appliance
 	res.status(StatusCodes.CREATED)
 	   .json({newAppliance})
 }
 
 const updateAppliance = async (req, res) => {
-	const { id } = req.params
-	const appliance = await Appliance.findById(id)
+	const appliance = await Appliance.findById(req.params.id)
 	if (!appliance) {
-		throw new NotFoundError(`No appliance with id :${id}`);
+		throw new NotFoundError(`No appliance with id :${req.params.id}`);
 	}
-	await Appliance.findByIdAndUpdate(id, req.body)
+	await Appliance.findByIdAndUpdate(req.params.id, req.body)
 	res.status(StatusCodes.OK).json( {appliance} )
 
 }
