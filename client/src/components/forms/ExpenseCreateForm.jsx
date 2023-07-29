@@ -7,7 +7,6 @@ import ModalWrapper from "./ModalWrapper.jsx";
 
 const initialState = {
 	type: '',
-	unit: '',
 	description: '',
 	payTo: '',
 	amount: 0,
@@ -25,7 +24,8 @@ const ExpenseCreateForm = ({ setShowCreateExpenseForm }) => {
 
 	const [values, setValues] = useState(initialState)
 
-	const { displayAlert, clearAlert, createExpense, units } = useGlobalContext()
+	const { createExpense } = useGlobalContext()
+
 
 	const handleChange = (e) => {
 		setValues({...values, [e.target.name]: e.target.value})
@@ -35,12 +35,12 @@ const ExpenseCreateForm = ({ setShowCreateExpenseForm }) => {
 		e.preventDefault()
 		const { type } = values
 		if (!type) {
-			displayAlert()
-			clearAlert()
+			console.log('enter type value');
 			return
 		}
 		createExpense(values)
 		toast.success('Expense Successfully Created')
+		setShowCreateExpenseForm(false)
 	}
 
 
@@ -54,7 +54,7 @@ const ExpenseCreateForm = ({ setShowCreateExpenseForm }) => {
 					<FormRow labelText="description" type="text" name="description" value={values.description} handleChange={handleChange}/>
 					<FormRow labelText="payTo" type="text" name="payTo" value={values.payTo} handleChange={handleChange}/>
 					<FormRow labelText="amount" type="number" name="amount" value={values.amount} handleChange={handleChange}/>
-					<FormRow labelText="recurring" type="boolean" name="recurring" value={values.recurring} handleChange={handleChange}/>
+					<FormRowSelect labelText="recurring" name="recurring" value={values.recurring} handleChange={handleChange} list={['Yes', 'No']}/>
 					<FormRow labelText="dateDue" type="date" name="dateDue" value={values.dateDue} handleChange={handleChange}/>
 					<FormRow labelText="datePaid" type="date" name="datePaid" value={values.datePaid} handleChange={handleChange}/>
 					<FormRow labelText="balance" type="number" name="balance" value={values.balance} handleChange={handleChange}/>

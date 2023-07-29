@@ -239,10 +239,10 @@ const GlobalProvider = ({ children }) => {
 		dispatch({ type: READ_EXPENSES_BEGIN })
 		try {
 			const response = await ax('/admin/accounting')
-			const { payments } = response.data
+			const { expenses } = response.data
 			dispatch({
 				type: READ_EXPENSES_SUCCESS,
-				payload: { payments }
+				payload: { expenses }
 			})
 		} catch (error) {
 			dispatch({
@@ -253,20 +253,20 @@ const GlobalProvider = ({ children }) => {
 		clearAlert()
 	}
 
-	const createExpense= async (payment) => {
-		dispatch({type: CREATE_EXPENSE_BEGIN})
+	const createExpense= async (expense) => {
 		try {
-			const response = await ax.post('/admin/accounting/create', payment)
-			const {payment} = response.data
-			dispatch({
-				type: CREATE_EXPENSE_SUCCESS,
-				payload: {payment}
-			})
+			await ax.post('/admin/accounting/create', expense)
 		} catch (error) {
-			dispatch({
-				type: CREATE_EXPENSE_ERROR,
-				payload: {msg: error}
-			})
+			console.log(error);
+		}
+		clearAlert()
+	}
+
+	const updateExpense= async (expense) => {
+		try {
+			await ax.post(`/admin/accounting/${expense._id}`, expense)
+		} catch (error) {
+			console.log(error);
 		}
 		clearAlert()
 	}
@@ -312,6 +312,7 @@ const GlobalProvider = ({ children }) => {
 
 				createExpense,
 				readExpenses,
+				updateExpense,
 
 				createAppliance,
 				updateAppliance

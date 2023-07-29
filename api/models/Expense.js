@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 const ExpenseSchema = new mongoose.Schema({
 	type: {
 		type: String,
-		enum: ['insurance', 'taxes', 'regular maintenance', 'repairs', 'other'],
+		enum: ['Insurance', 'Taxes', 'Maintenance', 'Repairs', 'Other'],
 		required: true
 	},
 	unit: {
@@ -22,7 +22,7 @@ const ExpenseSchema = new mongoose.Schema({
 		required: true,
 	},
 	recurring: {
-		type: Boolean,
+		type: String,
 	},
 	dateDue: {
 		type: Date,
@@ -51,4 +51,4 @@ const ExpenseSchema = new mongoose.Schema({
 	}
 }, { timestamps: true })
 
-export default mongoose.model('Payment', ExpenseSchema)
+export default mongoose.model('Expense', ExpenseSchema)

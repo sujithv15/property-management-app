@@ -365,7 +365,7 @@ const Reducer = (state, action) => {
 	if (action.type === READ_EXPENSES_SUCCESS) {
 		return {
 			...state,
-			payments: action.payload.expenses,
+			expenses: action.payload.expenses,
 			isLoading: false,
 			showAlert: true,
 			alertType: 'success',

@@ -9,9 +9,12 @@ const Expense = (expense) => {
 	return (
 		<div className="expense">
 			<div className="expense-info">
-				<h5>{payTo}</h5>
-				<h5>{amount}</h5>
-				<h5>{status}</h5>
+				<div>{dateDue}</div>
+				<div>{type}</div>
+				<div>{description}</div>
+				<div>{payTo}</div>
+				<div>{amount}</div>
+				<div>{status}</div>
 			</div>
 
 

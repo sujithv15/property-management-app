@@ -29,9 +29,8 @@ const Units = () => {
 	return (
 		<div className=" units-container page">
 
-			<div className="text-center">
-				<h2 className="text-center m-5 text-2xl">Units</h2>
-			</div>
+				<h2 className="text-center my-5 text-2xl">Units</h2>
+
 
 			<div className="flex justify-between my-5">
 
@@ -56,7 +55,7 @@ const Units = () => {
 
 			</div>
 
-			<div className="grid grid-cols-5 mb-2 justify-items-start ml-10" >
+			<div className="grid grid-cols-5 mb-2 justify-items-start" >
 				<p className="text-xl font-bold col-span-2 pl-3">Address</p>
 				<p className="text-xl font-bold">Beds/Baths</p>
 				<p className="text-xl font-bold">Rent</p>

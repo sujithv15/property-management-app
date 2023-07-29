@@ -5,24 +5,18 @@ import FormRowSelect from "./FormRowSelect.jsx";
 import { toast } from "react-toastify";
 import ModalWrapper from "./ModalWrapper.jsx";
 
-const types = ['insurance', 'taxes', 'regular maintenance', 'repairs', 'other']
+const types = ['insurance', 'taxes', 'maintenance', 'repairs', 'other']
 
-const ExpenseUpdateForm = (expense) => {
+const ExpenseUpdateForm = ({ expense, setShowExpenseUpdateForm }) => {
 
-	const { type, unit, description, payTo, amount, recurring, dateDue, datePaid, balance, status, comments } = expense
+	const { updateExpense, displayAlert, clearAlert } = useGlobalContext()
 
-	const { displayAlert, clearAlert } = useGlobalContext()
+	const [values, setValues] = useState(expense)
 
-	const [values, setValues] = useState({ expense })
-
-	// get list of units to display so user can select unit
-	const [unitOptions, setUnitOptions] = useState()
 
 	const handleChange = (e) => {
 		setValues({...values, [e.target.name]: e.target.value})
 	}
-
-	const [showForm, setShowForm] = useState(false)
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
@@ -32,15 +26,9 @@ const ExpenseUpdateForm = (expense) => {
 			clearAlert()
 			return
 		}
-		// updatePayment(values)
+		updateExpense(values)
 		toast.success('Expense Successfully Created')
 	}
-
-	useEffect(() => {
-		const unitList = units.map(unit => `${unit.propertyUnit} ${unit.street}`)
-		unitList.push('other')
-		setUnitOptions(unitList)
-	}, [])
 
 	return (
 		<ModalWrapper>
@@ -48,7 +36,7 @@ const ExpenseUpdateForm = (expense) => {
 				<div className="text-center text-2xl pb-12">Edit Expense</div>
 				<form className="form" onSubmit={handleSubmit}>
 					<FormRowSelect labelText="type" name="type" value={values.type} handleChange={handleChange} list={types}/>
-					<FormRowSelect labelText="unit" name="unit" value={values.unit} handleChange={handleChange} list={unitOptions}/>
+					<FormRow labelText="unit" type="text" name="unit" value={values.unit} handleChange={handleChange}/>
 					<FormRow labelText="description" type="text" name="description" value={values.description} handleChange={handleChange}/>
 					<FormRow labelText="payTo" type="text" name="payTo" value={values.payTo} handleChange={handleChange}/>
 					<FormRow labelText="amount" type="number" name="amount" value={values.amount} handleChange={handleChange}/>
@@ -61,7 +49,7 @@ const ExpenseUpdateForm = (expense) => {
 
 					<div className="flex justify-around pt-10">
 						<button type="submit" className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs'>Update</button>
-						<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs" onClick={() => setShowForm(false)}>Cancel</button>
+						<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs" onClick={() => setShowExpenseUpdateForm(false)}>Cancel</button>
 					</div>
 
 

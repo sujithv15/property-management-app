@@ -1,4 +1,4 @@
-const FormRowSelect = ({ labelText, name, value, handleChange, list, style, labelStyle, inputStyle }) => {
+const FormRowSelect = ({ labelText, name, value, handleChange, list, style, labelStyle, inputStyle, selectText }) => {
 
    const rowClassName = `flex gap-2 ${style}`
    const labelClassName = `mt-3 block text-lg capitalize self-end ${labelStyle}`
@@ -26,7 +26,7 @@ const FormRowSelect = ({ labelText, name, value, handleChange, list, style, labe
                     key={index}
                     value={itemValue}
                  >
-                    {itemValue}
+                    {selectText || itemValue}
                  </option>
               )
            })
