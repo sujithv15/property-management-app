@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 
 const UnitDetails = (unit) => {
 
-	const { _id, unitID, street, city, state, zip, isPrimary, isOccupied, tenant, user, bedrooms, bathrooms, rent, fmrRent, appliances } = unit
+	const { _id, unitID, street, city, state, zip, isPrimary, occupied, tenant, user, bedrooms, bathrooms, rent, fmrRent, appliances } = unit
 
 	const [showUnitDetails, setShowUnitDetails] = useState(false)
 	const [showTenantDetails, setShowTenantDetails] = useState(false)
@@ -16,11 +16,10 @@ const UnitDetails = (unit) => {
 
 	return (
 		<div className="">
-			<div className="grid grid-cols-5 mb-4 pt-3 justify-items-start border-t-2 ml-10">
+			<div className="grid grid-cols-5 mb-4 pt-3 justify-items-start border-t-2">
 
 				<div className="col-span-2">
 						<p>
-							<span className="absolute">{isPrimary && <>*</>}</span>
 							<NavLink className="pl-3 text-blue-600" to={`/admin/units/${id}`}>{`${unitID} ${street}`}</NavLink>
 						</p>
 						<p className="pl-3">{city}, {state} {zip}</p>
@@ -35,7 +34,7 @@ const UnitDetails = (unit) => {
 				</div>
 
 				<div className="unit-occupied">
-					{isOccupied ? 'Yes' : 'No'}
+					{occupied ? 'Yes' : 'No'}
 				</div>
 			</div>
 

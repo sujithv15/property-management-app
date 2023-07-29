@@ -23,16 +23,15 @@ const Accounting = () => {
 
 
 	return (
-		<div className="page">
+		<div className="flex flex-col ">
 
 			<div className="text-center my-5 text-2xl">Accounting</div>
 
 			<div className="text-center text-xl">Upcoming expenses</div>
 
-			<div className="grid grid-cols-6 mb-2 justify-items-start">
+			<div className="grid grid-cols-6 mb-2 justify-items-start  border-t-2 pt-16 my-4">
 				<p className="text-xl font-bold">Due Date</p>
 				<p className="text-xl font-bold">Type</p>
-				<p className="text-xl font-bold">Description</p>
 				<p className="text-xl font-bold">Payee</p>
 				<p className="text-xl font-bold">Amount</p>
 				<p className="text-xl font-bold">Status</p>
@@ -41,9 +40,7 @@ const Accounting = () => {
 			<div className="payments-container">
 				{expenses?.map(expense => {
 					return (
-						<div key={expense._id} className="payments-container">
-							<Expense {...expense}/>
-						</div>
+							<Expense key={expense._id} {...expense}/>
 					)
 				})}
 			</div>

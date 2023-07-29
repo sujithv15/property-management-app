@@ -42,7 +42,7 @@ const TenantCreateForm = ({ setShowCreateTenantForm, unit_id }) => {
 			toast.error('Enter all values')
 			return
 		}
-		createTenant({ ...values, unit: unit_id })
+		createTenant({ ...values, unit: unit_id }, unit_id)
 		toast.success('TenantUnit Successfully Created')
 		setShowCreateTenantForm(false)
 	}

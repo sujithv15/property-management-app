@@ -4,48 +4,20 @@ import { useParams } from "react-router-dom";
 import { TenantUnit, AppliancesUnit, AccountingUnit } from "../../components/unit-components"
 import { UnitUpdateForm, TenantCreateForm } from "../../components/forms";
 import { Expense } from "../../components/index.js";
+import { useGlobalContext } from "../../context/GlobalContext.jsx";
 
 const Unit = () => {
-
+	// react router- _id passed as params
 	const unit_id = useParams().id
 
-	const [unit, setUnit] = useState({})
-
-	const [showUnitUpdateForm, setShowUnitUpdateForm] = useState(false)
-
-	const [tenant, setTenant] = useState(null)
-	const [showCreateTenantForm, setShowCreateTenantForm] = useState(false)
-
-
-	const [appliances, setAppliances] = useState([])
-
-
-	const [expenses, setExpenses] = useState([])
-
-
-	// get unit details, populated with tenant details, appliances array, mortgage, and payments array
-	// set properties of unit to local state, so they can be updated or deleted
-	const fetchAndSetUnit = async () => {
-		try {
-			const response = await ax(`/admin/units/${unit_id}`)
-			const { unit } = response.data
-			const { tenant, appliances, expenses } = unit
-			setUnit(unit)
-			setTenant(tenant)
-			setAppliances(appliances)
-			//if (mortgage) setMortgage(mortgage)
-			//if (payments) setPayments(payments)
-		} catch (error) {
-			throw Error(error)
-		}
-	}
+	const { getUnitDetails, unit, tenant, appliances, expenses } = useGlobalContext()
 
 	useEffect(() => {
-		fetchAndSetUnit()
+		getUnitDetails(unit_id)
 	}, [])
 
-
-
+	const [showUnitUpdateForm, setShowUnitUpdateForm] = useState(false)
+	const [showCreateTenantForm, setShowCreateTenantForm] = useState(false)
 
 	return (
 		<div>
@@ -131,12 +103,14 @@ const Unit = () => {
 				</div>
 
 				{/*----------------Appliances-----------------*/}
-				<div className="appliances py-8 border-t-2 ">
-					<AppliancesUnit {...unit}/>
-				</div>
+
+					<div className="appliances py-8 border-t-2 ">
+						<AppliancesUnit unit_id={unit_id} />
+					</div>
 
 
 				{/*----------------Expenses-----------------*/}
+
 				<div className="expenses pt-8 border-t-2">
 					{
 						expenses?.map(expense => {

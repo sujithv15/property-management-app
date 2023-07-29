@@ -3,10 +3,11 @@ import { Appliance } from "../index.js";
 import { useState } from "react";
 import ApplianceCreateForm from "../forms/ApplianceCreateForm.jsx";
 
-const AppliancesUnit = ({ appliances, _id }) => {
+const AppliancesUnit = (unit_id) => {
+
+	const { appliances } = useGlobalContext()
 
 	const [showCreateApplianceForm, setShowCreateApplianceForm] = useState(false)
-
 
 	return (
 		<div className="appliances">
@@ -31,7 +32,7 @@ const AppliancesUnit = ({ appliances, _id }) => {
 				</button>
 
 				<div className="appliance-form">
-					{showCreateApplianceForm && <ApplianceCreateForm unit={_id} setShowCreateApplianceForm={setShowCreateApplianceForm}/>}
+					{showCreateApplianceForm && <ApplianceCreateForm {...unit_id} setShowCreateApplianceForm={setShowCreateApplianceForm}/>}
 				</div>
 			</div>
 

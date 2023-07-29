@@ -6,7 +6,7 @@ import FormRow from "./FormRow.jsx";
 import ModalWrapper from "./ModalWrapper.jsx";
 
 const initialState = {
-	unit: '',
+	unit: {},
 	appliance: '',
 	datePurchased: '',
 	warranty: '',
@@ -15,10 +15,10 @@ const initialState = {
 
 const applianceList = ['refrigerator', 'microwave', 'stove', 'dishwasher', 'air-conditioner', 'water heater', 'washer', 'dryer']
 
-const ApplianceCreateForm = ({ unit, setShowCreateApplianceForm }) => {
+const ApplianceCreateForm = ({ unit_id, setShowCreateApplianceForm }) => {
 
 	const [values, setValues] = useState(initialState)
-	const { createAppliance, units } = useGlobalContext()
+	const { createAppliance } = useGlobalContext()
 
 	const handleChange = (e) => {
 		setValues({...values, [e.target.name]: e.target.value})
@@ -26,7 +26,7 @@ const ApplianceCreateForm = ({ unit, setShowCreateApplianceForm }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		createAppliance({ ...values, unit: unit })
+		createAppliance({ ...values, unit: unit_id }, unit_id)
 		toast.success('Appliance Successfully Created')
 		setShowCreateApplianceForm(false)
 	}
@@ -42,7 +42,7 @@ const ApplianceCreateForm = ({ unit, setShowCreateApplianceForm }) => {
 				>
 
 					<FormRowSelect labelText="appliance" name="appliance" value={values.appliance} handleChange={handleChange} list={applianceList}/>
-					<FormRow labelText="date purchased" type="text" name="datePurchased" value={values.datePurchased} handleChange={handleChange}/>
+					<FormRow labelText="date purchased" type="date" name="datePurchased" value={values.datePurchased} handleChange={handleChange}/>
 					<FormRow labelText="warranty" type="text" name="warranty" value={values.warranty} handleChange={handleChange}/>
 					<FormRow labelText="receipt" type="text" name="receipt" value={values.receipt} handleChange={handleChange}/>
 

@@ -20,6 +20,9 @@ import {
 	READ_UNITS_BEGIN,
 	READ_UNITS_SUCCESS,
 	READ_UNITS_ERROR,
+	GET_UNIT_BEGIN,
+	GET_UNIT_SUCCESS,
+	GET_UNIT_ERROR,
 	UPDATE_UNIT_BEGIN,
 	UPDATE_UNIT_SUCCESS,
 	UPDATE_UNIT_ERROR,
@@ -50,7 +53,9 @@ const initialState = {
 	alertText: '',
 	user: null,
 	units: [],
-	unit: null,
+	unit: {},
+	tenant: {},
+	appliances: [],
 	tenants: [],
 	expenses: [],
 }
@@ -151,15 +156,16 @@ const GlobalProvider = ({ children }) => {
 		}
 		clearAlert()
 	}
-	// get single unit, populated with all info
-	const getUnit = async (unit) => {
+	// get unit details, populated with tenant details, appliances array, mortgage, and payments array
+	const getUnitDetails = async (unit_id) => {
 		dispatch({type: GET_UNIT_BEGIN})
 		try {
-			const response = await ax(`/admin/units/${unit}`)
-			const {unit} = response.data
+			const response = await ax(`/admin/units/${unit_id}`)
+			const { unit } = response.data
+			const { tenant, appliances } = unit
 			dispatch({
 				type: GET_UNIT_SUCCESS,
-				payload: {unit}
+				payload: { unit, tenant, appliances }
 			})
 		} catch (error) {
 			dispatch({
@@ -204,9 +210,10 @@ const GlobalProvider = ({ children }) => {
 		clearAlert()
 	}
 
-	const createTenant = async (tenant) => {
+	const createTenant = async (tenant, unit_id) => {
 		try {
 			await ax.post('/admin/tenants/create', tenant)
+			await getUnitDetails(unit_id)
 		} catch (error) {
 			console.log(error);
 		}
@@ -256,6 +263,7 @@ const GlobalProvider = ({ children }) => {
 	const createExpense= async (expense) => {
 		try {
 			await ax.post('/admin/accounting/create', expense)
+			await readExpenses()
 		} catch (error) {
 			console.log(error);
 		}
@@ -271,9 +279,10 @@ const GlobalProvider = ({ children }) => {
 		clearAlert()
 	}
 	/*----------------Appliances------------------*/
-	const createAppliance= async (appliance) => {
+	const createAppliance= async (appliance, unit_id) => {
 		try {
 			await ax.post('/admin/appliances/new', appliance)
+			await getUnitDetails(unit_id)
 		} catch (error) {
 			console.log(error);
 		}
@@ -303,7 +312,7 @@ const GlobalProvider = ({ children }) => {
 
 				readUnits,
 				createUnit,
-				getUnit,
+				getUnitDetails,
 				updateUnit,
 
 				createTenant,

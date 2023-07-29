@@ -210,6 +210,8 @@ const Reducer = (state, action) => {
 		return {
 			...state,
 			unit: action.payload.unit,
+			tenant: action.payload.tenant,
+			appliances: action.payload.appliances,
 			isLoading: false,
 			showAlert: true,
 			alertType: 'success',

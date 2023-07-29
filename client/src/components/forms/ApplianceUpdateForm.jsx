@@ -9,6 +9,7 @@ const ApplianceUpdateForm = ({ appliance, setShowForm }) => {
 
 	const [values, setValues] = useState(appliance)
 
+	console.log(appliance.unit);
 	const { updateAppliance } = useGlobalContext()
 	const handleChange = (e) => {
 		setValues({...values, [e.target.name]: e.target.value})

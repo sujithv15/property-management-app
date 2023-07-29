@@ -8,6 +8,7 @@ import ModalWrapper from "./ModalWrapper.jsx";
 const initialState = {
 	type: '',
 	description: '',
+	unit: undefined,
 	payTo: '',
 	amount: 0,
 	recurring: false,
@@ -22,10 +23,11 @@ const types = ['Insurance', 'Taxes', 'Maintenance', 'Repairs', 'Other']
 
 const ExpenseCreateForm = ({ setShowCreateExpenseForm }) => {
 
+	const { createExpense, units } = useGlobalContext()
 	const [values, setValues] = useState(initialState)
 
-	const { createExpense } = useGlobalContext()
-
+	// populate array with list of units(just unitID and street) and 'NONE' for form
+	const unitList = ["None", ...units.map(unit => `${unit.unitID} ${unit.street}`)]
 
 	const handleChange = (e) => {
 		setValues({...values, [e.target.name]: e.target.value})
@@ -38,6 +40,14 @@ const ExpenseCreateForm = ({ setShowCreateExpenseForm }) => {
 			console.log('enter type value');
 			return
 		}
+		// if user selects None for unit, assign to null, else find unit and set to values (using string we created)
+		if (values.unit === "None") {
+			values.unit = undefined
+		}
+		else {
+			values.unit = units.find(unit => `${unit.unitID} ${unit.street}` === values.unit)
+		}
+
 		createExpense(values)
 		toast.success('Expense Successfully Created')
 		setShowCreateExpenseForm(false)
@@ -50,7 +60,7 @@ const ExpenseCreateForm = ({ setShowCreateExpenseForm }) => {
 				<div className="text-center text-2xl pb-12">Create New Expense</div>
 				<form className="form" onSubmit={handleSubmit}>
 					<FormRowSelect labelText="type" name="type" value={values.type} handleChange={handleChange} list={types}/>
-					<FormRow labelText="unit" type="text" name="unit" value={values.unit} handleChange={handleChange}/>
+					<FormRowSelect labelText="unit" name="unit" value={values.unit} handleChange={handleChange} list={unitList}/>
 					<FormRow labelText="description" type="text" name="description" value={values.description} handleChange={handleChange}/>
 					<FormRow labelText="payTo" type="text" name="payTo" value={values.payTo} handleChange={handleChange}/>
 					<FormRow labelText="amount" type="number" name="amount" value={values.amount} handleChange={handleChange}/>

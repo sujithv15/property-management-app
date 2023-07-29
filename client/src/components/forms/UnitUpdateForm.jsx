@@ -5,7 +5,7 @@ import FormRow from "./FormRow.jsx";
 import ModalWrapper from "./ModalWrapper.jsx";
 
 // FIXME unit component not re-rendering on form update
-const UnitUpdateForm = ({ unit, setShowUnitUpdateForm, fetchAndSetUnit}) => {
+const UnitUpdateForm = ({ unit, setShowUnitUpdateForm }) => {
 
 	const { updateUnit, readUnits } = useGlobalContext()
 

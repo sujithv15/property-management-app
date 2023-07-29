@@ -1,9 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TenantUpdateForm from "../forms/TenantUpdateForm.jsx";
 
-const TenantUnit = (tenant) => {
+const TenantUnit = (currentTenant) => {
 
 	const [showTenantUpdateForm, setShowTenantUpdateForm] = useState(false)
+
+	const [tenant, setTenant] = useState(currentTenant)
+
+	useEffect(()=> {
+		setTenant(currentTenant)
+	}, [currentTenant])
 
 	return (
 	<div className="tenant">

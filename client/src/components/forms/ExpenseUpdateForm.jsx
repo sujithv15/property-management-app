@@ -9,10 +9,11 @@ const types = ['insurance', 'taxes', 'maintenance', 'repairs', 'other']
 
 const ExpenseUpdateForm = ({ expense, setShowExpenseUpdateForm }) => {
 
-	const { updateExpense, displayAlert, clearAlert } = useGlobalContext()
-
+	const { updateExpense, displayAlert, clearAlert, units } = useGlobalContext()
 	const [values, setValues] = useState(expense)
 
+	// populate array with list of units(just unitID and street) and 'NONE' for form
+	const unitList = ["None", ...units.map(unit => `${unit.unitID} ${unit.street}`)]
 
 	const handleChange = (e) => {
 		setValues({...values, [e.target.name]: e.target.value})
@@ -26,8 +27,18 @@ const ExpenseUpdateForm = ({ expense, setShowExpenseUpdateForm }) => {
 			clearAlert()
 			return
 		}
+
+		// if user selects None for unit, assign to null, else find unit and set to values (using string we created)
+		if (values.unit === "None") {
+			values.unit = undefined
+		}
+		else {
+			values.unit = units.find(unit => `${unit.unitID} ${unit.street}` === values.unit)
+		}
+
 		updateExpense(values)
-		toast.success('Expense Successfully Created')
+		toast.success('Expense Successfully Updated')
+		setShowExpenseUpdateForm(false)
 	}
 
 	return (
@@ -36,7 +47,7 @@ const ExpenseUpdateForm = ({ expense, setShowExpenseUpdateForm }) => {
 				<div className="text-center text-2xl pb-12">Edit Expense</div>
 				<form className="form" onSubmit={handleSubmit}>
 					<FormRowSelect labelText="type" name="type" value={values.type} handleChange={handleChange} list={types}/>
-					<FormRow labelText="unit" type="text" name="unit" value={values.unit} handleChange={handleChange}/>
+					<FormRowSelect labelText="unit" name="unit" value={values.unit} handleChange={handleChange} list={unitList}/>
 					<FormRow labelText="description" type="text" name="description" value={values.description} handleChange={handleChange}/>
 					<FormRow labelText="payTo" type="text" name="payTo" value={values.payTo} handleChange={handleChange}/>
 					<FormRow labelText="amount" type="number" name="amount" value={values.amount} handleChange={handleChange}/>
