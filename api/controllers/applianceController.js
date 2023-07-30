@@ -3,7 +3,6 @@ import { StatusCodes } from "http-status-codes";
 import { BadRequestError, NotFoundError } from "../errors/index.js";
 
 const createAppliance = async (req, res) => {
-	console.log(req.body);
 	// destructure appliance obj sent from front end
 	const { appliance, unit, datePurchased, warranty, receipt } = req.body
 	if (!appliance || !unit) {

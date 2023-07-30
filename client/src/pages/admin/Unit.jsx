@@ -108,17 +108,6 @@ const Unit = () => {
 					</div>
 
 
-				{/*----------------Expenses-----------------*/}
-
-				<div className="expenses pt-8 border-t-2">
-					{
-						expenses?.map(expense => {
-							return (
-								<Expense key={expense._id} {...expenses}/>
-							)
-						})
-					}
-				</div>
 			</div>
 		</div>
 

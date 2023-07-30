@@ -298,6 +298,19 @@ const GlobalProvider = ({ children }) => {
 		clearAlert()
 	}
 
+	/*----------------Handling file uploads------------------*/
+	// directory: simplify all post uploads into one function
+	// -we can specify directory based on what we are uploading using our server
+	// -ex. directory='appliances' for create new appliance image/receipt image
+	// -ex. directory='tenant' for leases, etc.
+	const createPost = async (directory, post) => {
+		try {
+			await ax.post(`/admin/${directory}/upload`, post)
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
 	return (
 		<GlobalContext.Provider value={
 			{

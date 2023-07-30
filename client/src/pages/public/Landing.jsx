@@ -4,6 +4,8 @@ import img3 from '../../assets/images/magnifying.jpeg'
 import img4 from '../../assets/images/laptop.jpeg'
 import img5 from '../../assets/images/condos.jpeg'
 
+import FileUpload from "../../components/FileUpload.jsx";
+
 const Landing = () => {
 
 	return (
