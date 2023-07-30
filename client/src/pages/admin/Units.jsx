@@ -27,32 +27,31 @@ const Units = () => {
 	})
 
 	return (
-		<div className=" units-container page">
+		<div className="units-page pb-20">
 
-				<h2 className="text-center my-5 text-2xl">Units</h2>
+			<div className="text-center py-5 text-5xl ">Units</div>
 
-
-			<div className="flex justify-between my-5">
-
-				<div className="flex gap-2 ml-10">
-					<label className="block text-gray-700 font-bold mb-2 pt-2">
+			<div className="border-t-2 flex justify-between">
+				<div className="flex gap-2 my-16">
+					<label className="block text-gray-700 font-bold pb-2 pt-2 ml-5">
 						Search:
 					</label>
+
 					<input
-						className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+						className="shadow border rounded w-80 py-2 px-3 text-gray-700 focus:ring focus:outline-none"
 						type="search" placeholder="Search Units"
 						value={query} onChange={e=>setQuery(e.target.value)}
 					/>
 				</div>
 
-				<div className="mr-10">
+				<div className="my-auto mr-5">
 					<button
 						className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs"
 						onClick={() => setShowForm(true)}>add Unit
 					</button>
+
 					{showForm && <UnitNewForm setShowForm={setShowForm}/>}
 				</div>
-
 			</div>
 
 			<div className="grid grid-cols-5 mb-2 justify-items-start" >

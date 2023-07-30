@@ -23,13 +23,13 @@ const Accounting = () => {
 
 
 	return (
-		<div className="flex flex-col ">
+		<div className="accounting-page pb-20">
 
-			<div className="text-center my-5 text-2xl">Accounting</div>
+			<div className="text-center py-5 text-5xl">Accounting</div>
 
-			<div className="text-center text-xl">Upcoming expenses</div>
+			<div className="text-center text-xl border-t-2 pt-12">Upcoming expenses</div>
 
-			<div className="grid grid-cols-6 mb-2 justify-items-start  border-t-2 pt-16 my-4">
+			<div className="grid grid-cols-6 mb-2 justify-items-start pt-4 my-4">
 				<p className="text-xl font-bold">Due Date</p>
 				<p className="text-xl font-bold">Type</p>
 				<p className="text-xl font-bold">Payee</p>

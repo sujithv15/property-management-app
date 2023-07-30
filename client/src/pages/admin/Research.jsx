@@ -84,22 +84,30 @@ const Research = () => {
 
 
 	return (
-		<div className="page">
-			<h2>research</h2>
+		<div className="research-page pb-20">
 
-			<form>
+			<div className="text-center py-5 text-5xl">Research</div>
+			<div className="text-2xl ml-6 mt-10 mb-4">Search Fair Market Values</div>
+
+			<form className="ml-16 flex flex-col gap-4">
+
 				<FormRowSelect
 					labelText="state" name="stateCode" list={statesList}
-					handleChange={handleChangeStateCode}>
+					handleChange={handleChangeStateCode}
+					inputStyle="w-20"
+					style='flex-col'
+				>
 				</FormRowSelect>
-
 
 				{
 					counties.length > 0 &&
 
 					<FormRowSelect
 						labelText="county" name="countyCode" list={counties.map(county => county.name)}
-						handleChange={handleChangeCounty}>
+						handleChange={handleChangeCounty}
+						inputStyle="w-1/2"
+						style='flex-col'
+					>
 					</FormRowSelect>
 				}
 
@@ -108,28 +116,50 @@ const Research = () => {
 
 					<FormRowSelect
 						labelText="zip" name="zipCode" list={fmrByZip.map(zip => zip.zip_code)}
-						handleChange={handleSelectZipCode}>
+						handleChange={handleSelectZipCode}
+						inputStyle="w-1/6 mb-20"
+						style='flex-col'
+					>
 					</FormRowSelect>
 				}
 
 				{
 					fmrData &&
-					<div>
-						<div className="text-center m-10 text-2xl">Fair Market Rent values</div>
-						<div className="grid grid-cols-2 gap-5 text-center">
-							<div>Efficiency</div><div>${fmrData.Efficiency}</div>
-							<div>One-Bedroom</div><div>${fmrData["One-Bedroom"]}</div>
-							<div>Two-Bedroom</div><div>${fmrData["Two-Bedroom"]}</div>
-							<div>Three-Bedroom</div><div>${fmrData["Three-Bedroom"]}</div>
-							<div>Four-Bedroom</div><div>${fmrData["Four-Bedroom"]}</div>
-						</div>
-					</div>
+						<table className="table-fixed">
+							<thead className="text-2xl">
+								<tr>
+									<th>
+										Fair Market Rent values
+									</th>
+								</tr>
+							</thead>
 
+							<tbody className="text-lg leading-10">
+							<tr>
+								<td>Efficiency</td>
+								<td>${fmrData.Efficiency}</td>
+							</tr>
+							<tr>
+								<td>One-Bedroom</td>
+								<td>${fmrData["One-Bedroom"]}</td>
+							</tr>
+							<tr>
+								<td>Two-Bedroom</td>
+								<td>${fmrData["Two-Bedroom"]}</td>
+							</tr>
+							<tr>
+								<td>Three-Bedroom</td>
+								<td>${fmrData["Three-Bedroom"]}</td>
+							</tr>
+							<tr>
+								<td>Four-Bedroom</td>
+								<td>${fmrData["Four-Bedroom"]}</td>
+							</tr>
+							</tbody>
+						</table>
 				}
-
-
-
 			</form>
+
 		</div>
 	);
 };

@@ -20,7 +20,7 @@ const Navbar = ({ links }) => {
 
 				{
 					user &&
-					<button type="submit" className="btn" onClick={logoutUser}>logout</button>
+					<button type="submit" className="btn" onClick={logoutUser}>Logout</button>
 				}
 			</div>
 
