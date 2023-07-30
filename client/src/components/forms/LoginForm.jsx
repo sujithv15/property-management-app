@@ -34,21 +34,20 @@ const LoginForm = () => {
 	}
 
 	return (
-		<div className="">
-			<form className='' onSubmit={handleSubmit}>
+		<form className='form max-w-xl mx-auto' onSubmit={handleSubmit}>
 
-				<div className="text-center">
-					<h2 className="text-center m-10 text-2xl">Login</h2>
-				</div>
+			<div className="text-center">
+				<h2 className="text-center my-12 text-2xl">Login</h2>
+			</div>
 
-				<div className="m-10 space-y-10">
-					<FormRow className="" name='email' labelText='email' type='email' value={values.email} handleChange={handleChange} />
-					<FormRow type="search" name='password' labelText='password' password='email'  value={values.password} handleChange={handleChange} />
-					<button type='submit'  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs">login</button>
-				</div>
+			<div className="m-10 space-y-10">
+				<FormRow className="" name='email' labelText='email' type='email' value={values.email} handleChange={handleChange} />
+				<FormRow type="search" name='password' labelText='password' password='email'  value={values.password} handleChange={handleChange} />
+				<button type='submit'  className="rounded btn">login</button>
+			</div>
 
-			</form>
-		</div>
+		</form>
+
 	);
 };
 

@@ -9,7 +9,6 @@ const ApplianceUpdateForm = ({ appliance, setShowForm }) => {
 
 	const [values, setValues] = useState(appliance)
 
-	console.log(appliance.unit);
 	const { updateAppliance } = useGlobalContext()
 	const handleChange = (e) => {
 		setValues({...values, [e.target.name]: e.target.value})
@@ -24,18 +23,26 @@ const ApplianceUpdateForm = ({ appliance, setShowForm }) => {
 
 	return (
 		<ModalWrapper>
-			<div className="modal border-solid border-4 rounded-3xl p-24">
+			<div className="modal max-w-lg">
 				<form className="form" onSubmit={handleSubmit}>
-					<div>Appliance type: {appliance.appliance}</div>
-					<div>Purchase Date: {appliance.datePurchased}</div>
-					<FormRow labelText="warranty" type="text" name="warranty" value={values.warranty} handleChange={handleChange}/>
-					<FormRow labelText="receipt" type="text" name="receipt" value={values.receipt} handleChange={handleChange}/>
+					<div className="form-title">Edit Appliance</div>
+					<div className="form-content">
+						<div>Appliance type: {appliance.appliance}</div>
+						<div>Purchase Date: {appliance.datePurchased.substring(0,10)}</div>
+						<FormRow
+							labelText="warranty" type="text" name="warranty"
+							value={values.warranty} handleChange={handleChange}
+						/>
+						<FormRow
+							labelText="receipt" type="text" name="receipt"
+							value={values.receipt} handleChange={handleChange}
+						/>
 
-					<div className="flex justify-around pt-10">
-						<button type="submit" className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs'>update appliance</button>
-						<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs" onClick={() => setShowForm(false)}>Cancel</button>
+						<div className="flex justify-around pt-10">
+							<button type="submit" className='btn'>update appliance</button>
+							<button className="btn" onClick={() => setShowForm(false)}>Cancel</button>
+						</div>
 					</div>
-
 				</form>
 			</div>
 		</ModalWrapper>

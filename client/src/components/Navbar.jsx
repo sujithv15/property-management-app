@@ -19,7 +19,7 @@ const Navbar = ({ links }) => {
 				}
 
 				{
-					user &&
+					user && Object.keys(user).length > 0 &&
 					<button type="submit" className="btn" onClick={logoutUser}>Logout</button>
 				}
 			</div>

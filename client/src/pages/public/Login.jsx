@@ -11,7 +11,7 @@ const Login = () => {
 	// automatically redirect appropriately if user credentials ok
 	const navigate = useNavigate()
 	useEffect(() => {
-		if (user) {
+		if (user && Object.keys(user).length > 0) {
 			console.log(`navigating to ${role}`);
 			setTimeout(() => {
 				navigate(`/${role}`);
@@ -20,13 +20,14 @@ const Login = () => {
 		//console.log(config.url.API_URL);
 	}, [user]);
 
-
+			//<div className='border-solid border-4 rounded-3xl w-11/12 my-20 mx-auto py-14 max-w-md'>
 	return (
-		<div className='border-solid border-4 rounded-3xl w-11/12 my-20 mx-auto py-14 max-w-md'>
+<div className="py-24">
+	<LoginForm />
+</div>
 
-				<LoginForm />
 
-		</div>
+
 	);
 };
 

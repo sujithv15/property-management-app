@@ -25,22 +25,63 @@ const UnitUpdateForm = ({ unit, setShowUnitUpdateForm }) => {
 
 	return (
 		<ModalWrapper>
-		<div className="modal  border-solid border-4 rounded-3xl p-24">
-			<div className="text-center text-2xl pb-12">Edit Unit Details</div>
-
-			<form className="form grid grid-auto-columns: minmax(0, 1fr) place-items-stretch gap-x-8 content-around h-5/6 " onSubmit={handleSubmit}>
-				<FormRow labelText="unit" type="text" name="unitID" value={values.unitID} handleChange={handleChange}/>
-				<FormRow labelText="street" type="text" name="street" value={values.street} handleChange={handleChange}/>
-				<FormRow labelText="city" type="text" name="city" value={values.city} handleChange={handleChange}/>
-				<FormRow labelText="state" type="text" name="state" value={values.state} handleChange={handleChange}/>
-				<FormRow labelText="zip" type="text" name="zip" value={values.zip} handleChange={handleChange}/>
-				<FormRow labelText="bedrooms" type="number" name="bedrooms" value={values.bedrooms} handleChange={handleChange}/>
-				<FormRow labelText="bathrooms" type="number" name="bathrooms" value={values.bathrooms} handleChange={handleChange}/>
-				<FormRow labelText="rent" type="number" name="rent" value={values.rent} handleChange={handleChange}/>
-
+		<div className="modal">
+			<form className="form" onSubmit={handleSubmit}>
+				<div className="form-title">Edit Unit Details</div>
+				<div className="form-content grid-cols-6">
+					<FormRow
+						labelText="unit" type="text" name="unitID"
+						value={values.unitID} handleChange={handleChange}
+						style="col-span-2"
+					/>
+					<FormRow
+						labelText="street" type="text" name="street"
+						value={values.street} handleChange={handleChange}
+						style="col-span-4"
+					/>
+					<FormRow
+						labelText="city" type="text" name="city"
+						value={values.city} handleChange={handleChange}
+						style="col-span-3"
+					/>
+					<FormRow
+						labelText="state" type="text" name="state"
+						value={values.state} handleChange={handleChange}
+						style="col-span-1"
+					/>
+					<FormRow
+						labelText="zip" type="text" name="zip"
+						value={values.zip} handleChange={handleChange}
+						style="col-span-2"
+					/>
+					<FormRow
+						labelText="bedrooms" type="number" name="bedrooms"
+						value={values.bedrooms} handleChange={handleChange}
+						style="col-span-1"
+					/>
+					<FormRow
+						labelText="bathrooms" type="number" name="bathrooms"
+						value={values.bathrooms} handleChange={handleChange}
+						style="col-span-1"
+					/>
+					<FormRow
+						labelText="rent" type="number" name="rent"
+						value={values.rent} handleChange={handleChange}
+						style="col-start-4 col-span-2"
+					/>
+				</div>
 				<div className="flex justify-around pt-10">
-					<button type="submit" className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs'>Update Unit</button>
-					<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs" onClick={() => setShowUnitUpdateForm(false)}>Cancel</button>
+					<button
+						type="submit"
+						className='btn'>
+						Update Unit
+					</button>
+					<button
+						className="btn"
+						onClick={() => setShowUnitUpdateForm(false)}>
+						Cancel
+					</button>
+
 				</div>
 
 			</form>

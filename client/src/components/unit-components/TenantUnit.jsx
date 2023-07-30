@@ -52,17 +52,17 @@ const TenantUnit = (currentTenant) => {
 				tenant.isAssisted &&
 				<div>
 					<div>
-						Tenant portion: {tenant.rentAssistance.tenantPortion || ''}
+						Tenant portion: {tenant.rentAssistance?.tenantPortion || ''}
 					</div>
 					<div>
-						Assisted portion: {tenant.rentAssistance.assistedPortion || ''}
+						Assisted portion: {tenant.rentAssistance?.assistedPortion || ''}
 					</div>
 					<div>
 						Housing information
-						Agent: {tenant.rentAssistance.agent.name || ''}
-						Agency: {tenant.rentAssistance.agency.agency || ''}
-						phone: {tenant.rentAssistance.agent.phone || ''}
-						email: {tenant.rentAssistance.agent.email || ''}
+						Agent: {tenant.rentAssistance?.agent?.name || ''}
+						Agency: {tenant.rentAssistance?.agency?.agency || ''}
+						phone: {tenant.rentAssistance?.agent?.phone || ''}
+						email: {tenant.rentAssistance?.agent?.email || ''}
 					</div>
 
 				</div>

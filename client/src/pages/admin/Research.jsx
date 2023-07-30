@@ -1,7 +1,6 @@
 import { axHUD } from "../../utils/ax.jsx";
 import { FormRow, FormRowSelect } from "../../components/forms/index.js";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 
 const statesList = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY']
 
@@ -57,10 +56,6 @@ const Research = () => {
 		fetchData()
 	}
 
-
-
-
-
 	const handleChangeStateCode = (e) => {
 		// to clear values in case user picks different state after selecting zip
 		setFmrByZip([])
@@ -81,12 +76,10 @@ const Research = () => {
 		setFmrData(data)
 	}
 
-
-
 	return (
 		<div className="research-page pb-20">
 
-			<div className="text-center py-5 text-5xl">Research</div>
+			<div className="title">Research</div>
 			<div className="text-2xl ml-6 mt-10 mb-4">Search Fair Market Values</div>
 
 			<form className="ml-16 flex flex-col gap-4">
@@ -94,8 +87,8 @@ const Research = () => {
 				<FormRowSelect
 					labelText="state" name="stateCode" list={statesList}
 					handleChange={handleChangeStateCode}
-					inputStyle="w-20"
-					style='flex-col'
+					inputStyle=""
+					style=''
 				>
 				</FormRowSelect>
 
@@ -105,8 +98,8 @@ const Research = () => {
 					<FormRowSelect
 						labelText="county" name="countyCode" list={counties.map(county => county.name)}
 						handleChange={handleChangeCounty}
-						inputStyle="w-1/2"
-						style='flex-col'
+						inputStyle=""
+						style=''
 					>
 					</FormRowSelect>
 				}
@@ -117,8 +110,8 @@ const Research = () => {
 					<FormRowSelect
 						labelText="zip" name="zipCode" list={fmrByZip.map(zip => zip.zip_code)}
 						handleChange={handleSelectZipCode}
-						inputStyle="w-1/6 mb-20"
-						style='flex-col'
+						inputStyle=""
+						style=''
 					>
 					</FormRowSelect>
 				}

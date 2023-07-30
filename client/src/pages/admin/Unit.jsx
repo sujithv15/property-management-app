@@ -71,7 +71,6 @@ const Unit = () => {
 							<UnitUpdateForm
 								unit={unit}
 								setShowUnitUpdateForm={setShowUnitUpdateForm}
-								fetchAndSetUnit={fetchAndSetUnit}
 							/>}
 					</div>
 				</div>

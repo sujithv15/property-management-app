@@ -33,22 +33,34 @@ const ApplianceCreateForm = ({ unit_id, setShowCreateApplianceForm }) => {
 
 	return (
 		<ModalWrapper>
-			<div className="modal  border-solid border-4 rounded-3xl p-24">
-				<div className="text-center text-2xl pb-12">Add new appliance</div>
+			<div className="modal max-w-lg">
+				<form className="form" onSubmit={handleSubmit}>
+					<div className="form-title">Add Appliance</div>
+					<div className="form-content">
+						<FormRowSelect
+							labelText="appliance" name="appliance"
+							value={values.appliance} handleChange={handleChange} list={applianceList}
 
-				<form
-					className="form grid grid-auto-columns: minmax(0, 1fr) place-items-stretch gap-x-8 content-around h-5/6"
-					onSubmit={handleSubmit}
-				>
+						/>
+						<FormRow
+							labelText="date purchased" type="date" name="datePurchased"
+							value={values.datePurchased} handleChange={handleChange}
 
-					<FormRowSelect labelText="appliance" name="appliance" value={values.appliance} handleChange={handleChange} list={applianceList}/>
-					<FormRow labelText="date purchased" type="date" name="datePurchased" value={values.datePurchased} handleChange={handleChange}/>
-					<FormRow labelText="warranty" type="text" name="warranty" value={values.warranty} handleChange={handleChange}/>
-					<FormRow labelText="receipt" type="text" name="receipt" value={values.receipt} handleChange={handleChange}/>
+						/>
+						<FormRow
+							labelText="warranty" type="text" name="warranty"
+							value={values.warranty} handleChange={handleChange}
 
+						/>
+						<FormRow
+							labelText="receipt" type="text" name="receipt"
+							value={values.receipt} handleChange={handleChange}
+
+						/>
+					</div>
 					<div className="flex justify-around pt-10">
-						<button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs">create appliance</button>
-						<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs" onClick={() => setShowCreateApplianceForm(false)}>Cancel</button>
+						<button type="submit" className="btn">create appliance</button>
+						<button className="btn" onClick={() => setShowCreateApplianceForm(false)}>Cancel</button>
 					</div>
 
 				</form>

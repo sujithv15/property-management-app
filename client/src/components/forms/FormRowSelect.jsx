@@ -1,8 +1,8 @@
 const FormRowSelect = ({ labelText, name, value, defaultValue, handleChange, list, style, labelStyle, inputStyle, selectText }) => {
 
-   const rowClassName = `flex ${style}`
-   const labelClassName = `mt-3 block text-lg capitalize  ${labelStyle}`
-   const inputClassName = `bg-color-grey shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring self-end; ${inputStyle}`
+   const rowClassName = `form-select flex ${style}`
+   const labelClassName = `form-label ${labelStyle}`
+   const inputClassName = `bg-color-grey shadow border rounded w-full text-gray-700 focus:outline-none focus:ring; ${inputStyle}`
 
   return (
     <div className={rowClassName}>

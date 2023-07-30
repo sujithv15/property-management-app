@@ -1,9 +1,9 @@
 
 const FormRow = ({ labelText, type, name, value, handleChange, style, labelStyle, inputStyle  }) => {
 
-	const rowClassName = `flex gap-2 ${style}`
-	const labelClassName = `mt-3 block text-lg capitalize self-end ${labelStyle}`
-	const inputClassName = `bg-color-grey shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${inputStyle}`
+	const rowClassName = `form-row ${style}`
+	const labelClassName = `form-label ${labelStyle}`
+	const inputClassName = `shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline form-input ${inputStyle}`
 
 	return (
 		<div className={rowClassName}>

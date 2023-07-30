@@ -29,7 +29,7 @@ const Units = () => {
 	return (
 		<div className="units-page pb-20">
 
-			<div className="text-center py-5 text-5xl ">Units</div>
+			<div className="title">Units</div>
 
 			<div className="border-t-2 flex justify-between">
 				<div className="flex gap-2 my-16">

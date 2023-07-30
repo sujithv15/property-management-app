@@ -5,7 +5,7 @@ import FormRow from "./FormRow.jsx";
 import ModalWrapper from "./ModalWrapper.jsx";
 
 const initialState = {
-	unit: null,
+	unit: {} ,
 	lastName: '',
 	firstName: '',
 	email: '',
@@ -49,93 +49,55 @@ const TenantCreateForm = ({ setShowCreateTenantForm, unit_id }) => {
 
 	return (
 		<ModalWrapper>
-		<div className='modal border-solid border-4 rounded-3xl p-24'>
+			<div className='modal'>
 
-			<div className="text-center text-2xl pb-12">Add new Tenant</div>
-
-			<form
-				className="form grid grid-auto-columns: minmax(0, 1fr) place-items-stretch gap-x-8 content-around h-5/6"
-				onSubmit={handleSubmit}
-			>
-				<FormRow
-					labelText="lastName" type="text" name="lastName"
-					value={values.lastName} handleChange={handleChange}
-					style="col-span-2"
-				/>
-				<FormRow
-					labelText="firstName" type="text" name="firstName"
-					value={values.firstName} handleChange={handleChange}
-					style="col-span-2"
-				/>
-				<FormRow
-					labelText="email" type="email" name="email"
-					value={values.email} handleChange={handleChange}
-					style="col-span-3"
-				/>
-				<FormRow
-					labelText="phone" type="text" name="phone"
-					value={values.phone} handleChange={handleChange}
-					style="col-span-2"
-				/>
-				<FormRow
-					labelText="rent" type="number" name="rent"
-					value={values.rent} handleChange={handleChange}
-					style="col-span-1"
-				/>
-				<FormRow
-					labelText="balance" type="number" name="balance"
-					value={values.balance} handleChange={handleChange}
-					style="col-span-1"
-				/>
-				<FormRow
-					labelText="isAssisted" type="boolean" name="isAssisted"
-					value={values.isAssisted} handleChange={handleChange}
-					style="col-span-1"
-				/>
-
-				<div className="tenant-form-assisted grid col-span-5 place-items-stretch gap-x-8 content-around">
-					<FormRow
-						labelText="tenant portion" type="number" name="rentAssistance.tenantPortion"
-						value={values.rentAssistance?.tenantPortion} handleChange={handleChange}
-						style="col-span-1"
-					/>
-					<FormRow
-						labelText="assistedPortion" type="number" name="assistedPortion"
-						value={values.rentAssistance?.assistedPortion} handleChange={handleChange}
-						style="col-start-2"
-					/>
-
-					<div className="tenant-form-assisted grid col-span-6 place-items-stretch gap-x-8 gap-y-4 content-around">
+				<form className="form" onSubmit={handleSubmit}>
+					<div className="form-title">Create Tenant</div>
+					<div className="form-content grid-cols-6">
 						<FormRow
-							labelText="agentName" type="text" name="agentName"
-							value={values.rentAssistance?.agent?.name} handleChange={handleChange}
+							labelText="lastName" type="text" name="lastName"
+							value={values.lastName} handleChange={handleChange}
+							style="col-span-2"
+						/>
+						<FormRow
+							labelText="firstName" type="text" name="firstName"
+							value={values.firstName} handleChange={handleChange}
+							style="col-span-2"
+						/>
+						<FormRow
+							labelText="email" type="email" name="email"
+							value={values.email} handleChange={handleChange}
+							style="col-span-3"
+						/>
+						<FormRow
+							labelText="phone" type="text" name="phone"
+							value={values.phone} handleChange={handleChange}
+							style="col-span-2"
+						/>
+						<FormRow
+							labelText="rent" type="number" name="rent"
+							value={values.rent} handleChange={handleChange}
 							style="col-span-1"
 						/>
 						<FormRow
-							labelText="agency" type="text" name="agency"
-							value={values.rentAssistance?.agent?.agency} handleChange={handleChange}
-							style="col-start-2"
+							labelText="balance" type="number" name="balance"
+							value={values.balance} handleChange={handleChange}
+							style="col-span-1"
 						/>
 						<FormRow
-							labelText="agentPhone" type="text" name="agentPhone"
-							value={values.rentAssistance?.agent?.phone} handleChange={handleChange}
-						/>
-						<FormRow
-							labelText="agentEmail" type="email" name="agentEmail"
-							value={values.rentAssistance?.agent?.email} handleChange={handleChange}
+							labelText="isAssisted" type="boolean" name="isAssisted"
+							value={values.isAssisted} handleChange={handleChange}
+							style="col-span-1"
 						/>
 					</div>
 
-				</div>
+					<div className="flex justify-around pt-10">
+						<button type="submit" className='btn'>create tenant</button>
+						<button className="btn" onClick={() => setShowCreateTenantForm(false)}>cancel</button>
+					</div>
 
-				<div className="flex justify-around pt-10 col-span-5">
-					<button type="submit" className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs'>create tenant</button>
-
-					<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs" onClick={() => setShowCreateTenantForm(false)}>cancel</button>
-				</div>
-
-			</form>
-		</div>
+				</form>
+			</div>
 		</ModalWrapper>
 	);
 };

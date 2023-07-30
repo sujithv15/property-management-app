@@ -25,7 +25,7 @@ const Accounting = () => {
 	return (
 		<div className="accounting-page pb-20">
 
-			<div className="text-center py-5 text-5xl">Accounting</div>
+			<div className="title">Accounting</div>
 
 			<div className="text-center text-xl border-t-2 pt-12">Upcoming expenses</div>
 

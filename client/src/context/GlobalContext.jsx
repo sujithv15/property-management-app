@@ -51,7 +51,7 @@ const initialState = {
 	isLoading: false,
 	alertType: '',
 	alertText: '',
-	user: null,
+	user: {} ,
 	units: [],
 	unit: {},
 	tenant: {},
