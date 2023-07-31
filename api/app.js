@@ -31,7 +31,7 @@ app.use(rateLimit({
 }))
 app.use(helmet());
 app.use(cors({
-	origin: ['https://stately-pavlova-e65f71.netlify.app', 'http://localhost:5173', 'http://localhost:4173'],
+	origin: ['https://prop-management-assistant.netlify.app', 'http://localhost:5173', 'http://localhost:4173'],
 	credentials: true
 }))
 app.use(xss());
