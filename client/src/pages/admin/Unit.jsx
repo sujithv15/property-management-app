@@ -12,6 +12,7 @@ const Unit = () => {
 
 	const { getUnitDetails, unit, tenant, appliances, expenses } = useGlobalContext()
 
+	// get unit details and populate tenant, appliances, expenses (global states)
 	useEffect(() => {
 		getUnitDetails(unit_id)
 	}, [])
@@ -54,7 +55,7 @@ const Unit = () => {
 					</div>
 					<div>
 						<button
-							className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs"
+							className="btn"
 							onClick={() => setShowUnitUpdateForm(true)
 							}>
 							edit unit
@@ -68,10 +69,7 @@ const Unit = () => {
 					<div className="unit-update-btn">
 
 						{showUnitUpdateForm &&
-							<UnitUpdateForm
-								unit={unit}
-								setShowUnitUpdateForm={setShowUnitUpdateForm}
-							/>}
+							<UnitUpdateForm setShowUnitUpdateForm={setShowUnitUpdateForm} />}
 					</div>
 				</div>
 
@@ -82,7 +80,7 @@ const Unit = () => {
 						// else render create tenant button
 						tenant ?
 							<div className="tenant-info">
-								<TenantUnit {...tenant}/>
+								<TenantUnit />
 							</div>
 							:
 							<div className="tenant-form">

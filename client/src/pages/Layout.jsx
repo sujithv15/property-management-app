@@ -16,7 +16,7 @@ const Layout = () => {
 	/* Whenever role changes, the nav bar will update to the appropriate links and pass the links to Navbar as props */
 	useEffect(() => {
 		if (role === 'admin') {
-			readUnits()
+
 			setNavLinks(linksAdmin)
 			return
 		}

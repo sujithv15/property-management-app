@@ -110,6 +110,7 @@
 .btn {
     cursor: pointer;
     color: #fff;
+    font-size: 12px;
     background: var(--color-med);
     border: transparent;
     border-radius: 0.25rem;
@@ -120,6 +121,7 @@
     transition: 0.3s ease-in-out all;
     text-transform: capitalize;
     display: inline-block;
+    height: 32px;
 }
 
 .btn-cancel {

@@ -42,6 +42,7 @@ const TenantCreateForm = ({ setShowCreateTenantForm, unit_id }) => {
 			toast.error('Enter all values')
 			return
 		}
+		// pass unit_id so createTenant can run getUnitDetails, which updates unit and tenant global states
 		createTenant({ ...values, unit: unit_id }, unit_id)
 		toast.success('TenantUnit Successfully Created')
 		setShowCreateTenantForm(false)

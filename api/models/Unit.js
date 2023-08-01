@@ -25,6 +25,9 @@ const UnitSchema = new mongoose.Schema( {
 		type: Boolean,
 		default: false
 	},
+	tenantName: {
+		type: String,
+	},
 	tenant: {
 		type: mongoose.Types.ObjectId,
 		ref: 'Tenant'

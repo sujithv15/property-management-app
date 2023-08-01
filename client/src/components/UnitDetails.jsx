@@ -8,11 +8,9 @@ const UnitDetails = (unit) => {
 
 	const { _id, unitID, street, city, state, zip, isPrimary, occupied, tenant, user, bedrooms, bathrooms, rent, fmrRent, appliances } = unit
 
-	const [showUnitDetails, setShowUnitDetails] = useState(false)
-	const [showTenantDetails, setShowTenantDetails] = useState(false)
-	const [showCreateTenantForm, setShowCreateTenantForm] = useState(false)
-
 	const [id, setId] = useState(_id)
+
+
 
 	return (
 		<div className="">

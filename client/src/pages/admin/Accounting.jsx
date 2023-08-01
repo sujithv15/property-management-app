@@ -48,7 +48,7 @@ const Accounting = () => {
 
 			<div className="">
 
-				<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs" onClick={() => setShowCreateExpenseForm(true)}>Create Expense</button>
+				<button className="btn" onClick={() => setShowCreateExpenseForm(true)}>Create Expense</button>
 
 				{ showCreateExpenseForm && <ExpenseCreateForm setShowCreateExpenseForm={setShowCreateExpenseForm}/>}
 			</div>

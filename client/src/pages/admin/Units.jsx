@@ -1,11 +1,15 @@
 import {useGlobalContext} from "../../context/GlobalContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Loading, UnitDetails } from "../../components/index.js";
 import UnitNewForm from "../../components/forms/UnitNewForm.jsx";
 
 
 const Units = () => {
 	const { readUnits, isLoading, units } = useGlobalContext()
+
+	useEffect(() => {
+		readUnits()
+	}, [])
 
 	// state for search function
 	const [query, setQuery] = useState("")
@@ -46,7 +50,7 @@ const Units = () => {
 
 				<div className="my-auto mr-5">
 					<button
-						className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs"
+						className="btn"
 						onClick={() => setShowForm(true)}>add Unit
 					</button>
 

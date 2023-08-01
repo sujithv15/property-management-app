@@ -27,9 +27,9 @@ import {
 	UPDATE_UNIT_SUCCESS,
 	UPDATE_UNIT_ERROR,
 
-	CREATE_TENANT_BEGIN,
-	CREATE_TENANT_SUCCESS,
-	CREATE_TENANT_ERROR,
+	UPDATE_TENANT_BEGIN,
+	UPDATE_TENANT_SUCCESS,
+	UPDATE_TENANT_ERROR,
 	READ_TENANTS_BEGIN,
 	READ_TENANTS_SUCCESS,
 	READ_TENANTS_ERROR,
@@ -132,7 +132,7 @@ const GlobalProvider = ({ children }) => {
 	const createUnit= async (unit) => {
 		try {
 			await ax.post('/admin/units/create', unit)
-			readUnits()
+			await readUnits()
 		} catch (error) {
 			console.log('Unit could not be created');
 		}
@@ -176,17 +176,20 @@ const GlobalProvider = ({ children }) => {
 		clearAlert()
 	}
 	const updateUnit = async (unit) => {
-		console.log(unit);
+		dispatch({type: UPDATE_UNIT_BEGIN})
 		try {
 			await ax.patch(`/admin/units/${unit._id}`, unit)
-			setTimeout(async () => {
-				await readUnits()
-			}, 1000)
-
+			await readUnits()
+			dispatch({
+				type: UPDATE_UNIT_SUCCESS,
+				payload: { unit }
+			})
 		} catch (error) {
-			console.log(error);
+			dispatch({
+				type: UPDATE_UNIT_ERROR,
+				payload: {msg: error}
+			})
 		}
-
 		clearAlert()
 	}
 
@@ -210,6 +213,7 @@ const GlobalProvider = ({ children }) => {
 		clearAlert()
 	}
 
+	// global states set up in getUnitDetails for tenant
 	const createTenant = async (tenant, unit_id) => {
 		try {
 			await ax.post('/admin/tenants/create', tenant)
@@ -231,12 +235,18 @@ const GlobalProvider = ({ children }) => {
 	}
 
 	const updateTenant = async (tenant_id, tenant) => {
-		console.log(tenant_id);
-		console.log(tenant);
+		dispatch({ type: UPDATE_TENANT_BEGIN })
 		try {
 			await ax.patch(`/admin/tenants/${tenant._id}`, tenant)
+			dispatch({
+				type: UPDATE_TENANT_SUCCESS,
+				payload: { tenant }
+			})
 		} catch (error) {
-			console.log(error);
+			dispatch({
+				type: UPDATE_TENANT_ERROR,
+				payload: { msg: error}
+			})
 		}
 		clearAlert()
 	}
@@ -282,7 +292,6 @@ const GlobalProvider = ({ children }) => {
 	const createAppliance= async (appliance, unit_id) => {
 		try {
 			await ax.post('/admin/appliances/new', appliance)
-			await getUnitDetails(unit_id)
 		} catch (error) {
 			console.log(error);
 		}

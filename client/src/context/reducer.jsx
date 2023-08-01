@@ -236,7 +236,8 @@ const Reducer = (state, action) => {
 	if (action.type === UPDATE_UNIT_SUCCESS) {
 		return {
 			...state,
-			units: [...state.unit, action.payload.unit],
+			units: [...state.units, action.payload.unit],
+			unit: action.payload.unit,
 			isLoading: false,
 			showAlert: true,
 			alertType: 'success',
@@ -315,6 +316,7 @@ const Reducer = (state, action) => {
 	if (action.type === UPDATE_TENANT_SUCCESS) {
 		return {
 			...state,
+			tenant: action.payload.tenant,
 			isLoading: false,
 			showAlert: true,
 			alertType: 'success',

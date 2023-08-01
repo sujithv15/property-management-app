@@ -43,6 +43,7 @@ const TenantSchema = new mongoose.Schema({
 	},
 	rent: {
 		type: Number,
+		default: 0
 	},
 	balance: {
 		type: Number,
@@ -54,17 +55,19 @@ const TenantSchema = new mongoose.Schema({
 	},
 	rentAssistance: {
 		tenantPortion: {
-			type: Number
+			type: Number,
+			default: 0
 		},
 		assistedPortion: {
-			type: Number
+			type: Number,
+			default: 0
 		},
 		agent: {
 			name: { type: String },
 			agency: { type: String },
 			phone: { type: String },
 			email: { type: String}
-		}
+		},
 	},
 	createdAt: {
 		type: Date,
@@ -83,7 +86,7 @@ TenantSchema.pre('save', async function() {
 	if (!tenantUnit) {
 		throw new NotFoundError(`No unit with ${this.unit} number`);
 	}
-	await Unit.findByIdAndUpdate(tenantUnit._id, { tenant: this._id })
+	await Unit.findByIdAndUpdate(tenantUnit._id, { tenant: this._id, tenantName: `${this.firstName} ${this.lastName}` })
 	console.log('tenant saved to unit');
 })
 

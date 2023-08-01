@@ -33,7 +33,6 @@ const FormRowSelect = ({ labelText, name, value, defaultValue, handleChange, lis
            })
         }
       </select>
-
     </div>
   )
 }

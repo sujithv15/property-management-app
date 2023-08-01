@@ -1,9 +1,15 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../context/GlobalContext.jsx";
 
 const Navbar = ({ links }) => {
 
 	const { user, logoutUser } = useGlobalContext()
+
+	const navigate = useNavigate()
+	const handleLogout =  () => {
+		logoutUser()
+		navigate('/')
+	}
 
 	return (
 		<nav>
@@ -20,7 +26,7 @@ const Navbar = ({ links }) => {
 
 				{
 					user && Object.keys(user).length > 0 &&
-					<button type="submit" className="btn" onClick={logoutUser}>Logout</button>
+					<button type="submit" className="btn" onClick={handleLogout}>Logout</button>
 				}
 			</div>
 

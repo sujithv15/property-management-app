@@ -9,6 +9,8 @@ import TenantCreateForm from "./TenantCreateForm.jsx";
 import TenantUpdateForm from "./TenantUpdateForm.jsx";
 import UnitNewForm from "./UnitNewForm.jsx";
 import UnitUpdateForm from "./UnitUpdateForm.jsx";
+import TenantAssistanceForm from "./TenantAssistanceForm.jsx";
+
 
 export {
 	ApplianceUpdateForm,
@@ -21,5 +23,6 @@ export {
 	TenantUpdateForm,
 	TenantCreateForm,
 	ApplianceCreateForm,
-	ExpenseCreateForm
+	ExpenseCreateForm,
+	TenantAssistanceForm
 }

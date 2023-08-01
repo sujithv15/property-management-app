@@ -4,14 +4,13 @@ import { toast } from "react-toastify";
 import FormRow from "./FormRow.jsx";
 import ModalWrapper from "./ModalWrapper.jsx";
 
-const TenantUpdateForm = ({ tenant, setShowTenantUpdateForm }) => {
 
+const TenantUpdateForm = ({ setShowTenantUpdateForm }) => {
+
+	const { tenant, updateTenant } = useGlobalContext()
 	const [values, setValues] = useState(tenant)
-
-	const { updateTenant } = useGlobalContext()
-
 	const handleChange = (e) => {
-		setValues({...values, [e.target.name]: e.target.value})
+		setValues({...values, [e.target.name]: e.target.value })
 	}
 
 	const handleSubmit = (e) => {
@@ -22,8 +21,10 @@ const TenantUpdateForm = ({ tenant, setShowTenantUpdateForm }) => {
 			return
 		}
 		updateTenant(tenant._id, values)
-		toast.success('TenantUnit Successfully Updated')
+		toast.success('Tenant Successfully Updated')
+		setShowTenantUpdateForm(false)
 	}
+
 
 	return (
 		<ModalWrapper>
@@ -61,54 +62,24 @@ const TenantUpdateForm = ({ tenant, setShowTenantUpdateForm }) => {
 								value={values.balance} handleChange={handleChange}
 								style="col-span-2"
 							/>
-							<FormRow
-								labelText="isAssisted" type="boolean" name="isAssisted"
-								value={values.isAssisted} handleChange={handleChange}
-								style="col-span-1"
-							/>
+							<div className="col-span-1">
+								<label htmlFor="isAssisted" className="form-label">Rent Assistance</label>
+								<select
+									name="isAssisted"
+									value={values.isAssisted}
+									onChange={handleChange}
+									className="form-select"
+								>
+									<option value={true}>Yes</option>
+									<option value={false}>No</option>
+								</select>
+							</div>
+
 						</div>
 
 
-						{
-							tenant.isAssisted &&
 
-							<div className="assistance-info">
-								<FormRow
-									labelText="rentAssistance" type="number" name="rentAssistance"
-									value={values.rentAssistance?.tenantPortion} handleChange={handleChange}
-									style="col-span-1"
-								/>
 
-								<FormRow
-									labelText="assistedPortion" type="number" name="assistedPortion"
-									value={values.rentAssistance?.assistedPortion} handleChange={handleChange}
-									style="col-span-1"
-								/>
-
-								<div className="assisted-agency-info">
-									<FormRow
-										labelText="agentName" type="text" name="agentName"
-										value={values.rentAssistance?.agent?.name} handleChange={handleChange}
-										style="col-span-1"
-									/>
-									<FormRow
-										labelText="agency" type="text" name="agency"
-										value={values.rentAssistance?.agent?.agency} handleChange={handleChange}
-										style="col-span-1"
-									/>
-									<FormRow
-										labelText="agentPhone" type="text" name="agentPhone"
-										value={values.rentAssistance?.agent?.phone} handleChange={handleChange}
-										style="col-span-1"
-									/>
-									<FormRow
-										labelText="agentEmail" type="email" name="agentEmail"
-										value={values.rentAssistance?.agent?.email} handleChange={handleChange}
-										style="col-span-1"
-									/>
-								</div>
-							</div>
-						}
 
 					<div className="flex justify-around pt-10">
 						<button type="submit" className='btn'>update tenant</button>

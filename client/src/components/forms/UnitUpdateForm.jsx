@@ -5,9 +5,9 @@ import FormRow from "./FormRow.jsx";
 import ModalWrapper from "./ModalWrapper.jsx";
 
 // FIXME unit component not re-rendering on form update
-const UnitUpdateForm = ({ unit, setShowUnitUpdateForm }) => {
+const UnitUpdateForm = ({ setShowUnitUpdateForm }) => {
 
-	const { updateUnit, readUnits } = useGlobalContext()
+	const { unit, updateUnit, readUnits } = useGlobalContext()
 
 	const [values, setValues] = useState(unit)
 
@@ -15,6 +15,8 @@ const UnitUpdateForm = ({ unit, setShowUnitUpdateForm }) => {
 		setValues({...values, [e.target.name]: e.target.value})
 	}
 
+	// send values to updateUnit in Global context which API call and changes in db
+	// updateUnit sets updated unit into global unit state, and updates units state with new unit
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		updateUnit(values)
