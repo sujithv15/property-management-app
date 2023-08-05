@@ -2,6 +2,7 @@ import FormRow from "./FormRow.jsx";
 import { useState } from "react";
 import { useGlobalContext } from "../../context/GlobalContext.jsx";
 import { toast } from "react-toastify";
+import GuestLogin from "../GuestLogin.jsx";
 
 const initialState = {
 	name: '',
@@ -45,7 +46,7 @@ const LoginForm = () => {
 				<FormRow type="password" name='password' labelText='password' password='email'  value={values.password} handleChange={handleChange} />
 				<button type='submit'  className="rounded btn">login</button>
 			</div>
-
+			<GuestLogin />
 		</form>
 
 	);
