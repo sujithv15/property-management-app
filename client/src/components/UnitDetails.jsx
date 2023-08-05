@@ -32,7 +32,7 @@ const UnitDetails = (unit) => {
 				</div>
 
 				<div className="unit-occupied">
-					{occupied ? 'Yes' : 'No'}
+					{unit.tenant !== null ? 'Yes' : 'No'}
 				</div>
 			</div>
 
