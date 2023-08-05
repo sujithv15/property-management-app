@@ -7,7 +7,7 @@ const ax = axios.create({
 	// baseURL: 'https://property-management-app.onrender.com/api/v1',
 	baseURL: config.url.API_URL,
 	withCredentials: true,
-	headers: {"Access-Control-Allow-Origin": "*"}
+	headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 });
 // response
 ax.interceptors.response.use(
