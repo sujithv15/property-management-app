@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useGlobalContext } from "../../context/GlobalContext.jsx";
 import { toast } from "react-toastify";
 import GuestLogin from "../GuestLogin.jsx";
+import { Loading } from "../../components"
 
 const initialState = {
 	name: '',
@@ -15,7 +16,7 @@ const LoginForm = () => {
 	const [values, setValues] = useState(initialState)
 
 	// function in our GlobalContext to login user to server
-	const { loginUser } = useGlobalContext()
+	const { loginUser, isLoading } = useGlobalContext()
 
 	// set state values as user types
 	const handleChange = (e) => {

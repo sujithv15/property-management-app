@@ -1,4 +1,4 @@
-import { Footer, Navbar } from "../components/index.js";
+import { Footer, Navbar, Loading } from "../components/index.js";
 import { linksUser } from "./user/links-user.js";
 import { linksPublic } from "./public/links-public.js";
 import { linksAdmin } from "./admin/links-admin.js";
@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 
 const Layout = () => {
 
-	const { role, readUnits } = useGlobalContext()
+	const { role, readUnits, isLoading } = useGlobalContext()
 
 	const [navLinks, setNavLinks] = useState(linksPublic)
 
@@ -35,7 +35,7 @@ const Layout = () => {
 			<div className="border-solid border-4 rounded-md">
 				<Navbar links={navLinks}/>
 			</div>
-
+			{ isLoading && <Loading /> }
 			<div className="border-solid border-4 rounded-md px-20 py-10">
 				<Outlet />
 			</div>
