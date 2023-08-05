@@ -14,9 +14,8 @@ const GuestLogin = () => {
 	return (
 		<div>
 			<div className="max-w-sm mx-auto">
-				<a
-				className="underline text-blue-500 hover:cursor-pointer hover:text-cyan-500"
-				onClick={guestLogin}>Click here</a> to login as admin to tour the app so far! It's still under construction, and more features are regularly being added!
+				Or <button className="underline text-blue-500 hover:cursor-pointer hover:text-cyan-500"
+				        onClick={guestLogin}>click here</button> to access the site as Admin!
 			</div>
 
 		</div>
