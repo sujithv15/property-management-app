@@ -6,18 +6,8 @@ const ax = axios.create({
 	//baseURL: 'http://localhost:8800/api/v1',
 	// baseURL: 'https://property-management-app.onrender.com/api/v1',
 	baseURL: config.url.API_URL,
-	withCredentials: true
+	withCredentials: true,
 });
-// response
-ax.interceptors.response.use(
-	(response) => {
-		return response;
-	},
-	(error) => {
-		// console.log(error.response)
-		return Promise.reject(error);
-	}
-);
 
 // to fetch fmr HUD data
 const axHUD = axios.create({
@@ -27,15 +17,5 @@ const axHUD = axios.create({
 	}
 })
 
-// response
-axHUD.interceptors.response.use(
-	(response) => {
-		return response;
-	},
-	(error) => {
-		// console.log(error.response)
-		return Promise.reject(error);
-	}
-);
 
 export { ax, axHUD }
