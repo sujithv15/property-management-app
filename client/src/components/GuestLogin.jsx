@@ -4,7 +4,8 @@ const GuestLogin = () => {
 
 	const { loginUser } = useGlobalContext();
 
-	const guestLogin = () => {
+	const guestLogin = (e) => {
+		e.preventDefault()
 		const email = "admin@mail.com";
 		const password = import.meta.env.VITE_ADMIN_PASSWORD;
 		loginUser({ email, password });
