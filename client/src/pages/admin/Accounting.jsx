@@ -3,7 +3,6 @@ import {useState} from "react";
 import {useGlobalContext} from "../../context/GlobalContext.jsx";
 import {toast} from "react-toastify";
 import {useEffect} from "react";
-import {Loading} from "../../components/index.js";
 import { ExpenseCreateForm } from "../../components/forms/index.js";
 
 
@@ -16,10 +15,6 @@ const Accounting = () => {
 	useEffect(() => {
 		readExpenses()
 	}, [])
-
-	if (isLoading) {
-		return <Loading />;
-	}
 
 
 	return (

@@ -1,12 +1,17 @@
 // axios
 import axios from "axios";
+import { wrapper } from "axios-cookiejar-support";
+import { CookieJar } from "tough-cookie"
 import { config } from "../../constants.js";
+
 
 const ax = axios.create({
 	//baseURL: 'http://localhost:8800/api/v1',
 	// baseURL: 'https://property-management-app.onrender.com/api/v1',
 	baseURL: config.url.API_URL,
 	withCredentials: true,
+	keepAlive: true
+
 });
 // response
 ax.interceptors.response.use(

@@ -1,6 +1,6 @@
 import {useGlobalContext} from "../../context/GlobalContext";
 import { useEffect, useState } from "react";
-import { Loading, UnitDetails } from "../../components/index.js";
+import { UnitDetails } from "../../components/index.js";
 import UnitNewForm from "../../components/forms/UnitNewForm.jsx";
 
 
@@ -15,9 +15,7 @@ const Units = () => {
 	const [query, setQuery] = useState("")
 	const [showForm, setShowForm] = useState(false)
 
-	if (isLoading) {
-		return <Loading />;
-	}
+
 	// filter units by search by using derived state;
 	// -convert query to lower case and check if any part of the address contains the search
 	const queriedUnits = units.filter(unit => {

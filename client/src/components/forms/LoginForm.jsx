@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useGlobalContext } from "../../context/GlobalContext.jsx";
 import { toast } from "react-toastify";
 import GuestLogin from "../GuestLogin.jsx";
-import { Loading } from "../../components"
 
 const initialState = {
 	name: '',

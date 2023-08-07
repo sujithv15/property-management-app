@@ -101,6 +101,7 @@ const GlobalProvider = ({ children }) => {
 		dispatch({ type: LOGIN_USER_BEGIN })
 		try {
 			const response = await ax.post('/auth/login', currentUser)
+			console.log(response);
 			const { user } = response.data
 			if (user.isAdmin) {
 				dispatch({
