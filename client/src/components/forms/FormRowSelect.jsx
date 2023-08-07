@@ -15,10 +15,9 @@ const FormRowSelect = ({ labelText, name, value, defaultValue, handleChange, lis
 
       <select
         name={name}
-        value={value}
+        value={defaultValue || value}
         onChange={handleChange}
         className={inputClassName}
-        defaultValue={defaultValue}
       >
         {
            list.map((itemValue, index) => {

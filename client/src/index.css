@@ -5,7 +5,7 @@
 
 @keyframes spinner {
     to {
-        transform: matrix(1, 2, 3, 4, 5);
+        transform: rotate(360deg);
     }
 }
 :root {
@@ -18,11 +18,16 @@
 
 }
 
+body {
+    font-family: Cambria;
+}
+
 .title {
     font-size: 3rem; /* 48px */
     line-height: 1;
     padding: 1.25rem; /* 20px */
     text-align: center;
+    font-family: Poppins;
 }
 
 .loading {
@@ -30,7 +35,7 @@
     height: 6rem;
     border: 5px solid grey;
     border-radius: 50%;
-    border-top-color: dodgerblue;
+    border-top-color: #326bbb;
     animation: spinner 2s linear infinite;
 }
 

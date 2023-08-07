@@ -30,9 +30,14 @@ app.use(rateLimit({
 	max: 100 //limit each IP to 100 req per windowMs
 }))
 app.use(helmet());
+
+const origin = process.env.NODE_ENV === 'production'
+	? 'https://prop-management-assistant.netlify.app'
+	: 'http://localhost:5173'
 app.use(cors({
-	origin: ['https://prop-management-assistant.netlify.app', 'http://localhost:5173', 'http://localhost:4173'],
-	credentials: true
+	credentials: true,
+	origin
+
 }))
 app.use(xss());
 if (process.env.NODE_ENV !== 'production') {
@@ -41,7 +46,7 @@ if (process.env.NODE_ENV !== 'production') {
 app.use(express.json())
 app.use(cookieParser(process.env.JWT_SECRET))
 
-
+/*
 app.get('/', (req, res) => {
 	res.send('property management api')
 })
@@ -49,7 +54,7 @@ app.get('/api/v1', (req, res) => {
 	console.log(req.signedCookies);
 	res.send('property management api')
 })
-
+*/
 app.use('/api/v1/auth', authRoutes)  // login, logout, register
 app.use('/api/v1/users', authenticateUser, authorizePermissions, userRoutes)  // getAllUsers, getUserInfo, showCurrentUser, updateUser, updateUserPassword
 app.use('/api/v1/admin/appliances', authenticateUser, authorizePermissions, applianceRoutes)

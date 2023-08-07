@@ -39,7 +39,7 @@ const TenantUnit = () => {
 					<div className="col-span-2">
 						<div className="font-semibold">Agency Information</div>
 						<div className="flex flex-col m-4 gap-2">
-							<div>Agency: {tenant.rentAssistance?.agency?.agency || ''}</div>
+							<div>Agency: {tenant.rentAssistance?.agent?.agency || ''}</div>
 							<div>Agent: {tenant.rentAssistance?.agent?.name || ''}</div>
 							<div>phone: {tenant.rentAssistance?.agent?.phone || ''}</div>
 							<div>email: {tenant.rentAssistance?.agent?.email || ''}</div>

@@ -29,14 +29,14 @@ const Unit = () => {
 
 				{/*----------------Unit Details-----------------*/}
 
-				<div className=" grid grid-cols-5 justify-items-center border-t-2 pt-16 my-4" >
+				<div className=" grid grid-cols-5 justify-items-left border-t-2 pt-16 my-4" >
 					<p className="text-xl font-bold">Address</p>
 					<p className="text-xl font-bold">Beds/Baths</p>
 					<p className="text-xl font-bold">Rent</p>
 					<p className="text-xl font-bold">Fair Market Rent</p>
 				</div>
 
-				<div className="grid grid-cols-5 justify-items-center mb-16" >
+				<div className="grid grid-cols-5 justify-items-left mb-16" >
 					<div className="">
 						<p>{`${unit.unitID} ${unit.street}`}</p>
 						<p>{unit.city}, {unit.state} {unit.zip}</p>

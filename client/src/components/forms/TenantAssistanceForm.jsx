@@ -2,19 +2,28 @@ import FormRow from "./FormRow.jsx";
 import { useState } from "react";
 import { useGlobalContext } from "../../context/GlobalContext.jsx";
 import ModalWrapper from "./ModalWrapper.jsx";
+import { toast } from "react-toastify";
 
 const TenantAssistanceForm = ({ setShowTenantAssistanceForm }) => {
 
-	const { tenant } = useGlobalContext()
+	const { tenant, updateTenant } = useGlobalContext()
 
-	const [values, setValues] = useState(tenant.rentAssistance)
+	const { rentAssistance } = tenant
+	const { agent } = rentAssistance
+
+	const [values, setValues] = useState(rentAssistance)
+	const [agentValues, setAgentValues] = useState(agent)
 
 	const handleChange = (e) => {
 		setValues({ ...values, [e.target.name]: e.target.value })
+		setAgentValues({ ...agentValues, [e.target.name]: e.target.value })
 	}
 
 	const handleSubmit = (e) => {
-		console.log(values);
+		e.preventDefault()
+		updateTenant(tenant._id, {...tenant, rentAssistance: { ...values, agent: agentValues }})
+		toast.success("Tenant Successfully Updates")
+		setShowTenantAssistanceForm(false)
 	}
 
 	return (
@@ -27,13 +36,13 @@ const TenantAssistanceForm = ({ setShowTenantAssistanceForm }) => {
 						<div className="flex flex-col w-3/8 mx-auto m-8 gap-4">
 							<FormRow
 								labelText="Tenant Rent Portion" type="number" name="tenantPortion"
-								value={values.rentAssistance?.tenantPortion} handleChange={handleChange}
+								value={values.tenantPortion} handleChange={handleChange}
 								style="col-span-1"
 							/>
 
 							<FormRow
 								labelText="Housing Assisted Payment" type="number" name="assistedPortion"
-								value={values.rentAssistance?.assistedPortion} handleChange={handleChange}
+								value={values.assistedPortion} handleChange={handleChange}
 								style="col-span-1"
 							/>
 						</div>
@@ -41,23 +50,23 @@ const TenantAssistanceForm = ({ setShowTenantAssistanceForm }) => {
 						<div className="flex flex-col w-5/6 mx-auto ml-4 gap-4">
 							<div className="font-bold text-xl">Housing Agency Information</div>
 							<FormRow
-								labelText="Agent" type="text" name="agentName"
-								value={values.rentAssistance?.agent?.name} handleChange={handleChange}
+								labelText="Agent" type="text" name="name"
+								value={agentValues.name} handleChange={handleChange}
 								style="col-span-1"
 							/>
 							<FormRow
 								labelText="Agency" type="text" name="agency"
-								value={values.rentAssistance?.agent?.agency} handleChange={handleChange}
+								value={agentValues.agency} handleChange={handleChange}
 								style="col-span-1"
 							/>
 							<FormRow
-								labelText="Phone" type="text" name="agentPhone"
-								value={values.rentAssistance?.agent?.phone} handleChange={handleChange}
+								labelText="Phone" type="text" name="phone"
+								value={agentValues.phone} handleChange={handleChange}
 								style="col-span-1"
 							/>
 							<FormRow
-								labelText="Email" type="email" name="agentEmail"
-								value={values.rentAssistance?.agent?.email} handleChange={handleChange}
+								labelText="Email" type="email" name="email"
+								value={agentValues.email} handleChange={handleChange}
 								style="col-span-1"
 							/>
 						</div>

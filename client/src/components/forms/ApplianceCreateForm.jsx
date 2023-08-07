@@ -26,6 +26,9 @@ const ApplianceCreateForm = ({ unit_id, setShowCreateApplianceForm }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
+		if (!values.appliance) {
+			values.appliance = 'refrigerator'
+		}
 		createAppliance({ ...values, unit: unit_id }, unit_id)
 		toast.success('Appliance Successfully Created')
 		setShowCreateApplianceForm(false)
