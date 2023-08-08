@@ -5,6 +5,9 @@ const UnitSchema = new mongoose.Schema( {
 		type: String,
 		required: [true, "Please provide unit"]
 	},
+	image : {
+		type: String,
+	},
 	street: {
 		type: String,
 		required: [true, "Please provide street"]

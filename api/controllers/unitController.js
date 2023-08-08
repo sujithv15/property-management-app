@@ -1,4 +1,5 @@
 import Unit from "../models/Unit.js";
+import Image from "../models/Image.js";
 import { StatusCodes } from "http-status-codes";
 import { BadRequestError, NotFoundError } from "../errors/index.js";
 
@@ -50,6 +51,15 @@ const updateUnit = async (req, res) => {
 	res.status(StatusCodes.OK).json({ msg: 'Update success' })
 }
 
+const updateImage = async (req, res) => {
+	try {
+		await Unit.findByIdAndUpdate(req.params.id, { image: req.body.image})
+		res.status(StatusCodes.OK).json({ msg: 'new img updated' })
+	} catch (error) {
+		res.status(BadRequestError).json({ msg: error.message})
+	}
+}
+
 const deleteUnit = async (req, res) => {
 	const { id } = req.params
 	const unit = await Unit.findById(id)
@@ -60,4 +70,4 @@ const deleteUnit = async (req, res) => {
 	res.status(StatusCodes.OK).json({unit})
 }
 
-export { getAllUnits, getUnitDetails, createUnit, updateUnit, deleteUnit }
+export { getAllUnits, getUnitDetails, createUnit, updateUnit, deleteUnit, updateImage }

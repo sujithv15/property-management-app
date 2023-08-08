@@ -80,6 +80,7 @@ const UnitUpdateForm = ({ setShowUnitUpdateForm }) => {
 					</button>
 					<button
 						className="btn"
+						type="button"
 						onClick={() => setShowUnitUpdateForm(false)}>
 						Cancel
 					</button>

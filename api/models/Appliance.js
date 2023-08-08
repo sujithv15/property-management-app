@@ -20,7 +20,8 @@ const ApplianceSchema = new mongoose.Schema({
 		type: String
 	},
 	receipt: {
-		type: String
+		type: mongoose.Types.ObjectId,
+		ref: 'Image'
 	},
 	createdAt: {
 		type: Date,

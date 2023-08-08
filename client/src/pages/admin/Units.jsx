@@ -56,11 +56,12 @@ const Units = () => {
 				</div>
 			</div>
 
-			<div className="grid grid-cols-5 mb-2 justify-items-start" >
-				<p className="text-xl font-bold col-span-2 pl-3">Address</p>
+			<div className="grid grid-cols-5 mb-2" >
+				<div></div>
+				<p className="text-xl font-bold col-span-2">Address</p>
 				<p className="text-xl font-bold">Beds/Baths</p>
-				<p className="text-xl font-bold">Rent</p>
-				<p className="text-xl font-bold">Occupied</p>
+				<p className="text-xl font-bold">Monthly Rent</p>
+
 			</div>
 
 			<ul>

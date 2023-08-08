@@ -2,7 +2,7 @@ import { ax } from '../../utils/ax.jsx'
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { TenantUnit, AppliancesUnit, AccountingUnit } from "../../components/unit-components"
-import { UnitUpdateForm, TenantCreateForm } from "../../components/forms";
+import { UnitUpdateForm, TenantCreateForm, FileUploadForm } from "../../components/forms";
 import { Expense } from "../../components/index.js";
 import { useGlobalContext } from "../../context/GlobalContext.jsx";
 
@@ -18,11 +18,27 @@ const Unit = () => {
 	}, [])
 
 	const [showUnitUpdateForm, setShowUnitUpdateForm] = useState(false)
+	const [showImageForm, setShowImageForm] = useState(false)
 	const [showCreateTenantForm, setShowCreateTenantForm] = useState(false)
 
 	return (
 		<div>
 			<div className="flex flex-col ">
+				<div>
+					{
+						unit.image &&
+						<div className="relative overflow-hidden h-48">
+							<img
+								className="absolute w-full"
+								src={unit.image}
+								alt="img"
+								width="240px"
+							/>
+
+						</div>
+					}
+
+				</div>
 				<div className="text-center">
 					<h2 className="text-center my-12 text-2xl">{unit.unitID} {unit.street}</h2>
 				</div>
@@ -53,12 +69,19 @@ const Unit = () => {
 					<div className="unit-rent">
 						${unit?.fmrRent}
 					</div>
-					<div>
+
+					<div className="flex flex-col gap-4 w-24 mx-auto">
 						<button
 							className="btn"
 							onClick={() => setShowUnitUpdateForm(true)
 							}>
 							edit unit
+						</button>
+						<button
+							className="btn"
+							onClick={() => setShowImageForm(!showImageForm)
+							}>
+							edit image
 						</button>
 					</div>
 
@@ -66,7 +89,10 @@ const Unit = () => {
 
 				<div>
 						{/*Update Unit*/}
-					<div className="unit-update-btn">
+					<div className="unit-update-forms">
+
+						{showImageForm &&
+							<FileUploadForm unit_id={unit._id} setShowImageForm={setShowImageForm} />}
 
 						{showUnitUpdateForm &&
 							<UnitUpdateForm setShowUnitUpdateForm={setShowUnitUpdateForm} />}
