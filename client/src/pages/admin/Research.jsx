@@ -80,9 +80,9 @@ const Research = () => {
 		<div className="research-page pb-20">
 
 			<div className="title">Research</div>
-			<div className="text-2xl ml-6 mt-10 mb-4">Search Fair Market Values</div>
+			<div className="text-2xl mt-10 text-center mb-12">Search Nationwide Fair Market Rental Values</div>
 
-			<form className="ml-16 flex flex-col gap-4">
+			<form className="mx-48 flex flex-col gap-4">
 
 				<FormRowSelect
 					labelText="state" name="stateCode" list={statesList}
