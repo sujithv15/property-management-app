@@ -10,10 +10,10 @@ const Expense = (expense) => {
 
 	return (
 		<div className="expense">
-			<div className="grid grid-cols-6 mb-6 justify-items-start">
+			<div className="grid grid-cols-7 mb-8 justify-items-start">
 				<div>{dateDue?.substring(0,10)}</div>
 				<div>{type}</div>
-				<div>{payTo}</div>
+				<div className="col-span-2">{payTo}</div>
 				<div>{amount}</div>
 				<div>{status}</div>
 				<div>
