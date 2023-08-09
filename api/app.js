@@ -6,6 +6,8 @@ import helmet from "helmet";
 import cors from 'cors'
 import xss from 'xss-clean'
 import rateLimit from "express-rate-limit";
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
 // routers imports
 import authRoutes from "./routes/authRoutes.js"
 import applianceRoutes from "./routes/applianceRoutes.js";
@@ -43,11 +45,14 @@ app.use(xss());
 if (process.env.NODE_ENV !== 'production') {
 	app.use(morgan('dev'))
 }
+// in production
+const __dirname = dirname(fileURLToPath(import.meta.url));
 app.use(express.static(path.resolve(__dirname, "./client/build")));
+
 app.use(express.json({limit: '25mb'}));
 app.use(express.urlencoded({limit: '25mb', extended: true}));
 app.use(cookieParser(process.env.JWT_SECRET))
-import path, { dirname } from "path";
+
 
 /*
 app.get('/', (req, res) => {
