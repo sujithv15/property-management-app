@@ -8,7 +8,7 @@ const Landing = () => {
 
 	return (
 		<div className="landing-page pb-20">
-			<div className="text-center py-5 text-5xl">Property Management Assistant</div>
+			<div className="text-center md:py-5 text-5xl ">Property Management Assistant</div>
 
 
 			<div className="grid grid-cols-2 gap-1">

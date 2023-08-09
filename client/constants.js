@@ -1,6 +1,6 @@
 const prod = {
 	url: {
-		API_URL: 'https://property-management-app.onrender.com/api/v1'
+		API_URL: 'https://champagne-frog-cap.cyclic.app' || 'https://property-management-app.onrender.com/api/v1'
 	}
 }
 

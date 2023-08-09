@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cd api && node server.js"
+    "start": "cd api && node server.js",
+    "dev": "cd api && node --watch server.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
