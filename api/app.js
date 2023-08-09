@@ -54,7 +54,7 @@ app.use(express.urlencoded({limit: '25mb', extended: true}));
 app.use(cookieParser(process.env.JWT_SECRET))
 
 
-/*
+
 app.get('/', (req, res) => {
 	res.send('property management api')
 })
@@ -62,7 +62,7 @@ app.get('/api/v1', (req, res) => {
 	console.log(req.signedCookies);
 	res.send('property management api')
 })
-*/
+
 app.use('/api/v1/auth', authRoutes)  // login, logout, register
 app.use('/api/v1/users', authenticateUser, authorizePermissions, userRoutes)  // getAllUsers, getUserInfo, showCurrentUser, updateUser, updateUserPassword
 app.use('/api/v1/admin/appliances', authenticateUser, authorizePermissions, applianceRoutes)
