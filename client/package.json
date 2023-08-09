@@ -1,10 +1,10 @@
 {
   "name": "client",
+  "private": true,
   "proxy": "http://localhost:8800",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start-client": "vite",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
