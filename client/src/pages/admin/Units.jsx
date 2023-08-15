@@ -34,19 +34,19 @@ const Units = () => {
 			<div className="title">Units</div>
 
 			<div className="border-t-2 flex justify-between">
-				<div className="flex gap-2 my-16">
+				<div className="flex gap-2 mt-8 sm:my-16">
 					<label className="block text-gray-700 font-bold pb-2 pt-2 ml-5">
 						Search:
 					</label>
 
 					<input
-						className="shadow border rounded w-80 py-2 px-3 text-gray-700 focus:ring focus:outline-none"
+						className="shadow border rounded sm:w-80 py-2 px-3 text-gray-700 focus:ring focus:outline-none"
 						type="search" placeholder="Search Units"
 						value={query} onChange={e=>setQuery(e.target.value)}
 					/>
 				</div>
 
-				<div className="my-auto mr-5">
+				<div className="my-auto mr-5 invisible sm:visible">
 					<button
 						className="btn"
 						onClick={() => setShowForm(true)}>add Unit
@@ -58,9 +58,9 @@ const Units = () => {
 
 			<div className="grid grid-cols-5 mb-2" >
 				<div></div>
-				<p className="text-xl font-bold col-span-2">Address</p>
-				<p className="text-xl font-bold">Beds/Baths</p>
-				<p className="text-xl font-bold">Monthly Rent</p>
+				<p className="text-xl font-bold col-span-2 invisible sm:visible">Address</p>
+				<p className="text-xl font-bold invisible sm:visible">Beds/Baths</p>
+				<p className="text-xl font-bold invisible sm:visible">Monthly Rent</p>
 
 			</div>
 

@@ -36,7 +36,7 @@ const Layout = () => {
 				<Navbar links={navLinks}/>
 			</div>
 			{ isLoading && <Loading /> }
-			<div className="border-solid border-4 rounded-md px-20 py-10">
+			<div className="border-solid sm:border-4 rounded-md md:px-20 md:py-10">
 				<Outlet />
 			</div>
 			<div className="border-solid border-4 rounded-md">

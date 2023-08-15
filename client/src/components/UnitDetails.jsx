@@ -14,7 +14,7 @@ const UnitDetails = (unit) => {
 
 	return (
 		<div className="">
-			<div className="grid grid-cols-5 mb-4 pt-3 justify-items-start border-t-2 h-24 overflow-hidden">
+			<div className="grid grid-cols-3 sm:grid-cols-5 mb-4 pt-3 justify-items-start border-t-2 h-24 overflow-hidden">
 				<div className="unit-img my-auto">
 
 					<img src={unit.image} alt="img"/>
@@ -24,14 +24,14 @@ const UnitDetails = (unit) => {
 						<p>
 							<NavLink className="pl-3 text-blue-600" to={`/admin/units/${id}`}>{`${unitID} ${street}`}</NavLink>
 						</p>
-						<p className="pl-3">{city}, {state} {zip}</p>
+					<p className="pl-3">{city}, {state} <span className="hidden sm:visible">{zip}</span></p>
 				</div>
 
-				<div className="unit-type">
+				<div className="unit-type invisible sm:visible">
 					<p>{bedrooms}br/ {bathrooms}ba</p>
 				</div>
 
-				<div className="unit-rent">
+				<div className="unit-rent invisible sm:visible">
 					<p>${rent}</p>
 				</div>
 			</div>

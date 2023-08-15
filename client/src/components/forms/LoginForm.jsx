@@ -41,7 +41,7 @@ const LoginForm = () => {
 				<h2 className="text-center my-12 text-2xl">Login</h2>
 			</div>
 
-			<div className="m-10 space-y-10">
+			<div className="sm:m-10 space-y-10">
 				<FormRow className="" name='email' labelText='email' type='email' value={values.email} handleChange={handleChange} />
 				<FormRow type="password" name='password' labelText='password' password='email'  value={values.password} handleChange={handleChange} />
 				<button type='submit'  className="rounded btn">login</button>
