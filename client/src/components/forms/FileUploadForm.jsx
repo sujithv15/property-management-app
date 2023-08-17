@@ -44,7 +44,7 @@ const FileUploadForm = ({ unit_id, setShowImageForm }) => {
 
 	return (
 		<ModalWrapper>
-			<div className="modal max-w-lg">
+			<div className="modal max-w-sm">
 				<form className="form" onSubmit={handleSubmit}>
 					<div className="form-title">Upload Image</div>
 					<label

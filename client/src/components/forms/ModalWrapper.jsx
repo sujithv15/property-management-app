@@ -11,11 +11,11 @@ background: rgba(0, 0, 0, 0.5);
 display: flex;
 align-items: center;
 justify-content: center;
+z-index: 10;
 
   
   .modal {
     background: #fff;
-    width: 70vw;
     border-radius: 0.25rem;
     text-align: center;
     place-items: center;

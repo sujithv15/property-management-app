@@ -1,7 +1,7 @@
 const FormRowSelect = ({ labelText, name, value, defaultValue, handleChange, list, style, labelStyle, inputStyle, selectText }) => {
 
    const rowClassName = `form-select ${style}`
-   const labelClassName = `form-label px-12 ${labelStyle}`
+   const labelClassName = `form-label ${labelStyle}`
    const inputClassName = `form-input  ${inputStyle}`
 
   return (

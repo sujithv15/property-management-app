@@ -28,19 +28,19 @@ const TenantUpdateForm = ({ setShowTenantUpdateForm }) => {
 
 	return (
 		<ModalWrapper>
-			<div className="modal">
+			<div className="modal max-w-lg">
 				<form className="form" onSubmit={handleSubmit}>
 					<div className="form-title">Edit Tenant Details</div>
 						<div className="form-content grid-cols-6">
 							<FormRow
 								labelText="lastName" type="text" name="lastName"
 								value={values.lastName} handleChange={handleChange}
-								style="col-span-3"
+								style="col-span-6"
 							/>
 							<FormRow
 								labelText="firstName" type="text" name="firstName"
 								value={values.firstName} handleChange={handleChange}
-								style="col-span-2"
+								style="col-span-6"
 							/>
 							<FormRow
 								labelText="email" type="email" name="email"
@@ -50,19 +50,19 @@ const TenantUpdateForm = ({ setShowTenantUpdateForm }) => {
 							<FormRow
 								labelText="phone" type="text" name="phone"
 								value={values.phone} handleChange={handleChange}
-								style="col-span-2"
+								style="col-span-3"
 							/>
 							<FormRow
 								labelText="rent" type="number" name="rent"
 								value={values.rent} handleChange={handleChange}
-								style="col-span-2"
+								style="col-span-3"
 							/>
 							<FormRow
 								labelText="balance" type="number" name="balance"
 								value={values.balance} handleChange={handleChange}
-								style="col-span-2"
+								style="col-span-3"
 							/>
-							<div className="col-span-1">
+							<div className="col-span-2 col-start-2">
 								<label htmlFor="isAssisted" className="form-label">Rent Assistance</label>
 								<select
 									name="isAssisted"

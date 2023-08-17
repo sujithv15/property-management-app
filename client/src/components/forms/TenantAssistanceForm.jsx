@@ -28,46 +28,38 @@ const TenantAssistanceForm = ({ setShowTenantAssistanceForm }) => {
 
 	return (
 		<ModalWrapper>
-			<div className="modal">
+			<div className="modal max-w-lg">
 				<form className="form" onSubmit={handleSubmit}>
-					<div className="form-title">Edit Tenant Assistance Details</div>
-					<div className="form-content grid grid-cols-2">
+					<div className="form-title">Edit Assistance</div>
+					<div className="">
 
-						<div className="flex flex-col w-3/8 mx-auto m-8 gap-4">
-							<FormRow
-								labelText="Tenant Rent Portion" type="number" name="tenantPortion"
-								value={values.tenantPortion} handleChange={handleChange}
-								style="col-span-1"
-							/>
-
-							<FormRow
-								labelText="Housing Assisted Payment" type="number" name="assistedPortion"
-								value={values.assistedPortion} handleChange={handleChange}
-								style="col-span-1"
-							/>
-						</div>
-
-						<div className="flex flex-col w-5/6 mx-auto ml-4 gap-4">
-							<div className="font-bold text-xl">Housing Agency Information</div>
+						<div className="flex flex-col mx-auto">
 							<FormRow
 								labelText="Agent" type="text" name="name"
 								value={agentValues.name} handleChange={handleChange}
-								style="col-span-1"
 							/>
 							<FormRow
 								labelText="Agency" type="text" name="agency"
 								value={agentValues.agency} handleChange={handleChange}
-								style="col-span-1"
 							/>
 							<FormRow
 								labelText="Phone" type="text" name="phone"
 								value={agentValues.phone} handleChange={handleChange}
-								style="col-span-1"
 							/>
 							<FormRow
 								labelText="Email" type="email" name="email"
 								value={agentValues.email} handleChange={handleChange}
-								style="col-span-1"
+							/>
+						</div>
+
+						<div className="flex mx-auto my-6 px-16 gap-8">
+							<FormRow
+								labelText="Tenant Rent Portion" type="number" name="tenantPortion"
+								value={values.tenantPortion} handleChange={handleChange}
+							/>
+							<FormRow
+								labelText="Housing Assisted Payment" type="number" name="assistedPortion"
+								value={values.assistedPortion} handleChange={handleChange}
 							/>
 						</div>
 

@@ -56,10 +56,10 @@ const ExpenseCreateForm = ({ setShowCreateExpenseForm }) => {
 
 	return (
 		<ModalWrapper>
-			<div className='modal max-w-xl'>
+			<div className='modal max-w-lg'>
 				<form className="form" onSubmit={handleSubmit}>
-					<div className="form-title">Add New Expense</div>
-					<div className="form-content grid-cols-4">
+					<div className="form-title">Add Expense</div>
+					<div className="grid grid-cols-4 gap-x-2">
 						<FormRowSelect
 							labelText="type" name="type"
 							value={values.type} handleChange={handleChange} list={types}
@@ -71,12 +71,12 @@ const ExpenseCreateForm = ({ setShowCreateExpenseForm }) => {
 							style="col-span-2"
 						/>
 						<FormRow
-							labelText="description" type="text" name="description"
+							labelText="Description" type="text" name="description"
 							value={values.description} handleChange={handleChange}
 							style="col-span-4"
 						/>
 						<FormRow
-							labelText="payTo" type="text" name="payTo"
+							labelText="Payment To" type="text" name="payTo"
 							value={values.payTo} handleChange={handleChange}
 							style="col-span-4"
 						/>
@@ -101,32 +101,32 @@ const ExpenseCreateForm = ({ setShowCreateExpenseForm }) => {
 							style="col-span-2"
 						/>
 						<FormRow
-							labelText="dateDue" type="date" name="dateDue"
+							labelText="Date Due" type="date" name="dateDue"
 							value={values.dateDue} handleChange={handleChange}
 							style="col-span-2"
 						/>
 						<FormRow
-							labelText="datePaid" type="date" name="datePaid"
+							labelText="Date Paid" type="date" name="datePaid"
 							value={values.datePaid} handleChange={handleChange}
 							style="col-span-2"
 						/>
 
 						<FormRow
-							labelText="comments" type="text" name="comments"
+							labelText="Comments" type="text" name="comments"
 							value={values.comments} handleChange={handleChange}
 							style="col-span-4"
 						/>
 					</div>
 
-					<div className="flex justify-around pt-10">
+					<div className="flex justify-center gap-6">
 						<button
 							type="submit"
-							className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs'>
+							className='btn'>
 							Add Expense
 						</button>
 
 						<button
-							className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs"
+							className="btn"
 							onClick={() => setShowCreateExpenseForm(false)}>
 							Cancel
 						</button>

@@ -27,7 +27,7 @@ const UnitUpdateForm = ({ setShowUnitUpdateForm }) => {
 
 	return (
 		<ModalWrapper>
-		<div className="modal">
+		<div className="modal max-w-3xl">
 			<form className="form" onSubmit={handleSubmit}>
 				<div className="form-title">Edit Unit Details</div>
 				<div className="form-content grid-cols-6">
@@ -47,7 +47,7 @@ const UnitUpdateForm = ({ setShowUnitUpdateForm }) => {
 						style="col-span-3"
 					/>
 					<FormRow
-						labelText="state" type="text" name="state"
+						labelText="st" type="text" name="state"
 						value={values.state} handleChange={handleChange}
 						style="col-span-1"
 					/>
@@ -57,12 +57,12 @@ const UnitUpdateForm = ({ setShowUnitUpdateForm }) => {
 						style="col-span-2"
 					/>
 					<FormRow
-						labelText="bedrooms" type="number" name="bedrooms"
+						labelText="br" type="number" name="bedrooms"
 						value={values.bedrooms} handleChange={handleChange}
 						style="col-span-1"
 					/>
 					<FormRow
-						labelText="bathrooms" type="number" name="bathrooms"
+						labelText="ba" type="number" name="bathrooms"
 						value={values.bathrooms} handleChange={handleChange}
 						style="col-span-1"
 					/>

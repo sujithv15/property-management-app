@@ -13,7 +13,7 @@ const initialState = {
 	receipt: ''
 }
 
-const applianceList = ['refrigerator', 'microwave', 'stove', 'dishwasher', 'air-conditioner', 'water heater', 'washer', 'dryer']
+const applianceList = ['Refrigerator', 'Microwave', 'Stove', 'Dishwasher', 'Air-Conditioner', 'Water Heater', 'Washer', 'Dryer']
 
 const ApplianceCreateForm = ({ unit_id, setShowCreateApplianceForm }) => {
 
@@ -36,7 +36,7 @@ const ApplianceCreateForm = ({ unit_id, setShowCreateApplianceForm }) => {
 
 	return (
 		<ModalWrapper>
-			<div className="modal max-w-lg">
+			<div className="modal max-w-sm">
 				<form className="form" onSubmit={handleSubmit}>
 					<div className="form-title">Add Appliance</div>
 					<div className="form-content">
