@@ -7,7 +7,7 @@ const Footer = () => {
 
 
 	return (
-		<div className="m-10 text-xs hidden">
+		<footer className="m-10 text-xs hidden">
 			<p>&copy; Sujith Varughese 2023</p>
 			<div>For testing: </div>
 			<button className="bg-blue-500 hover:bg-blue-700 m-2 text-white py-1 px-1 rounded text-xs" onClick={()=>console.log(user)}>print user</button>
@@ -23,7 +23,7 @@ const Footer = () => {
 			<button className="bg-blue-500 hover:bg-blue-700 m-2 text-white py-1 px-1 rounded text-xs" onClick={()=>console.log(appliances)}>print appliances</button>
 
 			<button className="bg-blue-500 hover:bg-blue-700 m-2 text-white py-1 px-1 rounded text-xs" onClick={logoutUser}>logout</button>
-		</div>
+		</footer>
 	);
 };
 

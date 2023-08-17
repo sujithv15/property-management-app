@@ -32,13 +32,17 @@ const Layout = () => {
 	// admin outlet = <AdminDashboard />
 	return (
 		<div className="max-w-5xl mx-auto">
-			<div className="border-solid border-4 rounded-md">
+
+			<div className="">
 				<Navbar links={navLinks}/>
 			</div>
+
 			{ isLoading && <Loading /> }
-			<div className="border-solid sm:border-4 rounded-md md:px-20 md:py-10">
+
+			<div className="">
 				<Outlet />
 			</div>
+
 			<div className="border-solid border-4 rounded-md">
 				<Footer />
 			</div>

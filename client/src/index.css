@@ -3,31 +3,49 @@
 @tailwind utilities;
 
 
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
 @keyframes spinner {
     to {
         transform: rotate(360deg);
     }
 }
 :root {
-    --color-lighter: #6690cc;
-    --color-light: #4c7ec4;
-    --color-med: #326bbb;
-    --color-dark: #1959b3;
-    --color-darker: #0047ab;
-    --color-select: #00008B;
-
+    --COLOR-BG-DARKER: #8B8B8B;
+    --COLOR-BG-DARK: #CDCDCD;
+    --COLOR-BG: #EEEEEE;
+    --COLOR: #326bbb;
+    --COLOR-SELECT: #00008B;
 }
 
 body {
-    font-family: Cambria;
+    font: 1.5rem Cambria, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
+
+nav {
+    background-color: var(--COLOR-BG);
+    background-image: radial-gradient(var(--COLOR-BG), var(--COLOR-BG-DARK));
+}
+
+header, footer {
+    position: sticky;
+}
+
 
 .title {
     font-size: 3rem; /* 48px */
     line-height: 1;
     padding: 1.25rem; /* 20px */
     text-align: center;
-    font-family: Poppins;
+    font-family: Poppins, sans-serif;
 }
 
 .loading {
@@ -50,7 +68,7 @@ body {
 .form {
     background: #fff;
     border-radius: 0.25rem;
-    border-top: 5px solid var(--color-med);
+    border-top: 5px solid var(--COLOR);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
     padding: 4rem 2.5rem;
@@ -116,7 +134,7 @@ body {
     cursor: pointer;
     color: #fff;
     font-size: 12px;
-    background: var(--color-med);
+    background: var(--COLOR);
     border: transparent;
     border-radius: 0.25rem;
     letter-spacing: 1px;
@@ -142,7 +160,11 @@ body {
     transition: all 0.25s ease;
 }
 .btn:hover {
-    background: var(--color-select);
+    background: var(--COLOR-SELECT);
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+@media (prefers-color-scheme: dark) {
+    
 }

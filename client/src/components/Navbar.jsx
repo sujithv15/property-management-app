@@ -13,7 +13,7 @@ const Navbar = ({ links }) => {
 
 	return (
 		<nav>
-			<div className="flex justify-around py-5 font-serif bg-stone-100">
+			<div className="flex justify-around py-5 font-serif">
 				{
 					links.map((links, index) => {
 						return (
