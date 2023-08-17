@@ -35,16 +35,16 @@ const LoginForm = () => {
 	}
 
 	return (
-		<form className='form max-w-xl mx-auto' onSubmit={handleSubmit}>
+		<form className='form max-w-sm mx-auto' onSubmit={handleSubmit}>
 
 			<div className="text-center">
 				<h2 className="text-center my-12 text-2xl">Login</h2>
 			</div>
 
-			<div className="sm:m-10 space-y-10">
+			<div className="sm:m-10 space-y-10 mb-12">
 				<FormRow className="" name='email' labelText='email' type='email' value={values.email} handleChange={handleChange} />
 				<FormRow type="password" name='password' labelText='password' password='email'  value={values.password} handleChange={handleChange} />
-				<button type='submit'  className="rounded btn">login</button>
+				<button type='submit'  className="btn">log in</button>
 			</div>
 			<GuestLogin />
 		</form>

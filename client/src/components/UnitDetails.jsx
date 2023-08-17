@@ -22,16 +22,19 @@ const UnitDetails = (unit) => {
 				</div>
 				<div className="col-span-2">
 						<p>
-							<NavLink className="pl-3 text-blue-600" to={`/admin/units/${id}`}>{`${unitID} ${street}`}</NavLink>
+							<NavLink className="pl-3 text-blue-600 text-base sm:text-xl truncate" to={`/admin/units/${id}`}>{`${unitID} ${street}`}</NavLink>
 						</p>
-					<p className="pl-3">{city}, {state} <span className="hidden sm:visible">{zip}</span></p>
+					<p className="pl-3 text-lg  ">{city}, {state} <span className="hidden sm:inline-block">{zip}</span></p>
+					<div className="unit-rent pl-3 text-base">
+						<p>${rent}</p>
+					</div>
 				</div>
 
-				<div className="unit-type invisible sm:visible">
+				<div className="unit-type hidden sm:block">
 					<p>{bedrooms}br/ {bathrooms}ba</p>
 				</div>
 
-				<div className="unit-rent invisible sm:visible">
+				<div className="unit-rent">
 					<p>${rent}</p>
 				</div>
 			</div>

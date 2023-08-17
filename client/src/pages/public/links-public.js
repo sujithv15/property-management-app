@@ -1,4 +1,7 @@
+
+
 export const linksPublic = [
+	/*
 	{
 		name: "Home",
 		url: "/",
@@ -7,5 +10,5 @@ export const linksPublic = [
 		name: "Login",
 		url: "/login",
 	},
-
+*/
 ]

@@ -14,9 +14,9 @@ const GuestLogin = () => {
 
 	return (
 		<div>
-			<div className="max-w-sm mx-auto">
-				Or <button className="underline text-blue-500 hover:cursor-pointer hover:text-cyan-500"
-				        onClick={guestLogin}>click here</button> to access the site as Admin!
+			<div className="max-w-sm mx-auto text-lg text-center">
+				<button className="underline text-blue-500 hover:cursor-pointer hover:text-cyan-500"
+				        onClick={guestLogin}>Log In</button> as Admin
 			</div>
 
 		</div>

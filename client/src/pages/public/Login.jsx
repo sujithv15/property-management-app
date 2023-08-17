@@ -22,9 +22,9 @@ const Login = () => {
 
 			//<div className='border-solid border-4 rounded-3xl w-11/12 my-20 mx-auto py-14 max-w-md'>
 	return (
-<div className="sm:py-24">
-	<LoginForm />
-</div>
+		<div className="sm:py-24">
+			<LoginForm />
+		</div>
 
 
 

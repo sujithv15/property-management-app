@@ -1,8 +1,13 @@
-const Button = () => {
+
+const Button = (text, clickFn, style) => {
 	return (
-		<div>
-			
-		</div>
+		<button
+			className="btn"
+
+
+		>
+
+		</button>
 	);
 };
 

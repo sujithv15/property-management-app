@@ -29,24 +29,27 @@ const Units = () => {
 	})
 
 	return (
-		<div className="units-page pb-20">
+		<div className="units-page">
 
 			<div className="title">Units</div>
 
-			<div className="border-t-2 flex justify-between">
-				<div className="flex gap-2 mt-8 sm:my-16">
-					<label className="block text-gray-700 font-bold pb-2 pt-2 ml-5">
-						Search:
-					</label>
+			<div className="border-t-2">
+
+				<div className="flex gap-2 my-8 sm:my-16">
 
 					<input
-						className="shadow border rounded sm:w-80 py-2 px-3 text-gray-700 focus:ring focus:outline-none"
+						className="form-input mx-16 h-10"
 						type="search" placeholder="Search Units"
 						value={query} onChange={e=>setQuery(e.target.value)}
 					/>
+
 				</div>
 
-				<div className="my-auto mr-5 invisible sm:visible">
+
+			</div>
+
+			<div className="grid grid-cols-5 mb-2" >
+				<div className="my-auto mx-6 hidden sm:block w-24">
 					<button
 						className="btn"
 						onClick={() => setShowForm(true)}>add Unit
@@ -54,13 +57,9 @@ const Units = () => {
 
 					{showForm && <UnitNewForm setShowForm={setShowForm}/>}
 				</div>
-			</div>
-
-			<div className="grid grid-cols-5 mb-2" >
-				<div></div>
-				<p className="text-xl font-bold col-span-2 invisible sm:visible">Address</p>
-				<p className="text-xl font-bold invisible sm:visible">Beds/Baths</p>
-				<p className="text-xl font-bold invisible sm:visible">Monthly Rent</p>
+				<p className="text-xl ml-4 font-bold col-span-2 hidden sm:block">Address</p>
+				<p className="text-xl font-bold hidden sm:block">Beds/Baths</p>
+				<p className="text-xl font-bold hidden sm:block">Monthly Rent</p>
 
 			</div>
 

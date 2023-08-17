@@ -2,36 +2,42 @@ import { Footer, Navbar, Loading } from "../components/index.js";
 import { linksUser } from "./user/links-user.js";
 import { linksPublic } from "./public/links-public.js";
 import { linksAdmin } from "./admin/links-admin.js";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../context/GlobalContext.jsx";
 import { useEffect, useState } from "react";
 
 
 const Layout = () => {
 
-	const { role, readUnits, isLoading } = useGlobalContext()
+	const { user, role, readUnits, isLoading } = useGlobalContext()
 
 	const [navLinks, setNavLinks] = useState(linksPublic)
 
 	/* Whenever role changes, the nav bar will update to the appropriate links and pass the links to Navbar as props */
+	const navigate = useNavigate()
 	useEffect(() => {
 		if (role === 'admin') {
-
 			setNavLinks(linksAdmin)
-			return
 		}
-		if (role === 'user') {
+		else if (role === 'user') {
 			setNavLinks(linksUser)
-			return
 		}
-		setNavLinks(linksPublic)
+		else setNavLinks(linksPublic)
+
+		if (user && Object.keys(user).length > 0) {
+			console.log(`navigating to ${role}`);
+			setTimeout(() => {
+				navigate(`/${role}`);
+			}, 1000);
+		}
+		//console.log(config.url.API_URL);
 	}, [role])
 
 	// public outlet = <Landing />
 	// user outlet = <UserDashboard />
 	// admin outlet = <AdminDashboard />
 	return (
-		<div className="max-w-5xl mx-auto">
+		<div className="max-w-6xl mx-auto lg:px-24 md:px-12 sm:px-8 px-4">
 
 			<div className="">
 				<Navbar links={navLinks}/>
@@ -43,7 +49,7 @@ const Layout = () => {
 				<Outlet />
 			</div>
 
-			<div className="border-solid border-4 rounded-md">
+			<div className="">
 				<Footer />
 			</div>
 

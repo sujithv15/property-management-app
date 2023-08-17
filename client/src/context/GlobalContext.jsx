@@ -101,7 +101,6 @@ const GlobalProvider = ({ children }) => {
 		dispatch({ type: LOGIN_USER_BEGIN })
 		try {
 			const response = await ax.post('/auth/login', currentUser)
-			console.log(response);
 			const { user } = response.data
 			if (user.isAdmin) {
 				dispatch({
@@ -124,8 +123,10 @@ const GlobalProvider = ({ children }) => {
 	}
 
 	const logoutUser = async () => {
+		dispatch({
+			type: LOGOUT_USER
+		})
 		await ax('/auth/logout')
-		dispatch({ type: LOGOUT_USER})
 	}
 
 

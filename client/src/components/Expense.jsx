@@ -10,14 +10,14 @@ const Expense = (expense) => {
 
 	return (
 		<div className="expense">
-			<div className="grid grid-cols-7 mb-8 justify-items-start">
+			<div className="grid grid-cols-4 sm:grid-cols-7 mb-8 justify-items-start text-sm overflow-hidden">
 				<div>{dateDue?.substring(0,10)}</div>
-				<div>{type}</div>
+				<div className="hidden sm:block">{type}</div>
 				<div className="col-span-2">{payTo}</div>
-				<div>{amount}</div>
-				<div>{status}</div>
+				<div className="hidden sm:block">{amount}</div>
+				<div className="hidden sm:block">{status}</div>
 				<div>
-					<button className="btn" onClick={() => setShowExpenseUpdateForm(true)}>edit expense</button>
+					<button className="btn" onClick={() => setShowExpenseUpdateForm(true)}>edit</button>
 
 					{ showExpenseUpdateForm && <ExpenseUpdateForm expense={expense} setShowExpenseUpdateForm={setShowExpenseUpdateForm}/>}
 
