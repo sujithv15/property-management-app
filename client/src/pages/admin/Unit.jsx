@@ -1,9 +1,7 @@
-import { ax } from '../../utils/ax.jsx'
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { TenantUnit, AppliancesUnit, AccountingUnit } from "../../components/unit-components"
+import { TenantUnit, AppliancesUnit } from "../../components/unit-components"
 import { UnitUpdateForm, TenantCreateForm, FileUploadForm } from "../../components/forms";
-import { Expense } from "../../components/index.js";
 import { useGlobalContext } from "../../context/GlobalContext.jsx";
 
 const Unit = () => {
@@ -24,68 +22,37 @@ const Unit = () => {
 	return (
 		<div>
 			<div className="flex flex-col ">
-				<div>
+
+				{/*----------------Unit Image & Details-----------------*/}
+				<div className="flex flex-col border-b-4">
 					{
 						unit.image &&
-						<div className="relative overflow-hidden h-48">
+						<div className="overflow-hidden my-8">
 							<img
-								className="absolute w-full"
+								className=""
 								src={unit.image}
 								alt="img"
 								width="240px"
 							/>
-
 						</div>
 					}
 
-				</div>
-				<div className="text-center">
-					<h2 className="text-center my-12 text-2xl">{unit.unitID} {unit.street}</h2>
-				</div>
-
-				{/*----------------Unit Details-----------------*/}
-
-				<div className=" grid grid-cols-5 justify-items-left border-t-2 pt-16 my-4" >
-					<p className="text-xl font-bold">Address</p>
-					<p className="text-xl font-bold">Beds/Baths</p>
-					<p className="text-xl font-bold">Rent</p>
-					<p className="text-xl font-bold">Fair Market Rent</p>
-				</div>
-
-				<div className="grid grid-cols-5 justify-items-left mb-16" >
-					<div className="">
-						<p>{`${unit.unitID} ${unit.street}`}</p>
-						<p>{unit.city}, {unit.state} {unit.zip}</p>
+					<div className="my-8 mx-auto">
+						<p className="text-4xl text-center">{`${unit.unitID} ${unit.street}`}</p>
+						<p className="text-center">{unit.city}, {unit.state} {unit.zip}</p>
 					</div>
 
-					<div className="unit-type">
+					<div className="unit-type mx-auto my-4 text-lg">
 						<p>{unit.bedrooms}br/ {unit.bathrooms}ba</p>
 					</div>
 
-					<div className="unit-rent">
-						<p>${unit.rent}</p>
+					<div className="m-8 flex flex-col gap-2">
+						<p className="flex justify-center gap-6 text-xl font-bold">Current Rent: <span> ${unit.rent}</span></p>
+						<p className="flex justify-center gap-4 text-xl font-bold">Fair Market Rent: <span> ${unit?.fmrRent || "N/A"}</span></p>
 					</div>
-
-					<div className="unit-rent">
-						${unit?.fmrRent}
-					</div>
-
-					<div className="flex flex-col gap-4 w-24 mx-auto">
-						<button
-							className="btn"
-							onClick={() => setShowUnitUpdateForm(true)
-							}>
-							edit unit
-						</button>
-						<button
-							className="btn"
-							onClick={() => setShowImageForm(!showImageForm)
-							}>
-							edit image
-						</button>
-					</div>
-
 				</div>
+
+
 
 				<div>
 						{/*Update Unit*/}
@@ -100,7 +67,7 @@ const Unit = () => {
 				</div>
 
 				{/*----------------Tenant-----------------*/}
-				<div className="unit-tenant pt-8 border-t-2">
+				<div className="unit-tenant pt-8">
 					{
 						// if tenant, render component
 						// else render create tenant button
@@ -127,9 +94,27 @@ const Unit = () => {
 
 				{/*----------------Appliances-----------------*/}
 
-					<div className="appliances py-8 border-t-2 ">
-						<AppliancesUnit unit_id={unit_id} />
-					</div>
+				<div className="appliances py-8 border-t-2 ">
+					<AppliancesUnit unit_id={unit_id} />
+				</div>
+
+
+				<div className="flex justify-center gap-4 border-t-4 pt-6">
+					<button
+						className="btn"
+						onClick={() => setShowUnitUpdateForm(true)
+						}>
+						edit unit
+					</button>
+
+					<button
+						className="btn"
+						onClick={() => setShowImageForm(!showImageForm)
+						}>
+						edit image
+					</button>
+				</div>
+
 
 
 			</div>

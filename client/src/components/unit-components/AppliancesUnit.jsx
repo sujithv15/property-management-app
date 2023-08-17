@@ -12,7 +12,7 @@ const AppliancesUnit = (unit_id) => {
 	return (
 		<div className="appliances">
 
-			<div className="text-center text-2xl mb-12">Appliances</div>
+			<div className="text-3xl text-center mb-4 font-bold">Appliances</div>
 
 			<div>
 				{

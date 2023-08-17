@@ -2,7 +2,7 @@
 
 const LandingElement = ({ caption, image, imageAlt="img", style }) => {
 	return (
-		<div className={`flex flex-col md:flex-row snap-always snap-mandatory ${style}`}>
+		<div className={`flex flex-col md:flex-row ${style}`}>
 			<div className="p-2 text-center my-auto text-xl">
 				{caption}
 			</div>

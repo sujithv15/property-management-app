@@ -44,10 +44,10 @@ const LoginNavbar = () => {
 					<input name="password" type="password" value={values.password} onChange={handleChange} placeholder="Password" className="form-input h-6"/>
 				</div>
 
-				<button className="btn mt-6">Log In</button>
+				<button className="btn mt-6">Login</button>
 			</form>
 
-		<div className="text-base mx-5">
+		<div className="grid grid-cols-2">
 			<GuestLogin />
 		</div>
 

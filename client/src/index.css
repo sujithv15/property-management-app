@@ -4,7 +4,7 @@
 
 img {
     display: block;
-    max-width: 100%;
+    width: 100%;
     height: auto;
 }
 
@@ -28,7 +28,6 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-
 }
 
 nav {
@@ -42,7 +41,6 @@ nav {
 header, footer {
     position: sticky;
 }
-
 
 .main-title {
     font-family: Poppins, sans-serif;

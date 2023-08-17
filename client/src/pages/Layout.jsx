@@ -37,7 +37,7 @@ const Layout = () => {
 	// user outlet = <UserDashboard />
 	// admin outlet = <AdminDashboard />
 	return (
-		<div className="max-w-6xl mx-auto lg:px-24 md:px-12 sm:px-8 px-4">
+		<div className="max-w-7xl mx-auto lg:px-24 md:px-12 sm:px-8 px-4">
 
 			<div className="">
 				<Navbar links={navLinks}/>

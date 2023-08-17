@@ -16,7 +16,7 @@ const Navbar = ({ links }) => {
 	}
 
 	return (
-		<nav className="flex justify-between pt-5 font-serif items-center mx-4">
+		<nav className="flex justify-between py-5 font-serif items-center mx-4 border-b-4">
 
 
 				<NavLink to="/" className=""><MdHomeWork size={36}/></NavLink>
@@ -24,7 +24,7 @@ const Navbar = ({ links }) => {
 
 				{
 					Object.keys(user).length === 0 &&
-					<div className="main-title text-sm sm:text-2xl">Property Management Solutions</div>
+					<div className="main-title text-sm sm:text-lg">Property Management Solutions</div>
 				}
 
 				{
@@ -37,15 +37,14 @@ const Navbar = ({ links }) => {
 					})
 				}
 
-
 				{
 					(user && Object.keys(user).length > 0) ?
 					<button type="submit" className="btn" onClick={handleLogout}>Logout</button>
 						:
-<>
-					<LoginNavbar />
-					<NavLink to="/login" className="text-sm sm:hidden underline text-blue-500 hover:cursor-pointer hover:text-cyan-500">Log In</NavLink>
-</>
+					<>
+						<LoginNavbar />
+						<NavLink to="/login" className="text-sm sm:hidden underline text-blue-500 hover:cursor-pointer hover:text-cyan-500">Log In</NavLink>
+					</>
 				}
 
 		</nav>
