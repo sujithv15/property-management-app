@@ -1,15 +1,21 @@
 import Appliance from "../models/Appliance.js";
 import { StatusCodes } from "http-status-codes";
 import { BadRequestError, NotFoundError } from "../errors/index.js";
+import Unit from "../models/Unit.js";
 
 const createAppliance = async (req, res) => {
-	// destructure appliance obj sent from front end
-	const { appliance, unit, datePurchased, warranty, receipt } = req.body
-	if (!appliance || !unit) {
-		throw new BadRequestError('please provide appliance and unit')
+	// destructure unit_id
+	const { unit } = req.body
+	if (!unit) {
+		throw new BadRequestError('please provide unit')
 	}
-	// create new appliance using Appliance model method
-	const newAppliance = await Appliance.create(req.body)
+	// retrieve unit mongo object
+	const unitForAppliance = await Unit.findById(unit)
+	// create new appliance using Appliance model method specifying unit
+	const newAppliance = await Appliance.create({ ...req.body, unit: unitForAppliance})
+	// add appliance to appliances array in unit object
+	unitForAppliance.appliances.push(newAppliance)
+	unitForAppliance.save()
 	// send response JSON to include appliance
 	res.status(StatusCodes.CREATED)
 	   .json({newAppliance})
@@ -22,7 +28,6 @@ const updateAppliance = async (req, res) => {
 	}
 	await Appliance.findByIdAndUpdate(req.params.id, req.body)
 	res.status(StatusCodes.OK).json( {appliance} )
-
 }
 
 const getAllAppliances = async (req, res) => {

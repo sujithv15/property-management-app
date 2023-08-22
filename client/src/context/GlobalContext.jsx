@@ -291,9 +291,10 @@ const GlobalProvider = ({ children }) => {
 		clearAlert()
 	}
 	/*----------------Appliances------------------*/
-	const createAppliance= async (appliance, unit_id) => {
+	const createAppliance= async (appliance) => {
 		try {
 			await ax.post('/admin/appliances/new', appliance)
+			getUnitDetails(appliance.unit)
 		} catch (error) {
 			console.log(error);
 		}
@@ -303,6 +304,7 @@ const GlobalProvider = ({ children }) => {
 	const updateAppliance = async (appliance) => {
 		try {
 			await ax.patch(`/admin/appliances/${appliance._id}`, appliance)
+			getUnitDetails(appliance.unit)
 		} catch (error) {
 			console.log(error);
 		}

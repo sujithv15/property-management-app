@@ -59,7 +59,7 @@ header, footer {
     height: 6rem;
     border: 5px solid grey;
     border-radius: 50%;
-    border-top-color: #326bbb;
+    border-top-color: var(--COLOR-BG-DARK);
     animation: spinner 2s linear infinite;
 }
 

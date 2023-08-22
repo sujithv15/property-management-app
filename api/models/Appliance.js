@@ -9,7 +9,7 @@ const ApplianceSchema = new mongoose.Schema({
 	},
 	appliance: {
 		type: String,
-		enum: ['refrigerator', 'microwave', 'stove', 'dishwasher', 'air-conditioner', 'water heater', 'washer', 'dryer'],
+		enum: ['Refrigerator', 'Microwave', 'Stove', 'Dishwasher', 'Air-Conditioner', 'Water Heater', 'Washer', 'Dryer'],
 		required: true
 	},
 	datePurchased: {
@@ -20,8 +20,10 @@ const ApplianceSchema = new mongoose.Schema({
 		type: String
 	},
 	receipt: {
-		type: mongoose.Types.ObjectId,
-		ref: 'Image'
+		type: String,
+	},
+	link: {
+		type: String,
 	},
 	createdAt: {
 		type: Date,
@@ -33,22 +35,5 @@ const ApplianceSchema = new mongoose.Schema({
 		default: () => Date.now()
 	}
 }, { timestamps: true })
-
-// add created appliance to appliances array in Unit obj
-ApplianceSchema.pre('save', async function() {
-	const applianceUnit = await Unit.findById(this.unit).populate('appliances')
-	if (!applianceUnit) {
-		throw new NotFoundError(`No unit with ${this.unit} number`);
-	}
-	if (!applianceUnit.appliances) {
-		applianceUnit.appliances = [this]
-	}
-	else {
-		applianceUnit.appliances.push(this)
-	}
-	applianceUnit.save()
-
-	console.log('appliance saved to unit');
-})
 
 export default mongoose.model('Appliance', ApplianceSchema)

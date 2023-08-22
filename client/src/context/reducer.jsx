@@ -49,6 +49,7 @@ import {
 	READ_EXPENSES_BEGIN,
 	READ_EXPENSES_SUCCESS,
 	READ_EXPENSES_ERROR,
+
 } from "./actions.jsx";
 
 import {initialState} from "./GlobalContext.jsx"
@@ -393,97 +394,3 @@ const Reducer = (state, action) => {
 
 export default Reducer;
 
-
-
-
-
-/*----------------Properties------------------*/
-/*
- if (action.type === CREATE_PROPERTY_BEGIN) {
- return {
- ...state,
- isLoading: true
- }
- }
- if (action.type === CREATE_PROPERTY_SUCCESS) {
- return {
- ...state,
- property: action.payload.property,
- isLoading: false,
- showAlert: true,
- alertType: 'success',
- alertText: 'property created! redirecting...'
- }
- }
- if (action.type === CREATE_PROPERTY_ERROR) {
- return {
- ...state,
- isLoading: false,
- showAlert: true,
- alertType: 'danger',
- alertText: action.payload.msg
- }
- }
- if (action.type === READ_PROPERTIES_BEGIN) {
- return {
- ...state,
- isLoading: true
- }
- }
- if (action.type === READ_PROPERTIES_SUCCESS) {
- return {
- ...state,
- properties: action.payload.properties,
- isLoading: false,
- showAlert: true,
- alertType: 'success',
- alertText: 'retrieving properties...'
- }
- }
- if (action.type === READ_PROPERTIES_ERROR) {
- return {
- ...state,
- isLoading: false,
- showAlert: true,
- alertType: 'danger',
- alertText: action.payload.msg
- }
- }
- if (action.type === UPDATE_PROPERTY_BEGIN) {
- return {
- ...state,
- isLoading: true
- }
- }
- if (action.type === UPDATE_PROPERTY_SUCCESS) {
- return {
- ...state,
- property: action.payload.property,
- isLoading: false,
- showAlert: true,
- alertType: 'success',
- alertText: 'retrieving properties...'
- }
- }
- if (action.type === UPDATE_PROPERTY_ERROR) {
- return {
- ...state,
- isLoading: false,
- showAlert: true,
- alertType: 'danger',
- alertText: action.payload.msg
- }
- }
-
- CREATE_PROPERTY_SUCCESS,
- CREATE_PROPERTY_BEGIN,
- CREATE_PROPERTY_ERROR,
- READ_PROPERTIES_BEGIN,
- READ_PROPERTIES_SUCCESS,
- READ_PROPERTIES_ERROR,
- UPDATE_PROPERTY_BEGIN,
- UPDATE_PROPERTY_SUCCESS,
- UPDATE_PROPERTY_ERROR,
-
-
- */

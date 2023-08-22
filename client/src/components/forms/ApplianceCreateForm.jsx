@@ -27,9 +27,9 @@ const ApplianceCreateForm = ({ unit_id, setShowCreateApplianceForm }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		if (!values.appliance) {
-			values.appliance = 'refrigerator'
+			values.appliance = 'Refrigerator'
 		}
-		createAppliance({ ...values, unit: unit_id }, unit_id)
+		createAppliance({ ...values, unit: unit_id })
 		toast.success('Appliance Successfully Created')
 		setShowCreateApplianceForm(false)
 	}
