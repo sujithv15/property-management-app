@@ -8,7 +8,7 @@ const Unit = () => {
 	// react router- _id passed as params
 	const unit_id = useParams().id
 
-	const { getUnitDetails, unit, tenant, appliances, expenses } = useGlobalContext()
+	const { getUnitDetails, unit, tenant } = useGlobalContext()
 
 	// get unit details and populate tenant, appliances, expenses (global states)
 	useEffect(() => {
@@ -73,12 +73,12 @@ const Unit = () => {
 						// else render create tenant button
 						tenant ?
 							<div className="tenant-info">
-								<TenantUnit />
+								<TenantUnit tenant={tenant}/>
 							</div>
 							:
 							<div className="tenant-form">
 								<button
-									className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-xs"
+									className="btn"
 									onClick={() => setShowCreateTenantForm(!showCreateTenantForm)}>
 									add tenant
 								</button>

@@ -10,7 +10,7 @@ const Footer = () => {
 		<footer className="m-10 text-xs">
 			<p>&copy; Sujith Varughese 2023</p>
 
-			<div className="testing hidden">
+			<div className="testing">
 				<div>For testing: </div>
 				<button className="bg-blue-500 hover:bg-blue-700 m-2 text-white py-1 px-1 rounded text-xs" onClick={()=>console.log(user)}>print user</button>
 

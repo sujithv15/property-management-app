@@ -27,6 +27,7 @@ const App = () => {
 					}
 				>
 					<Route index element={<UserDashboard />} />
+					<Route path="request" element={<Maintenance />} />
 				</Route>
 
 

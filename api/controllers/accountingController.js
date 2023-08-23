@@ -12,7 +12,7 @@ const createExpense = async (req, res) => {
 }
 
 const getAllExpenses = async (req, res) => {
-	const expenses = await Expense.find()
+	const expenses = await Expense.find().sort({ dateDue: 1 })
 	res.status(StatusCodes.OK).json({ expenses })
 }
 

@@ -34,6 +34,7 @@ const getAllUnits = async (req, res) => {
 
 const getUnitDetails = async (req, res) => {
 	const { id } = req.params
+	console.log(req.user);
 	const unit = await Unit.findById(id).populate('tenant').populate('appliances')
 	if (!unit) {
 		throw new NotFoundError(`No unit with id :${id}`);

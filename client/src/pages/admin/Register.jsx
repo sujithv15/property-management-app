@@ -7,7 +7,8 @@ import { NavLink } from "react-router-dom";
 
 
 const initialState = {
-	name: '',
+	lastName: '',
+	firstName: '',
 	email: '',
 	password: '',
 }
@@ -27,12 +28,12 @@ const Register = () => {
 	// values to GlobalContext registerUser function to send to server
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		const { name, email, password } = values
-		if (!name || !email || !password) {
+		const { lastName, firstName, email, password } = values
+		if (!lastName || !firstName || !email || !password) {
 			toast.error('Enter all values!')
 			return
 		}
-		const currentUser = {name, email, password}
+		const currentUser = {lastName, firstName, email, password}
 		registerUser(currentUser)
 		toast.success('User Successfully Registered')
 	}

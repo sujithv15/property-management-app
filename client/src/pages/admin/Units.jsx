@@ -15,7 +15,6 @@ const Units = () => {
 	const [query, setQuery] = useState("")
 	const [showForm, setShowForm] = useState(false)
 
-
 	// filter units by search by using derived state;
 	// -convert query to lower case and check if any part of the address contains the search
 	const queriedUnits = units.filter(unit => {

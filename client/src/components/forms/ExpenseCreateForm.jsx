@@ -8,26 +8,25 @@ import ModalWrapper from "./ModalWrapper.jsx";
 const initialState = {
 	type: '',
 	description: '',
-	unit: undefined,
 	payTo: '',
 	amount: 0,
 	recurring: false,
 	dateDue: '',
-	datePaid: '',
 	balance: 0,
 	status: 'unpaid',
 	comments: ''
 }
 
-const types = ['Insurance', 'Taxes', 'Maintenance', 'Repairs', 'Other']
+const types = ['Miscellaneous', 'Insurance', 'Taxes', 'Maintenance', 'Repairs']
 
 const ExpenseCreateForm = ({ setShowCreateExpenseForm }) => {
 
-	const { createExpense, units } = useGlobalContext()
+	const { createExpense } = useGlobalContext()
 	const [values, setValues] = useState(initialState)
 
 	// populate array with list of units(just unitID and street) and 'NONE' for form
-	const unitList = ["None", ...units.map(unit => `${unit.unitID} ${unit.street}`)]
+	// const unitList = ["None", ...units.map(unit => `${unit.unitID} ${unit.street}`)]
+
 
 	const handleChange = (e) => {
 		setValues({...values, [e.target.name]: e.target.value})
@@ -35,17 +34,14 @@ const ExpenseCreateForm = ({ setShowCreateExpenseForm }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		const { type } = values
-		if (!type) {
-			console.log('enter type value');
+		const { payTo, amount } = values
+		if (!payTo || !amount) {
+			console.log('enter payee and amount value');
 			return
 		}
-		// if user selects None for unit, assign to null, else find unit and set to values (using string we created)
-		if (values.unit === "None") {
-			values.unit = undefined
-		}
-		else {
-			values.unit = units.find(unit => `${unit.unitID} ${unit.street}` === values.unit)
+
+		if (!values.type) {
+			values.type = "Miscellaneous"
 		}
 
 		createExpense(values)
@@ -63,11 +59,6 @@ const ExpenseCreateForm = ({ setShowCreateExpenseForm }) => {
 						<FormRowSelect
 							labelText="type" name="type"
 							value={values.type} handleChange={handleChange} list={types}
-							style="col-span-2"
-						/>
-						<FormRowSelect
-							labelText="unit" name="unit"
-							value={values.unit} handleChange={handleChange} list={unitList}
 							style="col-span-2"
 						/>
 						<FormRow
@@ -103,11 +94,6 @@ const ExpenseCreateForm = ({ setShowCreateExpenseForm }) => {
 						<FormRow
 							labelText="Date Due" type="date" name="dateDue"
 							value={values.dateDue} handleChange={handleChange}
-							style="col-span-2"
-						/>
-						<FormRow
-							labelText="Date Paid" type="date" name="datePaid"
-							value={values.datePaid} handleChange={handleChange}
 							style="col-span-2"
 						/>
 

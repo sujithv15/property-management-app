@@ -43,6 +43,7 @@ import {
 	READ_EXPENSES_ERROR,
 
 } from "./actions.jsx";
+import { useNavigate } from "react-router-dom";
 
 
 const initialState = {
@@ -79,10 +80,10 @@ const GlobalProvider = ({ children }) => {
 	}
 
 /*----------------User------------------*/
-	const registerUser = async (currentUser) => {
+	const registerUser = async (newUser) => {
 		dispatch({ type: REGISTER_USER_BEGIN })
 		try {
-			const response = await ax.post('/auth/register', currentUser)
+			const response = await ax.post('/auth/register', newUser)
 			const { user } = response.data
 			dispatch({
 				type: REGISTER_USER_SUCCESS,
@@ -195,7 +196,24 @@ const GlobalProvider = ({ children }) => {
 		clearAlert()
 	}
 
-
+	const getUserAccessibleDetails = async () => {
+		dispatch({type: GET_UNIT_BEGIN})
+		try {
+			const response = await ax('/user')
+			const { unit } = response.data
+			const { tenant, appliances } = unit
+			dispatch({
+				type: GET_UNIT_SUCCESS,
+				payload: { unit, tenant, appliances }
+			})
+		} catch (error) {
+			dispatch({
+				type: GET_UNIT_ERROR,
+				payload: {msg: error}
+			})
+		}
+		clearAlert()
+	}
 	/*----------------Tenants------------------*/
 	const readTenants = async () => {
 		dispatch({ type: READ_TENANTS_BEGIN })
@@ -216,10 +234,11 @@ const GlobalProvider = ({ children }) => {
 	}
 
 	// global states set up in getUnitDetails for tenant
-	const createTenant = async (tenant, unit_id) => {
+	const createTenant = async (tenant, newUser) => {
 		try {
-			await ax.post('/admin/tenants/create', tenant)
-			await getUnitDetails(unit_id)
+			const newTenant = await ax.post('/admin/tenants/create', tenant)
+			await registerUser({ ...newUser, tenant: newTenant })
+			await getUnitDetails(tenant.unit)
 		} catch (error) {
 			console.log(error);
 		}
@@ -240,6 +259,7 @@ const GlobalProvider = ({ children }) => {
 		dispatch({ type: UPDATE_TENANT_BEGIN })
 		try {
 			await ax.patch(`/admin/tenants/${tenant._id}`, tenant)
+			await readTenants()
 			dispatch({
 				type: UPDATE_TENANT_SUCCESS,
 				payload: { tenant }
@@ -285,6 +305,7 @@ const GlobalProvider = ({ children }) => {
 	const updateExpense= async (expense) => {
 		try {
 			await ax.post(`/admin/accounting/${expense._id}`, expense)
+			await readExpenses()
 		} catch (error) {
 			console.log(error);
 		}
@@ -324,6 +345,9 @@ const GlobalProvider = ({ children }) => {
 		}
 	}
 
+	/*----------------Service Requests------------------*/
+
+
 	return (
 		<GlobalContext.Provider value={
 			{
@@ -350,7 +374,9 @@ const GlobalProvider = ({ children }) => {
 				updateExpense,
 
 				createAppliance,
-				updateAppliance
+				updateAppliance,
+
+				getUserAccessibleDetails
 
 			}
 		}>

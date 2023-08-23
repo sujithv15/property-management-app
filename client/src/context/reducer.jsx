@@ -85,8 +85,6 @@ const Reducer = (state, action) => {
 	if (action.type === REGISTER_USER_SUCCESS) {
 		return {
 			...state,
-			user: action.payload.user,
-			role: 'user',
 			isLoading: false,
 			showAlert: true,
 			alertType: 'success',

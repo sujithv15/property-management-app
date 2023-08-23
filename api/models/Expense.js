@@ -3,12 +3,8 @@ import mongoose from 'mongoose'
 const ExpenseSchema = new mongoose.Schema({
 	type: {
 		type: String,
-		enum: ['Insurance', 'Taxes', 'Maintenance', 'Repairs', 'Other'],
+		enum: ['Miscellaneous', 'Insurance', 'Taxes', 'Maintenance', 'Repairs'],
 		required: true
-	},
-	unit: {
-		type: mongoose.Types.ObjectId,
-		ref: "Unit"
 	},
 	description: {
 		type: String,

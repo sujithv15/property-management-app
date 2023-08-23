@@ -2,7 +2,7 @@ import { ExpenseUpdateForm } from "./forms/index.js";
 import { useState } from "react";
 
 const Expense = (expense) => {
-	const { type, unit, description, payTo, amount, recurring, dateDue, datePaid, balance, status, comments } = expense
+	const { type, description, payTo, amount, recurring, dateDue, datePaid, balance, status, comments } = expense
 
 
 

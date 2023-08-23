@@ -30,6 +30,9 @@ const Layout = () => {
 				navigate(`/${role}`);
 			}, 1000);
 		}
+		else {
+			navigate('/')
+		}
 		//console.log(config.url.API_URL);
 	}, [role])
 

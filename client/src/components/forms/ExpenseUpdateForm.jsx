@@ -5,15 +5,15 @@ import FormRowSelect from "./FormRowSelect.jsx";
 import { toast } from "react-toastify";
 import ModalWrapper from "./ModalWrapper.jsx";
 
-const types = ['insurance', 'taxes', 'maintenance', 'repairs', 'other']
+const types = ['Insurance', 'Taxes', 'Maintenance', 'Repairs', 'Other']
 
 const ExpenseUpdateForm = ({ expense, setShowExpenseUpdateForm }) => {
 
-	const { updateExpense, displayAlert, clearAlert, units } = useGlobalContext()
+	const { updateExpense } = useGlobalContext()
 	const [values, setValues] = useState(expense)
 
 	// populate array with list of units(just unitID and street) and 'NONE' for form
-	const unitList = ["None", ...units.map(unit => `${unit.unitID} ${unit.street}`)]
+	// const unitList = ["None", ...units.map(unit => `${unit.unitID} ${unit.street}`)]
 
 	const handleChange = (e) => {
 		setValues({...values, [e.target.name]: e.target.value})
@@ -21,20 +21,12 @@ const ExpenseUpdateForm = ({ expense, setShowExpenseUpdateForm }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		const { type } = values
-		if (!type) {
-			displayAlert()
-			clearAlert()
+		const { payTo, amount } = values
+		if (!payTo || !amount) {
+			console.log('enter payee and amount value');
 			return
 		}
 
-		// if user selects None for unit, assign to null, else find unit and set to values (using string we created)
-		if (values.unit === "None") {
-			values.unit = undefined
-		}
-		else {
-			values.unit = units.find(unit => `${unit.unitID} ${unit.street}` === values.unit)
-		}
 
 		updateExpense(values)
 		toast.success('Expense Successfully Updated')
@@ -50,11 +42,6 @@ const ExpenseUpdateForm = ({ expense, setShowExpenseUpdateForm }) => {
 						<FormRowSelect
 							labelText="type" name="type"
 							value={values.type} handleChange={handleChange} list={types}
-							style="col-span-2"
-						/>
-						<FormRowSelect
-							labelText="unit" name="unit"
-							value={values.unit} handleChange={handleChange} list={unitList}
 							style="col-span-2"
 						/>
 						<FormRow
@@ -92,11 +79,7 @@ const ExpenseUpdateForm = ({ expense, setShowExpenseUpdateForm }) => {
 							value={values.dateDue} handleChange={handleChange}
 							style="col-span-2"
 						/>
-						<FormRow
-							labelText="date Paid" type="date" name="datePaid"
-							value={values.datePaid} handleChange={handleChange}
-							style="col-span-2"
-						/>
+
 
 						<FormRow
 							labelText="Comments" type="text" name="comments"

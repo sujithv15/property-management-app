@@ -15,7 +15,8 @@ const FormRowSelect = ({ labelText, name, value, defaultValue, handleChange, lis
 
       <select
         name={name}
-        value={defaultValue || value}
+        defaultValue={defaultValue}
+        value={value}
         onChange={handleChange}
         className={inputClassName}
       >

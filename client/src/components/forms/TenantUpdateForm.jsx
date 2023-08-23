@@ -7,10 +7,25 @@ import ModalWrapper from "./ModalWrapper.jsx";
 
 const TenantUpdateForm = ({ setShowTenantUpdateForm }) => {
 
-	const { tenant, updateTenant } = useGlobalContext()
+	const { tenant, updateTenant, registerUser } = useGlobalContext()
 	const [values, setValues] = useState(tenant)
 	const handleChange = (e) => {
 		setValues({...values, [e.target.name]: e.target.value })
+	}
+
+	const createUser = (e) => {
+		e.preventDefault()
+		const newUser = {
+			lastName: tenant.lastName,
+			firstName: tenant.firstName,
+			email: tenant.email,
+			password: "temp-password",
+			unit: tenant.unit,
+			tenant: tenant._id
+		}
+		console.log(newUser);
+		registerUser(newUser)
+		toast.success('User Successfully Created')
 	}
 
 	const handleSubmit = (e) => {
@@ -84,6 +99,15 @@ const TenantUpdateForm = ({ setShowTenantUpdateForm }) => {
 					<div className="flex justify-around pt-10">
 						<button type="submit" className='btn'>update tenant</button>
 						<button className="btn" onClick={() => setShowTenantUpdateForm(false)}>Cancel</button>
+						<div>
+							{
+								!tenant.user
+								&&
+								<button className="btn" onClick={createUser}>Create user</button>
+							}
+
+
+						</div>
 					</div>
 
 				</form>

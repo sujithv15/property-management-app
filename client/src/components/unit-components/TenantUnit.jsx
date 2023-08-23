@@ -8,8 +8,7 @@ const TenantUnit = () => {
 	const [showTenantUpdateForm, setShowTenantUpdateForm] = useState(false)
 	const [showTenantAssistanceForm, setShowTenantAssistanceForm] = useState(false)
 
-	const { tenant } = useGlobalContext()
-
+	const { tenant, role } = useGlobalContext()
 
 	return (
 	<div className="tenant">
@@ -41,32 +40,35 @@ const TenantUnit = () => {
 					</div>
 
 					<div className="">
-						<div className="font-semibold text-xl">Assisted Rent Payment: </div>
+						<div className="font-semibold text-xl">Assisted Rent Payment:</div>
 						<div>{tenant.rentAssistance?.assistedPortion || ''}</div>
 					</div>
-
 				</div>
-
-				<div className="flex gap-4 justify-center">
-
-					<button
-						className='btn'
-						onClick={() => setShowTenantUpdateForm(true)}>
-						edit tenant
-					</button>
-
-					<button
-						className='btn'
-						onClick={() => setShowTenantAssistanceForm(true)}>
-						edit assistance
-					</button>
-
-					{showTenantUpdateForm && <TenantUpdateForm setShowTenantUpdateForm={setShowTenantUpdateForm}/>}
-					{showTenantAssistanceForm && <TenantAssistanceForm setShowTenantAssistanceForm={setShowTenantAssistanceForm}/>}
-				</div>
-
 			</div>
 		}
+		{
+			role === 'admin' &&
+
+			<div className="flex gap-4 justify-center my-8">
+				<button
+					className='btn'
+					onClick={() => setShowTenantUpdateForm(true)}>
+					edit tenant
+				</button>
+
+				<button
+					className='btn'
+					onClick={() => setShowTenantAssistanceForm(true)}>
+					edit assistance
+				</button>
+
+				{showTenantUpdateForm && <TenantUpdateForm setShowTenantUpdateForm={setShowTenantUpdateForm} />}
+				{showTenantAssistanceForm &&
+					<TenantAssistanceForm setShowTenantAssistanceForm={setShowTenantAssistanceForm} />}
+			</div>
+		}
+
+
 	</div>
 	);
 };

@@ -12,15 +12,20 @@ const Navbar = ({ links }) => {
 	const navigate = useNavigate()
 	const handleLogout =  () => {
 		logoutUser()
-		navigate('/')
 	}
 
 	return (
 		<nav className="flex justify-between py-5 font-serif items-center mx-4 border-b-4">
 
-
-				<NavLink to="/" className=""><MdHomeWork size={36}/></NavLink>
-
+			{
+				role === 'admin' && <NavLink to="/admin" className=""><MdHomeWork size={36}/></NavLink>
+			}
+			{
+				role === 'user' && <NavLink to="/user" className=""><MdHomeWork size={36}/></NavLink>
+			}
+			{
+				role === 'public' && <NavLink to="/" className=""><MdHomeWork size={36}/></NavLink>
+			}
 
 				{
 					Object.keys(user).length === 0 &&

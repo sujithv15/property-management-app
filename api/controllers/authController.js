@@ -1,7 +1,9 @@
 import { StatusCodes } from "http-status-codes";
 import { BadRequestError, UnauthenticatedError } from "../errors/index.js";
 import User from "../models/User.js"
+import Tenant from "../models/Tenant.js";
 import { attachCookies, createJWT, validateJWT } from "../utils/index.js";
+import tenant from "../models/Tenant.js";
 
 
 const register = async (req, res) => {
@@ -20,9 +22,9 @@ const register = async (req, res) => {
 	const isFirstUser = (await User.countDocuments({})) === 0
 
 	// create new user in mongodb
-	const user = await User.create({ lastName, firstName, email, password, isAdmin: isFirstUser })
+	const user = await User.create({ ...req.body, isAdmin: isFirstUser })
 
-	// user variable with just the fields we want to send
+	// user variable with just the fields we want to send for token
 	const userInfo = { userID: user._id, isAdmin: user.isAdmin }
 
 	// create jwt with jwt.sign
@@ -31,6 +33,7 @@ const register = async (req, res) => {
 	// create cookie in the response, where we attach token
 	attachCookies({ res, token })
 
+	await Tenant.findOneAndUpdate({ email }, { $set: { user: user }})
 	// send response JSON to include user fields
 	res.status(StatusCodes.CREATED).json({ user: { lastName: user.lastName, firstName: user.firstName, email: user.email } })
 }
@@ -63,7 +66,13 @@ const login = async (req, res) => {
 
 	// create cookie in the response, where we attach token
 	attachCookies({ res, token })
-	res.status(StatusCodes.OK).json({ user: { lastName: user.lastName, firstName: user.firstName, email: user.email, isAdmin: user.isAdmin } })
+	res.status(StatusCodes.OK).json({ user: {
+			lastName: user.lastName,
+			firstName: user.firstName,
+			email: user.email, isAdmin: user.isAdmin,
+			unit: user.unit,
+			tenant: user.tenant
+	}})
 }
 
 const logout = async (req, res) => {
@@ -74,5 +83,8 @@ const logout = async (req, res) => {
 	});
 	res.status(StatusCodes.OK).json({ msg: 'user logged out' });
 };
+
+
+
 
 export { login, register, logout }

@@ -1,6 +1,6 @@
 export const linksUser = [
 	{
-		name: "User Home",
+		name: "Service Request",
 		url: "/user",
 	},
 ]

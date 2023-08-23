@@ -29,7 +29,7 @@ const TenantCreateForm = ({ setShowCreateTenantForm, unit_id }) => {
 
 	const [values, setValues] = useState(initialState)
 
-	const { createTenant } = useGlobalContext()
+	const { createTenant, registerUser } = useGlobalContext()
 
 	const handleChange = (e) => {
 		setValues({...values, [e.target.name]: e.target.value})
@@ -37,59 +37,74 @@ const TenantCreateForm = ({ setShowCreateTenantForm, unit_id }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		const { lastName, firstName } = values
-		if ( !lastName || !firstName) {
+		const { lastName, firstName, email } = values
+		if ( !lastName || !firstName || !email) {
 			toast.error('Enter all values')
 			return
 		}
+		const newUser = {
+			lastName: lastName,
+			firstName: firstName,
+			email: email,
+			password: "temp-password",
+			unit: unit_id
+		}
 		// pass unit_id so createTenant can run getUnitDetails, which updates unit and tenant global states
-		createTenant({ ...values, unit: unit_id }, unit_id)
+		createTenant({ ...values, unit: unit_id }, newUser)
+		registerUser(newUser)
 		toast.success('TenantUnit Successfully Created')
 		setShowCreateTenantForm(false)
 	}
 
 	return (
 		<ModalWrapper>
-			<div className='modal'>
+			<div className='modal max-w-sm'>
 
 				<form className="form" onSubmit={handleSubmit}>
 					<div className="form-title">Create Tenant</div>
-					<div className="form-content grid-cols-6">
+					<div className="form-content grid-cols-3">
 						<FormRow
-							labelText="lastName" type="text" name="lastName"
+							labelText="Last Name" type="text" name="lastName"
 							value={values.lastName} handleChange={handleChange}
-							style="col-span-2"
+							style="col-span-3"
 						/>
 						<FormRow
-							labelText="firstName" type="text" name="firstName"
+							labelText="First Name" type="text" name="firstName"
 							value={values.firstName} handleChange={handleChange}
-							style="col-span-2"
+							style="col-span-3"
 						/>
 						<FormRow
-							labelText="email" type="email" name="email"
+							labelText="Email" type="email" name="email"
 							value={values.email} handleChange={handleChange}
 							style="col-span-3"
 						/>
 						<FormRow
-							labelText="phone" type="text" name="phone"
+							labelText="Phone" type="text" name="phone"
 							value={values.phone} handleChange={handleChange}
-							style="col-span-2"
+							style="col-span-3"
 						/>
 						<FormRow
-							labelText="rent" type="number" name="rent"
+							labelText="Rent" type="number" name="rent"
 							value={values.rent} handleChange={handleChange}
 							style="col-span-1"
 						/>
 						<FormRow
-							labelText="balance" type="number" name="balance"
+							labelText="Balance" type="number" name="balance"
 							value={values.balance} handleChange={handleChange}
 							style="col-span-1"
 						/>
-						<FormRow
-							labelText="isAssisted" type="boolean" name="isAssisted"
-							value={values.isAssisted} handleChange={handleChange}
-							style="col-span-1"
-						/>
+						<div className="col-span-1">
+							<label htmlFor="isAssisted" className="form-label">Assistance</label>
+							<select
+								name="isAssisted"
+								value={values.isAssisted}
+								onChange={handleChange}
+								className="form-select"
+							>
+								<option value={true}>Yes</option>
+								<option value={false}>No</option>
+							</select>
+						</div>
 					</div>
 
 					<div className="flex justify-around pt-10">

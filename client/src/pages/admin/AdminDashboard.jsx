@@ -28,11 +28,7 @@ const AdminDashboard = () => {
 				<div className="">upcoming payments</div>
 
 				<div className="">rents for this month</div>
-
 			</div>
-
-
-
 		</div>
 	);
 };
