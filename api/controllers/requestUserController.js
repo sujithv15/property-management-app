@@ -1,17 +1,17 @@
 import Request from "../models/Request.js";
 import { StatusCodes } from "http-status-codes";
-import { BadRequestError, NotFoundError } from "../errors"
+import { BadRequestError, NotFoundError } from "../errors/index.js"
 
-const createRequest = async (req, res, next) => {
+const createRequest = async (req, res) => {
 	// destructure request obj sent from front end
-	const { unit, request, urgent, completed } = req.body
+	const { title, description, unit } = req.body
 
-	if (!unit || !request) {
+	if (!unit || !title || !description) {
 		throw new BadRequestError('please provide request and unit')
 	}
 
 	// create new request using Request model method
-	const newRequest = await Request.create({ unit, request, urgent, completed })
+	const newRequest = await Request.create({ unit, title, description, user:req.user.userID })
 
 	// send response JSON to include appliance
 	res.status(StatusCodes.CREATED)

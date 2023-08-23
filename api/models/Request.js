@@ -10,7 +10,10 @@ const RequestSchema = new mongoose.Schema({
 		type: mongoose.Types.ObjectId,
 		ref: 'Tenant'
 	},
-	request: {
+	title: {
+		type: String
+	},
+	description: {
 		type: String
 	},
 	urgent: {
@@ -19,7 +22,8 @@ const RequestSchema = new mongoose.Schema({
 	},
 	status: {
 		type: String,
-		default: ['waiting', 'pending', 'completed']
+		enum: ['waiting', 'pending', 'completed'],
+		default: 'pending'
 	},
 	createdAt: {
 		type: Date,

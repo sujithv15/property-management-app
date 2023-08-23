@@ -1,6 +1,10 @@
 export const linksUser = [
 	{
-		name: "Service Request",
-		url: "/user",
+		name: "Requests",
+		url: "/user/request",
+	},
+	{
+		name: "Mail",
+		url: "/user/messages",
 	},
 ]

@@ -41,6 +41,9 @@ import {
 	READ_EXPENSES_BEGIN,
 	READ_EXPENSES_SUCCESS,
 	READ_EXPENSES_ERROR,
+	READ_REQUESTS_BEGIN,
+	READ_REQUESTS_SUCCESS,
+	READ_REQUESTS_ERROR
 
 } from "./actions.jsx";
 import { useNavigate } from "react-router-dom";
@@ -59,6 +62,7 @@ const initialState = {
 	appliances: [],
 	tenants: [],
 	expenses: [],
+	requests: []
 }
 
 const GlobalContext = createContext()
@@ -345,8 +349,34 @@ const GlobalProvider = ({ children }) => {
 		}
 	}
 
-	/*----------------Service Requests------------------*/
-
+	/*----------------UserService Requests------------------*/
+	const createServiceRequest = async (request) => {
+		try {
+			await ax.post('/user/requests/create', request)
+		} catch (error) {
+			console.log(error);
+		}
+		clearAlert()
+	}
+	/*----------------Admin Service Requests------------------*/
+	const getServiceRequests = async () => {
+		dispatch({ type: READ_REQUESTS_BEGIN })
+		try {
+			const response = await ax('/admin/requests')
+			const { requests } = response.data
+			console.log(requests);
+			dispatch({
+				type: READ_REQUESTS_SUCCESS,
+				payload: { requests }
+			})
+		} catch (error) {
+			dispatch({
+				type: READ_REQUESTS_ERROR,
+				payload: { msg: error}
+			})
+		}
+		clearAlert()
+	}
 
 	return (
 		<GlobalContext.Provider value={
@@ -376,7 +406,10 @@ const GlobalProvider = ({ children }) => {
 				createAppliance,
 				updateAppliance,
 
-				getUserAccessibleDetails
+				getUserAccessibleDetails,
+				createServiceRequest,
+
+				getServiceRequests
 
 			}
 		}>

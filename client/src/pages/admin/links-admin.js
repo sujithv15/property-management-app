@@ -1,20 +1,8 @@
 export const linksAdmin = [
-	/*
-	{
-		name: "Admin Home",
-		url: "/admin",
-	},
-	*/
 	{
 		name: "Units",
 		url: "/admin/units",
 	},
-	/*
-	{
-		name: "Mail",
-		url: "/admin/messages",
-	},
-	*/
 	{
 		name: "Accounting",
 		url: "/admin/accounting",
@@ -23,4 +11,13 @@ export const linksAdmin = [
 		name: "Research",
 		url: "/admin/research",
 	},
+	{
+		name: "Mail",
+		url: "/admin/messages",
+	},
+	{
+		name: "Requests",
+		url: "/admin/requests",
+	},
+
 ]

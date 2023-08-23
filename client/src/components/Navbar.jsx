@@ -35,7 +35,7 @@ const Navbar = ({ links }) => {
 				{
 					links.map((links, index) => {
 						return (
-							<div key={index} className="text-sm sm:text-2xl">
+							<div key={index} className="text-sm sm:text-lg">
 								<NavLink to={links.url} className="">{links.name}</NavLink>
 							</div>
 						)

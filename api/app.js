@@ -16,6 +16,8 @@ import userRoutes from "./routes/userRoutes.js";
 import accountingRoutes from "./routes/accountingRoutes.js";
 import tenantRoutes from "./routes/tenantRoutes.js";
 import userAccessibleRoutes from "./routes/userAccessibleRoutes.js";
+import requestUserRoutes from "./routes/requestUserRoutes.js";
+import requestAdminRoutes from "./routes/requestAdminRoutes.js";
 // remaining middleware imports
 import morgan from 'morgan'
 import cookieParser from "cookie-parser"
@@ -69,8 +71,10 @@ app.use('/api/v1/admin/units', authenticateUser, authorizePermissions, unitsRout
 app.use('/api/v1/admin/accounting', authenticateUser, authorizePermissions, accountingRoutes)
 
 // will contain all user personal routes so authentication per user middleware
-app.use('/api/v1/admin/tenants', authorizePermissions, authenticateUser, tenantRoutes)
+app.use('/api/v1/admin/tenants', authenticateUser, authorizePermissions, tenantRoutes)
 app.use('/api/v1/user', authenticateUser, userAccessibleRoutes)
+app.use('/api/v1/user/requests', authenticateUser, requestUserRoutes)
+app.use('/api/v1/admin/requests', authenticateUser, authorizePermissions, requestAdminRoutes)
 
 app.use(notFound)
 app.use(errorHandler)

@@ -50,6 +50,10 @@ import {
 	READ_EXPENSES_SUCCESS,
 	READ_EXPENSES_ERROR,
 
+	READ_REQUESTS_BEGIN,
+	READ_REQUESTS_SUCCESS,
+	READ_REQUESTS_ERROR
+
 } from "./actions.jsx";
 
 import {initialState} from "./GlobalContext.jsx"
@@ -385,6 +389,31 @@ const Reducer = (state, action) => {
 		}
 	}
 
+	if (action.type === READ_REQUESTS_BEGIN) {
+		return {
+			...state,
+			isLoading: true
+		}
+	}
+	if (action.type === READ_REQUESTS_SUCCESS) {
+		return {
+			...state,
+			requests: action.payload.requests,
+			isLoading: false,
+			showAlert: true,
+			alertType: 'success',
+			alertText: 'retrieving requests...'
+		}
+	}
+	if (action.type === READ_REQUESTS_ERROR) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: 'danger',
+			alertText: action.payload.msg
+		}
+	}
 
 
 	throw new Error(`No such action: ${action.type}`)
