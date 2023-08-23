@@ -224,6 +224,7 @@ const GlobalProvider = ({ children }) => {
 		try {
 			const response = await ax('/admin/tenants')
 			const { tenants } = response.data
+			console.log(tenants);
 			dispatch({
 				type: READ_TENANTS_SUCCESS,
 				payload: { tenants }

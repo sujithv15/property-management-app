@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Login, Landing, Error, About } from "./pages/public";
-import { Research, Accounting, Units, Maintenance, Register, AdminDashboard, MessagesAdmin, ServiceRequests } from "./pages/admin";
+import { Research, Accounting, Units, Maintenance, Register, AdminDashboard, MessagesAdmin, ServiceRequests, Tenants } from "./pages/admin";
 import { UserDashboard, ServiceRequest, MessagesUser } from "./pages/user";
 import ProtectedRoute from "./pages/ProtectedRoute.jsx";
 import Layout from "./pages/Layout.jsx";
@@ -44,6 +44,7 @@ const App = () => {
 					<Route path="units/:id" element={<Unit />}/>
 					<Route path="register" element={<Register />} />
 					<Route path="accounting" element={<Accounting />} />
+					<Route path="tenants" element={<Tenants />} />
 					<Route path="maintenance" element={<Maintenance />} />
 					<Route path="requests" element={<ServiceRequests />} />
 					<Route path="research" element={<Research />} />

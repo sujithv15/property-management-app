@@ -10,8 +10,8 @@ const createTenant = async (req, res) => {
 	res.status(StatusCodes.CREATED).json({newTenant})
 }
 
-const getAllTenants = async (req, res, next) => {
-	const tenants = await Tenant.find()
+const getAllTenants = async (req, res) => {
+	const tenants = await Tenant.find().sort({ lastName: 1 })
 	res.status(StatusCodes.OK).json({tenants})
 }
 
