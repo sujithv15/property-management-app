@@ -6,7 +6,7 @@ const prod = {
 
 const dev = {
 	url : {
-		API_URL: 'http://localhost:8800/api/v1'
+		API_URL: 'http://localhost:8900/api/v1'
 	}
 }
 

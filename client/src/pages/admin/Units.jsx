@@ -33,17 +33,13 @@ const Units = () => {
 			<div className="title">Units</div>
 
 			<div className="border-t-2">
-
 				<div className="flex gap-2 my-8 sm:my-16">
-
 					<input
 						className="form-input mx-16 h-10"
 						type="search" placeholder="Search Units"
 						value={query} onChange={e=>setQuery(e.target.value)}
 					/>
-
 				</div>
-
 
 			</div>
 
