@@ -1,6 +1,6 @@
 import { useGlobalContext } from "../../context/GlobalContext.jsx";
 import { useEffect, useState } from "react";
-import { Expense } from "../../components/index.js";
+import { NavLink } from "react-router-dom";
 
 const Tenants = () => {
 
@@ -23,9 +23,9 @@ const Tenants = () => {
 	})
 	return (
 		<div className="tenants-page">
-			<div className="title">Tenants</div>
+			<div className="title border-b-2">Tenants</div>
 
-			<div className="border-t-2">
+			<div className="">
 				<div className="flex gap-2 my-8 sm:my-16">
 					<input
 						className="form-input mx-16 h-10"
@@ -39,8 +39,8 @@ const Tenants = () => {
 				{queriedTenants?.map(tenant => {
 					return (
 						<div key={tenant._id} className="flex-col sm:flex ">
-							<div className="text-lg sm:text-2xl font-bold">
-								{tenant.lastName}, {tenant.firstName}
+							<div className="">
+								<NavLink className="text-lg sm:text-2xl font-bold text-blue-600 hover:text-color-gradiant" to={`/admin/units/${tenant.unit}`}>{tenant.lastName}, {tenant.firstName}</NavLink>
 							</div>
 							<div className="text-sm sm:text-xl">
 								{tenant.phone}

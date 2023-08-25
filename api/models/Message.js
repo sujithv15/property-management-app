@@ -22,7 +22,7 @@ const MessageSchema = new mongoose.Schema({
 	flag: {
 		type: Boolean
 	},
-	read: {
+	unread: {
 		type: Boolean
 	},
 	createdAt: {

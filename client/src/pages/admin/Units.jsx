@@ -30,9 +30,9 @@ const Units = () => {
 	return (
 		<div className="units-page">
 
-			<div className="title">Units</div>
+			<div className="title border-b-2">Units</div>
 
-			<div className="border-t-2">
+			<div className="">
 				<div className="flex gap-2 my-8 sm:my-16">
 					<input
 						className="form-input mx-16 h-10"

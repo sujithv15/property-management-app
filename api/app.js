@@ -24,6 +24,7 @@ import cookieParser from "cookie-parser"
 import errorHandler from "./middleware/error-handler.js";
 import notFound from "./middleware/not-found.js";
 import { authenticateUser, authorizePermissions } from "./middleware/authentication.js"
+import messagesRoutes from "./routes/MessagesRoutes.js";
 
 //-------------------//
 const app = express()
@@ -65,16 +66,18 @@ app.get('/api/v1', (req, res) => {
 })
 
 app.use('/api/v1/auth', authRoutes)  // login, logout, register
+
 app.use('/api/v1/users', authenticateUser, authorizePermissions, userRoutes)  // getAllUsers, getUserInfo, showCurrentUser, updateUser, updateUserPassword
 app.use('/api/v1/admin/appliances', authenticateUser, authorizePermissions, applianceRoutes)
 app.use('/api/v1/admin/units', authenticateUser, authorizePermissions, unitsRoutes)
 app.use('/api/v1/admin/accounting', authenticateUser, authorizePermissions, accountingRoutes)
-
+app.use('/api/v1/admin/requests', authenticateUser, authorizePermissions, requestAdminRoutes)
+app.use('/api/v1/admin/messages', authenticateUser, authorizePermissions, messagesRoutes)
 // will contain all user personal routes so authentication per user middleware
 app.use('/api/v1/admin/tenants', authenticateUser, authorizePermissions, tenantRoutes)
-app.use('/api/v1/user', authenticateUser, userAccessibleRoutes)
 app.use('/api/v1/user/requests', authenticateUser, requestUserRoutes)
-app.use('/api/v1/admin/requests', authenticateUser, authorizePermissions, requestAdminRoutes)
+app.use('/api/v1/user/messages', authenticateUser, messagesRoutes)
+app.use('/api/v1/user', authenticateUser, userAccessibleRoutes)
 
 app.use(notFound)
 app.use(errorHandler)

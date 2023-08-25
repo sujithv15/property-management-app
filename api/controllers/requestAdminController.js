@@ -7,7 +7,7 @@ const editRequest = async (req, res) => {
 }
 
 const getAllRequests = async (req, res) => {
-	const requests = await Request.find()
+	const requests = await Request.find().populate('unit')
 	res.status(StatusCodes.OK).json({ requests })
 }
 

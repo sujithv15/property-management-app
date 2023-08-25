@@ -28,7 +28,7 @@ const Layout = () => {
 			console.log(`navigating to ${role}`);
 			setTimeout(() => {
 				navigate(`/${role}`);
-			}, 1000);
+			}, 100);
 		}
 		else {
 			navigate('/')

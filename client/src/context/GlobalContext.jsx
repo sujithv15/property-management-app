@@ -34,7 +34,6 @@ import {
 	READ_TENANTS_SUCCESS,
 	READ_TENANTS_ERROR,
 
-
 	CREATE_EXPENSE_BEGIN,
 	CREATE_EXPENSE_SUCCESS,
 	CREATE_EXPENSE_ERROR,
@@ -43,11 +42,14 @@ import {
 	READ_EXPENSES_ERROR,
 	READ_REQUESTS_BEGIN,
 	READ_REQUESTS_SUCCESS,
-	READ_REQUESTS_ERROR
+	READ_REQUESTS_ERROR,
+
+	CREATE_MESSAGE,
+	READ_MESSAGES_BEGIN,
+	READ_MESSAGES_SUCCESS,
+	READ_MESSAGES_ERROR
 
 } from "./actions.jsx";
-import { useNavigate } from "react-router-dom";
-
 
 const initialState = {
 	role: 'public',
@@ -62,7 +64,8 @@ const initialState = {
 	appliances: [],
 	tenants: [],
 	expenses: [],
-	requests: []
+	requests: [],
+	messages: []
 }
 
 const GlobalContext = createContext()
@@ -379,6 +382,36 @@ const GlobalProvider = ({ children }) => {
 		clearAlert()
 	}
 
+	/*----------------MESSAGES------------------*/
+	const createMessage = async (message) => {
+		console.log(message);
+		try {
+			await ax.post(`/${state.role}/messages/create`, message)
+		} catch (error) {
+			console.log(error);
+		}
+		clearAlert()
+	}
+
+	const getMessages = async () => {
+		dispatch({ type: READ_MESSAGES_BEGIN })
+		try {
+			const response = await ax(`/${state.role}/messages`)
+			const { messages } = response.data
+			console.log(messages);
+			dispatch({
+				type: READ_MESSAGES_SUCCESS,
+				payload: { messages }
+			})
+		} catch (error) {
+			dispatch({
+				type: READ_MESSAGES_ERROR,
+				payload: { msg: error}
+			})
+		}
+		clearAlert()
+	}
+
 	return (
 		<GlobalContext.Provider value={
 			{
@@ -410,7 +443,10 @@ const GlobalProvider = ({ children }) => {
 				getUserAccessibleDetails,
 				createServiceRequest,
 
-				getServiceRequests
+				getServiceRequests,
+
+				createMessage,
+				getMessages
 
 			}
 		}>

@@ -15,7 +15,8 @@ export default {
         'color-dark': 'var(--COLOR-BG-DARK)',
         'color': 'var(--COLOR-BG)',
         'primary-color': 'var(--COLOR)',
-        'select-color': 'var(--COLOR-SELECT)'
+        'select-color': 'var(--COLOR-SELECT)',
+        'color-gradiant': 'var(--COLOR-GRADIANT)'
       },
       header: {
         center: true

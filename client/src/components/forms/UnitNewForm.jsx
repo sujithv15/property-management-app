@@ -45,7 +45,7 @@ const UnitNewForm = ({ setShowForm }) => {
 
 	return (
 		<ModalWrapper>
-			<div className='modal'>
+			<div className='modal max-w-lg'>
 				<form className="form" onSubmit={handleSubmit}>
 					<div className="form-title">Create Unit</div>
 					<div className="form-content grid-cols-6">

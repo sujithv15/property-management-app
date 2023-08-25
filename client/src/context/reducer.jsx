@@ -52,7 +52,12 @@ import {
 
 	READ_REQUESTS_BEGIN,
 	READ_REQUESTS_SUCCESS,
-	READ_REQUESTS_ERROR
+	READ_REQUESTS_ERROR,
+
+	CREATE_MESSAGE,
+	READ_MESSAGES_BEGIN,
+	READ_MESSAGES_SUCCESS,
+	READ_MESSAGES_ERROR
 
 } from "./actions.jsx";
 
@@ -415,6 +420,42 @@ const Reducer = (state, action) => {
 		}
 	}
 
+	if (action.type === CREATE_MESSAGE) {
+		return {
+			...state,
+			message: action.payload.message,
+			isLoading: false,
+			showAlert: true,
+			alertType: 'success',
+			alertText: 'message created! redirecting...'
+		}
+	}
+
+	if (action.type === READ_MESSAGES_BEGIN) {
+		return {
+			...state,
+			isLoading: true
+		}
+	}
+	if (action.type === READ_MESSAGES_SUCCESS) {
+		return {
+			...state,
+			messages: action.payload.message,
+			isLoading: false,
+			showAlert: true,
+			alertType: 'success',
+			alertText: 'retrieving messages...'
+		}
+	}
+	if (action.type === READ_MESSAGES_ERROR) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: 'danger',
+			alertText: action.payload.msg
+		}
+	}
 
 	throw new Error(`No such action: ${action.type}`)
 };

@@ -11,7 +11,7 @@ import UnitNewForm from "./UnitNewForm.jsx";
 import UnitUpdateForm from "./UnitUpdateForm.jsx";
 import TenantAssistanceForm from "./TenantAssistanceForm.jsx";
 import FileUploadForm from "./FileUploadForm.jsx";
-
+import CreateMessageForm from "./CreateMessageForm.jsx";
 
 export {
 	ApplianceUpdateForm,
@@ -26,5 +26,6 @@ export {
 	ApplianceCreateForm,
 	ExpenseCreateForm,
 	TenantAssistanceForm,
-	FileUploadForm
+	FileUploadForm,
+	CreateMessageForm
 }

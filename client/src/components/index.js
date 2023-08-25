@@ -7,6 +7,18 @@ import Expense from "./Expense.jsx"
 import Appliance from "./Appliance.jsx";
 import NavbarModal from "./NavbarModal.jsx";
 import LoginNavbar from "./LoginNavbar.jsx";
+import Message from "./Message.jsx"
 
 
-export { Navbar, Footer, Alert, Loading, UnitDetails, Expense, Appliance, LoginNavbar, NavbarModal }
+export {
+	Navbar,
+	Footer,
+	Alert,
+	Loading,
+	UnitDetails,
+	Expense,
+	Appliance,
+	LoginNavbar,
+	NavbarModal,
+	Message
+}
