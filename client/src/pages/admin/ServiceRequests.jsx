@@ -11,7 +11,7 @@ const ServiceRequests = () => {
 
 	return (
 		<div className="requests-page">
-			<div className="title border-b-2">Service Requests</div>
+			<div className="title border-b-2 mx-auto">Service Requests</div>
 			{
 				requests?.map(request => {
 					return (

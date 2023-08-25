@@ -79,7 +79,7 @@ const Research = () => {
 	return (
 		<div className="research-page">
 
-			<div className="title border-b-2">Research</div>
+			<div className="title border-b-2 mx-8">Research</div>
 			<div className="text-2xl mt-10 text-center mb-12">Search Nationwide Fair Market Rental Values</div>
 
 			<form className="flex flex-col gap-4 mx-20">

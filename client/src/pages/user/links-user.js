@@ -4,7 +4,7 @@ export const linksUser = [
 		url: "/user/request",
 	},
 	{
-		name: "Mail",
+		name: "Messages",
 		url: "/user/messages",
 	},
 ]

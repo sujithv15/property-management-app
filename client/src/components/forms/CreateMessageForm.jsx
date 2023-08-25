@@ -7,13 +7,10 @@ const CreateMessageForm = ({ setShowComposeMessage }) => {
 	// get user var and createMessage function
 	const { user, createMessage } = useGlobalContext()
 
-	useEffect(() => {
-
-	}, [])
-
 	// mail only allowed to be sent to admin (not other tenants)
 	const initialState = {
-		sender: "",
+		sender: user._id,
+		senderName: `${user.firstName} ${user.lastName}`,
 		recipient: "admin@mail.com",
 		unit: user.unit,
 		subject: "",

@@ -68,4 +68,13 @@ const UnitSchema = new mongoose.Schema( {
 	}
 }, { timestamps: true })
 
+UnitSchema.pre('save', function(next) {
+	if(this.isModified) {
+		throw 'Unit is read only!'
+	}
+	else {
+		next();
+	}
+});
+
 export default mongoose.model('Unit', UnitSchema)

@@ -47,7 +47,7 @@ import {
 	CREATE_MESSAGE,
 	READ_MESSAGES_BEGIN,
 	READ_MESSAGES_SUCCESS,
-	READ_MESSAGES_ERROR
+	READ_MESSAGES_ERROR,
 
 } from "./actions.jsx";
 
@@ -65,7 +65,8 @@ const initialState = {
 	tenants: [],
 	expenses: [],
 	requests: [],
-	messages: []
+	messages: [],
+	unreadMessages: 0,
 }
 
 const GlobalContext = createContext()
@@ -209,6 +210,7 @@ const GlobalProvider = ({ children }) => {
 			const response = await ax('/user')
 			const { unit } = response.data
 			const { tenant, appliances } = unit
+			const messages = await getMessages()
 			dispatch({
 				type: GET_UNIT_SUCCESS,
 				payload: { unit, tenant, appliances }
@@ -398,7 +400,6 @@ const GlobalProvider = ({ children }) => {
 		try {
 			const response = await ax(`/${state.role}/messages`)
 			const { messages } = response.data
-			console.log(messages);
 			dispatch({
 				type: READ_MESSAGES_SUCCESS,
 				payload: { messages }
@@ -408,6 +409,36 @@ const GlobalProvider = ({ children }) => {
 				type: READ_MESSAGES_ERROR,
 				payload: { msg: error}
 			})
+		}
+		clearAlert()
+	}
+
+	const toggleMessageRead = async (messageID) => {
+		try{
+			await ax.patch(`/${state.role}/messages/read`, messageID)
+			await getMessages()
+		} catch (error) {
+			console.log(error);
+		}
+		clearAlert()
+	}
+
+	const toggleMessageUnread = async (messageID) => {
+		try{
+			await ax.patch(`/${state.role}/messages/unread`, messageID)
+			await getMessages()
+		} catch (error) {
+			console.log(error);
+		}
+		clearAlert()
+	}
+
+	const toggleMessageFlag = async (messageID) => {
+		try{
+			await ax.patch(`/${state.role}/messages/flag`, messageID)
+			await getMessages()
+		} catch (error) {
+			console.log(error);
 		}
 		clearAlert()
 	}
@@ -446,7 +477,10 @@ const GlobalProvider = ({ children }) => {
 				getServiceRequests,
 
 				createMessage,
-				getMessages
+				getMessages,
+				toggleMessageRead,
+				toggleMessageUnread,
+				toggleMessageFlag,
 
 			}
 		}>

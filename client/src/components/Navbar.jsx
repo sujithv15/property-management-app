@@ -8,7 +8,16 @@ import { useEffect, useState } from "react";
 
 const Navbar = ({ links }) => {
 
-	const { user, logoutUser, role } = useGlobalContext()
+	const { user, logoutUser, role, messages } = useGlobalContext()
+
+	const [unreadMessages, setUnreadMessages] = useState(0)
+
+	useEffect(() => {
+		// number of unread messages
+		const newMessages = messages.reduce((accumulator, message) => message.unread === true ? accumulator + 1 :  accumulator, 0)
+		setUnreadMessages(newMessages)
+	}, [messages])
+
 
 	const handleLogout =  () => {
 		logoutUser()
@@ -37,6 +46,9 @@ const Navbar = ({ links }) => {
 
 			{
 				links.map((links, index) => {
+					if (links.name === 'Messages' && unreadMessages > 0) {
+						links.name = `Messages (${unreadMessages})`
+					}
 					return (
 
 							<NavLink key={index} className="hidden text-sm sm:text-lg sm:flex" to={links.url}>{links.name}</NavLink>

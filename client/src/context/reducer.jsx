@@ -57,7 +57,7 @@ import {
 	CREATE_MESSAGE,
 	READ_MESSAGES_BEGIN,
 	READ_MESSAGES_SUCCESS,
-	READ_MESSAGES_ERROR
+	READ_MESSAGES_ERROR,
 
 } from "./actions.jsx";
 
@@ -440,7 +440,7 @@ const Reducer = (state, action) => {
 	if (action.type === READ_MESSAGES_SUCCESS) {
 		return {
 			...state,
-			messages: action.payload.message,
+			messages: action.payload.messages,
 			isLoading: false,
 			showAlert: true,
 			alertType: 'success',
@@ -456,6 +456,7 @@ const Reducer = (state, action) => {
 			alertText: action.payload.msg
 		}
 	}
+
 
 	throw new Error(`No such action: ${action.type}`)
 };

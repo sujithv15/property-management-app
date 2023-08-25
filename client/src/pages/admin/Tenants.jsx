@@ -23,7 +23,7 @@ const Tenants = () => {
 	})
 	return (
 		<div className="tenants-page">
-			<div className="title border-b-2">Tenants</div>
+			<div className="title border-b-2 mx-8">Tenants</div>
 
 			<div className="">
 				<div className="flex gap-2 my-8 sm:my-16">

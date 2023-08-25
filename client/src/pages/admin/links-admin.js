@@ -16,7 +16,7 @@ export const linksAdmin = [
 		url: "/admin/tenants",
 	},
 	{
-		name: "Mail",
+		name: "Messages",
 		url: "/admin/messages",
 	},
 	{

@@ -5,10 +5,11 @@ import UnitNewForm from "../../components/forms/UnitNewForm.jsx";
 
 
 const Units = () => {
-	const { readUnits, isLoading, units } = useGlobalContext()
+	const { readUnits, isLoading, units, getMessages } = useGlobalContext()
 
 	useEffect(() => {
 		readUnits()
+		getMessages()
 	}, [])
 
 	// state for search function
@@ -30,7 +31,7 @@ const Units = () => {
 	return (
 		<div className="units-page">
 
-			<div className="title border-b-2">Units</div>
+			<div className="title border-b-2 mx-8">Units</div>
 
 			<div className="">
 				<div className="flex gap-2 my-8 sm:my-16">

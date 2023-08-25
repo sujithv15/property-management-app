@@ -29,9 +29,30 @@ const createMessage = async (req, res) => {
 }
 
 const getAllMessages = async (req, res) => {
-	const messages = await Message.find({ recipient: req.user.userID})
+	const messages = await Message.find({ recipient: req.user.userID}).sort({ createdAt: -1 })
 	res.status(StatusCodes.OK)
 	   .json({messages})
+}
+
+const toggleMessageRead = async (req,res) => {
+	const message = await Message.findById(req.body)
+	message.unread = false
+	message.save()
+	res.status(StatusCodes.OK).json({ msg: 'Success'})
+}
+
+const toggleMessageUnread = async (req,res) => {
+	const message = await Message.findById(req.body)
+	message.unread = true
+	message.save()
+	res.status(StatusCodes.OK).json({ msg: 'Success'})
+}
+
+const toggleMessageFlag = async (req,res) => {
+	const message = await Message.findById(req.body)
+	message.flag = !message.flag
+	message.save()
+	res.status(StatusCodes.OK).json({ msg: 'Success'})
 }
 
 const getMessage = async (req, res) => {
@@ -44,4 +65,11 @@ const getMessage = async (req, res) => {
 	   .json({message})
 }
 
-export { createMessage, getAllMessages, getMessage }
+export {
+	createMessage,
+	getAllMessages,
+	getMessage,
+	toggleMessageRead,
+	toggleMessageUnread,
+	toggleMessageFlag
+}

@@ -54,6 +54,18 @@ z-index: 10;
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
   }
   
+  .modal-msg {
+    background: #fff;
+    height: 70vh;
+    border-radius: 0.25rem;
+    width: 80vw;
+    max-width: 480px;
+    margin: 0;
+    box-shadow: none;
+    padding: 1rem;
+  }
+
+  
 `
 
 export default ModalWrapper;
