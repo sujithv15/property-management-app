@@ -171,16 +171,12 @@ header, footer {
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
-.messages {
-
-}
 
 .message:nth-child(odd) {
-background: var(--COLOR-BG);
+    background: var(--COLOR-BG);
 }
-
-.message:nth-child(even) {
-
+.request:nth-child(odd) {
+    background: var(--COLOR-BG);
 }
 @media (prefers-color-scheme: dark) {
     

@@ -10,6 +10,9 @@ const RequestSchema = new mongoose.Schema({
 		type: mongoose.Types.ObjectId,
 		ref: 'Tenant'
 	},
+	tenantName: {
+		type: String,
+	},
 	title: {
 		type: String
 	},
@@ -22,8 +25,8 @@ const RequestSchema = new mongoose.Schema({
 	},
 	status: {
 		type: String,
-		enum: ['waiting', 'pending', 'completed'],
-		default: 'pending'
+		enum: ['Pending', 'Completed', 'In Progress'],
+		default: 'Pending'
 	},
 	createdAt: {
 		type: Date,

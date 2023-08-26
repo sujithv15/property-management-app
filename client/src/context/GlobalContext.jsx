@@ -393,7 +393,6 @@ const GlobalProvider = ({ children }) => {
 		try {
 			const response = await ax('/admin/requests')
 			const { requests } = response.data
-			console.log(requests);
 			dispatch({
 				type: READ_REQUESTS_SUCCESS,
 				payload: { requests }
@@ -420,7 +419,6 @@ const GlobalProvider = ({ children }) => {
 
 	const setUnreadMessageCount = async (messages) => {
 		const unreadCount = messages.reduce((accumulator, message) => message.unread === true ? accumulator + 1 :  accumulator, 0)
-		console.log(unreadCount);
 		dispatch({
 			type: SET_UNREAD_MESSAGE_COUNT,
 			payload: { unreadCount }

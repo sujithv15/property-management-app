@@ -25,11 +25,11 @@ const MessagesAdmin = () => {
 		getMessages()
 	}, [])
 
-	const [filter, setFilter] = useState("None")
+	const [filter, setFilter] = useState("All")
 
 	const filteredMessages = messages.filter(message => {
 		switch (filter) {
-			case "None":
+			case "All":
 				return message
 			case "Unread":
 				return message.unread === true
@@ -42,21 +42,26 @@ const MessagesAdmin = () => {
 
 	return (
 		<div>
-			<div className="title border-b-2 mx-8 ">Messages</div>
+			<div className="title border-b-2 mx-auto ">Messages</div>
 
-			<label className="form-label" htmlFor="recipient">Filter Messages: </label>
-			<select className="form-select" name="recipient" value={filter} onChange={(e)=>setFilter(e.target.value)}>
-				<option>None</option>
-				<option>Unread</option>
-				<option>Sent</option>
-				<option>Flagged</option>
-			</select>
+			<div className="flex justify-between p-8">
+				<div className="w-1/2">
+					<label className="text-base" htmlFor="recipient">Filter Messages: </label>
+					<select className="form-select max-w-xs" name="recipient" value={filter} onChange={(e)=>setFilter(e.target.value)}>
+						<option>All</option>
+						<option>Unread</option>
+						<option>Sent</option>
+						<option>Flagged</option>
+					</select>
+				</div>
 
-			<button
-				className="btn m-8"
-				onClick={()=>setShowComposeMessage(!showComposeMessage)}
-			>Compose Message
-			</button>
+				<button
+					className="btn"
+					onClick={()=>setShowComposeMessage(!showComposeMessage)}
+				>Compose
+				</button>
+			</div>
+
 
 			{ showComposeMessage &&
 				<CreateMessageForm
