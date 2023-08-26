@@ -1,58 +1,122 @@
 import { useGlobalContext } from "../../context/GlobalContext.jsx";
 import { Message } from "../../components/index.js";
+import { CreateMessageForm } from "../../components/forms"
 import { useEffect, useState } from "react";
-import { CreateMessageForm } from "../../components/forms/index.js";
+import { IoMailUnreadOutline } from "react-icons/io5";
+import { TbFlag, TbFlagFilled } from "react-icons/tb";
 
 const MessagesUser = () => {
-	const { messages, getMessages } = useGlobalContext()
+	const { messages, sentMessages, getMessages, toggleMessageRead, toggleMessageFlag } = useGlobalContext()
 
 	const [showComposeMessage, setShowComposeMessage] = useState(false)
 	const [showMessage, setShowMessage] = useState(false)
+	const [displayMessage, setDisplayMessage] = useState(messages[0] || {})
+
+	// when user clicks message subject or body, current msg stored in local state, modal will trigger to open full message, and will mark message as read
+	const openMessageModal = (message) => {
+		//toggleMessageRead(message)
+		setDisplayMessage(message)
+		setShowMessage(true)
+	}
 
 	useEffect(() => {
 		getMessages()
 	}, [])
 
+	const [filter, setFilter] = useState("None")
+
+	const filteredMessages = messages.filter(message => {
+		switch (filter) {
+			case "None":
+				return message
+			case "Unread":
+				return message.unread === true
+			case "Flagged":
+				return message.flag === true
+			default:
+				return message
+		}
+	})
+
 	return (
 		<div>
-			<div className="title border-b-2">Messages</div>
+			<div className="title border-b-2 mx-8 ">Messages</div>
 
-			<div className="messages">
-				{
-					messages?.map(message => {
-						return (
-							<div key={message._id} className="max-w-2xl mx-auto m-8 p-4 text-lg border-4">
-								<div className="m-1">
-									{message.createdAt.substring(0, 10)}
-								</div>
-								<div className="sender m-1 text-2xl font-bold">
-									{message.senderName}
-								</div>
-
-								<div className="subject m-1">
-									{message.subject}
-								</div>
-
-								<div className="body m-1 text-sm font-light">
-									{message.body}
-								</div>
-
-								{showMessage && <Message message={message} />}
-
-							</div>
-						)
-					})
-				}
-			</div>
+			<label className="form-label" htmlFor="recipient">Filter Messages: </label>
+			<select className="form-select" name="recipient" value={filter} onChange={(e)=>setFilter(e.target.value)}>
+				<option>None</option>
+				<option>Unread</option>
+				<option>Sent</option>
+				<option>Flagged</option>
+			</select>
 
 			<button
-				className="btn"
+				className="btn m-8"
 				onClick={()=>setShowComposeMessage(!showComposeMessage)}
 			>Compose Message
 			</button>
 
 			{ showComposeMessage && <CreateMessageForm setShowComposeMessage={setShowComposeMessage}/> }
 
+			<div className="messages sm:mx-8">
+				{
+					(filter === "Sent" ? sentMessages : filteredMessages).map(message => {
+						return (
+							<div key={message._id} className="message h-28 p-1 relative">
+
+								{
+									message.unread &&
+									<IoMailUnreadOutline className="absolute top-0 bottom-0 left-10 my-auto"/>
+								}
+
+								<div className="hover:cursor-pointer" onClick={()=>toggleMessageFlag(message)}>
+									{
+										message.flag ?
+											<TbFlagFilled className="absolute top-0 bottom-0 right-10 my-auto" />
+											:
+											<TbFlag className="absolute top-0 bottom-0 right-10 my-auto" />
+									}
+								</div>
+
+								<div className="max-w-2xl mx-auto mx-8 px-20 p-1">
+									<div className="text-sm">
+										<span>{message.createdAt.substring(0, 10)} -- {message.createdAt.substring(12, 19)}</span>
+									</div>
+
+									<div className="sender text-xl font-bold">
+										{filter === "Sent" ? "Management" : message.senderName}
+									</div>
+
+									<div
+										className="subject text-base truncate text-ellipsis hover:cursor-pointer"
+										onClick={()=>openMessageModal(message)}
+									>
+										{message.subject}
+									</div>
+
+									<div className="body text-sm font-light truncate hover:cursor-pointer text-ellipsis" onClick={()=>openMessageModal(message)}>
+										{message.body}
+									</div>
+
+
+
+								</div>
+								{
+									showMessage &&
+									<Message
+										message={displayMessage}
+										setShowMessage={setShowMessage}
+										toggleMessageRead={toggleMessageRead}
+									/>
+								}
+							</div>
+
+						)
+
+					})
+				}
+
+			</div>
 		</div>
 	);
 };

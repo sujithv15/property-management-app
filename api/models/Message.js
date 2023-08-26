@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import validator from "validator";
 
 const MessageSchema = new mongoose.Schema({
 	sender :{
@@ -7,6 +8,14 @@ const MessageSchema = new mongoose.Schema({
 	},
 	senderName: {
 		type: String
+	},
+	senderEmail: {
+		type: String,
+		validate: {
+			validator: validator.isEmail,
+			message: (props) => `${props.value} is not a valid email. Please provide valid email`,
+		},
+		lowercase: true
 	},
 	recipient: {
 		type: mongoose.Types.ObjectId,

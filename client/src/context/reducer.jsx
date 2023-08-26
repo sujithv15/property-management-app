@@ -10,6 +10,9 @@ import {
 	LOGIN_USER_SUCCESS,
 	LOGOUT_USER,
 	LOGIN_ADMIN_SUCCESS,
+	READ_USERS_BEGIN,
+	READ_USERS_SUCCESS,
+	READ_USERS_ERROR,
 
 	CREATE_UNIT_BEGIN,
 	CREATE_UNIT_SUCCESS,
@@ -58,10 +61,12 @@ import {
 	READ_MESSAGES_BEGIN,
 	READ_MESSAGES_SUCCESS,
 	READ_MESSAGES_ERROR,
+	SET_UNREAD_MESSAGE_COUNT,
 
 } from "./actions.jsx";
 
 import {initialState} from "./GlobalContext.jsx"
+import { act } from "react-dom/test-utils";
 
 
 const Reducer = (state, action) => {
@@ -154,7 +159,31 @@ const Reducer = (state, action) => {
 		};
 	}
 
-
+	if (action.type === READ_USERS_BEGIN) {
+		return {
+			...state,
+			isLoading: true
+		}
+	}
+	if (action.type === READ_USERS_SUCCESS) {
+		return {
+			...state,
+			users: action.payload.users,
+			isLoading: false,
+			showAlert: true,
+			alertType: 'success',
+			alertText: 'retrieving tenants...'
+		}
+	}
+	if (action.type === READ_USERS_ERROR) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: 'danger',
+			alertText: action.payload.msg
+		}
+	}
 
 /*----------------Units------------------*/
 	if (action.type === CREATE_UNIT_BEGIN) {
@@ -441,6 +470,7 @@ const Reducer = (state, action) => {
 		return {
 			...state,
 			messages: action.payload.messages,
+			sentMessages: action.payload.sentMessages,
 			isLoading: false,
 			showAlert: true,
 			alertType: 'success',
@@ -454,6 +484,12 @@ const Reducer = (state, action) => {
 			showAlert: true,
 			alertType: 'danger',
 			alertText: action.payload.msg
+		}
+	}
+	if (action.type === SET_UNREAD_MESSAGE_COUNT) {
+		return {
+			...state,
+			unreadMessageCount: action.payload.unreadCount
 		}
 	}
 

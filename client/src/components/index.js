@@ -7,7 +7,8 @@ import Expense from "./Expense.jsx"
 import Appliance from "./Appliance.jsx";
 import NavbarModal from "./NavbarModal.jsx";
 import LoginNavbar from "./LoginNavbar.jsx";
-import Message from "./Message.jsx"
+import Message from "./Message.jsx";
+import NavbarMessages from "./NavbarMessages.jsx";
 
 
 export {
@@ -20,5 +21,6 @@ export {
 	Appliance,
 	LoginNavbar,
 	NavbarModal,
-	Message
+	Message,
+	NavbarMessages
 }

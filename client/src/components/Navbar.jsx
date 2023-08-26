@@ -1,22 +1,13 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../context/GlobalContext.jsx";
-import { LoginNavbar, NavbarModal }from "./";
+import { LoginNavbar, NavbarModal, NavbarMessages }from "./";
 import { HiMenu } from "react-icons/hi"
-
 import { MdHomeWork } from "react-icons/md"
 import { useEffect, useState } from "react";
 
 const Navbar = ({ links }) => {
 
-	const { user, logoutUser, role, messages } = useGlobalContext()
-
-	const [unreadMessages, setUnreadMessages] = useState(0)
-
-	useEffect(() => {
-		// number of unread messages
-		const newMessages = messages.reduce((accumulator, message) => message.unread === true ? accumulator + 1 :  accumulator, 0)
-		setUnreadMessages(newMessages)
-	}, [messages])
+	const { user, logoutUser, role, unreadMessageCount } = useGlobalContext()
 
 
 	const handleLogout =  () => {
@@ -24,7 +15,6 @@ const Navbar = ({ links }) => {
 	}
 
 	const [showNavModal, setShowNavModal] = useState(false)
-
 
 	return (
 		<nav className="flex justify-between py-1 font-serif items-center mx-1 border-b-4 md:py-5 md:mx-4">
@@ -46,9 +36,6 @@ const Navbar = ({ links }) => {
 
 			{
 				links.map((links, index) => {
-					if (links.name === 'Messages' && unreadMessages > 0) {
-						links.name = `Messages (${unreadMessages})`
-					}
 					return (
 
 							<NavLink key={index} className="hidden text-sm sm:text-lg sm:flex" to={links.url}>{links.name}</NavLink>
@@ -56,7 +43,8 @@ const Navbar = ({ links }) => {
 					)
 				})
 			}
-
+			{ (user && Object.keys(user).length > 0) &&
+				<NavLink to={`/${role}/messages`}><NavbarMessages /></NavLink> }
 			{
 				(user && Object.keys(user).length > 0) ?
 					<>

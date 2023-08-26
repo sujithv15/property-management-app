@@ -29,9 +29,15 @@ const createMessage = async (req, res) => {
 }
 
 const getAllMessages = async (req, res) => {
-	const messages = await Message.find({ recipient: req.user.userID}).sort({ createdAt: -1 })
+	const messages = await Message.find({ recipient: req.user.userID } || {sender: req.user.userID}).sort({ createdAt: -1 })
 	res.status(StatusCodes.OK)
 	   .json({messages})
+}
+
+const getSentMessages = async (req, res) => {
+	const sentMessages = await Message.find({ sender: req.user.userID }).sort({ createdAt: -1 })
+	res.status(StatusCodes.OK)
+	   .json({sentMessages})
 }
 
 const toggleMessageRead = async (req,res) => {
@@ -68,8 +74,9 @@ const getMessage = async (req, res) => {
 export {
 	createMessage,
 	getAllMessages,
+	getSentMessages,
 	getMessage,
 	toggleMessageRead,
 	toggleMessageUnread,
-	toggleMessageFlag
+	toggleMessageFlag,
 }

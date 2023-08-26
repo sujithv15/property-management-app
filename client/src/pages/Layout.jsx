@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 
 const Layout = () => {
 
-	const { user, role, readUnits, isLoading } = useGlobalContext()
+	const { user, role, messages, readUnits, isLoading } = useGlobalContext()
 
 	const [navLinks, setNavLinks] = useState(linksPublic)
 

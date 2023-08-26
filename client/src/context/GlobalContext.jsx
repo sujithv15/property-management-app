@@ -13,6 +13,9 @@ import {
 	LOGIN_USER_ERROR,
 	LOGOUT_USER,
 	LOGIN_ADMIN_SUCCESS,
+	READ_USERS_BEGIN,
+	READ_USERS_SUCCESS,
+	READ_USERS_ERROR,
 
 	CREATE_UNIT_BEGIN,
 	CREATE_UNIT_SUCCESS,
@@ -48,16 +51,19 @@ import {
 	READ_MESSAGES_BEGIN,
 	READ_MESSAGES_SUCCESS,
 	READ_MESSAGES_ERROR,
+	SET_UNREAD_MESSAGE_COUNT,
 
 } from "./actions.jsx";
 
 const initialState = {
 	role: 'public',
+	navLinks: [],
 	showAlert: false,
 	isLoading: false,
 	alertType: '',
 	alertText: '',
 	user: {} ,
+	users: [],
 	units: [],
 	unit: {},
 	tenant: {},
@@ -66,7 +72,8 @@ const initialState = {
 	expenses: [],
 	requests: [],
 	messages: [],
-	unreadMessages: 0,
+	sentMessages: [],
+	unreadMessageCount: 0,
 }
 
 const GlobalContext = createContext()
@@ -138,7 +145,23 @@ const GlobalProvider = ({ children }) => {
 		await ax('/auth/logout')
 	}
 
-
+	const getUsers = async () => {
+		dispatch({ type: READ_USERS_BEGIN })
+		try {
+			const response = await ax('/admin/users')
+			const { users } = response.data
+			dispatch({
+				type: READ_USERS_SUCCESS,
+				payload: { users }
+			})
+		} catch (error) {
+			dispatch({
+				type: READ_USERS_ERROR,
+				payload: { msg: error}
+			})
+		}
+		clearAlert()
+	}
 /*----------------Units------------------*/
 	const createUnit= async (unit) => {
 		try {
@@ -395,15 +418,27 @@ const GlobalProvider = ({ children }) => {
 		clearAlert()
 	}
 
+	const setUnreadMessageCount = async (messages) => {
+		const unreadCount = messages.reduce((accumulator, message) => message.unread === true ? accumulator + 1 :  accumulator, 0)
+		console.log(unreadCount);
+		dispatch({
+			type: SET_UNREAD_MESSAGE_COUNT,
+			payload: { unreadCount }
+		})
+	}
+
 	const getMessages = async () => {
 		dispatch({ type: READ_MESSAGES_BEGIN })
 		try {
 			const response = await ax(`/${state.role}/messages`)
 			const { messages } = response.data
+			const responseSentMessages = await ax(`/${state.role}/messages/sent`)
+			const { sentMessages } = responseSentMessages.data
 			dispatch({
 				type: READ_MESSAGES_SUCCESS,
-				payload: { messages }
+				payload: { messages, sentMessages }
 			})
+			await setUnreadMessageCount(messages)
 		} catch (error) {
 			dispatch({
 				type: READ_MESSAGES_ERROR,
@@ -451,6 +486,7 @@ const GlobalProvider = ({ children }) => {
 				loginUser,
 				logoutUser,
 				registerUser,
+				getUsers,
 
 				displayAlert,
 				clearAlert,

@@ -3,15 +3,15 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import ModalWrapper from "./ModalWrapper.jsx";
 
-const CreateMessageForm = ({ setShowComposeMessage }) => {
+const CreateMessageForm = ({ setShowComposeMessage, recipient="admin@mail.com", users }) => {
 	// get user var and createMessage function
-	const { user, createMessage } = useGlobalContext()
+	const { user, createMessage, role  } = useGlobalContext()
 
 	// mail only allowed to be sent to admin (not other tenants)
 	const initialState = {
 		sender: user._id,
 		senderName: `${user.firstName} ${user.lastName}`,
-		recipient: "admin@mail.com",
+		recipient: recipient,
 		unit: user.unit,
 		subject: "",
 		body: "",
@@ -36,6 +36,9 @@ const CreateMessageForm = ({ setShowComposeMessage }) => {
 		setShowComposeMessage(false)
 	}
 
+
+
+
 	return (
 		<ModalWrapper>
 		<div className="modal max-w-lg">
@@ -43,9 +46,34 @@ const CreateMessageForm = ({ setShowComposeMessage }) => {
 				<div className="form-title">Compose Message</div>
 
 				<div className="form-content">
+
 					<div className="to">
-						<label className="form-label" htmlFor="recipient">Recipient: </label>
-						<input className="form-input" type="email" name="recipient" value={values.recipient} onChange={handleChange} />
+						{role === "admin" ?
+							<div>
+								<label className="form-label" htmlFor="recipient">Recipient: </label>
+								<select className="form-select" name="recipient" value={values.recipient}
+								        onChange={handleChange}>
+									{
+										users?.map(user => {
+											return (
+												<option
+													key={user.email}
+													value={user.email}
+												>
+													{user.lastName}, {user.firstName}
+												</option>
+											)
+										})
+									}
+								</select>
+								<div className="form-input left-0">{values.recipient} </div>
+							</div>
+							:
+							<div>
+								<label className="form-label" htmlFor="recipient">Recipient: </label>
+								<input className="form-input left-0">{values.recipient} </input>
+							</div>
+						}
 					</div>
 
 					<div className="subject">

@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 import { UnitDetails } from "../../components/index.js";
 import UnitNewForm from "../../components/forms/UnitNewForm.jsx";
 
-
 const Units = () => {
-	const { readUnits, isLoading, units, getMessages } = useGlobalContext()
+	const { readUnits, getUsers, units, getMessages } = useGlobalContext()
 
 	useEffect(() => {
 		readUnits()
 		getMessages()
+		getUsers()
 	}, [])
 
 	// state for search function
@@ -44,7 +44,7 @@ const Units = () => {
 
 			</div>
 
-			<div className="grid grid-cols-5 mb-2" >
+			<div className="grid grid-cols-6 mb-2" >
 				<div className="my-auto mx-6 hidden sm:block w-24">
 					<button
 						className="btn"
@@ -55,7 +55,8 @@ const Units = () => {
 				</div>
 				<p className="text-xl ml-4 font-bold col-span-2 hidden sm:block">Address</p>
 				<p className="text-xl font-bold hidden sm:block">Beds/Baths</p>
-				<p className="text-xl font-bold hidden sm:block">Monthly Rent</p>
+				<p className="text-xl font-bold hidden sm:block">Rent</p>
+
 
 			</div>
 

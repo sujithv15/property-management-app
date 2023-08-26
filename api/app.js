@@ -67,7 +67,7 @@ app.get('/api/v1', (req, res) => {
 
 app.use('/api/v1/auth', authRoutes)  // login, logout, register
 
-app.use('/api/v1/users', authenticateUser, authorizePermissions, userRoutes)  // getAllUsers, getUserInfo, showCurrentUser, updateUser, updateUserPassword
+app.use('/api/v1/admin/users', authenticateUser, authorizePermissions, userRoutes)  // getAllUsers, getUserInfo, showCurrentUser, updateUser, updateUserPassword
 app.use('/api/v1/admin/appliances', authenticateUser, authorizePermissions, applianceRoutes)
 app.use('/api/v1/admin/units', authenticateUser, authorizePermissions, unitsRoutes)
 app.use('/api/v1/admin/accounting', authenticateUser, authorizePermissions, accountingRoutes)

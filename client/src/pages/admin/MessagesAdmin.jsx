@@ -4,11 +4,11 @@ import { CreateMessageForm } from "../../components/forms"
 import { useEffect, useState } from "react";
 import { IoMailUnreadOutline } from "react-icons/io5";
 import { TbFlag, TbFlagFilled } from "react-icons/tb";
-import messagesUser from "../user/MessagesUser.jsx";
+
 
 const MessagesAdmin = () => {
 
-	const { messages, getMessages, toggleMessageRead, toggleMessageFlag, unreadMessages } = useGlobalContext()
+	const { messages, sentMessages, getMessages, toggleMessageRead, toggleMessageFlag, getUsers, users, user } = useGlobalContext()
 
 	const [showComposeMessage, setShowComposeMessage] = useState(false)
 	const [showMessage, setShowMessage] = useState(false)
@@ -16,18 +16,41 @@ const MessagesAdmin = () => {
 
 	// when user clicks message subject or body, current msg stored in local state, modal will trigger to open full message, and will mark message as read
 	const openMessageModal = (message) => {
+		//toggleMessageRead(message)
 		setDisplayMessage(message)
 		setShowMessage(true)
-		toggleMessageRead(message)
 	}
 
 	useEffect(() => {
 		getMessages()
 	}, [])
 
+	const [filter, setFilter] = useState("None")
+
+	const filteredMessages = messages.filter(message => {
+		switch (filter) {
+			case "None":
+				return message
+			case "Unread":
+				return message.unread === true
+			case "Flagged":
+				return message.flag === true
+			default:
+				return message
+			}
+	})
+
 	return (
 		<div>
 			<div className="title border-b-2 mx-8 ">Messages</div>
+
+			<label className="form-label" htmlFor="recipient">Filter Messages: </label>
+			<select className="form-select" name="recipient" value={filter} onChange={(e)=>setFilter(e.target.value)}>
+				<option>None</option>
+				<option>Unread</option>
+				<option>Sent</option>
+				<option>Flagged</option>
+			</select>
 
 			<button
 				className="btn m-8"
@@ -35,11 +58,16 @@ const MessagesAdmin = () => {
 			>Compose Message
 			</button>
 
-			{ showComposeMessage && <CreateMessageForm setShowComposeMessage={setShowComposeMessage}/> }
+			{ showComposeMessage &&
+				<CreateMessageForm
+					setShowComposeMessage={setShowComposeMessage}
+					users={users}
+
+				/> }
 
 			<div className="messages sm:mx-8">
 				{
-					messages?.map(message => {
+					(filter === "Sent" ? sentMessages : filteredMessages).map(message => {
 						return (
 							<div key={message._id} className="message h-28 p-1 relative">
 
@@ -63,7 +91,7 @@ const MessagesAdmin = () => {
 									</div>
 
 									<div className="sender text-xl font-bold">
-										{message.senderName}
+										{filter === "Sent" ? message.recipientName : message.senderName}
 									</div>
 
 									<div
@@ -80,7 +108,14 @@ const MessagesAdmin = () => {
 
 
 								</div>
-								{showMessage && <Message message={displayMessage} setShowMessage={setShowMessage}/>}
+								{
+									showMessage &&
+									<Message
+										message={displayMessage}
+										setShowMessage={setShowMessage}
+										toggleMessageRead={toggleMessageRead}
+									/>
+								}
 							</div>
 
 						)
