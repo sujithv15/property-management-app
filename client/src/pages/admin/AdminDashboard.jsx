@@ -7,23 +7,37 @@ const AdminDashboard = () => {
 
 	const navigate = useNavigate()
 
+	const { readUnits, readExpenses, getMessages, getServiceRequests, unreadMessageCount } = useGlobalContext()
+
 	// navigate to units summary until construction complete
 	useEffect(() => {
-		navigate('/admin/units')
+		readUnits()
+		readExpenses()
+		getMessages()
+		getServiceRequests()
 	}, [])
 ;
 	return (
-		<div className="pb-20">
+		<div className="admin-dashboard">
 
-			<div className="">
-				<div className="text-center py-5 text-5xl ">Administrator Home</div>
-				<div className="text-sm font-bold text-center mb-5 p-2 ">You have ___ new alerts!</div>
+			<div className="title border-b-2 mx-8">Administrator Dashboard</div>
+
+			<div className="new-messages">
+				<div className="text-center text-xl py-3">New Messages</div>
+				<div className="text-sm font-bold text-center mb-1 p-2 ">{`You have ${unreadMessageCount} new message${unreadMessageCount === 1 ? '' : 's'}!`}</div>
 			</div>
 
-			<div className="border-t-2 ">
-				<div className="">new messages</div>
 
-				<div className="">new requests</div>
+			<div className="new-requests">
+				<div className="text-center text-xl py-4">Pending Requests</div>
+
+			</div>
+
+
+			<div className="border-t-2 ">
+
+
+
 
 				<div className="">upcoming payments</div>
 

@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import ModalWrapper from "./ModalWrapper.jsx";
 
-const CreateMessageForm = ({ setShowComposeMessage, recipient="admin@mail.com", users }) => {
+const CreateMessageForm = ({ setShowComposeMessage, recipient }) => {
 	// get user var and createMessage function
-	const { user, createMessage, role  } = useGlobalContext()
+	const { user, createMessage, role, users  } = useGlobalContext()
 
 	// mail only allowed to be sent to admin (not other tenants)
 	const initialState = {
@@ -31,13 +31,11 @@ const CreateMessageForm = ({ setShowComposeMessage, recipient="admin@mail.com", 
 			toast('Enter valid recipient and body')
 			return
 		}
+
 		createMessage(values)
 		toast.success('Message Successfully Sent')
 		setShowComposeMessage(false)
 	}
-
-
-
 
 	return (
 		<ModalWrapper>
@@ -57,8 +55,8 @@ const CreateMessageForm = ({ setShowComposeMessage, recipient="admin@mail.com", 
 										users?.map(user => {
 											return (
 												<option
-													key={user.email}
-													value={user.email}
+													key={user._id}
+													value={user._id}
 												>
 													{user.lastName}, {user.firstName}
 												</option>
@@ -66,7 +64,6 @@ const CreateMessageForm = ({ setShowComposeMessage, recipient="admin@mail.com", 
 										})
 									}
 								</select>
-								<div className="form-input left-0">{values.recipient} </div>
 							</div>
 							:
 							<div>

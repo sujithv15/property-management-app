@@ -8,23 +8,25 @@ import { TbFlag, TbFlagFilled } from "react-icons/tb";
 
 const MessagesAdmin = () => {
 
-	const { messages, sentMessages, getMessages, toggleMessageRead, toggleMessageFlag, getUsers, users, user } = useGlobalContext()
+	const { messages, sentMessages, getMessages, toggleMessageRead, toggleMessageFlag, getUsers } = useGlobalContext()
 
 	const [showComposeMessage, setShowComposeMessage] = useState(false)
 	const [showMessage, setShowMessage] = useState(false)
 	const [displayMessage, setDisplayMessage] = useState(messages[0] || {})
 
-	// when user clicks message subject or body, current msg stored in local state, modal will trigger to open full message, and will mark message as read
+	// when user clicks message subject or body, current msg is stored in local state, modal will trigger to open full message, and will mark message as read
 	const openMessageModal = (message) => {
-		//toggleMessageRead(message)
+		toggleMessageRead(message)
 		setDisplayMessage(message)
 		setShowMessage(true)
 	}
 
 	useEffect(() => {
 		getMessages()
+		getUsers()
 	}, [])
 
+	// filter messages: all, unread, flagged, sent
 	const [filter, setFilter] = useState("All")
 
 	const filteredMessages = messages.filter(message => {
@@ -66,8 +68,6 @@ const MessagesAdmin = () => {
 			{ showComposeMessage &&
 				<CreateMessageForm
 					setShowComposeMessage={setShowComposeMessage}
-					users={users}
-
 				/> }
 
 			<div className="messages sm:mx-8">
@@ -95,6 +95,7 @@ const MessagesAdmin = () => {
 										<span>{message.createdAt.substring(0, 10)} -- {message.createdAt.substring(12, 19)}</span>
 									</div>
 
+									{/* if in Sent folder, display recipient name, else display sender name */}
 									<div className="sender text-xl font-bold">
 										{filter === "Sent" ? message.recipientName : message.senderName}
 									</div>
@@ -116,9 +117,9 @@ const MessagesAdmin = () => {
 								{
 									showMessage &&
 									<Message
+										toggleMessageRead={toggleMessageRead}
 										message={displayMessage}
 										setShowMessage={setShowMessage}
-										toggleMessageRead={toggleMessageRead}
 									/>
 								}
 							</div>

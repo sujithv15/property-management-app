@@ -2,6 +2,10 @@ import {
 	DISPLAY_ALERT,
 	CLEAR_ALERT,
 
+	GET_USERINFO_BEGIN,
+	GET_USERINFO_SUCCESS,
+	GET_USERINFO_ERROR,
+
 	REGISTER_USER_BEGIN,
 	REGISTER_USER_ERROR,
 	REGISTER_USER_SUCCESS,
@@ -29,10 +33,6 @@ import {
 	UPDATE_UNIT_BEGIN,
 	UPDATE_UNIT_SUCCESS,
 	UPDATE_UNIT_ERROR,
-
-	DELETE_UNIT_BEGIN,
-	DELETE_UNIT_SUCCESS,
-	DELETE_UNIT_ERROR,
 
 	CREATE_TENANT_BEGIN,
 	CREATE_TENANT_SUCCESS,
@@ -89,6 +89,35 @@ const Reducer = (state, action) => {
 		}
 	}
 
+	if (action.type === GET_USERINFO_BEGIN) {
+		return {
+			...state,
+			isLoading: true
+		}
+	}
+	if (action.type === GET_USERINFO_SUCCESS) {
+		return {
+			...state,
+			unit: action.payload.unit,
+			tenant: action.payload.tenant,
+			appliances: action.payload.appliances,
+			adminID: action.payload.adminID,
+			messages: action.payload.messages,
+			isLoading: false,
+			showAlert: true,
+			alertType: 'success',
+			alertText: 'retrieving unit...'
+		}
+	}
+	if (action.type === GET_USERINFO_ERROR) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: 'danger',
+			alertText: action.payload.msg
+		}
+	}
 /*----------------Register User------------------*/
 	if (action.type === REGISTER_USER_BEGIN) {
 		return {

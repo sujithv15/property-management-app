@@ -13,13 +13,13 @@ const createMessage = async (req, res) => {
 		throw new BadRequestError('please provide message body and recipient')
 	}
 	// get user id of recipient
-	const recipientID = await User.findOne({ email: recipient })
+	const recipientUser = await User.findById(recipient)
 
-	if (!recipientID) {
+	if (!recipientUser) {
 		throw new BadRequestError('Recipient can not be found')
 	}
-	console.log(recipientID);
-	const message = { ...req.body, sender: senderID, recipient: recipientID}
+	console.log(recipientUser);
+	const message = { ...req.body, sender: senderID, recipient: recipientUser}
 	// create new request using Request model method
 	const newMessage = await Message.create(message)
 

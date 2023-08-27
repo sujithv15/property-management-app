@@ -78,7 +78,7 @@ const Unit = () => {
 							:
 							<div className="tenant-form">
 								<button
-									className="btn"
+									className="btn mb-8"
 									onClick={() => setShowCreateTenantForm(!showCreateTenantForm)}>
 									add tenant
 								</button>

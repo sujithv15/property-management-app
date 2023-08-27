@@ -9,17 +9,12 @@ const MessageSchema = new mongoose.Schema({
 	senderName: {
 		type: String
 	},
-	senderEmail: {
-		type: String,
-		validate: {
-			validator: validator.isEmail,
-			message: (props) => `${props.value} is not a valid email. Please provide valid email`,
-		},
-		lowercase: true
-	},
 	recipient: {
 		type: mongoose.Types.ObjectId,
 		ref: 'User'
+	},
+	recipientName: {
+		type: String,
 	},
 	unit: {
 		type: mongoose.Types.ObjectId,

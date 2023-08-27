@@ -6,11 +6,12 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../context/GlobalContext.jsx";
 import { useEffect, useState } from "react";
 
-
+// Layout for all users- Navbar, Outlet(main page), and Footer
 const Layout = () => {
 
-	const { user, role, messages, readUnits, isLoading } = useGlobalContext()
+	const { user, role, isLoading } = useGlobalContext()
 
+	// set links in navbar dynamically based on user's role
 	const [navLinks, setNavLinks] = useState(linksPublic)
 
 	/* Whenever role changes, the nav bar will update to the appropriate links and pass the links to Navbar as props */
@@ -25,10 +26,7 @@ const Layout = () => {
 		else setNavLinks(linksPublic)
 
 		if (user && Object.keys(user).length > 0) {
-			console.log(`navigating to ${role}`);
-			setTimeout(() => {
 				navigate(`/${role}`);
-			}, 100);
 		}
 		else {
 			navigate('/')
@@ -38,7 +36,7 @@ const Layout = () => {
 
 	// public outlet = <Landing />
 	// user outlet = <UserDashboard />
-	// admin outlet = <AdminDashboard />
+	// admin outlet = <Units />
 	return (
 		<div className="max-w-7xl mx-auto lg:px-24 md:px-12 sm:px-8 px-4">
 

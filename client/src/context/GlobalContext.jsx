@@ -5,6 +5,10 @@ import reducer from "./reducer.jsx";
 import {
 	DISPLAY_ALERT,
 	CLEAR_ALERT,
+	GET_USERINFO_BEGIN,
+	GET_USERINFO_SUCCESS,
+	GET_USERINFO_ERROR,
+
 	REGISTER_USER_BEGIN,
 	REGISTER_USER_SUCCESS,
 	REGISTER_USER_ERROR,
@@ -62,7 +66,8 @@ const initialState = {
 	isLoading: false,
 	alertType: '',
 	alertText: '',
-	user: {} ,
+	adminID: '',
+	user: {},
 	users: [],
 	units: [],
 	unit: {},
@@ -190,7 +195,7 @@ const GlobalProvider = ({ children }) => {
 		}
 		clearAlert()
 	}
-	// get unit details, populated with tenant details, appliances array, mortgage, and payments array
+	// get unit details, populated with tenant details, appliances array, mortgage, and payments array, and adminID
 	const getUnitDetails = async (unit_id) => {
 		dispatch({type: GET_UNIT_BEGIN})
 		try {
@@ -228,19 +233,19 @@ const GlobalProvider = ({ children }) => {
 	}
 
 	const getUserAccessibleDetails = async () => {
-		dispatch({type: GET_UNIT_BEGIN})
+		dispatch({type: GET_USERINFO_BEGIN})
 		try {
 			const response = await ax('/user')
-			const { unit } = response.data
+			const { unit, adminID } = response.data
 			const { tenant, appliances } = unit
 			const messages = await getMessages()
 			dispatch({
-				type: GET_UNIT_SUCCESS,
-				payload: { unit, tenant, appliances }
+				type: GET_USERINFO_SUCCESS,
+				payload: { unit, tenant, appliances, messages, adminID }
 			})
 		} catch (error) {
 			dispatch({
-				type: GET_UNIT_ERROR,
+				type: GET_USERINFO_ERROR,
 				payload: {msg: error}
 			})
 		}
@@ -270,7 +275,8 @@ const GlobalProvider = ({ children }) => {
 	const createTenant = async (tenant, newUser) => {
 		try {
 			const newTenant = await ax.post('/admin/tenants/create', tenant)
-			await registerUser({ ...newUser, tenant: newTenant })
+			const createdUser = await registerUser({ ...newUser, tenant: newTenant._id })
+			await updateTenant(newTenant._id, { ...newTenant, user: createdUser })
 			await getUnitDetails(tenant.unit)
 		} catch (error) {
 			console.log(error);

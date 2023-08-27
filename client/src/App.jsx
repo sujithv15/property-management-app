@@ -25,7 +25,7 @@ const App = () => {
 						</ProtectedRoute>
 					}
 				>
-					<Route index element={<UserDashboard />} />
+					<Route index element={<UserDashboard />} /> {/* user home */}
 					<Route path="request" element={<ServiceRequest />} />
 					<Route path="messages" element={<MessagesUser />} />
 				</Route>
@@ -39,7 +39,7 @@ const App = () => {
 						</ProtectedRoute>
 					}
 				>
-					<Route index element={<AdminDashboard />}/>
+					<Route index element={<Units />}/> {/* admin home */}
 					<Route path="units" element={<Units />} />
 					<Route path="units/:id" element={<Unit />}/>
 					<Route path="register" element={<Register />} />

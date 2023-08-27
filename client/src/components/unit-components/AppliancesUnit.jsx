@@ -2,6 +2,7 @@ import { useGlobalContext } from "../../context/GlobalContext.jsx";
 import { Appliance } from "../index.js";
 import { useState } from "react";
 import ApplianceCreateForm from "../forms/ApplianceCreateForm.jsx";
+import UnitNewForm from "../forms/UnitNewForm.jsx";
 
 const AppliancesUnit = (unit_id) => {
 
@@ -14,15 +15,26 @@ const AppliancesUnit = (unit_id) => {
 
 			<div className="text-3xl text-center mb-4 font-bold">Appliances</div>
 
-			<div>
+			<div className="grid grid-cols-2 sm:grid-cols-3 mb-2" >
+
+				<p className="text-xl ml-4 font-bold">Appliance</p>
+				<p className="text-xl font-bold">Date Purchased</p>
+				<p className="text-xl font-bold hidden sm:block">Warranty</p>
+
+
+			</div>
+
+			<ul>
 				{
 					appliances?.map(appliance => {
 						return (
-							<Appliance key={appliance._id} appliance={appliance} />
+							<li key={appliance._id}>
+								<Appliance appliance={appliance} />
+							</li>
 						)
 					})
 				}
-			</div>
+			</ul>
 
 			<div className="text-center">
 				<button

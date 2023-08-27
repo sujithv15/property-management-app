@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 
 const Message = ({ message, setShowMessage, toggleMessageRead }) => {
 
-	const { user, toggleMessageUnread, toggleMessageFlag, getMessages } = useGlobalContext()
+	const { user, toggleMessageUnread } = useGlobalContext()
 
 	const [showReplyMessage, setShowReplyMessage] = useState(false)
 
@@ -21,10 +21,11 @@ const Message = ({ message, setShowMessage, toggleMessageRead }) => {
 		<ModalWrapper>
 
 			{ showReplyMessage && <CreateMessageForm setShowComposeMessage={setShowReplyMessage} recipient={message.senderEmail}/>}
+
 		<div className="modal-msg max-w-md">
 
 			<div className="flex justify-between">
-				<div className="text-sm">Inbox - {user.email}</div>
+				<div className="text-sm">Inbox - {user.firstName} {user.lastName}</div>
 				<div className="text-sm">
 					{message.flag && <>Flagged</>}
 				</div>

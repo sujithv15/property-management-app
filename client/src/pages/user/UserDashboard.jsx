@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 const UserDashboard = () => {
 
-	const { user, getUserAccessibleDetails, unit, tenant } = useGlobalContext()
+	const { user, getUserAccessibleDetails, messages, unreadMessageCount, unit, tenant } = useGlobalContext()
 
 	useEffect(() => {
 		getUserAccessibleDetails(user)
@@ -12,7 +12,7 @@ const UserDashboard = () => {
 
 	return (
 		<div className="user-dashboard">
-			<div className="title">Dashboard</div>
+			<div className="title border-b-2 mx-8">Dashboard</div>
 			{/*----------------Unit Image & Details-----------------*/}
 			<div className="flex flex-col border-b-4">
 				{
@@ -27,22 +27,27 @@ const UserDashboard = () => {
 					</div>
 				}
 
-				<div className="my-8 mx-auto">
+				<div className="new-messages">
+					<div className="text-center text-xl py-8">New Messages</div>
+					<div className="text-sm font-bold text-center mb-5 p-2 ">{`You have ${unreadMessageCount} new message${unreadMessageCount === 1 ? '' : 's'}!`}</div>
+				</div>
+
+				<div className="my-2 mx-auto">
 					<p className="text-4xl text-center">{`${unit.unitID} ${unit.street}`}</p>
 					<p className="text-center">{unit.city}, {unit.state} {unit.zip}</p>
 				</div>
 
-				<div className="unit-type mx-auto my-4 text-lg">
+				<div className="unit-type mx-auto my-2 text-lg">
 					<p>{unit.bedrooms}br/ {unit.bathrooms}ba</p>
 				</div>
 
-				<div className="m-8 flex flex-col gap-2">
+				<div className="m-4 flex flex-col gap-2">
 					<p className="flex justify-center gap-6 text-xl font-bold">Current Rent: <span> ${unit.rent}</span></p>
 
 				</div>
 			</div>
 
-			<div className="text-md text-center mb-5 p-2 "> Welcome {user.firstName} {user.lastName}. You have 0 new messages!</div>
+			<div className="text-md text-center mb-5 p-4 "> Welcome {user.firstName} {user.lastName}. You have 0 new messages!</div>
 
 			{
 				tenant.balance > 0 &&

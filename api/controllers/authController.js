@@ -7,6 +7,7 @@ import tenant from "../models/Tenant.js";
 
 
 const register = async (req, res) => {
+	console.log(req.body);
 	// destructure fields from request body
 	const { lastName, firstName, email, password } = req.body
 	// if any fields missing from user front end, throw error
@@ -69,7 +70,8 @@ const login = async (req, res) => {
 	res.status(StatusCodes.OK).json({ user: {
 			lastName: user.lastName,
 			firstName: user.firstName,
-			email: user.email, isAdmin: user.isAdmin,
+			email: user.email,
+			isAdmin: user.isAdmin,
 			unit: user.unit,
 			tenant: user.tenant
 	}})

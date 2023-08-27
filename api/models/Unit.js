@@ -35,6 +35,10 @@ const UnitSchema = new mongoose.Schema( {
 		type: mongoose.Types.ObjectId,
 		ref: 'Tenant'
 	},
+	user: {
+		type: mongoose.Types.ObjectId,
+		ref: 'User'
+	},
 	bedrooms : {
 		type: Number,
 	},
@@ -68,13 +72,5 @@ const UnitSchema = new mongoose.Schema( {
 	}
 }, { timestamps: true })
 
-UnitSchema.pre('save', function(next) {
-	if(this.isModified) {
-		throw 'Unit is read only!'
-	}
-	else {
-		next();
-	}
-});
 
 export default mongoose.model('Unit', UnitSchema)

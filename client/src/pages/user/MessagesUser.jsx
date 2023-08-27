@@ -10,11 +10,11 @@ const MessagesUser = () => {
 
 	const [showComposeMessage, setShowComposeMessage] = useState(false)
 	const [showMessage, setShowMessage] = useState(false)
-	const [displayMessage, setDisplayMessage] = useState(messages[0] || {})
+	const [displayMessage, setDisplayMessage] = useState()
 
-	// when user clicks message subject or body, current msg stored in local state, modal will trigger to open full message, and will mark message as read
+	// when user clicks message subject or body, current msg is stored in local state, modal will trigger to open full message, and will mark message as read
 	const openMessageModal = (message) => {
-		//toggleMessageRead(message)
+		toggleMessageRead(message)
 		setDisplayMessage(message)
 		setShowMessage(true)
 	}
@@ -23,9 +23,10 @@ const MessagesUser = () => {
 		getMessages()
 	}, [])
 
+	// filter messages: all, unread, flagged, sent
 	const [filter, setFilter] = useState("All")
 
-	const filteredMessages = messages.filter(message => {
+	const filteredMessages = messages?.filter(message => {
 		switch (filter) {
 			case "All":
 				return message
@@ -40,10 +41,10 @@ const MessagesUser = () => {
 
 	return (
 		<div>
-			<div className="title border-b-2 mx-8 ">Messages</div>
+			<div className="title border-b-2 mx-auto ">Messages</div>
 
-			<div className="flex justify-between pl-8">
-				<div>
+			<div className="flex justify-between p-8">
+				<div className="w-1/2">
 					<label className="text-base" htmlFor="recipient">Filter Messages: </label>
 					<select className="form-select max-w-xs" name="recipient" value={filter} onChange={(e)=>setFilter(e.target.value)}>
 						<option>All</option>
@@ -54,7 +55,7 @@ const MessagesUser = () => {
 				</div>
 
 				<button
-					className="btn m-8"
+					className="btn"
 					onClick={()=>setShowComposeMessage(!showComposeMessage)}
 				>Compose
 				</button>
@@ -64,7 +65,7 @@ const MessagesUser = () => {
 
 			<div className="messages sm:mx-8">
 				{
-					(filter === "Sent" ? sentMessages : filteredMessages).map(message => {
+					(filter === "Sent" ? sentMessages : filteredMessages)?.map(message => {
 						return (
 							<div key={message._id} className="message h-28 p-1 relative">
 

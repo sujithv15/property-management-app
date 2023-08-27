@@ -22,7 +22,7 @@ const Accounting = () => {
 
 			<div className="title border-b-2 mx-8">Accounting</div>
 
-			<div className="text-center text-xl py-8 ">Upcoming expenses</div>
+			<div className="text-center text-xl py-8">Upcoming expenses</div>
 
 			<div className="grid-cols-7 mb-2 justify-items-start pt-4 hidden sm:grid">
 				<p className="text-xl font-bold">Due Date</p>
