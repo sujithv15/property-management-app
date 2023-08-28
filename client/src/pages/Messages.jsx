@@ -1,12 +1,14 @@
-import { useGlobalContext } from "../../context/GlobalContext.jsx";
-import { Message } from "../../components/index.js";
-import { CreateMessageForm } from "../../components/forms"
+import { useGlobalContext } from "../context/GlobalContext.jsx";
+import { Message } from "../components/index.js";
+import { CreateMessageForm } from "../components/forms"
 import { useEffect, useState } from "react";
 import { IoMailUnreadOutline } from "react-icons/io5";
 import { TbFlag, TbFlagFilled } from "react-icons/tb";
 
-const MessagesUser = () => {
-	const { messages, sentMessages, getMessages, toggleMessageRead, toggleMessageFlag } = useGlobalContext()
+
+const Messages = () => {
+
+	const { role, messages, sentMessages, getMessages, toggleMessageRead, toggleMessageFlag } = useGlobalContext()
 
 	const [showComposeMessage, setShowComposeMessage] = useState(false)
 	const [showMessage, setShowMessage] = useState(false)
@@ -26,7 +28,7 @@ const MessagesUser = () => {
 	// filter messages: all, unread, flagged, sent
 	const [filter, setFilter] = useState("All")
 
-	const filteredMessages = messages?.filter(message => {
+	const filteredMessages = messages.filter(message => {
 		switch (filter) {
 			case "All":
 				return message
@@ -61,11 +63,15 @@ const MessagesUser = () => {
 				</button>
 			</div>
 
-			{ showComposeMessage && <CreateMessageForm setShowComposeMessage={setShowComposeMessage}/> }
+
+			{ showComposeMessage &&
+				<CreateMessageForm
+					setShowComposeMessage={setShowComposeMessage}
+				/> }
 
 			<div className="messages sm:mx-8">
 				{
-					(filter === "Sent" ? sentMessages : filteredMessages)?.map(message => {
+					(filter === "Sent" ? sentMessages : filteredMessages).map(message => {
 						return (
 							<div key={message._id} className="message h-28 p-1 relative">
 
@@ -88,8 +94,16 @@ const MessagesUser = () => {
 										<span>{message.createdAt.substring(0, 10)} -- {message.createdAt.substring(12, 19)}</span>
 									</div>
 
+									{/* if in Sent folder, display recipient name, else display sender name */}
 									<div className="sender text-xl font-bold">
-										{filter === "Sent" ? "Management" : message.senderName}
+										{/* user can only send messages to management(admin) */}
+										{
+											role === 'admin'
+												?
+												(filter === "Sent" ? message.recipientName : message.senderName)
+												:
+												(filter === "Sent" ? "Management" : message.senderName)
+										}
 									</div>
 
 									<div
@@ -126,4 +140,4 @@ const MessagesUser = () => {
 	);
 };
 
-export default MessagesUser;
+export default Messages;

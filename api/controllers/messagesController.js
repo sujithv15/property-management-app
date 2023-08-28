@@ -19,7 +19,12 @@ const createMessage = async (req, res) => {
 		throw new BadRequestError('Recipient can not be found')
 	}
 	console.log(recipientUser);
-	const message = { ...req.body, sender: senderID, recipient: recipientUser}
+	const message = {
+		...req.body,
+		sender: senderID,
+		recipient: recipientUser,
+		recipientName: `${recipientUser.firstName} ${recipientUser.lastName}`
+	}
 	// create new request using Request model method
 	const newMessage = await Message.create(message)
 

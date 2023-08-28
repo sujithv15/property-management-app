@@ -17,8 +17,8 @@ const initialState = {
 	bathrooms: 0,
 	rent: 0,
 	fmrRent: 0,
-	appliances: null,
-	expenses: null
+	appliances: [],
+	expenses: []
 }
 
 const UnitNewForm = ({ setShowForm }) => {

@@ -52,7 +52,7 @@ const TenantCreateForm = ({ setShowCreateTenantForm, unit_id }) => {
 		// pass unit_id so createTenant can run getUnitDetails, which updates unit and tenant global states
 		createTenant({ ...values, unit: unit_id }, newUser)
 		registerUser(newUser)
-		toast.success('TenantUnit Successfully Created')
+		toast.success('TenantUnit Created')
 		setShowCreateTenantForm(false)
 	}
 

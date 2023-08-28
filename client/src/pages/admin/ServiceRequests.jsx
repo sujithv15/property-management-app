@@ -2,9 +2,20 @@ import { useGlobalContext } from "../../context/GlobalContext.jsx";
 import { useEffect, useState } from "react";
 import { FaExclamation } from "react-icons/fa"
 import { IoMailUnreadOutline } from "react-icons/io5";
+import { Message } from "../../components/index.js";
+import { ServiceRequest } from "../../components/index"
+
 const ServiceRequests = () => {
 
 	const { requests, getServiceRequests } = useGlobalContext()
+
+	const [showServiceRequest, setShowServiceRequest] = useState(false)
+	const [displayServiceRequest, setDisplayServiceRequest] = useState({})
+
+	const openRequestModal = (request) => {
+		setDisplayServiceRequest(request)
+		setShowServiceRequest(true)
+	}
 
 	useEffect(() => {
 		getServiceRequests()
@@ -12,7 +23,7 @@ const ServiceRequests = () => {
 
 	const [filter, setFilter] = useState("Pending")
 
-	const filteredRequests = requests.filter(request => request.status === filter)
+	const filteredRequests = requests?.filter(request => request.status === filter)
 
 	return (
 		<div className="requests-page">
@@ -39,14 +50,27 @@ const ServiceRequests = () => {
 
 								<div className="max-w-2xl mx-auto mx-8 px-20 p-1">
 									<div className="text-sm">{request?.createdAt?.substring(0, 10)}</div>
-									<div className="text-lg">{request?.unit?.unitID} {request?.unit?.street}</div>
-									<div className="text-xl font-bold">{request.title}</div>
-									<div className="text-sm font-light truncate hover:cursor-pointer text-ellipsis">{request.description}</div>
+									<div className="text-xl font-bold truncate text-ellipsis">{request.unit.tenantName}- <span className="text-xl font-medium">{request?.unit?.unitID} {request?.unit?.street}</span></div>
+									<div className="subject text-base truncate text-ellipsis hover:cursor-pointer" onClick={()=>openRequestModal(request)}>{request.title}</div>
+									<div className="text-sm font-light truncate hover:cursor-pointer text-ellipsis" onClick={()=>openRequestModal(request)}>{request.description}</div>
+								</div>
+
+								<div>
+									{
+										showServiceRequest &&
+										<ServiceRequest
+											serviceRequest={displayServiceRequest}
+											setShowServiceRequest={setShowServiceRequest}
+										/>
+									}
 								</div>
 							</div>
+
 						)
+
 					})
 				}
+
 			</div>
 
 		</div>

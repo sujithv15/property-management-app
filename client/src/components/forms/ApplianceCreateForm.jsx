@@ -30,7 +30,7 @@ const ApplianceCreateForm = ({ unit_id, setShowCreateApplianceForm }) => {
 			values.appliance = 'Refrigerator'
 		}
 		createAppliance({ ...values, unit: unit_id })
-		toast.success('Appliance Successfully Created')
+		toast.success('Appliance Created')
 		setShowCreateApplianceForm(false)
 	}
 

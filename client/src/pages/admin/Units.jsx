@@ -53,9 +53,9 @@ const Units = () => {
 
 					{showForm && <UnitNewForm setShowForm={setShowForm}/>}
 				</div>
-				<p className="text-xl ml-4 font-bold col-span-2 hidden sm:block">Address</p>
-				<p className="text-xl font-bold hidden sm:block">Beds/Baths</p>
-				<p className="text-xl font-bold hidden sm:block">Rent</p>
+				<p className="text-xl ml-4 font-bold col-span-2 hidden md:block">Address</p>
+				<p className="text-xl font-bold hidden md:block">Beds/Baths</p>
+				<p className="text-xl font-bold hidden md:block">Rent</p>
 
 
 			</div>

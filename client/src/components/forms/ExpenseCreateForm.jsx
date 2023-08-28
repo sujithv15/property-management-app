@@ -45,7 +45,7 @@ const ExpenseCreateForm = ({ setShowCreateExpenseForm }) => {
 		}
 
 		createExpense(values)
-		toast.success('Expense Successfully Created')
+		toast.success('Expense Created')
 		setShowCreateExpenseForm(false)
 	}
 

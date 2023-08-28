@@ -29,7 +29,7 @@ const ExpenseUpdateForm = ({ expense, setShowExpenseUpdateForm }) => {
 
 
 		updateExpense(values)
-		toast.success('Expense Successfully Updated')
+		toast.success('Expense Updated')
 		setShowExpenseUpdateForm(false)
 	}
 

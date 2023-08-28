@@ -17,7 +17,7 @@ const ApplianceUpdateForm = ({ appliance, setShowForm }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		updateAppliance(values)
-		toast.success('Appliance Successfully Created')
+		toast.success('Appliance Created')
 		setShowForm(false)
 	}
 

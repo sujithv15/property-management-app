@@ -3,15 +3,16 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import ModalWrapper from "./ModalWrapper.jsx";
 
-const CreateMessageForm = ({ setShowComposeMessage, recipient }) => {
+const CreateMessageForm = ({ setShowComposeMessage }) => {
 	// get user var and createMessage function
-	const { user, createMessage, role, users  } = useGlobalContext()
+	const { user, createMessage, role, users, adminID  } = useGlobalContext()
 
 	// mail only allowed to be sent to admin (not other tenants)
 	const initialState = {
 		sender: user._id,
 		senderName: `${user.firstName} ${user.lastName}`,
-		recipient: recipient,
+		recipient: role === 'user' ? adminID : "",
+		recipientName: role === 'user' ? "Management" : "",
 		unit: user.unit,
 		subject: "",
 		body: "",
@@ -33,7 +34,7 @@ const CreateMessageForm = ({ setShowComposeMessage, recipient }) => {
 		}
 
 		createMessage(values)
-		toast.success('Message Successfully Sent')
+		toast.success('Message Sent')
 		setShowComposeMessage(false)
 	}
 
@@ -46,7 +47,8 @@ const CreateMessageForm = ({ setShowComposeMessage, recipient }) => {
 				<div className="form-content">
 
 					<div className="to">
-						{role === "admin" ?
+						{/* if admin, populate address book to allow admin to choose recipient */}
+						{role === "admin"  ?
 							<div>
 								<label className="form-label" htmlFor="recipient">Recipient: </label>
 								<select className="form-select" name="recipient" value={values.recipient}
@@ -68,7 +70,7 @@ const CreateMessageForm = ({ setShowComposeMessage, recipient }) => {
 							:
 							<div>
 								<label className="form-label" htmlFor="recipient">Recipient: </label>
-								<input className="form-input left-0">{values.recipient} </input>
+								<div className="form-input left-0">{values.recipientName}</div>
 							</div>
 						}
 					</div>

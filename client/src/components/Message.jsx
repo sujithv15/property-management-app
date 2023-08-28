@@ -2,7 +2,7 @@ import ModalWrapper from "./forms/ModalWrapper.jsx";
 import { GrClose } from "react-icons/gr"
 import { useGlobalContext } from "../context/GlobalContext.jsx";
 import { RiReplyFill } from "react-icons/ri"
-import { CreateMessageForm } from "./forms"
+import { ReplyMessageForm } from "./forms"
 import { useEffect, useState } from "react";
 
 const Message = ({ message, setShowMessage, toggleMessageRead }) => {
@@ -20,7 +20,7 @@ const Message = ({ message, setShowMessage, toggleMessageRead }) => {
 	return (
 		<ModalWrapper>
 
-			{ showReplyMessage && <CreateMessageForm setShowComposeMessage={setShowReplyMessage} recipient={message.senderEmail}/>}
+			{ showReplyMessage && <ReplyMessageForm setShowComposeMessage={setShowReplyMessage} originalMessage={message}/>}
 
 		<div className="modal-msg max-w-md">
 

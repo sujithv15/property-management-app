@@ -20,7 +20,7 @@ const UnitUpdateForm = ({ setShowUnitUpdateForm }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		updateUnit(values)
-		toast.success('UnitDetails Successfully Updated')
+		toast.success('Unit Updated')
 		setShowUnitUpdateForm(false)
 	}
 

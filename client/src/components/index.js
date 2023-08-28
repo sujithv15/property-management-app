@@ -9,6 +9,7 @@ import NavbarModal from "./NavbarModal.jsx";
 import LoginNavbar from "./LoginNavbar.jsx";
 import Message from "./Message.jsx";
 import NavbarMessages from "./NavbarMessages.jsx";
+import ServiceRequest from "./ServiceRequest.jsx";
 
 
 export {
@@ -22,5 +23,6 @@ export {
 	LoginNavbar,
 	NavbarModal,
 	Message,
-	NavbarMessages
+	NavbarMessages,
+	ServiceRequest
 }

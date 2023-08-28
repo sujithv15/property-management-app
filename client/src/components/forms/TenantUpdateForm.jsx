@@ -25,7 +25,7 @@ const TenantUpdateForm = ({ setShowTenantUpdateForm }) => {
 		}
 		console.log(newUser);
 		registerUser(newUser)
-		toast.success('User Successfully Created')
+		toast.success('User Created')
 	}
 
 	const handleSubmit = (e) => {
@@ -36,7 +36,7 @@ const TenantUpdateForm = ({ setShowTenantUpdateForm }) => {
 			return
 		}
 		updateTenant(tenant._id, values)
-		toast.success('Tenant Successfully Updated')
+		toast.success('Tenant Updated')
 		setShowTenantUpdateForm(false)
 	}
 

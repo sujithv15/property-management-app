@@ -417,6 +417,7 @@ const GlobalProvider = ({ children }) => {
 		console.log(message);
 		try {
 			await ax.post(`/${state.role}/messages/create`, message)
+			await getMessages()
 		} catch (error) {
 			console.log(error);
 		}

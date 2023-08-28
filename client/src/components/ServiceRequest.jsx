@@ -5,51 +5,57 @@ import { RiReplyFill } from "react-icons/ri"
 import { CreateMessageForm } from "./forms"
 import { useEffect, useState } from "react";
 
-const Message = ({ request, setShowRequest, toggleMessageStatus }) => {
+const ServiceRequest = ({ serviceRequest, setShowServiceRequest }) => {
 
-	const { user, toggleMessageUnread, toggleMessageFlag, getRequests } = useGlobalContext()
-
-	const [showReplyMessage, setShowReplyMessage] = useState(false)
-
+	const { user } = useGlobalContext()
 
 	return (
 		<ModalWrapper>
 
-			{ showReplyMessage && <CreateMessageForm setShowComposeMessage={setShowReplyMessage} recipient={message.senderEmail}/>}
-
 			<div className="modal-msg max-w-md">
 
 				<div className="flex justify-between">
-					<div className="text-sm">Inbox - {user.email}</div>
+					<div className="text-sm">Service - {user.email}</div>
 					<div className="text-sm">
-						{message.flag && <>Flagged</>}
+						{serviceRequest.status}
 					</div>
-
-					<div className="text-sm hover:cursor-pointer" onClick={()=>toggleMessageUnread(message)}>Mark as Unread</div>
-					<GrClose className="float-right" onClick={()=>setShowMessage(false)}/>
+					{ /*
+						<div className="p-8">
+							<label className="text-base" htmlFor="status">Filter Messages: </label>
+							<select className="form-select max-w-xs" name="status" value={serviceRequest.status}
+							        onChange={(e) => setFilter(e.target.value)}>
+								<option>Pending</option>
+								<option>Completed</option>
+								<option>In Progress</option>
+							</select>
+						</div>
+					*/}
+					<GrClose className="float-right" onClick={()=>setShowServiceRequest(false)}/>
 				</div>
 
 
 				<div className="flex flex-col gap-2 my-10 mx-2 sm:my-16 sm:mx-10 text-base">
-					<div className="flex hover:cursor-pointer" onClick={()=>setShowReplyMessage(true)}>
-						<RiReplyFill className="text-3xl"/>
-					</div>
+
 
 					<div className="date">
-						Date: {message.createdAt.substring(0, 10)}
+						Date: {serviceRequest.createdAt.substring(0, 10)}
 					</div>
 
 
 					<div className="sender">
-						From: {message.senderName}
+						From: {serviceRequest?.unit?.unitID} {serviceRequest?.unit?.street}
+					</div>
+
+					<div className="">
+						Subject: {serviceRequest.unit.tenantName}
 					</div>
 
 					<div className="subject font-bold">
-						Subject: {message.subject}
+						Subject: {serviceRequest.title}
 					</div>
 
 					<div className="body mx-4 my-8">
-						{message.body}
+						{serviceRequest.description}
 					</div>
 				</div>
 
@@ -59,4 +65,4 @@ const Message = ({ request, setShowRequest, toggleMessageStatus }) => {
 	);
 };
 
-export default Message;
+export default ServiceRequest;

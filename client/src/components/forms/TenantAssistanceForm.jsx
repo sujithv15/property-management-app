@@ -22,7 +22,7 @@ const TenantAssistanceForm = ({ setShowTenantAssistanceForm }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		updateTenant(tenant._id, {...tenant, rentAssistance: { ...values, agent: agentValues }})
-		toast.success("Tenant Successfully Updates")
+		toast.success("Tenant Updates")
 		setShowTenantAssistanceForm(false)
 	}
 
