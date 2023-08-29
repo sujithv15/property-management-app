@@ -26,9 +26,9 @@ const UserDashboard = () => {
 						/>
 					</div>
 				}
+				<div className="text-md text-center mb-5 p-4 "> Welcome {user.firstName} {user.lastName}!</div>
 
 				<div className="new-messages">
-					<div className="text-center text-xl py-8">New Messages</div>
 					<div className="text-sm font-bold text-center mb-5 p-2 ">{`You have ${unreadMessageCount} new message${unreadMessageCount === 1 ? '' : 's'}!`}</div>
 				</div>
 
@@ -47,7 +47,6 @@ const UserDashboard = () => {
 				</div>
 			</div>
 
-			<div className="text-md text-center mb-5 p-4 "> Welcome {user.firstName} {user.lastName}. You have 0 new messages!</div>
 
 			{
 				tenant.balance > 0 &&

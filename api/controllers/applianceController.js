@@ -6,6 +6,7 @@ import Unit from "../models/Unit.js";
 const createAppliance = async (req, res) => {
 	// destructure unit_id
 	const { unit } = req.body
+
 	if (!unit) {
 		throw new BadRequestError('please provide unit')
 	}
@@ -15,7 +16,7 @@ const createAppliance = async (req, res) => {
 	const newAppliance = await Appliance.create({ ...req.body, unit: unitForAppliance})
 	// add appliance to appliances array in unit object
 	unitForAppliance.appliances.push(newAppliance)
-	unitForAppliance.save()
+	await Unit.findByIdAndUpdate(unit, unitForAppliance)
 	// send response JSON to include appliance
 	res.status(StatusCodes.CREATED)
 	   .json({newAppliance})

@@ -29,7 +29,7 @@ const TenantCreateForm = ({ setShowCreateTenantForm, unit_id }) => {
 
 	const [values, setValues] = useState(initialState)
 
-	const { createTenant, registerUser } = useGlobalContext()
+	const { createTenant } = useGlobalContext()
 
 	const handleChange = (e) => {
 		setValues({...values, [e.target.name]: e.target.value})
@@ -51,7 +51,6 @@ const TenantCreateForm = ({ setShowCreateTenantForm, unit_id }) => {
 		}
 		// pass unit_id so createTenant can run getUnitDetails, which updates unit and tenant global states
 		createTenant({ ...values, unit: unit_id }, newUser)
-		registerUser(newUser)
 		toast.success('TenantUnit Created')
 		setShowCreateTenantForm(false)
 	}

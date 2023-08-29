@@ -353,7 +353,7 @@ const GlobalProvider = ({ children }) => {
 	/*----------------Appliances------------------*/
 	const createAppliance= async (appliance) => {
 		try {
-			await ax.post('/admin/appliances/new', appliance)
+			const newAppliance = await ax.post('/admin/appliances/new', appliance)
 			getUnitDetails(appliance.unit)
 		} catch (error) {
 			console.log(error);
