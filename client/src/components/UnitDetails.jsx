@@ -13,7 +13,7 @@ const UnitDetails = (unit) => {
 	const [showComposeMessage, setShowComposeMessage] = useState(false)
 
 	return (
-			<div className="grid grid-cols-3 sm:grid-cols-6 mb-4 pt-3 justify-items-start border-t-2 h-24 overflow-hidden">
+			<div className="grid grid-cols-4 sm:grid-cols-6 mb-4 pt-3 justify-items-start border-t-2 h-24 overflow-hidden">
 
 				<div className="unit-img my-auto">
 					<img src={unit.image} alt="img"/>
@@ -39,7 +39,7 @@ const UnitDetails = (unit) => {
 				</div>
 
 				<div
-					className="unit-rent hidden sm:inline-block hover:cursor-pointer"
+					className="unit-rent hover:cursor-pointer"
 					onClick={()=>setShowComposeMessage(true)}
 				>
 					<BiMailSend />

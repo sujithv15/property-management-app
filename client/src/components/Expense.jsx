@@ -10,7 +10,7 @@ const Expense = (expense) => {
 
 	return (
 		<div className="expense">
-			<div className="grid grid-cols-4 sm:grid-cols-7 mb-8 justify-items-start text-sm overflow-hidden">
+			<div className="grid grid-cols-4 sm:grid-cols-7 py-8 pl-4 justify-items-start text-sm overflow-hidden">
 				<div>{dateDue?.substring(0,10)}</div>
 				<div className="hidden sm:block">{type}</div>
 				<div className="col-span-2">{payTo}</div>

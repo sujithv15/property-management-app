@@ -24,7 +24,7 @@ const GuestLogin = () => {
 			<div className="flex flex-col">
 				<div className="text-base text-center">
 					<button className="underline text-blue-500 hover:cursor-pointer hover:text-cyan-500"
-					        onClick={adminLogin}>Log In</button> as Admin
+					        onClick={adminLogin}>Log In</button> as Property Manager
 				</div>
 				<div className="text-base text-center">
 					<button className="underline text-blue-500 hover:cursor-pointer hover:text-cyan-500"

@@ -35,7 +35,10 @@ const Accounting = () => {
 			<div className="payments-container">
 				{expenses?.map(expense => {
 					return (
-							<Expense key={expense._id} {...expense}/>
+						<div key={expense._id} className="bg-white odd:bg-gray-200">
+							<Expense {...expense}/>
+						</div>
+
 					)
 				})}
 			</div>

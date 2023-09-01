@@ -63,7 +63,7 @@ const Units = () => {
 			<ul>
 				{queriedUnits?.map(unit => {
 					return (
-						<li key={unit._id}>
+						<li key={unit._id} className="">
 							<UnitDetails {...unit}/>
 						</li>
 					)
